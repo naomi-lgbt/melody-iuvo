@@ -3,6 +3,7 @@ import { Message } from "discord.js";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
+import { isOwner } from "../utils/isOwner";
 import { logHandler } from "../utils/logHandler";
 
 /**
@@ -17,10 +18,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
-    if (
-      message.author.id === "465650873650118659" &&
-      message.content.startsWith("~prune")
-    ) {
+    if (isOwner(message.author.id) && message.content.startsWith("~prune")) {
       const dryrun = message.content.includes("--dryrun");
       const records = await bot.db.users.findMany();
       const guildMembers = await message.guild.members.fetch();
