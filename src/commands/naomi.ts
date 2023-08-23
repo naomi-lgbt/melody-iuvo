@@ -9,14 +9,14 @@ const handlers: { [key: string]: CommandHandler } = {
   say: handleSay,
 };
 
-export const misc: Command = {
+export const naomi: Command = {
   data: new SlashCommandBuilder()
-    .setName("misc")
-    .setDescription("Commands that don't fit elsewhere.")
+    .setName("naomi")
+    .setDescription("Commands related to my Mistress Naomi.")
     .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
-        .setName("say")
+        .setName("says")
         .setDescription("Want Naomi to say something?")
         .addStringOption((option) =>
           option
@@ -51,7 +51,7 @@ export const misc: Command = {
               "I have failed you once again. The command you used does not have an instruction manual for me.",
           });
     } catch (err) {
-      await errorHandler(bot, "misc command", err);
+      await errorHandler(bot, "naomi command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later.",
