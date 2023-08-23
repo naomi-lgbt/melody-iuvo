@@ -1,18 +1,18 @@
 import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
-import { Command } from "../interfaces/Command";
-import { errorHandler } from "../utils/errorHandler";
 import { ReferenceData } from "../config/AssetData";
 import { AssetHandler, AssetTarget } from "../interfaces/Asset";
-import { handleOutfitAsset } from "../modules/subcommands/assets/handleOutfitAsset";
+import { Command } from "../interfaces/Command";
+import { defaultAssetEmbed } from "../modules/subcommands/assets/defaultAssetEmbed";
 import { handleAdventureAsset } from "../modules/subcommands/assets/handleAdventureAsset";
 import { handleEmoteAsset } from "../modules/subcommands/assets/handleEmoteAsset";
 import { handleKoikatsuAsset } from "../modules/subcommands/assets/handleKoikatsuAsset";
+import { handleOutfitAsset } from "../modules/subcommands/assets/handleOutfitAsset";
 import { handlePortraitAsset } from "../modules/subcommands/assets/handlePortraitAsset";
 import { handleReferenceAsset } from "../modules/subcommands/assets/handleReferenceAsset";
 import { handleTattooAsset } from "../modules/subcommands/assets/handleTattooAsset";
+import { errorHandler } from "../utils/errorHandler";
 import { isOwner } from "../utils/isOwner";
-import { defaultAssetEmbed } from "../modules/subcommands/assets/defaultAssetEmbed";
 
 const handlers: { [key: string]: AssetHandler } = {
   adventure: handleAdventureAsset,
