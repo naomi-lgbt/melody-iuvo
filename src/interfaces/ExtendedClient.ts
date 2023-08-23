@@ -8,6 +8,7 @@ export interface ExtendedClient extends Client {
     token: string;
     homeGuild: string;
     debugHook: WebhookClient;
+    ticketLogHook: WebhookClient;
   };
   db: PrismaClient;
   commands: Command[];
@@ -29,4 +30,5 @@ export interface ExtendedClient extends Client {
       };
     };
   };
+  ticketLogs: { [key: string]: string };
 }

@@ -7,9 +7,16 @@ import {
 } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { handleTicketModal } from "../modules/handleTicketModal";
 import { processWordGuess } from "../modules/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
-import { isGuildCommandCommand } from "../utils/typeGuards";
+import {
+  isGuildButtonCommand,
+  isGuildCommandCommand,
+} from "../utils/typeGuards";
+import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
+import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
+import { ticketCloseHandler } from "../modules/buttons/ticketClose";
 
 /**
  * Handles the InteractionCreate event from Discord.
@@ -44,6 +51,13 @@ export const interactionCreate = async (
     }
 
     if (interaction.isButton()) {
+      if (!isGuildButtonCommand(interaction)) {
+        await interaction.editReply({
+          content:
+            "Forgive me, but this can only be done within Naomi's community.",
+        });
+        return;
+      }
       if (interaction.customId.startsWith("word-")) {
         const id = interaction.customId.split("-")[1];
         if (id !== interaction.user.id) {
@@ -77,11 +91,27 @@ export const interactionCreate = async (
           .addComponents(row);
         await interaction.showModal(modal);
       }
+
+      const id = interaction.customId;
+      switch (id) {
+        case "ticket":
+          await ticketOpenHandler(bot, interaction);
+          return;
+        case "claim":
+          await ticketClaimHandler(bot, interaction);
+          return;
+        case "close":
+          await ticketCloseHandler(bot, interaction);
+          return;
+      }
     }
     if (interaction.isModalSubmit()) {
       if (interaction.customId.startsWith("word-")) {
         await interaction.deferReply({ ephemeral: true });
         await processWordGuess(bot, interaction);
+      }
+      if (interaction.customId === "ticket-modal") {
+        await handleTicketModal(bot, interaction);
       }
     }
   } catch (err) {

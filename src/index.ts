@@ -4,6 +4,7 @@ import { Client, Events, GatewayIntentBits } from "discord.js";
 import { Intents } from "./config/Intents";
 import { clientReady } from "./events/clientReady";
 import { interactionCreate } from "./events/interactionCreate";
+import { messageCreate } from "./events/messageCreate";
 import { ExtendedClient } from "./interfaces/ExtendedClient";
 import { errorHandler } from "./utils/errorHandler";
 import { loadCommands } from "./utils/loadCommands";
@@ -21,6 +22,7 @@ import { validateEnv } from "./utils/validateEnv";
       wordGame: {},
       slots: {},
     };
+    bot.ticketLogs = {};
     await loadCommands(bot);
 
     bot.on(Events.InteractionCreate, async (interaction) => {
@@ -29,6 +31,10 @@ import { validateEnv } from "./utils/validateEnv";
 
     bot.on(Events.ClientReady, async () => {
       await clientReady(bot);
+    });
+
+    bot.on(Events.MessageCreate, async (message) => {
+      await messageCreate(bot, message);
     });
 
     await bot.login(bot.env.token);

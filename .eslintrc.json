@@ -2,7 +2,7 @@
   "extends": "@nhcarrigan",
   "overrides": [
     {
-      "files": "src/modules/subcommands/*.ts",
+      "files": ["src/modules/subcommands/*.ts", "src/modules/buttons/*.ts"],
       "rules": {
         "jsdoc/require-param": "off"
       }
