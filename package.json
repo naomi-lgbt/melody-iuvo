@@ -41,7 +41,7 @@
     "@nhcarrigan/typescript-config": "1.0.1",
     "@types/chai": "4.3.5",
     "@types/mocha": "10.0.1",
-    "@types/node": "18.17.5",
+    "@types/node": "18.17.8",
     "chai": "4.3.7",
     "eslint": "8.47.0",
     "mocha": "10.2.0",
