@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Client, Events, GatewayIntentBits } from "discord.js";
+import { ActivityType, Client, Events, GatewayIntentBits } from "discord.js";
 
 import { Intents } from "./config/Intents";
 import { clientReady } from "./events/clientReady";
@@ -38,6 +38,12 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     await bot.login(bot.env.token);
+
+    bot.user?.setActivity({
+      name: "Custom Status",
+      type: ActivityType.Custom,
+      state: "I am Naomi's personal assistant.",
+    });
   } catch (err) {
     const bot = new Client({
       intents: [GatewayIntentBits.Guilds],
