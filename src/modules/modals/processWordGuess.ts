@@ -5,11 +5,11 @@ import {
   ModalSubmitInteraction,
 } from "discord.js";
 
-import { CurrencyName, CurrencyWords } from "../config/Currency";
-import { ExtendedClient } from "../interfaces/ExtendedClient";
-import { makeChange } from "../modules/makeChange";
-import { errorHandler } from "../utils/errorHandler";
-import { formatWordGuess } from "../utils/formatWordGuess";
+import { CurrencyName, CurrencyWords } from "../../config/Currency";
+import { ExtendedClient } from "../../interfaces/ExtendedClient";
+import { errorHandler } from "../../utils/errorHandler";
+import { formatWordGuess } from "../../utils/formatWordGuess";
+import { makeChange } from "../makeChange";
 
 /**
  * Handles the logic for processing a guess for the word game.
@@ -51,9 +51,9 @@ export const processWordGuess = async (
           cache.wager * 5
         } ${CurrencyName}! Your new total is ${newTotal} ${CurrencyName}.
               
-  \`\`\`ansi
-  ${cache.guesses.join("\n")}
-  \`\`\``,
+\`\`\`ansi
+${cache.guesses.join("\n")}
+\`\`\``,
         components: [],
       });
       delete bot.cache.wordGame[interaction.user.id];
@@ -73,9 +73,9 @@ export const processWordGuess = async (
           cache.target
         }.
               
-  \`\`\`ansi
-  ${cache.guesses.join("\n")}
-  \`\`\``,
+\`\`\`ansi
+${cache.guesses.join("\n")}
+\`\`\``,
         components: [],
       });
       delete bot.cache.wordGame[interaction.user.id];
@@ -93,13 +93,17 @@ export const processWordGuess = async (
     await interaction.editReply({
       content: `Guess ${cache.guesses.length} / 5:
   
-  \`\`\`ansi
-  ${cache.guesses.join("\n")}
-  \`\`\`
+\`\`\`ansi
+${cache.guesses.join("\n")}
+\`\`\`
               `,
       components: [row],
     });
   } catch (err) {
     await errorHandler(bot, "process word guess", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

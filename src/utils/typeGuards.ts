@@ -1,8 +1,13 @@
-import { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
+import {
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  Message,
+} from "discord.js";
 
 import { AssetTarget } from "../interfaces/Asset";
 import { GuildButton } from "../interfaces/GuildButton";
 import { GuildCommand } from "../interfaces/GuildCommand";
+import { GuildMessage } from "../interfaces/GuildMessage";
 
 /**
  * Validates that a command command was used within a guild.
@@ -29,6 +34,15 @@ export const isGuildButtonCommand = (
   !!command.guild &&
   !!command.member &&
   typeof command.member.permissions !== "string";
+
+/**
+ * Validates that a message was sent within a guild.
+ *
+ * @param {Message} message The message payload from discord.
+ * @returns {boolean} If the guild and member properties exist.
+ */
+export const isGuildMessage = (message: Message): message is GuildMessage =>
+  !!message.guild && !!message.member;
 
 /**
  * Validates that a string is an asset target. Allows filtering to
