@@ -12,10 +12,29 @@ import { validateEnv } from "./utils/validateEnv";
 
 (async () => {
   try {
+    /**
+     * Initial setup.
+     */
     const bot = new Client({
       intents: Intents,
     }) as ExtendedClient;
     bot.env = validateEnv();
+
+    /**
+     * Fallthrough error handlers. These fire in rare cases where something throws
+     * in a way that our standard catch block cannot see it.
+     */
+    process.on("unhandledRejection", async (error: Error) => {
+      await errorHandler(bot, "Unhandled Rejection Error", error);
+    });
+
+    process.on("uncaughtException", async (error) => {
+      await errorHandler(bot, "Uncaught Exception Error", error);
+    });
+
+    /**
+     * Instantiate empty cache objects for later use.
+     */
     bot.db = new PrismaClient();
     bot.cooldowns = {};
     bot.cache = {
@@ -25,6 +44,9 @@ import { validateEnv } from "./utils/validateEnv";
     bot.ticketLogs = {};
     await loadCommands(bot);
 
+    /**
+     * Mount event handlers.
+     */
     bot.on(Events.InteractionCreate, async (interaction) => {
       await interactionCreate(bot, interaction);
     });
@@ -37,6 +59,9 @@ import { validateEnv } from "./utils/validateEnv";
       await messageCreate(bot, message);
     });
 
+    /**
+     * Connect to Discord.
+     */
     await bot.login(bot.env.token);
 
     bot.user?.setActivity({

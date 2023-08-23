@@ -2,7 +2,13 @@ import { EmbedBuilder } from "discord.js";
 
 import { ExtendedClient } from "./ExtendedClient";
 
-export type AssetTarget = "naomi" | "becca" | "rosalia" | "beccalia" | "novas";
+export type AssetTarget =
+  | "naomi"
+  | "becca"
+  | "rosalia"
+  | "beccalia"
+  | "novas"
+  | "melody";
 
 export type AssetType =
   | "adventures"
