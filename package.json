@@ -4,6 +4,7 @@
   "description": "This bot helps manage my community.",
   "main": "prod/index.js",
   "scripts": {
+    "prebuild": "prisma generate",
     "build": "tsc",
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
     "start": "node -r dotenv/config prod/index.js",
@@ -31,6 +32,7 @@
   },
   "homepage": "https://github.com/naomi-lgbt/melody-iuvo#readme",
   "dependencies": {
+    "@prisma/client": "5.2.0",
     "discord.js": "14.12.1",
     "dotenv": "16.3.1",
     "node-html-to-image": "4.0.0",
@@ -47,6 +49,7 @@
     "eslint": "8.47.0",
     "mocha": "10.2.0",
     "prettier": "2.8.8",
+    "prisma": "5.2.0",
     "ts-mocha": "10.0.0",
     "typescript": "5.1.6"
   }

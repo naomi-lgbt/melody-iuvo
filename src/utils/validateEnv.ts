@@ -17,6 +17,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.DEBUG_HOOK) {
     throw new Error("Missing DEBUG_HOOK environment variable");
   }
+  if (!process.env.MONGO_URI) {
+    throw new Error("Missing MONGO_URI environment variable");
+  }
   return {
     token: process.env.TOKEN,
     homeGuild: process.env.HOME_GUILD_ID,

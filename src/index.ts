@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { Client, Events, GatewayIntentBits } from "discord.js";
 
 import { Intents } from "./config/Intents";
@@ -14,6 +15,7 @@ import { validateEnv } from "./utils/validateEnv";
       intents: Intents,
     }) as ExtendedClient;
     bot.env = validateEnv();
+    bot.db = new PrismaClient();
     await loadCommands(bot);
 
     bot.on(Events.InteractionCreate, async (interaction) => {
