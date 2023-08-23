@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-import { isValidHex } from "../../src/utils/isValidHex";
+import { isValidHex } from "../../src/modules/isValidHex";
 
 suite("isValidHex util", () => {
   test("handles valid 6 character code", () => {
