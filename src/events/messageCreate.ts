@@ -1,9 +1,12 @@
 import { Message } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { logMessage } from "../modules/logTicketMessage";
+import { makeChange } from "../modules/makeChange";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
 import { startTicketPost } from "../modules/messages/startTicketPost";
+import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
 import { isOwner } from "../utils/isOwner";
@@ -43,7 +46,19 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       await logMessage(bot, message, bot.ticketLogs[id]);
     }
 
-    await getDatabaseRecord(bot, message.author.id);
+    const record = await getDatabaseRecord(bot, message.author.id);
+    const total = sumCurrency(record.currency);
+    const currencyEarned = calculateMessageCurrency(message.content);
+    await bot.db.users.update({
+      where: {
+        id: message.author.id,
+      },
+      data: {
+        currency: {
+          ...makeChange(total + currencyEarned),
+        },
+      },
+    });
   } catch (err) {
     await errorHandler(bot, "message create event", err);
   }
