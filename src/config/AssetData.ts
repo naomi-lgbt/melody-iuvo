@@ -43,5 +43,5 @@ export const AssetTargets: {
   adventure: ["naomi", "becca", "rosalia"],
   emote: ["naomi", "becca"],
   portrait: ["naomi", "becca", "rosalia", "beccalia"],
-  koikatsu: ["naomi", "becca", "rosalia", "beccalia"],
+  koikatsu: ["naomi", "becca", "rosalia", "beccalia", "melody"],
 };
