@@ -1,5 +1,6 @@
 import { ButtonInteraction, ChatInputCommandInteraction } from "discord.js";
 
+import { AssetTarget } from "../interfaces/Asset";
 import { GuildButton } from "../interfaces/GuildButton";
 import { GuildCommand } from "../interfaces/GuildCommand";
 
@@ -28,3 +29,16 @@ export const isGuildButtonCommand = (
   !!command.guild &&
   !!command.member &&
   typeof command.member.permissions !== "string";
+
+/**
+ * Validates that a string is an asset target. Allows filtering to
+ * specific targets.
+ *
+ * @param {string} target The target to validate.
+ * @param {AssetTarget[]} validTargets Array of valid targets.
+ * @returns {boolean} If the target is a valid target.
+ */
+export const isAssetTarget = (
+  target: string,
+  validTargets: AssetTarget[]
+): target is AssetTarget => validTargets.includes(target as AssetTarget);

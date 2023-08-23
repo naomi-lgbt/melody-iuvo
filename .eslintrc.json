@@ -2,9 +2,16 @@
   "extends": "@nhcarrigan",
   "overrides": [
     {
-      "files": ["src/modules/subcommands/*.ts", "src/modules/buttons/*.ts"],
+      "files": ["src/modules/subcommands/**/*.ts", "src/modules/buttons/*.ts"],
       "rules": {
-        "jsdoc/require-param": "off"
+        "jsdoc/require-param": "off",
+        "jsdoc/require-returns": "off"
+      }
+    },
+    {
+      "files": ["src/modules/subcommands/assets/handleReferenceAsset.ts"],
+      "rules": {
+        "require-await": "off"
       }
     }
   ]
