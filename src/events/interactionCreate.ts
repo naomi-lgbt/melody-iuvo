@@ -184,5 +184,11 @@ export const interactionCreate = async (
     }
   } catch (err) {
     await errorHandler(bot, "interaction create event", err);
+    if (!interaction.isAutocomplete()) {
+      await interaction.editReply({
+        content:
+          "Forgive me, but I failed to complete your request. Please try again later.",
+      });
+    }
   }
 };

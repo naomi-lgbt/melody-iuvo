@@ -65,5 +65,9 @@ export const handleCurrencyPurchase: CommandHandler = async (
     });
   } catch (err) {
     await errorHandler(bot, "currency purchase command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

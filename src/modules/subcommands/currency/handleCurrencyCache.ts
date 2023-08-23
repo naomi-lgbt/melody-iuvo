@@ -25,5 +25,9 @@ export const handleCurrencyCache: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "currency cache command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

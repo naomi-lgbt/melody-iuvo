@@ -70,5 +70,9 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
     );
   } catch (err) {
     await errorHandler(bot, "ticket claim handler", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

@@ -31,5 +31,9 @@ export const ticketOpenHandler: ButtonHandler = async (bot, interaction) => {
     await interaction.showModal(ticketModal);
   } catch (err) {
     await errorHandler(bot, "ticket open handler", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

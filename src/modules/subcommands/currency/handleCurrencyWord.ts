@@ -56,5 +56,9 @@ export const handleCurrencyWord: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "word command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

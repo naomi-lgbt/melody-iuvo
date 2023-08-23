@@ -52,5 +52,9 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
     await channel.delete();
   } catch (err) {
     await errorHandler(bot, "close handler", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };
