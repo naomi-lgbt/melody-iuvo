@@ -1,5 +1,6 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
 
+import { Intents } from "./config/Intents";
 import { ExtendedClient } from "./interfaces/ExtendedClient";
 import { errorHandler } from "./utils/errorHandler";
 import { loadCommands } from "./utils/loadCommands";
@@ -11,7 +12,7 @@ import { validateEnv } from "./utils/validateEnv";
 (async () => {
   try {
     const bot = new Client({
-      intents: [GatewayIntentBits.Guilds],
+      intents: Intents,
     }) as ExtendedClient;
     bot.env = validateEnv();
     await loadCommands(bot);
@@ -24,7 +25,8 @@ import { validateEnv } from "./utils/validateEnv";
         await interaction.deferReply();
         if (!isGuildCommandCommand(interaction)) {
           await interaction.editReply({
-            content: "You can only run this in a guild.",
+            content:
+              "Forgive me, but this can only be done within Naomi's community.",
           });
           return;
         }
@@ -32,7 +34,10 @@ import { validateEnv } from "./utils/validateEnv";
           (c) => c.data.name === interaction.commandName
         );
         if (!target) {
-          await interaction.editReply({ content: "Command not found." });
+          await interaction.editReply({
+            content:
+              "My deepest apologies, but I cannot follow those instructions at this time.",
+          });
           return;
         }
         await target.run(bot, interaction);
