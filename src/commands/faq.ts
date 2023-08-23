@@ -18,6 +18,7 @@ export const faq: Command = {
     ),
   run: async (bot, interaction) => {
     try {
+      await interaction.deferReply();
       const question = interaction.options.getString("question", true);
       const target = Faq.find((q) => q.title === question);
       if (!target) {

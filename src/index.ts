@@ -16,6 +16,11 @@ import { validateEnv } from "./utils/validateEnv";
     }) as ExtendedClient;
     bot.env = validateEnv();
     bot.db = new PrismaClient();
+    bot.cooldowns = {};
+    bot.cache = {
+      wordGame: {},
+      slots: {},
+    };
     await loadCommands(bot);
 
     bot.on(Events.InteractionCreate, async (interaction) => {

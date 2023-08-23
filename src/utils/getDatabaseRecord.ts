@@ -21,6 +21,13 @@ export const getDatabaseRecord = async (
     create: {
       userId,
       timestamp: new Date(),
+      currency: {
+        copper: 0,
+        silver: 0,
+        gold: 0,
+        platinum: 0,
+        amethyst: 0,
+      },
     },
   });
   return record;

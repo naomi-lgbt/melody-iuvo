@@ -42,6 +42,7 @@ export const misc: Command = {
     ),
   run: async (bot, interaction) => {
     try {
+      await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
       handlers[subcommand]
         ? await handlers[subcommand](bot, interaction)

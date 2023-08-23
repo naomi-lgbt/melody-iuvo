@@ -7,10 +7,19 @@ datasource db {
     url      = env("MONGO_URI")
 }
 
+type Currency {
+    copper   Int @default(0)
+    silver   Int @default(0)
+    gold     Int @default(0)
+    platinum Int @default(0)
+    amethyst Int @default(0)
+}
+
 model users {
     id        String   @id @default(auto()) @map("_id") @db.ObjectId
     userId    String
     timestamp DateTime @default(now())
+    currency  Currency
 
     @@unique([userId], map: "userId")
 }

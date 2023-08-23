@@ -11,4 +11,22 @@ export interface ExtendedClient extends Client {
   };
   db: PrismaClient;
   commands: Command[];
+  cooldowns: {
+    [userId: string]: number;
+  };
+  cache: {
+    slots: {
+      [userId: string]: {
+        lastPlayed: number;
+      };
+    };
+    wordGame: {
+      [userId: string]: {
+        wager: number;
+        guesses: string[];
+        target: string;
+        balance: number;
+      };
+    };
+  };
 }
