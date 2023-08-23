@@ -2,11 +2,13 @@ import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
 import { Command } from "../interfaces/Command";
 import { CommandHandler } from "../interfaces/CommandHandler";
-import { handleSay } from "../modules/subcommands/handleSay";
+import { handleNaomiAsk } from "../modules/subcommands/handleNaomiAsk";
+import { handleNaomiSays } from "../modules/subcommands/handleNaomiSays";
 import { errorHandler } from "../utils/errorHandler";
 
 const handlers: { [key: string]: CommandHandler } = {
-  say: handleSay,
+  says: handleNaomiSays,
+  ask: handleNaomiAsk,
 };
 
 export const naomi: Command = {
@@ -39,11 +41,20 @@ export const naomi: Command = {
             .setMinLength(6)
             .setMaxLength(7)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("ask")
+        .setDescription(
+          "Ask my mistress an anonymous question. Make sure to follow our community guidelines."
+        )
     ),
   run: async (bot, interaction) => {
     try {
-      await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
+      if (subcommand !== "ask") {
+        await interaction.deferReply();
+      }
       handlers[subcommand]
         ? await handlers[subcommand](bot, interaction)
         : await interaction.editReply({

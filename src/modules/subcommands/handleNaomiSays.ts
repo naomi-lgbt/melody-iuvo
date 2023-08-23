@@ -47,7 +47,7 @@ export const handleNaomiSays: CommandHandler = async (bot, interaction) => {
     await errorHandler(bot, "naomi says command", err);
     await interaction.editReply({
       content:
-        "An error occurred while running this command. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later.",
     });
   }
 };
