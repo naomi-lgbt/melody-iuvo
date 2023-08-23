@@ -5,9 +5,9 @@ import {
   CurrencyEmotes,
   CurrencyName,
   CurrencyValues,
-} from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
+} from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
 
 /**
  * Provides information about the currency system.

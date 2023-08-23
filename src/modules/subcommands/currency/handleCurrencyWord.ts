@@ -1,11 +1,11 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 
-import { CurrencyWords } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { getRandomValue } from "../../utils/getRandomValue";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyWords } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { getRandomValue } from "../../../utils/getRandomValue";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Starts a word game.

@@ -1,11 +1,11 @@
 import { EmbedBuilder } from "discord.js";
 
-import { CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { parseCurrencyString } from "../parseCurrencyString";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { parseCurrencyString } from "../../parseCurrencyString";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Displays a member's balance.

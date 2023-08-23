@@ -1,11 +1,11 @@
 import { AttachmentBuilder } from "discord.js";
 import nodeHtmlToImage from "node-html-to-image";
 
-import { Html } from "../../config/Html";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { isValidHex } from "../isValidHex";
-import { prefixHex } from "../prefixHex";
+import { Html } from "../../../config/Html";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { isValidHex } from "../../isValidHex";
+import { prefixHex } from "../../prefixHex";
 
 /**
  * Handles the command to make Naomi say something.

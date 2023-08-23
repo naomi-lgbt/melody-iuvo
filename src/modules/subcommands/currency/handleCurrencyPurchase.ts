@@ -1,9 +1,9 @@
-import { CurrencyItems, CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { makeChange } from "../makeChange";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyItems, CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { makeChange } from "../../makeChange";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Allows users to purchase items.

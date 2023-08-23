@@ -1,10 +1,10 @@
-import { CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { isOwner } from "../../utils/isOwner";
-import { makeChange } from "../makeChange";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { isOwner } from "../../../utils/isOwner";
+import { makeChange } from "../../makeChange";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Allows the bot owner to award currency to a user.

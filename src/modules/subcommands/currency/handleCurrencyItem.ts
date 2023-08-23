@@ -1,10 +1,10 @@
 import { EmbedBuilder } from "discord.js";
 
-import { CurrencyItems, CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { makeChange } from "../makeChange";
-import { parseCurrencyString } from "../parseCurrencyString";
+import { CurrencyItems, CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { makeChange } from "../../makeChange";
+import { parseCurrencyString } from "../../parseCurrencyString";
 
 /**
  * Displays information about an item.

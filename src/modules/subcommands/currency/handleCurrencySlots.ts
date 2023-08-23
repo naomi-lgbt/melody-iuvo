@@ -2,14 +2,14 @@ import {
   CurrencyName,
   CurrencySlots,
   CurrencySlotReel,
-} from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { getRandomValue } from "../../utils/getRandomValue";
-import { sleep } from "../../utils/sleep";
-import { makeChange } from "../makeChange";
-import { sumCurrency } from "../sumCurrency";
+} from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { getRandomValue } from "../../../utils/getRandomValue";
+import { sleep } from "../../../utils/sleep";
+import { makeChange } from "../../makeChange";
+import { sumCurrency } from "../../sumCurrency";
 
 const calculateWinRate = (setSize: number) => {
   switch (setSize) {

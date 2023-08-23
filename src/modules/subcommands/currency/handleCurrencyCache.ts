@@ -1,7 +1,7 @@
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { ExtendedClient } from "../../interfaces/ExtendedClient";
-import { errorHandler } from "../../utils/errorHandler";
-import { isOwner } from "../../utils/isOwner";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { ExtendedClient } from "../../../interfaces/ExtendedClient";
+import { errorHandler } from "../../../utils/errorHandler";
+import { isOwner } from "../../../utils/isOwner";
 
 /**
  * Removes a cached cooldown from a user.
