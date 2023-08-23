@@ -7,6 +7,9 @@ import {
 } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
+import { ticketCloseHandler } from "../modules/buttons/ticketClose";
+import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
 import { handleTicketModal } from "../modules/handleTicketModal";
 import { processWordGuess } from "../modules/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
@@ -14,9 +17,6 @@ import {
   isGuildButtonCommand,
   isGuildCommandCommand,
 } from "../utils/typeGuards";
-import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
-import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
-import { ticketCloseHandler } from "../modules/buttons/ticketClose";
 
 /**
  * Handles the InteractionCreate event from Discord.
