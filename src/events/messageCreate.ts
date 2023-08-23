@@ -51,7 +51,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     const currencyEarned = calculateMessageCurrency(message.content);
     await bot.db.users.update({
       where: {
-        id: message.author.id,
+        userId: message.author.id,
       },
       data: {
         currency: {
