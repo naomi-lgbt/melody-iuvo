@@ -1,7 +1,7 @@
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { ExtendedClient } from "../../interfaces/ExtendedClient";
-import { errorHandler } from "../../utils/errorHandler";
-import { isOwner } from "../../utils/isOwner";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { ExtendedClient } from "../../../interfaces/ExtendedClient";
+import { errorHandler } from "../../../utils/errorHandler";
+import { isOwner } from "../../../utils/isOwner";
 
 /**
  * Removes a cached cooldown from a user.
@@ -25,5 +25,9 @@ export const handleCurrencyCache: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "currency cache command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

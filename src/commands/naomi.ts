@@ -2,8 +2,8 @@ import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
 import { Command } from "../interfaces/Command";
 import { CommandHandler } from "../interfaces/CommandHandler";
-import { handleNaomiAsk } from "../modules/subcommands/handleNaomiAsk";
-import { handleNaomiSays } from "../modules/subcommands/handleNaomiSays";
+import { handleNaomiAsk } from "../modules/subcommands/naomi/handleNaomiAsk";
+import { handleNaomiSays } from "../modules/subcommands/naomi/handleNaomiSays";
 import { errorHandler } from "../utils/errorHandler";
 
 const handlers: { [key: string]: CommandHandler } = {

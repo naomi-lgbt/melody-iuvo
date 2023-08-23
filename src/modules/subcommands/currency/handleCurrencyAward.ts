@@ -1,10 +1,10 @@
-import { CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { isOwner } from "../../utils/isOwner";
-import { makeChange } from "../makeChange";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { isOwner } from "../../../utils/isOwner";
+import { makeChange } from "../../makeChange";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Allows the bot owner to award currency to a user.
@@ -56,5 +56,9 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "currency award command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

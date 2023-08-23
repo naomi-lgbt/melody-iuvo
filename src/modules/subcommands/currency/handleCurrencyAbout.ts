@@ -5,9 +5,9 @@ import {
   CurrencyEmotes,
   CurrencyName,
   CurrencyValues,
-} from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
+} from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
 
 /**
  * Provides information about the currency system.
@@ -39,5 +39,9 @@ export const handleCurrencyAbout: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "currency about command handler", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

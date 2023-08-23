@@ -1,11 +1,11 @@
 import { EmbedBuilder } from "discord.js";
 
-import { CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { getDatabaseRecord } from "../../utils/getDatabaseRecord";
-import { parseCurrencyString } from "../parseCurrencyString";
-import { sumCurrency } from "../sumCurrency";
+import { CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
+import { parseCurrencyString } from "../../parseCurrencyString";
+import { sumCurrency } from "../../sumCurrency";
 
 /**
  * Displays a member's balance.
@@ -37,5 +37,9 @@ export const handleCurrencyWallet: CommandHandler = async (
     });
   } catch (err) {
     await errorHandler(bot, "currency wallet command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

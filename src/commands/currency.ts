@@ -4,14 +4,14 @@ import { CacheChoices } from "../config/CacheChoices";
 import { CurrencyItems, CurrencyName } from "../config/Currency";
 import { Command } from "../interfaces/Command";
 import { CommandHandler } from "../interfaces/CommandHandler";
-import { handleCurrencyAbout } from "../modules/subcommands/handleCurrencyAbout";
-import { handleCurrencyAward } from "../modules/subcommands/handleCurrencyAward";
-import { handleCurrencyCache } from "../modules/subcommands/handleCurrencyCache";
-import { handleCurrencyItem } from "../modules/subcommands/handleCurrencyItem";
-import { handleCurrencyPurchase } from "../modules/subcommands/handleCurrencyPurchase";
-import { handleCurrencySlots } from "../modules/subcommands/handleCurrencySlots";
-import { handleCurrencyWallet } from "../modules/subcommands/handleCurrencyWallet";
-import { handleCurrencyWord } from "../modules/subcommands/handleCurrencyWord";
+import { handleCurrencyAbout } from "../modules/subcommands/currency/handleCurrencyAbout";
+import { handleCurrencyAward } from "../modules/subcommands/currency/handleCurrencyAward";
+import { handleCurrencyCache } from "../modules/subcommands/currency/handleCurrencyCache";
+import { handleCurrencyItem } from "../modules/subcommands/currency/handleCurrencyItem";
+import { handleCurrencyPurchase } from "../modules/subcommands/currency/handleCurrencyPurchase";
+import { handleCurrencySlots } from "../modules/subcommands/currency/handleCurrencySlots";
+import { handleCurrencyWallet } from "../modules/subcommands/currency/handleCurrencyWallet";
+import { handleCurrencyWord } from "../modules/subcommands/currency/handleCurrencyWord";
 import { errorHandler } from "../utils/errorHandler";
 
 const handlers: { [key: string]: CommandHandler } = {

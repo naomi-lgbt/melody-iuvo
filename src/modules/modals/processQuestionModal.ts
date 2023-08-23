@@ -5,8 +5,8 @@ import {
   ModalSubmitInteraction,
 } from "discord.js";
 
-import { ExtendedClient } from "../interfaces/ExtendedClient";
-import { errorHandler } from "../utils/errorHandler";
+import { ExtendedClient } from "../../interfaces/ExtendedClient";
+import { errorHandler } from "../../utils/errorHandler";
 
 /**
  * Handles the logic for the question modal.
@@ -66,5 +66,9 @@ export const processQuestionModal = async (
     });
   } catch (err) {
     await errorHandler(bot, "process question modal", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

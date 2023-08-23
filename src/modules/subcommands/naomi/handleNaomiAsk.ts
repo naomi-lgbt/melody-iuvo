@@ -5,8 +5,8 @@ import {
   TextInputStyle,
 } from "discord.js";
 
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
 
 /**
  * Handles the command to ask Naomi a question.

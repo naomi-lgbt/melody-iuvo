@@ -1,10 +1,10 @@
 import { EmbedBuilder } from "discord.js";
 
-import { CurrencyItems, CurrencyName } from "../../config/Currency";
-import { CommandHandler } from "../../interfaces/CommandHandler";
-import { errorHandler } from "../../utils/errorHandler";
-import { makeChange } from "../makeChange";
-import { parseCurrencyString } from "../parseCurrencyString";
+import { CurrencyItems, CurrencyName } from "../../../config/Currency";
+import { CommandHandler } from "../../../interfaces/CommandHandler";
+import { errorHandler } from "../../../utils/errorHandler";
+import { makeChange } from "../../makeChange";
+import { parseCurrencyString } from "../../parseCurrencyString";
 
 /**
  * Displays information about an item.
@@ -33,5 +33,9 @@ export const handleCurrencyItem: CommandHandler = async (bot, interaction) => {
     });
   } catch (err) {
     await errorHandler(bot, "currency item command", err);
+    await interaction.editReply({
+      content:
+        "Forgive me, but I failed to complete your request. Please try again later.",
+    });
   }
 };

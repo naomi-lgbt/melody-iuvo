@@ -1,20 +1,17 @@
-import {
-  ActionRowBuilder,
-  Interaction,
-  ModalBuilder,
-  TextInputBuilder,
-  TextInputStyle,
-} from "discord.js";
+import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { questionAnswer } from "../modules/buttons/questionAnswer";
+import { questionDelete } from "../modules/buttons/questionDelete";
 import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
 import { ticketCloseHandler } from "../modules/buttons/ticketClose";
 import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
-import { handleTicketModal } from "../modules/handleTicketModal";
-import { processQuestionModal } from "../modules/processQuestionModal";
-import { processWordGuess } from "../modules/processWordGuess";
+import { wordGuess } from "../modules/buttons/wordGuess";
+import { handleTicketModal } from "../modules/modals/handleTicketModal";
+import { processAnswerModal } from "../modules/modals/processAnswerModal";
+import { processQuestionModal } from "../modules/modals/processQuestionModal";
+import { processWordGuess } from "../modules/modals/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
-import { isOwner } from "../utils/isOwner";
 import {
   isGuildButtonCommand,
   isGuildCommandCommand,
@@ -61,79 +58,13 @@ export const interactionCreate = async (
         return;
       }
       if (interaction.customId.startsWith("word-")) {
-        const id = interaction.customId.split("-")[1];
-        if (id !== interaction.user.id) {
-          await interaction.reply({
-            content:
-              "Oh my, how on earth did you find this? This is not yours.",
-            ephemeral: true,
-          });
-        }
-        if (!bot.cache.wordGame[id]) {
-          await interaction.reply({
-            content:
-              "This might be a stale message, as you don't have a game in the cache. Please start a new game.",
-            ephemeral: true,
-          });
-          return;
-        }
-        const input = new TextInputBuilder()
-          .setCustomId("guess")
-          .setLabel("What is your guess?")
-          .setStyle(TextInputStyle.Short)
-          .setMinLength(5)
-          .setMaxLength(5)
-          .setRequired(true);
-        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(
-          input
-        );
-        const modal = new ModalBuilder()
-          .setTitle("Guess the word!")
-          .setCustomId(`word-${id}`)
-          .addComponents(row);
-        await interaction.showModal(modal);
+        await wordGuess(bot, interaction);
       }
-
       if (interaction.customId === "answer") {
-        if (!isOwner(interaction.user.id)) {
-          await interaction.reply({
-            content: "Only Naomi can click these buttons.",
-            ephemeral: true,
-          });
-          return;
-        }
-        const input = new TextInputBuilder()
-          .setCustomId("answer")
-          .setLabel("How do you answer?")
-          .setMaxLength(2000)
-          .setRequired(true)
-          .setStyle(TextInputStyle.Paragraph);
-        const row = new ActionRowBuilder<TextInputBuilder>().addComponents(
-          input
-        );
-        const modal = new ModalBuilder()
-          .setCustomId("answer")
-          .setTitle("Answer Question")
-          .addComponents(row);
-        await interaction.showModal(modal);
+        await questionAnswer(bot, interaction);
       }
       if (interaction.customId.startsWith("delete-")) {
-        if (!isOwner(interaction.user.id)) {
-          await interaction.reply({
-            content: "Only Naomi can click these buttons.",
-            ephemeral: true,
-          });
-          return;
-        }
-        await interaction.deferReply({ ephemeral: true });
-        const id = interaction.customId.split("-")[1];
-        await interaction.message.edit({
-          content: `This message has been flagged for violating our community guidelines.`,
-          components: [],
-        });
-        await interaction.editReply({
-          content: `For moderation purposes, that question was asked by <@!${id}> (${id}).`,
-        });
+        await questionDelete(bot, interaction);
       }
 
       const id = interaction.customId;
@@ -161,28 +92,16 @@ export const interactionCreate = async (
         await processQuestionModal(bot, interaction);
       }
       if (interaction.customId === "answer") {
-        await interaction.deferReply({
-          ephemeral: true,
-        });
-        if (!interaction.message) {
-          await interaction.editReply({
-            content: "Something went wrong. Please try again.",
-          });
-          return;
-        }
-        const answer = interaction.fields.getTextInputValue("answer");
-        await interaction.message.edit({
-          content: `**${interaction.message.content
-            .split("\n")
-            .slice(-1)}**\n\n${answer}`,
-          components: [],
-        });
-        await interaction.editReply({
-          content: "Your answer has been submitted.",
-        });
+        await processAnswerModal(bot, interaction);
       }
     }
   } catch (err) {
     await errorHandler(bot, "interaction create event", err);
+    if (!interaction.isAutocomplete()) {
+      await interaction.editReply({
+        content:
+          "Forgive me, but I failed to complete your request. Please try again later.",
+      });
+    }
   }
 };
