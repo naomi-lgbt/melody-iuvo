@@ -1,4 +1,5 @@
 import { Plural } from "@prisma/client";
+import { EmbedBuilder } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
 import { GuildMessage } from "../../interfaces/GuildMessage";
@@ -38,6 +39,18 @@ export const proxyPluralMessage = async (
       },
     });
     await message.delete();
+
+    await bot.env.pluralLogHook.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("Message proxied.")
+          .setDescription(message.content.slice(0, 4000))
+          .setAuthor({
+            name: message.author.username,
+            iconURL: message.author.displayAvatarURL(),
+          }),
+      ],
+    });
   } catch (err) {
     await errorHandler(bot, "proxy plural message", err);
   }

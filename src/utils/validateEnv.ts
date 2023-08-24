@@ -20,6 +20,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.TICKET_LOG_HOOK) {
     throw new Error("Missing TICKET_LOG_HOOK environment variable");
   }
+  if (!process.env.PLURAL_LOG_HOOK) {
+    throw new Error("Missing PLURAL_LOG_HOOK environment variable");
+  }
   if (!process.env.MONGO_URI) {
     throw new Error("Missing MONGO_URI environment variable");
   }
@@ -31,6 +34,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
     }),
     ticketLogHook: new WebhookClient({
       url: process.env.TICKET_LOG_HOOK,
+    }),
+    pluralLogHook: new WebhookClient({
+      url: process.env.PLURAL_LOG_HOOK,
     }),
   };
 };
