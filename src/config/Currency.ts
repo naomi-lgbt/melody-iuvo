@@ -82,9 +82,16 @@ export const CurrencyItems: Item[] = [
     internalId: "set-avatar",
   },
   {
+    name: "Holopin Badge",
+    description:
+      "You get a special badge from our [Holopin Organisation](https://holopin.io/@naomis-novas)!",
+    price: 100000000,
+    internalId: "holopin",
+  },
+  {
     name: "Hall of Fame",
     description: "Get your name on the Hall of Fame list in the server.",
-    price: 100000000,
+    price: 250000000,
     internalId: "hall-of-fame",
   },
   {
