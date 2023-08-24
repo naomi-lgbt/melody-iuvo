@@ -64,7 +64,7 @@ export const plural: Command = {
             .setDescription(
               "The name of the identity fronting. Leave blank to disable auto-proxying."
             )
-            .setRequired(true)
+            .setRequired(false)
         )
     ),
   run: async (bot, interaction) => {
