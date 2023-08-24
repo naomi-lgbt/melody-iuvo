@@ -28,6 +28,8 @@ export const getDatabaseRecord = async (
         platinum: 0,
         amethyst: 0,
       },
+      plurals: [],
+      front: "",
     },
   });
   return record;
