@@ -4,6 +4,7 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { logMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
+import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
 import { startTicketPost } from "../modules/messages/startTicketPost";
 import { sumCurrency } from "../modules/sumCurrency";
@@ -47,6 +48,26 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     }
 
     const record = await getDatabaseRecord(bot, message.author.id);
+
+    // Plural Logic
+    let proxied = false;
+    if (record.front) {
+      const identity = record.plurals.find((p) => p.name === record.front);
+      if (identity) {
+        await proxyPluralMessage(bot, message, identity);
+        proxied = true;
+      }
+    }
+
+    const prefixUsed = record.plurals.find((p) =>
+      message.content.startsWith(p.prefix)
+    );
+    if (prefixUsed && !proxied) {
+      await proxyPluralMessage(bot, message, prefixUsed);
+      proxied = true;
+    }
+
+    // Currency Logic
     const total = sumCurrency(record.currency);
     const currencyEarned = calculateMessageCurrency(message.content);
     await bot.db.users.update({

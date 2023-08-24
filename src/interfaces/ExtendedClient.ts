@@ -9,6 +9,7 @@ export interface ExtendedClient extends Client {
     homeGuild: string;
     debugHook: WebhookClient;
     ticketLogHook: WebhookClient;
+    pluralLogHook: WebhookClient;
   };
   db: PrismaClient;
   commands: Command[];

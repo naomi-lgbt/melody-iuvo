@@ -26,8 +26,15 @@ suite("validateEnv utility", () => {
     assert.throws(validateEnv, "Missing TICKET_LOG_HOOK environment variable");
   });
 
-  test("throws an error when missing MONGO_URI", () => {
+  test("throws an error when missing PLURAL_LOG_HOOK", () => {
     process.env.TICKET_LOG_HOOK =
+      // This is not a live webhook URL, so don't bother trying to use it.
+      "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    assert.throws(validateEnv, "Missing PLURAL_LOG_HOOK environment variable");
+  });
+
+  test("throws an error when missing MONGO_URI", () => {
+    process.env.PLURAL_LOG_HOOK =
       // This is not a live webhook URL, so don't bother trying to use it.
       "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     assert.throws(validateEnv, "Missing MONGO_URI environment variable");
@@ -40,6 +47,7 @@ suite("validateEnv utility", () => {
     assert.equal(result.homeGuild, "123");
     assert.instanceOf(result.debugHook, WebhookClient);
     assert.instanceOf(result.ticketLogHook, WebhookClient);
+    assert.instanceOf(result.pluralLogHook, WebhookClient);
   });
 
   after(() => {
@@ -48,5 +56,6 @@ suite("validateEnv utility", () => {
     delete process.env.DEBUG_HOOK;
     delete process.env.MONGO_URL;
     delete process.env.TICKET_LOG_HOOK;
+    delete process.env.PLURAL_LOG_HOOK;
   });
 });
