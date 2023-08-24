@@ -98,10 +98,14 @@ export const interactionCreate = async (
   } catch (err) {
     await errorHandler(bot, "interaction create event", err);
     if (!interaction.isAutocomplete()) {
+      if (!interaction.deferred && !interaction.replied) {
+        await interaction.deferReply({ ephemeral: true });
+      }
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later.",
       });
+      return;
     }
   }
 };
