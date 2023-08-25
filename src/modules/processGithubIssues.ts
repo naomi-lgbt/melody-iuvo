@@ -47,6 +47,9 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       );
       issues.push(...openToContribute);
     }
+    const formatted = issues
+      .map((i) => `- [${i.title}](<${i.url}>)`)
+      .join("\n");
     for (const issue of issues) {
       await github.issues.addLabels({
         owner: issue.repository_url.split("/")[4],
@@ -54,16 +57,10 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
         issue_number: issue.number,
         labels: ["posted to discord"],
       });
-      const isFirstTimersOnly = issue.labels.find(
-        (l) => l.name === "good first issue"
-      );
-      const link = issue.url;
-      await channel.send({
-        content: isFirstTimersOnly
-          ? `Forgive my intrusion, but if you are looking for an opportunity to make your first contribution to my Mistress' projects, [this issue](<${link}>) might be what you need.`
-          : `Forgive my intrusion, but my Mistress is seeking your assistance with [this issue](<${link}>).`,
-      });
     }
+    await channel.send({
+      content: `Forgive my intrusion, but it would seem my Mistress is seeking your assistance with her work.\n\n${formatted}`,
+    });
   } catch (err) {
     await errorHandler(bot, "process github issues", err);
   }
