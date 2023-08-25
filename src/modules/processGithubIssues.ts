@@ -47,6 +47,9 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       );
       issues.push(...openToContribute);
     }
+    if (!issues.length) {
+      return;
+    }
     const formatted = issues
       .map((i) => `- [${i.title}](<${i.url}>)`)
       .join("\n");
