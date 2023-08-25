@@ -13,6 +13,12 @@
       "rules": {
         "require-await": "off"
       }
+    },
+    {
+      "files": ["src/modules/processGithubIssues.ts"],
+      "rules": {
+        "camelcase": ["error", { "allow": ["issue_number"] }]
+      }
     }
   ]
 }
