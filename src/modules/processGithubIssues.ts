@@ -33,6 +33,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     }
     const rawData = await fetch("https://contribute-api.naomi.lgbt/data");
     const data = (await rawData.json()) as GithubData;
+    delete data.updatedAt;
     const issues = [];
     const values = Object.values(data) as GithubData["naomi-lgbt"][];
     for (const value of values) {

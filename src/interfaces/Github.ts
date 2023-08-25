@@ -136,5 +136,5 @@ export interface GithubData {
     issues: Issue[];
     pulls: Pull[];
   };
-  updatedAt: number;
+  updatedAt?: number;
 }
