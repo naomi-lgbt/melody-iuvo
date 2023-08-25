@@ -25,6 +25,12 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
+    if (bot.user && message.mentions.has(bot.user)) {
+      await message.reply({
+        content: "Yes? How may I be of service to you?",
+      });
+    }
+
     if (isOwner(message.author.id)) {
       if (message.content === "~tickets") {
         await startTicketPost(bot, message);
