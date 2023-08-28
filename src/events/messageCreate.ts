@@ -2,7 +2,7 @@ import { Message } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
-import { logMessage } from "../modules/logTicketMessage";
+import { logTicketMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
@@ -50,7 +50,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       if (!bot.ticketLogs[id]) {
         return;
       }
-      await logMessage(bot, message, bot.ticketLogs[id]);
+      await logTicketMessage(bot, message, bot.ticketLogs[id]);
     }
 
     const record = await getDatabaseRecord(bot, message.author.id);

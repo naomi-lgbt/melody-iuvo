@@ -13,7 +13,7 @@ import { errorHandler } from "../utils/errorHandler";
  * @param {Message} message The Discord message payload.
  * @param {string} logId The logId to identify the file.
  */
-export const logMessage = async (
+export const logTicketMessage = async (
   bot: ExtendedClient,
   message: Message,
   logId: string

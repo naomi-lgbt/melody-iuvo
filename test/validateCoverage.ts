@@ -22,6 +22,8 @@ const loadDirectory = async (path: string): Promise<string[]> => {
   const test = await loadDirectory(join(process.cwd(), "test"));
   const filesUntested = src.filter(
     (file) =>
+      // exclude files in the src/interface directory as types do not need testing
+      !/src\/interface/.test(file) &&
       !test.includes(file.replace("src", "test").replace(".ts", ".spec.ts"))
   );
   if (filesUntested.length) {
