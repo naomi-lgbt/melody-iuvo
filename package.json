@@ -9,7 +9,8 @@
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
     "start": "node -r dotenv/config prod/index.js",
     "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
-    "test": "nyc --check-coverage ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000"
+    "test": "nyc --check-coverage ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "posttest": "ts-node test/validateCoverage.ts --post-coverage"
   },
   "repository": {
     "type": "git",
