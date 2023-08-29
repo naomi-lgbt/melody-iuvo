@@ -25,6 +25,7 @@ const loadDirectory = async (path: string): Promise<string[]> => {
     const filesUntested = src.filter(
       (file) =>
         // exclude files in the src/interface directory as types do not need testing
+        !/src\/index\.ts/.test(file) &&
         !/src\/interface/.test(file) &&
         !test.includes(file.replace("src", "test").replace(".ts", ".spec.ts"))
     );
@@ -48,7 +49,10 @@ const loadDirectory = async (path: string): Promise<string[]> => {
   const nonCoveredFiles = src.filter(
     (file) =>
       // exclude files in the src/interface directory as types do not need testing
-      !/src\/interface/.test(file) && !coveredFileList.includes(file)
+      // and ignore the index file because that will not be tested
+      !/src\/index\.ts/.test(file) &&
+      !/src\/interface/.test(file) &&
+      !coveredFileList.includes(file)
   );
   if (nonCoveredFiles.length) {
     logHandler.error(
