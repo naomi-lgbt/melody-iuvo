@@ -26,7 +26,8 @@ export type AssetResponseType =
 
 export type AssetHandler = (
   bot: ExtendedClient,
-  target: AssetTarget
+  target: AssetTarget,
+  test?: boolean
 ) => Promise<EmbedBuilder>;
 
 export interface Adventure {

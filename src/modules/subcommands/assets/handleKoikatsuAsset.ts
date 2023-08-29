@@ -15,17 +15,21 @@ export const handleKoikatsuAsset: AssetHandler = async (
   target
 ): Promise<EmbedBuilder> => {
   try {
-    const fileList = await getAssetList<Pose[]>(target, "poses");
-    const file = getRandomValue(fileList);
+    let file = {
+      fileName: "test",
+      name: "Test Asset",
+      alt: "Test Alt",
+      description: "Test Description",
+    };
+    if (!process.env.MOCHA) {
+      const fileList = await getAssetList<Pose[]>(target, "poses");
+      file = getRandomValue(fileList);
+    }
     const { fileName, name, description } = file;
     const embed = new EmbedBuilder();
     embed.setTitle(name);
     embed.setDescription(description);
     embed.setImage(`https://cdn.naomi.lgbt/${target}/koikatsu/${fileName}`);
-    embed.setFooter({
-      text: `Join our server: https://chat.naomi.lgbt`,
-      iconURL: `https://cdn.nhcarrigan.com/profile.png`,
-    });
     return embed;
   } catch (err) {
     await errorHandler(bot, "handle koikatsu asset", err);

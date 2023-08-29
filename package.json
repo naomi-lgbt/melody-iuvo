@@ -9,8 +9,8 @@
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
     "start": "node -r dotenv/config prod/index.js",
     "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
-    "test": "nyc --check-coverage ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
-    "test:nocov": "ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "test": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "test:nocov": "MOCHA=true ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
     "posttest": "ts-node test/validateCoverage.ts --post-coverage"
   },
   "repository": {
@@ -51,6 +51,7 @@
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.12",
     "chai": "4.3.8",
+    "discordjs-testing": "/home/naomi/github/nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz",
     "eslint": "8.48.0",
     "mocha": "10.2.0",
     "nyc": "15.1.0",

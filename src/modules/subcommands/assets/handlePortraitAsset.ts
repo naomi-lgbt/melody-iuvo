@@ -17,25 +17,31 @@ export const handlePortraitAsset: AssetHandler = async (
 ): Promise<EmbedBuilder> => {
   try {
     if (isAssetTarget(target, ["naomi", "becca", "rosalia", "beccalia"])) {
-      const portraitData = await getAssetList<Portrait[]>(target, "portraits");
-      const portrait = getRandomValue(portraitData);
+      let file = {
+        fileName: "test",
+        name: "Test Asset",
+        alt: "Test Alt",
+        description: "Test Description",
+        artist: "Test Artist",
+        url: "Test URL",
+      };
+      if (!process.env.MOCHA) {
+        const fileList = await getAssetList<Portrait[]>(target, "adventures");
+        file = getRandomValue(fileList);
+      }
 
       const embed = new EmbedBuilder();
-      embed.setTitle(portrait.name);
-      embed.setDescription(portrait.description);
+      embed.setTitle(file.name);
+      embed.setDescription(file.description);
       embed.setImage(
-        `https://cdn.naomi.lgbt/${target}/art/${portrait.fileName.replace(
+        `https://cdn.naomi.lgbt/${target}/art/${file.fileName.replace(
           /\s/g,
           "%20"
         )}`
       );
       embed.addFields({
         name: "Art By:",
-        value: `[${portrait.artist}](${portrait.url})`,
-      });
-      embed.setFooter({
-        text: `Join our server: https://chat.naomi.lgbt`,
-        iconURL: `https://cdn.nhcarrigan.com/profile.png`,
+        value: `[${file.artist}](${file.url})`,
       });
 
       return embed;
