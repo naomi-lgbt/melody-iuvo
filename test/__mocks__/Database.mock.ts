@@ -20,6 +20,16 @@ class User {
     }
     return this.findUnique({ where: { id: options.where.id } });
   }
+
+  public async update(options) {
+    const exists = await this.findUnique({ where: { id: options.where.id } });
+    if (!exists) {
+      throw new Error("User not found");
+    }
+    for (const key of Object.keys(options.data)) {
+      exists[key] = options.data[key];
+    }
+  }
 }
 
 /**
