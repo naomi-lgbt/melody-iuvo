@@ -8,5 +8,6 @@
     "reporter": [
         "text",
         "html"
-    ]
+    ],
+    "lines": 30
 }
