@@ -2,8 +2,8 @@ import { assert } from "chai";
 
 import { logHandler } from "../../src/utils/logHandler";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
+suite("logHandler", () => {
+  test("is defined", () => {
     assert.isDefined(logHandler);
   });
 
