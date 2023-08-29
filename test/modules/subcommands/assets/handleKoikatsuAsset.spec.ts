@@ -2,8 +2,14 @@ import { assert } from "chai";
 
 import { handleKoikatsuAsset } from "../../../../src/modules/subcommands/assets/handleKoikatsuAsset";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
-    assert.isDefined(handleKoikatsuAsset);
+suite("handleAdventureAsset", () => {
+  test("should display a koikatsu", async () => {
+    const embed = await handleKoikatsuAsset({} as never, "naomi");
+    assert.strictEqual(
+      embed?.toJSON().image?.url,
+      "https://cdn.naomi.lgbt/naomi/koikatsu/test"
+    );
+    assert.strictEqual(embed?.toJSON().title, "Test Asset");
+    assert.strictEqual(embed?.toJSON().description, "Test Description");
   });
 });
