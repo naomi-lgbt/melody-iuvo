@@ -14,7 +14,7 @@ import { processWordGuess } from "../modules/modals/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
 import {
   isGuildButtonCommand,
-  isGuildCommandCommand,
+  isGuildSlashCommand,
 } from "../utils/typeGuards";
 
 /**
@@ -29,7 +29,7 @@ export const interactionCreate = async (
 ) => {
   try {
     if (interaction.isChatInputCommand()) {
-      if (!isGuildCommandCommand(interaction)) {
+      if (!isGuildSlashCommand(interaction)) {
         await interaction.editReply({
           content:
             "Forgive me, but this can only be done within Naomi's community.",

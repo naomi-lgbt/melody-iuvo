@@ -2,7 +2,7 @@ import { assert } from "chai";
 
 import {
   isGuildButtonCommand,
-  isGuildCommandCommand,
+  isGuildSlashCommand,
   isAssetTarget,
   isGuildMessage,
 } from "../../src/utils/typeGuards";
@@ -31,15 +31,15 @@ suite("typeGuards: isGuildButtonCommand", () => {
 
 suite("typeGuards: is GuildCommandCommand", () => {
   test("returns false if guild is missing", () => {
-    assert.isFalse(isGuildCommandCommand(mockCommand as never));
+    assert.isFalse(isGuildSlashCommand(mockCommand as never));
   });
   test("returns false if member is missing", () => {
     mockCommand.guild = "hi";
-    assert.isFalse(isGuildCommandCommand(mockCommand as never));
+    assert.isFalse(isGuildSlashCommand(mockCommand as never));
   });
   test("returns true when guild and member are present", () => {
     mockCommand.member = "hi";
-    assert.isTrue(isGuildCommandCommand(mockButton as never));
+    assert.isTrue(isGuildSlashCommand(mockButton as never));
   });
 });
 
