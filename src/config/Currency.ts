@@ -89,12 +89,6 @@ export const CurrencyItems: Item[] = [
     internalId: "holopin",
   },
   {
-    name: "Hall of Fame",
-    description: "Get your name on the Hall of Fame list in the server.",
-    price: 250000000,
-    internalId: "hall-of-fame",
-  },
-  {
     name: "Go on a 'Date' with Naomi",
     description:
       "You get an hour of time to vibe with Naomi, but you have to do the planning. You could play games, pair on some code, get your resume or project reviewed, and more! Must be family-friendly and appropriate for our community.",
