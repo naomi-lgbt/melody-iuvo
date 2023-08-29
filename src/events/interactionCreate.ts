@@ -12,10 +12,7 @@ import { processAnswerModal } from "../modules/modals/processAnswerModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
 import { processWordGuess } from "../modules/modals/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
-import {
-  isGuildButtonCommand,
-  isGuildSlashCommand,
-} from "../utils/typeGuards";
+import { isGuildButtonCommand, isGuildSlashCommand } from "../utils/typeGuards";
 
 /**
  * Handles the InteractionCreate event from Discord.
