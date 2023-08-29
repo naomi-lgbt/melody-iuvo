@@ -5,10 +5,12 @@
   "main": "prod/index.js",
   "scripts": {
     "prebuild": "prisma generate",
-    "build": "tsc",
+    "build": "rimraf ./prod && tsc",
     "lint": "eslint src test --max-warnings 0 && prettier src test --check",
     "start": "node -r dotenv/config prod/index.js",
-    "test": "ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000"
+    "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
+    "test": "nyc --check-coverage ts-mocha -u tdd  test/**/*.spec.ts --recursive --exit --timeout 10000",
+    "posttest": "ts-node test/validateCoverage.ts --post-coverage"
   },
   "repository": {
     "type": "git",
@@ -50,9 +52,12 @@
     "chai": "4.3.8",
     "eslint": "8.48.0",
     "mocha": "10.2.0",
+    "nyc": "15.1.0",
     "prettier": "2.8.8",
     "prisma": "5.2.0",
+    "rimraf": "5.0.1",
     "ts-mocha": "10.0.0",
+    "ts-node": "10.9.1",
     "typescript": "5.2.2"
   }
 }

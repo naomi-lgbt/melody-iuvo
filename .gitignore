@@ -2,3 +2,5 @@
 /prod/
 .env
 /logs/*.txt
+.nyc_output/
+coverage/
