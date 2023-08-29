@@ -50,8 +50,8 @@ devDependencies:
     specifier: 4.3.8
     version: 4.3.8
   discordjs-testing:
-    specifier: /home/naomi/github/nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz
-    version: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz(discord.js@14.13.0)
+    specifier: 0.0.0-zeta
+    version: 0.0.0-zeta(discord.js@14.13.0)
   eslint:
     specifier: 8.48.0
     version: 8.48.0
@@ -1512,6 +1512,18 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  /discordjs-testing@0.0.0-zeta(discord.js@14.13.0):
+    resolution: {integrity: sha512-elH9ejkY3QYYJlrdC4u8DJ7DBC5mzVlKjF3l47pSTug6spZwmwQpherUDYhZkw6quxbhWjKr2KuwabMHyax5NQ==}
+    engines: {node: '18', pnpm: '8'}
+    peerDependencies:
+      discord.js: 14.13.0
+    dependencies:
+      '@sapphire/snowflake': 3.5.1
+      discord.js: 14.13.0
+      dotenv: 16.3.1
+      winston: 3.10.0
+    dev: true
 
   /doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -4182,19 +4194,4 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz(discord.js@14.13.0):
-    resolution: {integrity: sha512-KV9qYA2aAIQ6wR3BkUYzTrD1Ju2LvbOLa12Uvd3xK1SnmhN1eIhBwepsc9aX+/rvMWcjSDz88iQQm/tF2LPSwg==, tarball: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz}
-    id: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.0.0-epsilon.tgz
-    name: discordjs-testing
-    version: 0.0.0-epsilon
-    engines: {node: '18', pnpm: '8'}
-    peerDependencies:
-      discord.js: 14.13.0
-    dependencies:
-      '@sapphire/snowflake': 3.5.1
-      discord.js: 14.13.0
-      dotenv: 16.3.1
-      winston: 3.10.0
     dev: true
