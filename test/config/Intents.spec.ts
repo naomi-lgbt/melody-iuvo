@@ -2,10 +2,11 @@ import { assert } from "chai";
 
 import { Intents } from "../../src/config/Intents";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
-    assert.isDefined(Intents);
+suite("Intents", () => {
+  test("Uses the correct intent options", () => {
+    assert.include(Intents, 1, "Missing Guilds intent.");
+    assert.include(Intents, 512, "Missing GuildMessages intent.");
+    assert.include(Intents, 2, "Missing GuildMembers intent.");
+    assert.include(Intents, 32768, "Missing MessageContent intent.");
   });
-
-  // Test that expected intents are configured.
 });
