@@ -2,8 +2,8 @@ import { assert } from "chai";
 
 import { registerCommands } from "../../src/utils/registerCommands";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
+suite("registerCommands", () => {
+  test("is defined", () => {
     assert.isDefined(registerCommands);
   });
 

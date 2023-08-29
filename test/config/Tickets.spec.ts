@@ -2,10 +2,10 @@ import { assert } from "chai";
 
 import { TicketSupportRole } from "../../src/config/Tickets";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
-    assert.isDefined(TicketSupportRole);
-  });
+const idRegex = /^\d{18,19}$/;
 
-  // Test that it matches a Discord ID regex?
+suite("TicketSupportRole", () => {
+  test("is a Discord ID", () => {
+    assert.match(TicketSupportRole, idRegex);
+  });
 });

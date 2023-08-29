@@ -12,10 +12,7 @@ import { processAnswerModal } from "../modules/modals/processAnswerModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
 import { processWordGuess } from "../modules/modals/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
-import {
-  isGuildButtonCommand,
-  isGuildCommandCommand,
-} from "../utils/typeGuards";
+import { isGuildButtonCommand, isGuildSlashCommand } from "../utils/typeGuards";
 
 /**
  * Handles the InteractionCreate event from Discord.
@@ -29,7 +26,7 @@ export const interactionCreate = async (
 ) => {
   try {
     if (interaction.isChatInputCommand()) {
-      if (!isGuildCommandCommand(interaction)) {
+      if (!isGuildSlashCommand(interaction)) {
         await interaction.editReply({
           content:
             "Forgive me, but this can only be done within Naomi's community.",

@@ -2,8 +2,8 @@ import { assert } from "chai";
 
 import { Html } from "../../src/config/Html";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
+suite("Html", () => {
+  test("is defined", () => {
     assert.isDefined(Html);
   });
 

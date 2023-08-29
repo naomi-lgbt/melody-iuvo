@@ -15,7 +15,7 @@ import { GuildMessage } from "../interfaces/GuildMessage";
  * @param {ChatInputCommandInteraction} command The interaction payload from Discord.
  * @returns {boolean} If the guild property is not null.
  */
-export const isGuildCommandCommand = (
+export const isGuildSlashCommand = (
   command: ChatInputCommandInteraction
 ): command is GuildCommand =>
   !!command.guild &&

@@ -2,12 +2,24 @@ import { assert } from "chai";
 
 import { Faq } from "../../src/config/Faq";
 
-suite("This is an example test", () => {
-  test("It uses the assert API", () => {
-    assert.isDefined(Faq);
+suite("Faq", () => {
+  test("are unique", () => {
+    const titles = Faq.map((f) => f.title);
+    const uniqueTitles = new Set(titles);
+    assert.equal(titles.length, uniqueTitles.size);
+    const descriptions = Faq.map((f) => f.description);
+    const uniqueDescriptions = new Set(descriptions);
+    assert.equal(descriptions.length, uniqueDescriptions.size);
   });
 
-  // test that title and description are unique
-  // test titles are under 100 characters (embed allows 256, but option choice only allows 100)
-  // test that descriptions are under 4096 characters
+  test("meet length requirements", () => {
+    const titles = Faq.map((f) => f.title);
+    for (const title of titles) {
+      assert.isAtMost(title.length, 100);
+    }
+    const descriptions = Faq.map((f) => f.description);
+    for (const description of descriptions) {
+      assert.isAtMost(description.length, 4096);
+    }
+  });
 });
