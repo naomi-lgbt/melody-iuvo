@@ -28,15 +28,6 @@ const user = new MockUser({
   bot: false,
   system: false,
 });
-const naomi = new MockUser({
-  username: "Naomi",
-  avatar: "test",
-  discriminator: 1234,
-  bot: false,
-  system: false,
-});
-// @ts-expect-error Need to manually set ID for owner only command.
-naomi._id = "465650873650118659";
 const member = new MockMember({
   guild,
   user,
