@@ -24,7 +24,7 @@ export const handleCurrencyPurchase: CommandHandler = async (
     const item = CurrencyItems.find((i) => i.internalId === id);
     if (!item) {
       await interaction.editReply({
-        content: "That item doesn't exist!",
+        content: "Forgive me, but I was unable to locate that item.",
       });
       return;
     }
@@ -58,7 +58,7 @@ export const handleCurrencyPurchase: CommandHandler = async (
     await interaction.editReply({
       content: `It is my pleasure to present you with a **${
         item.name
-      }**!\nYou now have ${newTotal.toLocaleString()} ${CurrencyName}.\n`,
+      }**!\nYou now have ${newTotal.toLocaleString()} ${CurrencyName}.`,
     });
     await interaction.channel?.send({
       content: `Mistress, ${interaction.user.username} has purchased ${item.name}!`,

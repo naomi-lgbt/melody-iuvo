@@ -15,7 +15,7 @@ export const handleCurrencyItem: CommandHandler = async (bot, interaction) => {
     const item = CurrencyItems.find((i) => i.internalId === id);
     if (!item) {
       await interaction.editReply({
-        content: "That item doesn't exist!",
+        content: "Forgive me, but I was unable to locate that item.",
       });
       return;
     }
