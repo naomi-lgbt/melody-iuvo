@@ -14,17 +14,21 @@ export const handleOutfitAsset: AssetHandler = async (
   bot
 ): Promise<EmbedBuilder> => {
   try {
-    const fileData = await getAssetList<Outfit[]>("naomi", "outfits");
-    const outfit = getRandomValue(fileData);
+    let outfit = {
+      fileName: "test",
+      name: "Test Asset",
+      alt: "Test Alt",
+      description: "Test Description",
+    };
+    if (!process.env.MOCHA) {
+      const fileList = await getAssetList<Outfit[]>("naomi", "outfits");
+      outfit = getRandomValue(fileList);
+    }
 
     const embed = new EmbedBuilder();
     embed.setTitle(outfit.name);
     embed.setDescription(outfit.description);
     embed.setImage(`https://cdn.naomi.lgbt/naomi/outfits/${outfit.fileName}`);
-    embed.setFooter({
-      text: `Join our server: https://chat.naomi.lgbt`,
-      iconURL: `https://cdn.nhcarrigan.com/profile.png`,
-    });
 
     return embed;
   } catch (err) {

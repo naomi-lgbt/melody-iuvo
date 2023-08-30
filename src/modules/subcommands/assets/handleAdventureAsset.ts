@@ -17,17 +17,21 @@ export const handleAdventureAsset: AssetHandler = async (
 ): Promise<EmbedBuilder> => {
   try {
     if (isAssetTarget(target, ["naomi", "becca", "rosalia"])) {
-      const fileList = await getAssetList<Adventure[]>(target, "adventures");
-      const file = getRandomValue(fileList);
+      let file = {
+        fileName: "test",
+        game: "Test Asset",
+        alt: "Test Alt",
+        description: "Test Description",
+      };
+      if (!process.env.MOCHA) {
+        const fileList = await getAssetList<Adventure[]>(target, "adventures");
+        file = getRandomValue(fileList);
+      }
       const { fileName, game, description } = file;
       const embed = new EmbedBuilder();
       embed.setTitle(game);
       embed.setDescription(description);
       embed.setImage(`https://cdn.naomi.lgbt/${target}/games/${fileName}`);
-      embed.setFooter({
-        text: `Join our server: https://chat.naomi.lgbt`,
-        iconURL: `https://cdn.nhcarrigan.com/profile.png`,
-      });
       return embed;
     }
 
