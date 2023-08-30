@@ -77,7 +77,7 @@ suite("handleCurrencyAbout", () => {
       {
         name: "Currency values",
         value:
-          "One <:naomicopper:1140129937173520499> is worth 1 NaomiCoin.\nOne <:naomisilver:1140129928084455474> is worth 100 NaomiCoin.\nOne <:naomigold:1140129934526914690> is worth 10,000 NaomiCoin.\nOne <:naomiplatinum:1140129931343446076> is worth 1,000,000 NaomiCoin.\nOne <:naomiamethyst:1140325730304147527> is worth 100,000,000 NaomiCoin.",
+          "One <:naomicopper:1146242994475900938> is worth 1 NaomiCoin.\nOne <:naomisilver:1146242999471321159> is worth 100 NaomiCoin.\nOne <:naomigold:1146242995893583973> is worth 10,000 NaomiCoin.\nOne <:naomiplatinum:1146242997252530246> is worth 1,000,000 NaomiCoin.\nOne <:naomiamethyst:1146242992315826206> is worth 100,000,000 NaomiCoin.",
       },
     ]);
   });
