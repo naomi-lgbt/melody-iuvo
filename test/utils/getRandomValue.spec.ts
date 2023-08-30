@@ -2,7 +2,7 @@ import { assert } from "chai";
 
 import { getRandomValue } from "../../src/utils/getRandomValue";
 
-suite.only("getRandomValue", () => {
+suite("getRandomValue", () => {
   test("should generate uniform distribution", () => {
     const counts: { [key: number]: number } = {};
     for (let i = 0; i < 10000; i++) {
