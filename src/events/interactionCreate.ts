@@ -27,7 +27,7 @@ export const interactionCreate = async (
   try {
     if (interaction.isChatInputCommand()) {
       if (!isGuildSlashCommand(interaction)) {
-        await interaction.editReply({
+        await interaction.reply({
           content:
             "Forgive me, but this can only be done within Naomi's community.",
         });
@@ -37,7 +37,7 @@ export const interactionCreate = async (
         (c) => c.data.name === interaction.commandName
       );
       if (!target) {
-        await interaction.editReply({
+        await interaction.reply({
           content:
             "My deepest apologies, but I cannot follow those instructions at this time.",
         });
