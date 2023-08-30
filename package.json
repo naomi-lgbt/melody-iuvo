@@ -51,7 +51,7 @@
     "@types/mocha": "10.0.1",
     "@types/node": "18.17.12",
     "chai": "4.3.8",
-    "discordjs-testing": "0.1.0-rc1",
+    "discordjs-testing": "/home/naomi/github/nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz",
     "eslint": "8.48.0",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
