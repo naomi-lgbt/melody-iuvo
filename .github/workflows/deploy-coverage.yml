@@ -32,7 +32,7 @@ jobs:
         run: pnpm run build
 
       - name: Generate Coverage
-        run: "pnpm run test:generate"
+        run: "pnpm run test"
 
       - name: Commit to GitHub Pages
         if: always()
