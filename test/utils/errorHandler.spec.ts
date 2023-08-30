@@ -42,4 +42,25 @@ suite("errorHandler", () => {
       },
     ]);
   });
+
+  test("handles a string error", async () => {
+    await errorHandler(fakeClient as never, "test", "test");
+    assert.lengthOf(fakeClient.env.debugHook.messages, 2);
+    assert.deepEqual(fakeClient.env.debugHook.messages[1], {
+      embeds: [
+        {
+          data: {
+            title: "Error in `test`!",
+            description: "```No stack trace available.```",
+            fields: [
+              {
+                name: "Message",
+                value: "No message available.",
+              },
+            ],
+          },
+        },
+      ],
+    });
+  });
 });

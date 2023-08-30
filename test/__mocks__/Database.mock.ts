@@ -10,6 +10,20 @@ class User {
     );
   }
 
+  public async findMany(): Promise<users[]> {
+    return this._records;
+  }
+
+  public async delete(options) {
+    const index = this._records.findIndex(
+      (record) => record.userId === options.where.userId
+    );
+    if (index === -1) {
+      throw new Error("User not found");
+    }
+    this._records.splice(index, 1);
+  }
+
   public async upsert(options) {
     const exists = await this.findUnique({
       where: { userId: options.where.userId },

@@ -50,8 +50,8 @@ devDependencies:
     specifier: 4.3.8
     version: 4.3.8
   discordjs-testing:
-    specifier: 0.1.0-rc1
-    version: 0.1.0-rc1(discord.js@14.13.0)
+    specifier: 0.1.0
+    version: 0.1.0(discord.js@14.13.0)
   eslint:
     specifier: 8.48.0
     version: 8.48.0
@@ -1154,7 +1154,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001524
-      electron-to-chromium: 1.4.505
+      electron-to-chromium: 1.4.506
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: true
@@ -1513,8 +1513,8 @@ packages:
       - bufferutil
       - utf-8-validate
 
-  /discordjs-testing@0.1.0-rc1(discord.js@14.13.0):
-    resolution: {integrity: sha512-9dZm2PuDPHPZ87OUVITANg4F+7bH6wfcyvFhdlum2EiQEF3yw0tL0izZMazqS7x2jPwPN1DA2fMw620v6FbJ1A==}
+  /discordjs-testing@0.1.0(discord.js@14.13.0):
+    resolution: {integrity: sha512-ZfPYqPGD7LKgbOw0jrUZYhk7wJze0XhKm7JFL67gRsUUAQvNUMYNpiN+MOIyZhfzsaoP09RJ9mWaKWe/qzAj6w==}
     engines: {node: '18', pnpm: '8'}
     peerDependencies:
       discord.js: 14.13.0
@@ -1547,8 +1547,8 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /electron-to-chromium@1.4.505:
-    resolution: {integrity: sha512-0A50eL5BCCKdxig2SsCXhpuztnB9PfUgRMojj5tMvt8O54lbwz3t6wNgnpiTRosw5QjlJB7ixhVyeg8daLQwSQ==}
+  /electron-to-chromium@1.4.506:
+    resolution: {integrity: sha512-xxGct4GPAKSRlrLBtJxJFYy74W11zX6PO9GyHgl/U+2s3Dp0ZEwAklDfNHXOWcvH7zWMpsmgbR0ggEuaYAVvHA==}
     dev: true
 
   /emoji-regex@8.0.0:

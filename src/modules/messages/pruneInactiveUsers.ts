@@ -20,7 +20,7 @@ export const pruneInactiveUsers = async (
     const guildMembers = await message.guild.members.fetch();
     let count = 0;
     for (const user of guildMembers.values()) {
-      if (user.user.bot || !user.kickable) {
+      if (user.user.bot) {
         continue;
       }
       const record = records.find((r) => r.userId === user.id);

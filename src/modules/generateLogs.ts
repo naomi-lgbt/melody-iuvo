@@ -30,7 +30,9 @@ export const generateLogs = async (
       name: "log.txt",
     });
 
-    await unlink(join(process.cwd(), "logs", `${channelId}.txt`));
+    await unlink(join(process.cwd(), "logs", `${channelId}.txt`)).catch(
+      () => null
+    );
 
     return attachment;
   } catch (err) {

@@ -30,7 +30,7 @@ export const proxyPluralMessage = async (
 
     await webhook.send({
       content: message.content.startsWith(identity.prefix)
-        ? message.content.replace(identity.prefix, "")
+        ? message.content.replace(`${identity.prefix} `, "")
         : message.content,
       username: identity.name,
       avatarURL: identity.avatar,
