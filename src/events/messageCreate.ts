@@ -25,9 +25,13 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
-    if (bot.user && message.mentions.has(bot.user)) {
+    if (
+      (bot.user && message.mentions.has(bot.user)) ||
+      /melody/i.test(message.content)
+    ) {
       await message.reply({
         content: "Yes? How may I be of service to you?",
+        stickers: ["1146308020444332042"],
       });
     }
 
