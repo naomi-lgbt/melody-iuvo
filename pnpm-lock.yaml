@@ -4185,7 +4185,7 @@ packages:
     dev: true
 
   file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz(discord.js@14.13.0):
-    resolution: {integrity: sha512-YDf0JXWQRyxc3smoExJxBXAAGJUmN5PZgnjVfv8ES3nD2gfDNlc3jwMqxMP89srqHsnzaD8MW1pqrPm813Q9uw==, tarball: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz}
+    resolution: {integrity: sha512-FkE/2F1hsGQIUd0g/Xdf43dGSrH+kiUKm2gpJ1nvqWoMydm4otW0bXUU38H2TGOj1qaTJ6Zu8MVcApF372qBVw==, tarball: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz}
     id: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz
     name: discordjs-testing
     version: 0.1.0-rc1
