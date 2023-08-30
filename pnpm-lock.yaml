@@ -21,7 +21,7 @@ dependencies:
     specifier: 4.0.0
     version: 4.0.0
   random:
-    specifier: ^3.0.6
+    specifier: '3'
     version: 3.0.6
   winston:
     specifier: 3.10.0
@@ -50,8 +50,8 @@ devDependencies:
     specifier: 4.3.8
     version: 4.3.8
   discordjs-testing:
-    specifier: file:/home/naomi/github/nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz
-    version: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz(discord.js@14.13.0)
+    specifier: 0.1.0
+    version: 0.1.0(discord.js@14.13.0)
   eslint:
     specifier: 8.48.0
     version: 8.48.0
@@ -1512,6 +1512,18 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  /discordjs-testing@0.1.0(discord.js@14.13.0):
+    resolution: {integrity: sha512-ZfPYqPGD7LKgbOw0jrUZYhk7wJze0XhKm7JFL67gRsUUAQvNUMYNpiN+MOIyZhfzsaoP09RJ9mWaKWe/qzAj6w==}
+    engines: {node: '18', pnpm: '8'}
+    peerDependencies:
+      discord.js: 14.13.0
+    dependencies:
+      '@sapphire/snowflake': 3.5.1
+      discord.js: 14.13.0
+      dotenv: 16.3.1
+      winston: 3.10.0
+    dev: true
 
   /doctrine@2.1.0:
     resolution: {integrity: sha512-35mSku4ZXK0vfCuHEDAwt55dg2jNajHZ1odvF+8SSr82EsZY4QmXfuWso8oEd8zRhVObSN18aM0CjSdoBX7zIw==}
@@ -4182,19 +4194,4 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: true
-
-  file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz(discord.js@14.13.0):
-    resolution: {integrity: sha512-1JBKfW1vdS3nTSKBXfcBrRZRj8qezymbYK3M9SXMBiZEGPIctlZ7rl1I8H++ab2oF+o6D0byszs/LZIr1TLBlQ==, tarball: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz}
-    id: file:../../nhcarrigan/discordjs-testing/discordjs-testing-0.1.0-rc1.tgz
-    name: discordjs-testing
-    version: 0.1.0-rc1
-    engines: {node: '18', pnpm: '8'}
-    peerDependencies:
-      discord.js: 14.13.0
-    dependencies:
-      '@sapphire/snowflake': 3.5.1
-      discord.js: 14.13.0
-      dotenv: 16.3.1
-      winston: 3.10.0
     dev: true
