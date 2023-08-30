@@ -17,11 +17,11 @@ export const CurrencyValues: { [key in keyof users["currency"]]: number } = {
 };
 
 export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
-  copper: "<:naomicopper:1140129937173520499>",
-  silver: "<:naomisilver:1140129928084455474>",
-  gold: "<:naomigold:1140129934526914690>",
-  platinum: "<:naomiplatinum:1140129931343446076>",
-  amethyst: "<:naomiamethyst:1140325730304147527>",
+  copper: "<:naomicopper:1146242994475900938>",
+  silver: "<:naomisilver:1146242999471321159>",
+  gold: "<:naomigold:1146242995893583973>",
+  platinum: "<:naomiplatinum:1146242997252530246>",
+  amethyst: "<:naomiamethyst:1146242992315826206>",
 };
 
 export const CurrencyItems: Item[] = [
@@ -101,32 +101,27 @@ export const CurrencyItems: Item[] = [
  * Emotes to use in the slot machines.
  */
 export const CurrencySlots = [
-  "<:Naomato:1065883670537318400>",
-  "<:NaomiBlush:1065883706000158770>",
-  "<:NaomiCheer:1065884155273023598>",
-  "<:NaomiGiggle:1065884641116049478>",
-  "<:NaomiGrin:1065884732119859200>",
-  "<:NaomiInnocent:1065885047950942218>",
-  "<:NaomiKiss:1065885121481281556>",
-  "<:NaomiPat:1065885244022071386>",
-  "<:NaomiWink:1065906272072900628>",
-  "<:NaomiCute:1065884248957009921>",
-  "<:NaomiYawn:1065906305501511710>",
-  "<:NaomiWoah:1065906289202446376>",
-  "<:NaomiSing:1065885810785796126>",
-  "<:NaomiSmh:1065885897775644732>",
-  "<:NaomiThink:1065906168414863360>",
-  "<:naomiamethyst:1140325730304147527>",
-  "<:naomicopper:1140129937173520499>",
-  "<:naomigold:1140129934526914690>",
-  "<:naomiplatinum:1140129931343446076>",
-  "<a:naomicheer:1019871748537208912>",
+  "<:naomiamethyst:1146242992315826206>",
+  "<:naomicopper:1146242994475900938>",
+  "<:naomigold:1146242995893583973>",
+  "<:naomiplatinum:1146242997252530246>",
+  "<:naomisilver:1146242999471321159>",
+  "<:wink:1146275110257442867>",
+  "<:wave:1146275107304636436>",
+  "<:think:1146275105538854963>",
+  "<:sing:1146283508948545646>",
+  "<:shrug:1146283505198845994>",
+  "<:hehe:1146275101591998536>",
+  "<:heart:1146275223088410715>",
+  "<:grin:1146275097343176724>",
+  "<:facepalm:1146275094549766224>",
+  "<:blush:1146275091357892618>",
 ];
 
 /**
  * Emote to show spinning slot reel.
  */
-export const CurrencySlotReel = "<a:slot:1140435469478404208>";
+export const CurrencySlotReel = "<a:slot:1146243000792535110>";
 
 /**
  * Shamelessly borrowed from https://github.com/charlesreid1/five-letter-words haha.
