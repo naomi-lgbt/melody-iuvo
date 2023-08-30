@@ -8,6 +8,8 @@ import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
 export const handlePluralFront: CommandHandler = async (bot, interaction) => {
   try {
     const name = interaction.options.getString("name");
+    const record = await getDatabaseRecord(bot, interaction.user.id);
+
     if (!name) {
       await bot.db.users.update({
         where: {
@@ -22,7 +24,6 @@ export const handlePluralFront: CommandHandler = async (bot, interaction) => {
       });
       return;
     }
-    const record = await getDatabaseRecord(bot, interaction.user.id);
     const exists = record.plurals.find((plural) => plural.name === name);
 
     if (!exists) {
