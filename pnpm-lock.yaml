@@ -50,8 +50,8 @@ devDependencies:
     specifier: 4.3.8
     version: 4.3.8
   discordjs-testing:
-    specifier: 0.1.0
-    version: 0.1.0(discord.js@14.13.0)
+    specifier: 0.2.0
+    version: 0.2.0(discord.js@14.13.0)
   eslint:
     specifier: 8.48.0
     version: 8.48.0
@@ -1513,8 +1513,8 @@ packages:
       - bufferutil
       - utf-8-validate
 
-  /discordjs-testing@0.1.0(discord.js@14.13.0):
-    resolution: {integrity: sha512-ZfPYqPGD7LKgbOw0jrUZYhk7wJze0XhKm7JFL67gRsUUAQvNUMYNpiN+MOIyZhfzsaoP09RJ9mWaKWe/qzAj6w==}
+  /discordjs-testing@0.2.0(discord.js@14.13.0):
+    resolution: {integrity: sha512-sjep2hUBc16D3BoL1Yw2Cb9Q0+d4jNgcNWLWKU06hIcq5neg+5Yz8zUWNWzLqzjot2Rb06dU8sd1KnUG3U0Zkw==}
     engines: {node: '18', pnpm: '8'}
     peerDependencies:
       discord.js: 14.13.0
