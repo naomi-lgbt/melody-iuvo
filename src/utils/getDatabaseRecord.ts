@@ -21,6 +21,7 @@ export const getDatabaseRecord = async (
     create: {
       userId,
       timestamp: new Date(),
+      currencyDaily: new Date(0),
       currency: {
         copper: 0,
         silver: 0,

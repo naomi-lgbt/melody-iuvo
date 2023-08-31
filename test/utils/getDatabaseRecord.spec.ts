@@ -9,6 +9,7 @@ suite("getDatabaseRecord", () => {
   test("should return a user record", async () => {
     const result = await getDatabaseRecord({ db } as never, "naomi");
     assert.equal(result.userId, "naomi");
+    assert.deepEqual(result.currencyDaily, new Date(0));
     assert.deepEqual(result.currency, {
       copper: 0,
       silver: 0,
