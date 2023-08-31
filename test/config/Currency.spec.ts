@@ -3,6 +3,7 @@ import { assert } from "chai";
 import {
   CurrencyName,
   CurrencyValues,
+  CurrencyDailyEvents,
   CurrencyEmotes,
   CurrencyItems,
   CurrencySlots,
@@ -95,6 +96,20 @@ suite("Currency: CurrencyWords", () => {
   test("are unique", () => {
     const uniqueWords = new Set(CurrencyWords);
     assert.equal(CurrencyWords.length, uniqueWords.size);
+  });
+});
+
+suite("Currency: CurrencyDailyEvents", () => {
+  test("are unique", () => {
+    const titles = CurrencyDailyEvents.map((e) => e.title);
+    const uniqueTitles = new Set(titles);
+    assert.equal(titles.length, uniqueTitles.size);
+  });
+
+  test("have valid min/max values", () => {
+    for (const event of CurrencyDailyEvents) {
+      assert.isAtMost(event.min, event.max);
+    }
   });
 });
 

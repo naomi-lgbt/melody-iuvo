@@ -7,6 +7,7 @@ import { CommandHandler } from "../interfaces/CommandHandler";
 import { handleCurrencyAbout } from "../modules/subcommands/currency/handleCurrencyAbout";
 import { handleCurrencyAward } from "../modules/subcommands/currency/handleCurrencyAward";
 import { handleCurrencyCache } from "../modules/subcommands/currency/handleCurrencyCache";
+import { handleCurrencyDaily } from "../modules/subcommands/currency/handleCurrencyDaily";
 import { handleCurrencyItem } from "../modules/subcommands/currency/handleCurrencyItem";
 import { handleCurrencyPurchase } from "../modules/subcommands/currency/handleCurrencyPurchase";
 import { handleCurrencySlots } from "../modules/subcommands/currency/handleCurrencySlots";
@@ -18,6 +19,7 @@ const handlers: { [key: string]: CommandHandler } = {
   about: handleCurrencyAbout,
   award: handleCurrencyAward,
   cache: handleCurrencyCache,
+  daily: handleCurrencyDaily,
   item: handleCurrencyItem,
   purchase: handleCurrencyPurchase,
   slots: handleCurrencySlots,
@@ -130,6 +132,11 @@ export const currency: Command = {
             .setDescription("How much do you want to wager?")
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("daily")
+        .setDescription("Get your daily event.")
     ),
   run: async (bot, interaction) => {
     try {
