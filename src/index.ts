@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { ActivityType, Client, Events, GatewayIntentBits } from "discord.js";
 
 import { Intents } from "./config/Intents";
+import { autoModerationActionExecution } from "./events/autoModerationActionExecution";
 import { clientReady } from "./events/clientReady";
 import { interactionCreate } from "./events/interactionCreate";
 import { messageCreate } from "./events/messageCreate";
@@ -57,6 +58,10 @@ import { validateEnv } from "./utils/validateEnv";
 
     bot.on(Events.MessageCreate, async (message) => {
       await messageCreate(bot, message);
+    });
+
+    bot.on(Events.AutoModerationActionExecution, async (action) => {
+      await autoModerationActionExecution(bot, action);
     });
 
     /**

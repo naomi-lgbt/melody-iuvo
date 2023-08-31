@@ -8,5 +8,6 @@ suite("Intents", () => {
     assert.include(Intents, 512, "Missing GuildMessages intent.");
     assert.include(Intents, 2, "Missing GuildMembers intent.");
     assert.include(Intents, 32768, "Missing MessageContent intent.");
+    assert.include(Intents, 2097152, "Missing AutoModerationExecution intent.");
   });
 });
