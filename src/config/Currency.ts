@@ -131,6 +131,7 @@ export const CurrencyDailyEvents: {
   description: string;
   min: number;
   max: number;
+  loss: boolean;
 }[] = [
   {
     title: "You found some spare change!",
@@ -138,12 +139,14 @@ export const CurrencyDailyEvents: {
       "You found some spare change on the ground. You pick it up and put it in your pocket.",
     min: 10,
     max: 1000,
+    loss: false,
   },
   {
     title: "There was a hole in your pocket!",
     description: "Some of your coins have fallen out as you travelled.",
-    min: -1000,
-    max: -10,
+    min: 10,
+    max: 1000,
+    loss: true,
   },
 ];
 
