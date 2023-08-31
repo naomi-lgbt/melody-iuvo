@@ -26,7 +26,10 @@ suite("autoModerationActionExecution event", () => {
       name: "test-channel",
       type: ChannelType.GuildText,
     });
-    await autoModerationActionExecution({} as never, action as never);
+    await autoModerationActionExecution(
+      { automod: {} } as never,
+      action as never
+    );
     assert.equal(channel.messages.cache.size, 0);
   });
 
@@ -35,7 +38,10 @@ suite("autoModerationActionExecution event", () => {
       name: "test-channel",
       type: ChannelType.GuildCategory,
     });
-    await autoModerationActionExecution({} as never, action as never);
+    await autoModerationActionExecution(
+      { automod: {} } as never,
+      action as never
+    );
     assert.equal(channel.messages.cache.size, 0);
   });
 
@@ -45,12 +51,29 @@ suite("autoModerationActionExecution event", () => {
       type: ChannelType.GuildText,
     });
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
-    await autoModerationActionExecution({} as never, action as never);
+    await autoModerationActionExecution(
+      { automod: {} } as never,
+      action as never
+    );
     assert.equal(channel.messages.cache.size, 1);
     assert.equal(
       channel.messages.cache.first()?.content,
       `Oh dear, it would seem that <@${user.id}> has been naughty.`
     );
+    delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
+  });
+
+  test("should not trigger within the cooldown", async () => {
+    const channel = await guild.channels.create({
+      name: "test-channel",
+      type: ChannelType.GuildText,
+    });
+    process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
+    await autoModerationActionExecution(
+      { automod: { [user.id]: Date.now() } } as never,
+      action as never
+    );
+    assert.equal(channel.messages.cache.size, 0);
     delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });
 });
