@@ -5,4 +5,5 @@ export const Intents = [
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.GuildMembers,
   GatewayIntentBits.MessageContent,
+  GatewayIntentBits.AutoModerationExecution,
 ];
