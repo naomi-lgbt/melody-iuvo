@@ -124,6 +124,30 @@ export const CurrencySlots = [
 export const CurrencySlotReel = "<a:slot:1146243000792535110>";
 
 /**
+ * Possible events for daily command.
+ */
+export const CurrencyDailyEvents: {
+  title: string;
+  description: string;
+  min: number;
+  max: number;
+}[] = [
+  {
+    title: "You found some spare change!",
+    description:
+      "You found some spare change on the ground. You pick it up and put it in your pocket.",
+    min: 10,
+    max: 1000,
+  },
+  {
+    title: "There was a hole in your pocket!",
+    description: "Some of your coins have fallen out as you travelled.",
+    min: -1000,
+    max: -10,
+  },
+];
+
+/**
  * Shamelessly borrowed from https://github.com/charlesreid1/five-letter-words haha.
  * Then filtered for inappropriate terms.
  */

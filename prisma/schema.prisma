@@ -22,12 +22,13 @@ type Plural {
 }
 
 model users {
-    id        String   @id @default(auto()) @map("_id") @db.ObjectId
-    userId    String
-    timestamp DateTime @default(now())
-    currency  Currency
-    plurals   Plural[]
-    front     String   @default("")
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+    userId        String
+    timestamp     DateTime @default(now())
+    currencyDaily DateTime
+    currency      Currency
+    plurals       Plural[]
+    front         String   @default("")
 
     @@unique([userId], map: "userId")
 }
