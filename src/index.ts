@@ -38,6 +38,7 @@ import { validateEnv } from "./utils/validateEnv";
      */
     bot.db = new PrismaClient();
     bot.cooldowns = {};
+    bot.automod = {};
     bot.cache = {
       wordGame: {},
       slots: {},

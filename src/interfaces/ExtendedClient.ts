@@ -16,6 +16,9 @@ export interface ExtendedClient extends Client {
   cooldowns: {
     [userId: string]: number;
   };
+  automod: {
+    [userId: string]: number;
+  };
   cache: {
     slots: {
       [userId: string]: {

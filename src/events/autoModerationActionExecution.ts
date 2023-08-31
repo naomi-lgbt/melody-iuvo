@@ -18,6 +18,10 @@ export const autoModerationActionExecution = async (
       return;
     }
     const { userId, guild } = action;
+    if (bot.automod[userId] && bot.automod[userId] > Date.now() - 1000 * 60) {
+      return;
+    }
+    bot.automod[userId] = Date.now();
     const channel =
       guild.channels.cache.get(process.env.AUTOMOD_TEASE_CHANNEL_ID) ||
       (await guild.channels.fetch(process.env.AUTOMOD_TEASE_CHANNEL_ID));
