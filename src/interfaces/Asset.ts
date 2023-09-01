@@ -14,6 +14,7 @@ export type AssetType =
   | "adventures"
   | "emotes"
   | "outfits"
+  | "picrew"
   | "portraits"
   | "poses";
 

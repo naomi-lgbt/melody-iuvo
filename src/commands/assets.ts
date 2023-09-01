@@ -8,6 +8,7 @@ import { handleAdventureAsset } from "../modules/subcommands/assets/handleAdvent
 import { handleEmoteAsset } from "../modules/subcommands/assets/handleEmoteAsset";
 import { handleKoikatsuAsset } from "../modules/subcommands/assets/handleKoikatsuAsset";
 import { handleOutfitAsset } from "../modules/subcommands/assets/handleOutfitAsset";
+import { handlePicrewAsset } from "../modules/subcommands/assets/handlePicrewAsset";
 import { handlePortraitAsset } from "../modules/subcommands/assets/handlePortraitAsset";
 import { handleReferenceAsset } from "../modules/subcommands/assets/handleReferenceAsset";
 import { handleTattooAsset } from "../modules/subcommands/assets/handleTattooAsset";
@@ -19,6 +20,7 @@ const handlers: { [key: string]: AssetHandler } = {
   emote: handleEmoteAsset,
   koikatsu: handleKoikatsuAsset,
   outfit: handleOutfitAsset,
+  picrew: handlePicrewAsset,
   portrait: handlePortraitAsset,
   reference: handleReferenceAsset,
   tattoo: handleTattooAsset,
@@ -64,6 +66,11 @@ export const assets: Command = {
               { name: "Becca", value: "becca" }
             )
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("picrew")
+        .setDescription("Get a random Picrew avatar.")
     )
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
