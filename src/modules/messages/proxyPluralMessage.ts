@@ -51,15 +51,15 @@ export const proxyPluralMessage = async (
         message.reference.messageId
       );
 
-      console.log(message);
-
       content.content =
         (message.mentions.users.size ? `<@${originalMsg.author.id}>, ` : "") +
         `${content.content}`;
       content.embeds = [
-        new EmbedBuilder().setDescription(
-          `:leftwards_arrow_with_hook: [(click to see attatchment)](${originalMsg.url})`
-        ),
+        new EmbedBuilder().setDescription(originalMsg.content).setAuthor({
+          name: originalMsg.author.username,
+          iconURL: originalMsg.author.displayAvatarURL(),
+          url: originalMsg.url,
+        }),
       ];
     }
     await webhook.send(content);
