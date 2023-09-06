@@ -1,8 +1,10 @@
 import { Plural } from "@prisma/client";
 import { EmbedBuilder, MessageType } from "discord.js";
+
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
 import { GuildMessage } from "../../interfaces/GuildMessage";
 import { errorHandler } from "../../utils/errorHandler";
+
 interface ProxyContent {
   content: string;
   username: string;
