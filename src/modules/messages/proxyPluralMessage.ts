@@ -1,5 +1,5 @@
 import { Plural } from "@prisma/client";
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, MessageType } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
 import { GuildMessage } from "../../interfaces/GuildMessage";
@@ -28,7 +28,7 @@ export const proxyPluralMessage = async (
       webhooks.find((w) => w.owner && bot.user && w.owner.id === bot.user.id) ||
       (await channel.createWebhook({ name: "Melody's Plural System" }));
 
-    await webhook.send({
+    const content = {
       content: message.content.startsWith(identity.prefix)
         ? message.content.replace(`${identity.prefix} `, "")
         : message.content,
@@ -37,7 +37,16 @@ export const proxyPluralMessage = async (
       allowedMentions: {
         parse: [],
       },
-    });
+    };
+
+    if (message.type === MessageType.Reply && message?.reference?.messageId) {
+      const originalMsg = await message.channel.messages.fetch(
+        message.reference.messageId
+      );
+      originalMsg.reply(content);
+    } else {
+      await webhook.send(content);
+    }
     await message.delete();
 
     await bot.env.pluralLogHook.send({
