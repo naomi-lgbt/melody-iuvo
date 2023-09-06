@@ -1,9 +1,15 @@
 import { Plural } from "@prisma/client";
 import { EmbedBuilder, MessageType } from "discord.js";
-
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
 import { GuildMessage } from "../../interfaces/GuildMessage";
 import { errorHandler } from "../../utils/errorHandler";
+interface ProxyContent {
+  content: string;
+  username: string;
+  avatarURL: string;
+  allowedMentions: object;
+  embeds: EmbedBuilder[];
+}
 
 /**
  * Sends a proxied message through the channel's webhook.
@@ -28,7 +34,7 @@ export const proxyPluralMessage = async (
       webhooks.find((w) => w.owner && bot.user && w.owner.id === bot.user.id) ||
       (await channel.createWebhook({ name: "Melody's Plural System" }));
 
-    const content = {
+    const content: ProxyContent = {
       content: message.content.startsWith(identity.prefix)
         ? message.content.replace(`${identity.prefix} `, "")
         : message.content,
@@ -37,16 +43,26 @@ export const proxyPluralMessage = async (
       allowedMentions: {
         parse: [],
       },
+      embeds: [],
     };
 
     if (message.type === MessageType.Reply && message?.reference?.messageId) {
       const originalMsg = await message.channel.messages.fetch(
         message.reference.messageId
       );
-      originalMsg.reply(content);
-    } else {
-      await webhook.send(content);
+
+      console.log(message);
+
+      content.content =
+        (message.mentions.users.size ? `<@${originalMsg.author.id}>, ` : "") +
+        `${content.content}`;
+      content.embeds = [
+        new EmbedBuilder().setDescription(
+          `:leftwards_arrow_with_hook: [(click to see attatchment)](${originalMsg.url})`
+        ),
+      ];
     }
+    await webhook.send(content);
     await message.delete();
 
     await bot.env.pluralLogHook.send({
