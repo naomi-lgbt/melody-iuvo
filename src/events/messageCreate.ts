@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
 
+import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { logTicketMessage } from "../modules/logTicketMessage";
@@ -29,9 +30,13 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       (bot.user && message.mentions.has(bot.user)) ||
       /melody/i.test(message.content)
     ) {
+      const {
+        author: { id },
+      } = message;
       await message.reply({
-        content: "Yes? How may I be of service to you?",
-        stickers: ["1146308020444332042"],
+        content:
+          Responses.melodyPing[id] || "Yes? How may I be of service to you?",
+        stickers: Responses.melodyPing[id] ? [] : ["1146308020444332042"],
       });
     }
 

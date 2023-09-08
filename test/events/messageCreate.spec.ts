@@ -78,10 +78,21 @@ suite("messageCreate", () => {
     assert.equal(response?.content, "Yes? How may I be of service to you?");
   });
 
+  test("should reply to messages with name when special response", async () => {
+    const msg = await channel.send("melody", naomi, member);
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 5);
+    const response = channel.messages.cache.last();
+    assert.equal(
+      response?.content,
+      "Hello, Mistress. Might I be of assistance?"
+    );
+  });
+
   test("should process ticket command", async () => {
     const msg = await channel.send("~tickets", naomi, member);
     await messageCreate({ db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 5);
+    assert.equal(channel.messages.cache.size, 7);
     const response = channel.messages.cache.last();
     assert.exists(response?.embeds?.[0]);
   });
@@ -89,7 +100,7 @@ suite("messageCreate", () => {
   test("should process prune command", async () => {
     const msg = await channel.send("~prune --dryrun", naomi, member);
     await messageCreate({ db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 7);
+    assert.equal(channel.messages.cache.size, 9);
     const response = channel.messages.cache.last();
     assert.equal(response?.content, "Would kick 0 inactive users.");
   });
@@ -112,7 +123,7 @@ suite("messageCreate", () => {
       },
     });
     await messageCreate({ ...fakeClient, db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 9);
+    assert.equal(channel.messages.cache.size, 11);
     const [command, response] = channel.messages.cache.last(2);
     assert.isTrue(command.deleted);
     assert.equal(response?.content, "test");
@@ -136,7 +147,7 @@ suite("messageCreate", () => {
       },
     });
     await messageCreate({ ...fakeClient, db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 11);
+    assert.equal(channel.messages.cache.size, 13);
     const [command, response] = channel.messages.cache.last(2);
     assert.isTrue(command.deleted);
     assert.equal(response?.content, "test");
@@ -145,7 +156,7 @@ suite("messageCreate", () => {
   test("should process currency", async () => {
     const msg = await channel.send("test", user, member);
     await messageCreate({ db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 12);
+    assert.equal(channel.messages.cache.size, 14);
     const record = await db.users.findUnique({
       where: {
         userId: user.id,
