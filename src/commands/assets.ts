@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
 
 import { ReferenceData } from "../config/AssetData";
+import { Responses } from "../config/Responses";
 import { AssetHandler, AssetTarget } from "../interfaces/Asset";
 import { Command } from "../interfaces/Command";
 import { defaultAssetEmbed } from "../modules/subcommands/assets/defaultAssetEmbed";
@@ -13,7 +14,6 @@ import { handlePortraitAsset } from "../modules/subcommands/assets/handlePortrai
 import { handleReferenceAsset } from "../modules/subcommands/assets/handleReferenceAsset";
 import { handleTattooAsset } from "../modules/subcommands/assets/handleTattooAsset";
 import { errorHandler } from "../utils/errorHandler";
-import { isOwner } from "../utils/isOwner";
 
 const handlers: { [key: string]: AssetHandler } = {
   adventure: handleAdventureAsset,
@@ -140,8 +140,8 @@ export const assets: Command = {
         : defaultAssetEmbed;
       await interaction.editReply({
         content:
-          isOwner(interaction.user.id) && subcommand === "outfit"
-            ? "Mistress, I chose this outfit for your next meeting."
+          subcommand === "outfit"
+            ? Responses.outfit[interaction.user.id] || ""
             : "",
         embeds: [embed],
       });

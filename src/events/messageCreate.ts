@@ -34,8 +34,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         author: { id },
       } = message;
       await message.reply({
-        content: Responses.melodyPing[id] || "",
-        stickers: ["1146308020444332042"],
+        content:
+          Responses.melodyPing[id] || "Yes? How may I be of service to you?",
+        stickers: Responses.melodyPing[id] ? [] : ["1146308020444332042"],
       });
     }
 
