@@ -61,9 +61,8 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
         labels: ["posted to discord"],
       });
     }
-    await channel.send({
+    await bot.env.issuesHook.send({
       content: `Forgive my intrusion, but it would seem my Mistress is seeking your assistance with her work.\n\n${formatted}`,
-      stickers: ["1146307975875670067"],
     });
   } catch (err) {
     await errorHandler(bot, "process github issues", err);
