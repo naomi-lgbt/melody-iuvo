@@ -33,8 +33,15 @@ suite("validateEnv utility", () => {
     assert.throws(validateEnv, "Missing PLURAL_LOG_HOOK environment variable");
   });
 
-  test("throws an error when missing MONGO_URI", () => {
+  test("throws an error when missing BIRTHDAY_HOOK", () => {
     process.env.PLURAL_LOG_HOOK =
+      // This is not a live webhook URL, so don't bother trying to use it.
+      "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    assert.throws(validateEnv, "Missing BIRTHDAY_HOOK environment variable");
+  });
+
+  test("throws an error when missing MONGO_URI", () => {
+    process.env.BIRTHDAY_HOOK =
       // This is not a live webhook URL, so don't bother trying to use it.
       "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     assert.throws(validateEnv, "Missing MONGO_URI environment variable");
@@ -48,6 +55,7 @@ suite("validateEnv utility", () => {
     assert.instanceOf(result.debugHook, WebhookClient);
     assert.instanceOf(result.ticketLogHook, WebhookClient);
     assert.instanceOf(result.pluralLogHook, WebhookClient);
+    assert.instanceOf(result.birthdayHook, WebhookClient);
   });
 
   after(() => {
