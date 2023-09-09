@@ -79,7 +79,11 @@ suite("messageCreate", () => {
   });
 
   test("should reply to messages with name when special response", async () => {
-    const msg = await channel.send("melody", naomi, member);
+    const naomiMember = new MockMember({
+      guild,
+      user: naomi,
+    });
+    const msg = await channel.send("melody", naomi, naomiMember);
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 5);
     const response = channel.messages.cache.last();

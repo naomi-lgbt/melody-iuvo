@@ -3,12 +3,12 @@ import { Message } from "discord.js";
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
+import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
 import { startTicketPost } from "../modules/messages/startTicketPost";
-import { parseCutieRole } from "../modules/parseCutieRole";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
@@ -31,16 +31,12 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       (bot.user && message.mentions.has(bot.user)) ||
       /melody/i.test(message.content)
     ) {
-      const {
-        author: { id },
-      } = message;
       await message.reply({
-        content:
-          Responses.melodyPing[id] ||
-          (message.member &&
-            Responses.melodyPing[parseCutieRole(message.member)]) ||
-          "Yes? How may I be of service to you?",
-        stickers: Responses.melodyPing[id] ? [] : ["1146308020444332042"],
+        content: Responses.melodyPing[getResponseKey(message.member)],
+        stickers:
+          getResponseKey(message.member) !== "default"
+            ? []
+            : ["1146308020444332042"],
       });
     }
 
@@ -100,6 +96,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       },
     });
   } catch (err) {
-    await errorHandler(bot, "message create event", err);
+    console.log(err);
+    // await errorHandler(bot, "message create event", err);
   }
 };

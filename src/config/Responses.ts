@@ -1,8 +1,9 @@
-enum ResponseIds {
+export enum ResponseIds {
   erin = "478752726612967435",
   naomi = "465650873650118659",
   naomiAlt = "710195136700874893",
   partnerRole = "cutie",
+  default = "default",
 }
 
 export const Responses: {
@@ -19,12 +20,15 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "",
     // partners
     [ResponseIds.partnerRole]: "",
+    // default
+    [ResponseIds.default]: "",
   },
   melodyPing: {
     [ResponseIds.erin]: "Good day, my Queen. What might you require?",
     [ResponseIds.naomi]: "Hello, Mistress. Might I be of assistance?",
     [ResponseIds.naomiAlt]: "Hello, Mistress. Might I be of assistance?",
     [ResponseIds.partnerRole]: "Hello, dear. What can I do for you today?",
+    [ResponseIds.default]: "Yes? How may I be of service to you?",
   },
   outfit: {
     [ResponseIds.erin]:
@@ -34,6 +38,7 @@ export const Responses: {
       "Mistress, I chose this outfit for your next event.",
     [ResponseIds.partnerRole]:
       "Looking through your beloved's wardrobe? Did you have a specific outfit in mind?",
+    [ResponseIds.default]: "",
   },
   naughty: {
     [ResponseIds.erin]:
@@ -43,7 +48,9 @@ export const Responses: {
     [ResponseIds.naomiAlt]:
       "Mistress, you run this community, and you cannot follow the rules?",
     [ResponseIds.partnerRole]:
-      "Dating Naomi does not exempt you from the rules...",
+      "{userping}, dating Naomi does not exempt you from the rules...",
+    [ResponseIds.default]:
+      "Oh dear, it would seem that {userping} has been naughty.",
   },
   greeting: {
     [ResponseIds.erin]:
@@ -52,6 +59,7 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "Welcome back Mistress. Did you sleep well?",
     [ResponseIds.partnerRole]:
       "Hello there cutie! It is very good to see you again.",
+    [ResponseIds.default]: "Good morning! How are you today?",
   },
   goodbye: {
     [ResponseIds.erin]:
@@ -61,20 +69,22 @@ export const Responses: {
       "Sleep well, Mistress. I shall be here when you wake.",
     [ResponseIds.partnerRole]:
       "Good night cutie. I am sure my Mistress will miss you.",
+    [ResponseIds.default]: "Good night! We shall see you tomorrow.",
   },
   thanks: {
     // erin
     [ResponseIds.erin]:
-      "my Queen, you already do so much, and yet you continue to do more.",
+      "{username}, my Queen, you already do so much, and yet you continue to do more.",
     // naomi
     [ResponseIds.naomi]:
-      "are you certain you are not pushing yourself too hard?",
+      "Mistress, are you certain you are not pushing yourself too hard?",
     // naomi alt
     [ResponseIds.naomiAlt]:
-      "are you certain you are not pushing yourself too hard?",
+      "Mistress, are you certain you are not pushing yourself too hard?",
     // partners
     [ResponseIds.partnerRole]:
-      "we are so grateful to have a cutie like you in our community.",
+      "{username}, we are so grateful to have a cutie like you in our community.",
+    [ResponseIds.default]: "{username}, I appreciate your help in this matter.",
   },
   sorry: {
     // erin
@@ -87,5 +97,6 @@ export const Responses: {
     // partners
     [ResponseIds.partnerRole]:
       "Aww cutie, that's kind of you to apologise. But truly not necessary.",
+    [ResponseIds.default]: "It's okay, {username}. We all have our moments.",
   },
 };
