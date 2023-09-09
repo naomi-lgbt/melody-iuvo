@@ -6,6 +6,7 @@ import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
+import { postReactionRoles } from "../modules/messages/postReactionRoles";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
 import {
@@ -85,6 +86,10 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (content.startsWith("~prune")) {
         await pruneInactiveUsers(bot, message);
+        return;
+      }
+      if (content.startsWith("~roles")) {
+        await postReactionRoles(bot, message);
         return;
       }
     }
