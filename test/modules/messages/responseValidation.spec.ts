@@ -3,6 +3,7 @@ import { assert } from "chai";
 import {
   isGoodMorning,
   isGoodNight,
+  isThanks,
 } from "../../../src/modules/messages/responseValidation";
 
 suite("isGoodMorning", () => {
@@ -38,5 +39,53 @@ suite("isGoodNight", () => {
   });
   test("should not match 'naomi'", () => {
     assert.isFalse(isGoodNight("naomi"));
+  });
+});
+
+suite("isThanks", () => {
+  test("should match 'thanks'", () => {
+    assert.isTrue(isThanks("thanks"));
+  });
+  test("should match 'thank you'", () => {
+    assert.isTrue(isThanks("thank you"));
+  });
+  test("should match 'thankies'", () => {
+    assert.isTrue(isThanks("thankies"));
+  });
+  test("should match 'ty'", () => {
+    assert.isTrue(isThanks("ty"));
+  });
+  test("should match 'thx'", () => {
+    assert.isTrue(isThanks("thx"));
+  });
+  test("should not match 'naomi'", () => {
+    assert.isFalse(isThanks("naomi"));
+  });
+  test("should not match 'tyler'", () => {
+    assert.isFalse(isThanks("tyler"));
+  });
+  test("should not match thxgiving", () => {
+    assert.isFalse(isThanks("thxgiving"));
+  });
+  test("should not match 'no thanks'", () => {
+    assert.isFalse(isThanks("no thanks"));
+  });
+  test("should not match 'no thank you'", () => {
+    assert.isFalse(isThanks("no thank you"));
+  });
+  test("should not match 'no thankies'", () => {
+    assert.isFalse(isThanks("no thankies"));
+  });
+  test("should not match 'no ty'", () => {
+    assert.isFalse(isThanks("no ty"));
+  });
+  test("should not match 'no thx'", () => {
+    assert.isFalse(isThanks("no thx"));
+  });
+  test("should not match 'noty'", () => {
+    assert.isFalse(isThanks("noty"));
+  });
+  test("should not match 'nothx'", () => {
+    assert.isFalse(isThanks("nothx"));
   });
 });
