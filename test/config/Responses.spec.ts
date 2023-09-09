@@ -2,7 +2,12 @@ import { assert } from "chai";
 
 import { Responses } from "../../src/config/Responses";
 
-const ids = ["478752726612967435", "465650873650118659", "710195136700874893"];
+const ids = [
+  "478752726612967435",
+  "465650873650118659",
+  "710195136700874893",
+  "cutie",
+];
 
 suite("Responses", () => {
   const keys = Object.keys(Responses);
