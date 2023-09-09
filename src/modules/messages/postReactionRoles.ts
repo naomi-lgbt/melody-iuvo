@@ -30,7 +30,7 @@ export const postReactionRoles = async (
         .setStyle(ButtonStyle.Primary)
     );
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(buttons);
-    await message.reply({
+    await message.channel.send({
       content: "Hello friends~! Click these buttons to get a role.",
       components: [row],
     });
