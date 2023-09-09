@@ -66,13 +66,16 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         ),
       });
     }
-    if (isThanks(content) && message.mentions.users.size) {
-      await message.reply({
-        content: Responses.thanks[getResponseKey(member)].replace(
-          /\{username\}/g,
-          message.mentions.users.first()?.username || "friend"
-        ),
-      });
+    if (isThanks(content)) {
+      const mentioned = message.mentions.members?.first();
+      if (mentioned) {
+        await message.channel.send({
+          content: Responses.thanks[getResponseKey(mentioned)].replace(
+            /\{username\}/g,
+            mentioned.user.username || "friend"
+          ),
+        });
+      }
     }
 
     if (isOwner(message.author.id)) {

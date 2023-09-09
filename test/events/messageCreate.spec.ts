@@ -1,5 +1,5 @@
 import { assert } from "chai";
-import { ChannelType } from "discord.js";
+import { ChannelType, Collection } from "discord.js";
 import {
   MockChannel,
   MockGuild,
@@ -46,6 +46,10 @@ const channel = new MockChannel({
 const member = new MockMember({
   guild,
   user,
+});
+const naomiMember = new MockMember({
+  guild,
+  user: naomi,
 });
 
 const fakeClient = {
@@ -186,10 +190,35 @@ suite("messageCreate", () => {
     );
   });
 
+  test("should not respond to thanks when no mention", async () => {
+    const msg = await channel.send("thanks", user, member);
+    const collection = new Collection();
+    // @ts-expect-error Assigning to non-defined property until test package is updated
+    msg.mentions = { members: collection };
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 20);
+    const response = channel.messages.cache.last();
+    assert.equal(response?.content, "thanks");
+  });
+
+  test("should respond to thanks when mention", async () => {
+    const msg = await channel.send("thanks", user, member);
+    const collection = new Collection([[naomiMember.id, naomiMember]]);
+    // @ts-expect-error Assigning to non-defined property until test package is updated
+    msg.mentions = { members: collection };
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 22);
+    const response = channel.messages.cache.last();
+    assert.equal(
+      response?.content,
+      "Mistress, are you certain you are not pushing yourself too hard?"
+    );
+  });
+
   test("should process currency", async () => {
     const msg = await channel.send("test", user, member);
     await messageCreate({ db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 20);
+    assert.equal(channel.messages.cache.size, 23);
     const record = await db.users.findUnique({
       where: {
         userId: user.id,
