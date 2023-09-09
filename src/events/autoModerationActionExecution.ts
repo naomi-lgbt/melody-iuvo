@@ -1,6 +1,8 @@
 import { AutoModerationActionExecution } from "discord.js";
 
+import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { getResponseKey } from "../modules/getResponseKey";
 import { errorHandler } from "../utils/errorHandler";
 
 /**
@@ -18,6 +20,13 @@ export const autoModerationActionExecution = async (
       return;
     }
     const { userId, guild } = action;
+    const member =
+      action.member ||
+      guild.members.cache.get(userId) ||
+      (await guild.members.fetch(userId).catch(() => null));
+    if (!member) {
+      return;
+    }
     if (bot.automod[userId] && bot.automod[userId] > Date.now() - 1000 * 60) {
       return;
     }
@@ -29,7 +38,10 @@ export const autoModerationActionExecution = async (
       return;
     }
     await channel.send({
-      content: `Oh dear, it would seem that <@${userId}> has been naughty.`,
+      content: Responses.naughty[getResponseKey(member)].replace(
+        /\{userping\}/g,
+        `<@${userId}>`
+      ),
       stickers: ["1146868650041675908"],
     });
   } catch (err) {
