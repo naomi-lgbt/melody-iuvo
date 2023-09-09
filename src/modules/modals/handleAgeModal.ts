@@ -68,6 +68,10 @@ export const handleAgeModal = async (
     await bot.env.birthdayHook.send({ embeds: [embed] });
 
     await member.roles.add("1150088895782998087");
+    await interaction.editReply({
+      content: "Welcome to the spicy section~!",
+    });
+    return;
   } catch (err) {
     await errorHandler(bot, "handle age modal", err);
   }
