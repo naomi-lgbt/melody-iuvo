@@ -96,7 +96,7 @@ export const interactionCreate = async (
       if (interaction.customId === "answer") {
         await processAnswerModal(bot, interaction);
       }
-      if (interaction.customId === "age-verify") {
+      if (interaction.customId === "age-gate") {
         await handleAgeModal(bot, interaction);
       }
     }
