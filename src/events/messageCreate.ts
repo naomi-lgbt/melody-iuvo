@@ -8,6 +8,7 @@ import { makeChange } from "../modules/makeChange";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
 import { startTicketPost } from "../modules/messages/startTicketPost";
+import { parseCutieRole } from "../modules/parseCutieRole";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
@@ -35,7 +36,10 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       } = message;
       await message.reply({
         content:
-          Responses.melodyPing[id] || "Yes? How may I be of service to you?",
+          Responses.melodyPing[id] ||
+          (message.member &&
+            Responses.melodyPing[parseCutieRole(message.member)]) ||
+          "Yes? How may I be of service to you?",
         stickers: Responses.melodyPing[id] ? [] : ["1146308020444332042"],
       });
     }

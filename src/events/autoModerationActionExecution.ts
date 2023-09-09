@@ -2,6 +2,7 @@ import { AutoModerationActionExecution } from "discord.js";
 
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { parseCutieRole } from "../modules/parseCutieRole";
 import { errorHandler } from "../utils/errorHandler";
 
 /**
@@ -18,7 +19,7 @@ export const autoModerationActionExecution = async (
     if (!process.env.AUTOMOD_TEASE_CHANNEL_ID) {
       return;
     }
-    const { userId, guild } = action;
+    const { userId, guild, member } = action;
     if (bot.automod[userId] && bot.automod[userId] > Date.now() - 1000 * 60) {
       return;
     }
@@ -32,6 +33,7 @@ export const autoModerationActionExecution = async (
     await channel.send({
       content:
         Responses.naughty[userId] ||
+        (member && Responses.naughty[parseCutieRole(member)]) ||
         `Oh dear, it would seem that <@${userId}> has been naughty.`,
       stickers: ["1146868650041675908"],
     });
