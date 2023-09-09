@@ -4,7 +4,7 @@ import { ReferenceData } from "../config/AssetData";
 import { Responses } from "../config/Responses";
 import { AssetHandler, AssetTarget } from "../interfaces/Asset";
 import { Command } from "../interfaces/Command";
-import { parseCutieRole } from "../modules/parseCutieRole";
+import { getResponseKey } from "../modules/getResponseKey";
 import { defaultAssetEmbed } from "../modules/subcommands/assets/defaultAssetEmbed";
 import { handleAdventureAsset } from "../modules/subcommands/assets/handleAdventureAsset";
 import { handleEmoteAsset } from "../modules/subcommands/assets/handleEmoteAsset";
@@ -142,9 +142,7 @@ export const assets: Command = {
       await interaction.editReply({
         content:
           subcommand === "outfit"
-            ? Responses.outfit[interaction.user.id] ||
-              Responses.outfit[parseCutieRole(interaction.member)] ||
-              ""
+            ? Responses.outfit[getResponseKey(interaction.member)]
             : "",
         embeds: [embed],
       });

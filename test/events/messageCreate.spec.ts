@@ -79,7 +79,11 @@ suite("messageCreate", () => {
   });
 
   test("should reply to messages with name when special response", async () => {
-    const msg = await channel.send("melody", naomi, member);
+    const naomiMember = new MockMember({
+      guild,
+      user: naomi,
+    });
+    const msg = await channel.send("melody", naomi, naomiMember);
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 5);
     const response = channel.messages.cache.last();
@@ -153,10 +157,39 @@ suite("messageCreate", () => {
     assert.equal(response?.content, "test");
   });
 
+  test("should respond to good morning", async () => {
+    const msg = await channel.send("good morning", user, member);
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 15);
+    const response = channel.messages.cache.last();
+    assert.equal(response?.content, "Good morning! How are you today?");
+  });
+  test("should respond to good night", async () => {
+    const msg = await channel.send("good night", user, member);
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 17);
+    const response = channel.messages.cache.last();
+    assert.equal(response?.content, "Good night! We shall see you tomorrow.");
+  });
+  // TODO: Cannot test until utility supports mentions
+  // test("should respond to thanks", async () => {
+
+  // });
+  test("should respond to sorry", async () => {
+    const msg = await channel.send("sorry", user, member);
+    await messageCreate({ db } as never, msg as never);
+    assert.equal(channel.messages.cache.size, 19);
+    const response = channel.messages.cache.last();
+    assert.equal(
+      response?.content,
+      `It's okay, Test User. We all have our moments.`
+    );
+  });
+
   test("should process currency", async () => {
     const msg = await channel.send("test", user, member);
     await messageCreate({ db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 14);
+    assert.equal(channel.messages.cache.size, 20);
     const record = await db.users.findUnique({
       where: {
         userId: user.id,

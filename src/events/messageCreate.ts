@@ -3,12 +3,18 @@ import { Message } from "discord.js";
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
+import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
+import {
+  isGoodMorning,
+  isGoodNight,
+  isSorry,
+  isThanks,
+} from "../modules/messages/responseValidation";
 import { startTicketPost } from "../modules/messages/startTicketPost";
-import { parseCutieRole } from "../modules/parseCutieRole";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
@@ -27,29 +33,54 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
+    const { content, member } = message;
+
     if (
       (bot.user && message.mentions.has(bot.user)) ||
-      /melody/i.test(message.content)
+      /melody/i.test(content)
     ) {
-      const {
-        author: { id },
-      } = message;
       await message.reply({
-        content:
-          Responses.melodyPing[id] ||
-          (message.member &&
-            Responses.melodyPing[parseCutieRole(message.member)]) ||
-          "Yes? How may I be of service to you?",
-        stickers: Responses.melodyPing[id] ? [] : ["1146308020444332042"],
+        content: Responses.melodyPing[getResponseKey(message.member)],
+        stickers:
+          getResponseKey(message.member) !== "default"
+            ? []
+            : ["1146308020444332042"],
+      });
+    }
+
+    if (isGoodMorning(content)) {
+      await message.reply({
+        content: Responses.greeting[getResponseKey(member)],
+      });
+    }
+    if (isGoodNight(content)) {
+      await message.reply({
+        content: Responses.goodbye[getResponseKey(member)],
+      });
+    }
+    if (isSorry(content)) {
+      await message.reply({
+        content: Responses.sorry[getResponseKey(member)].replace(
+          /\{username\}/g,
+          message.author.username
+        ),
+      });
+    }
+    if (isThanks(content) && message.mentions.users.size) {
+      await message.reply({
+        content: Responses.thanks[getResponseKey(member)].replace(
+          /\{username\}/g,
+          message.mentions.users.first()?.username || "friend"
+        ),
       });
     }
 
     if (isOwner(message.author.id)) {
-      if (message.content === "~tickets") {
+      if (content === "~tickets") {
         await startTicketPost(bot, message);
         return;
       }
-      if (message.content.startsWith("~prune")) {
+      if (content.startsWith("~prune")) {
         await pruneInactiveUsers(bot, message);
         return;
       }
@@ -78,9 +109,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
     }
 
-    const prefixUsed = record.plurals.find((p) =>
-      message.content.startsWith(p.prefix)
-    );
+    const prefixUsed = record.plurals.find((p) => content.startsWith(p.prefix));
     if (prefixUsed && !proxied) {
       await proxyPluralMessage(bot, message, prefixUsed);
       proxied = true;
@@ -88,7 +117,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
 
     // Currency Logic
     const total = sumCurrency(record.currency);
-    const currencyEarned = calculateMessageCurrency(message.content);
+    const currencyEarned = calculateMessageCurrency(content);
     await bot.db.users.update({
       where: {
         userId: message.author.id,

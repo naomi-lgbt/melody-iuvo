@@ -15,6 +15,15 @@ const user = new MockUser({
   system: false,
 });
 
+const naomiUser = new MockUser({
+  username: "Naomi",
+  avatar: "test",
+  discriminator: 1234,
+  bot: false,
+  system: false,
+});
+// @ts-expect-error overriding ID for testing.
+naomiUser._id = "465650873650118659";
 const action = {
   userId: user.id,
   guild,
@@ -45,11 +54,26 @@ suite("autoModerationActionExecution event", () => {
     assert.equal(channel.messages.cache.size, 0);
   });
 
+  test("should not send if member record not found", async () => {
+    const channel = await guild.channels.create({
+      name: "test-channel",
+      type: ChannelType.GuildText,
+    });
+    process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
+    await autoModerationActionExecution(
+      { automod: {} } as never,
+      action as never
+    );
+    assert.equal(channel.messages.cache.size, 0);
+    delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
+  });
+
   test("should send the message when automod is triggered", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
       type: ChannelType.GuildText,
     });
+    guild.members.add(user);
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(
       { automod: {} } as never,
@@ -68,6 +92,7 @@ suite("autoModerationActionExecution event", () => {
       userId: "465650873650118659",
       guild,
     };
+    guild.members.add(naomiUser);
     const channel = await guild.channels.create({
       name: "test-channel",
       type: ChannelType.GuildText,
