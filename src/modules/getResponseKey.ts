@@ -8,12 +8,12 @@ import { ResponseIds, Responses } from "../config/Responses";
  * @param {GuildMember} member The member payload from Discord.
  * @returns {string} The string to be used in accessing the Responses object.
  */
-export const getResponseKey = (member: GuildMember): string => {
+export const getResponseKey = (member: GuildMember): ResponseIds => {
   if (member.id in Responses._template) {
-    return member.id;
+    return member.id as ResponseIds;
   }
   if (member.roles.cache.find((r) => r.name === "cutie")) {
     return ResponseIds.partnerRole;
   }
-  return "default";
+  return ResponseIds.default;
 };

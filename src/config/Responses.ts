@@ -1,3 +1,13 @@
+type responseEvent =
+  | "_template"
+  | "melodyPing"
+  | "greeting"
+  | "goodbye"
+  | "naughty"
+  | "outfit"
+  | "thanks"
+  | "sorry";
+
 export enum ResponseIds {
   erin = "478752726612967435",
   naomi = "465650873650118659",
@@ -7,8 +17,8 @@ export enum ResponseIds {
 }
 
 export const Responses: {
-  [type: string]: {
-    [userId: string]: string;
+  [type in responseEvent]: {
+    [userId in ResponseIds]: string;
   };
 } = {
   _template: {
@@ -96,7 +106,7 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "Mistress, I am sure your community forgives you.",
     // partners
     [ResponseIds.partnerRole]:
-      "Aww cutie, that's kind of you to apologise. But truly not necessary.",
+      "Aww, {username} cutie, that's kind of you to apologise. But truly not necessary.",
     [ResponseIds.default]: "It's okay, {username}. We all have our moments.",
   },
 };
