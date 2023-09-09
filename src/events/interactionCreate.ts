@@ -1,6 +1,7 @@
 import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { ageGateModal } from "../modules/buttons/ageGateModal";
 import { processRoleButton } from "../modules/buttons/processRoleButton";
 import { questionAnswer } from "../modules/buttons/questionAnswer";
 import { questionDelete } from "../modules/buttons/questionDelete";
@@ -80,6 +81,8 @@ export const interactionCreate = async (
         case "close":
           await ticketCloseHandler(bot, interaction);
           return;
+        case "age-gate":
+          await ageGateModal(bot, interaction);
       }
     }
     if (interaction.isModalSubmit()) {
@@ -96,7 +99,7 @@ export const interactionCreate = async (
       if (interaction.customId === "answer") {
         await processAnswerModal(bot, interaction);
       }
-      if (interaction.customId === "age-gate") {
+      if (interaction.customId === "age-verify") {
         await handleAgeModal(bot, interaction);
       }
     }
