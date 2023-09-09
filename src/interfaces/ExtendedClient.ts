@@ -11,6 +11,7 @@ export interface ExtendedClient extends Client {
     ticketLogHook: WebhookClient;
     pluralLogHook: WebhookClient;
     birthdayHook: WebhookClient;
+    issuesHook: WebhookClient;
   };
   db: PrismaClient;
   commands: Command[];

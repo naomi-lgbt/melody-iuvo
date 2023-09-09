@@ -26,6 +26,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.BIRTHDAY_HOOK) {
     throw new Error("Missing BIRTHDAY_HOOK environment variable");
   }
+  if (!process.env.ISSUES_HOOK) {
+    throw new Error("Missing ISSUES_HOOK environment variable");
+  }
   if (!process.env.MONGO_URI) {
     throw new Error("Missing MONGO_URI environment variable");
   }
@@ -44,6 +47,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
     }),
     birthdayHook: new WebhookClient({
       url: process.env.BIRTHDAY_HOOK,
+    }),
+    issuesHook: new WebhookClient({
+      url: process.env.ISSUES_HOOK,
     }),
   };
 };
