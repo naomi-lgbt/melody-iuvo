@@ -1,6 +1,7 @@
 import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { processRoleButton } from "../modules/buttons/processRoleButton";
 import { questionAnswer } from "../modules/buttons/questionAnswer";
 import { questionDelete } from "../modules/buttons/questionDelete";
 import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
@@ -53,6 +54,9 @@ export const interactionCreate = async (
             "Forgive me, but this can only be done within Naomi's community.",
         });
         return;
+      }
+      if (interaction.customId.startsWith("role")) {
+        await processRoleButton(bot, interaction);
       }
       if (interaction.customId.startsWith("word-")) {
         await wordGuess(bot, interaction);
