@@ -1,5 +1,6 @@
 import { AutoModerationActionExecution } from "discord.js";
 
+import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
 
@@ -29,7 +30,9 @@ export const autoModerationActionExecution = async (
       return;
     }
     await channel.send({
-      content: `Oh dear, it would seem that <@${userId}> has been naughty.`,
+      content:
+        Responses.naughty[userId] ||
+        `Oh dear, it would seem that <@${userId}> has been naughty.`,
       stickers: ["1146868650041675908"],
     });
   } catch (err) {

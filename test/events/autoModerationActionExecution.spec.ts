@@ -63,6 +63,28 @@ suite("autoModerationActionExecution event", () => {
     delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });
 
+  test("should send the message when automod is triggered by special response", async () => {
+    const naomiAction = {
+      userId: "465650873650118659",
+      guild,
+    };
+    const channel = await guild.channels.create({
+      name: "test-channel",
+      type: ChannelType.GuildText,
+    });
+    process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
+    await autoModerationActionExecution(
+      { automod: {} } as never,
+      naomiAction as never
+    );
+    assert.equal(channel.messages.cache.size, 1);
+    assert.equal(
+      channel.messages.cache.first()?.content,
+      "Mistress, you run this community, and you cannot follow the rules?"
+    );
+    delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
+  });
+
   test("should not trigger within the cooldown", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
