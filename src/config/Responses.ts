@@ -76,4 +76,16 @@ export const Responses: {
     [ResponseIds.partnerRole]:
       "we are so grateful to have a cutie like you in our community.",
   },
+  sorry: {
+    // erin
+    [ResponseIds.erin]:
+      "There is nothing you could ever do that would require an apology, my Queen.",
+    // naomi
+    [ResponseIds.naomi]: "Mistress, I am sure your community forgives you.",
+    // naomi alt
+    [ResponseIds.naomiAlt]: "Mistress, I am sure your community forgives you.",
+    // partners
+    [ResponseIds.partnerRole]:
+      "Aww cutie, that's kind of you to apologise. But truly not necessary.",
+  },
 };

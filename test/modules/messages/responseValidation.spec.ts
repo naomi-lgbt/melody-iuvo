@@ -4,6 +4,7 @@ import {
   isGoodMorning,
   isGoodNight,
   isThanks,
+  isSorry,
 } from "../../../src/modules/messages/responseValidation";
 
 suite("isGoodMorning", () => {
@@ -87,5 +88,41 @@ suite("isThanks", () => {
   });
   test("should not match 'nothx'", () => {
     assert.isFalse(isThanks("nothx"));
+  });
+});
+
+suite("isSorry", () => {
+  test("should match 'I'm sorry'", () => {
+    assert.isTrue(isSorry("I'm sorry"));
+  });
+  test("should match 'I apologise'", () => {
+    assert.isTrue(isSorry("I apologise"));
+  });
+  test("should match 'My apologies'", () => {
+    assert.isTrue(isSorry("My apologies"));
+  });
+  test("should match 'My bad'", () => {
+    assert.isTrue(isSorry("My bad"));
+  });
+  test("should match 'oops'", () => {
+    assert.isTrue(isSorry("oops"));
+  });
+  test("should match 'oopsie whoopsie'", () => {
+    assert.isTrue(isSorry("oopsie whoopsie"));
+  });
+  test("should match 'i sowwy'", () => {
+    assert.isTrue(isSorry("i sowwy"));
+  });
+  test("should not match 'naomi'", () => {
+    assert.isFalse(isSorry("naomi"));
+  });
+  test("should not match 'am not sorry'", () => {
+    assert.isFalse(isSorry("am not sorry"));
+  });
+  test("should not match 'no apologies needed'", () => {
+    assert.isFalse(isSorry("no apologies needed"));
+  });
+  test("should not match 'i no sowwy'", () => {
+    assert.isFalse(isSorry("i no sowwy"));
   });
 });
