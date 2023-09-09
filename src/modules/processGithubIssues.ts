@@ -22,15 +22,6 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     const github = new Octokit({
       auth: process.env.GITHUB_TOKEN,
     });
-    const guild = await bot.guilds.fetch(bot.env.homeGuild);
-    const channel = await guild.channels.fetch(process.env.ISSUE_CHANNEL_ID);
-    if (!channel || !channel.isTextBased()) {
-      await bot.env.debugHook.send({
-        content:
-          "Tried to post issues, but ISSUE_CHANNEL_ID is not a text channel.",
-      });
-      return;
-    }
     const rawData = await fetch("https://contribute-api.naomi.lgbt/data");
     const data = (await rawData.json()) as GithubData;
     delete data.updatedAt;
