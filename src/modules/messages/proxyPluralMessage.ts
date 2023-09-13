@@ -57,13 +57,15 @@ export const proxyPluralMessage = async (
       };
 
       content.embeds?.push(
-        new EmbedBuilder().setDescription(originalMsg.content).setAuthor({
-          name: originalMsg.author.username,
-          iconURL: originalMsg.author.displayAvatarURL(),
-          url: originalMsg.url,
-        })
+        new EmbedBuilder()
+          .setDescription(originalMsg.content)
+          .setAuthor({
+            name: originalMsg.author.username,
+            iconURL: originalMsg.author.displayAvatarURL(),
+            url: originalMsg.url,
+          })
+          .setURL(originalMsg.url)
       );
-    }
     await webhook.send(content);
     await message.delete();
 
