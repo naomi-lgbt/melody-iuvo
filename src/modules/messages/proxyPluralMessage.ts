@@ -1,5 +1,9 @@
 import { Plural } from "@prisma/client";
-import { EmbedBuilder } from "discord.js";
+import {
+  EmbedBuilder,
+  MessageType,
+  WebhookMessageCreateOptions,
+} from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
 import { GuildMessage } from "../../interfaces/GuildMessage";
@@ -28,7 +32,7 @@ export const proxyPluralMessage = async (
       webhooks.find((w) => w.owner && bot.user && w.owner.id === bot.user.id) ||
       (await channel.createWebhook({ name: "Melody's Plural System" }));
 
-    await webhook.send({
+    const content: WebhookMessageCreateOptions = {
       content: message.content.startsWith(identity.prefix)
         ? message.content.replace(`${identity.prefix} `, "")
         : message.content,
@@ -37,7 +41,33 @@ export const proxyPluralMessage = async (
       allowedMentions: {
         parse: [],
       },
-    });
+      embeds: [],
+    };
+
+    if (message.type === MessageType.Reply && message?.reference?.messageId) {
+      const originalMsg = await message.channel.messages.fetch(
+        message.reference.messageId
+      );
+
+      content.content =
+        (message.mentions.users.size ? `<@${originalMsg.author.id}>, ` : "") +
+        `${content.content}`;
+      content.allowedMentions = {
+        users: [originalMsg.author.id],
+      };
+
+      content.embeds?.push(
+        new EmbedBuilder()
+          .setDescription(originalMsg.content)
+          .setAuthor({
+            name: originalMsg.author.username,
+            iconURL: originalMsg.author.displayAvatarURL(),
+            url: originalMsg.url,
+          })
+          .setURL(originalMsg.url)
+      );
+    }
+    await webhook.send(content);
     await message.delete();
 
     await bot.env.pluralLogHook.send({
