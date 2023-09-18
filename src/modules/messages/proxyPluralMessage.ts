@@ -66,21 +66,21 @@ export const proxyPluralMessage = async (
           })
           .setURL(originalMsg.url)
       );
-      await webhook.send(content);
-      await message.delete();
-
-      await bot.env.pluralLogHook.send({
-        embeds: [
-          new EmbedBuilder()
-            .setTitle("Message proxied.")
-            .setDescription(message.content.slice(0, 4000))
-            .setAuthor({
-              name: message.author.username,
-              iconURL: message.author.displayAvatarURL(),
-            }),
-        ],
-      });
     }
+    await webhook.send(content);
+    await message.delete();
+
+    await bot.env.pluralLogHook.send({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("Message proxied.")
+          .setDescription(message.content.slice(0, 4000))
+          .setAuthor({
+            name: message.author.username,
+            iconURL: message.author.displayAvatarURL(),
+          }),
+      ],
+    });
   } catch (err) {
     await errorHandler(bot, "proxy plural message", err);
   }
