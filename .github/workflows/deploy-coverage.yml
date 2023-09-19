@@ -8,8 +8,8 @@ jobs:
   deploy:
     strategy:
       matrix:
-        node-version: [18.x]
-    runs-on: ubuntu-latest
+        node-version: [20.x]
+    runs-on: ubuntu-20.04
     continue-on-error: true
     steps:
       - name: Checkout Source Files

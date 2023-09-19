@@ -18,7 +18,7 @@
     "url": "git+ssh://git@github.com/naomi-lgbt/melody-iuvo.git"
   },
   "engines": {
-    "node": "18",
+    "node": "20",
     "pnpm": "8"
   },
   "keywords": [
