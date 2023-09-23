@@ -50,6 +50,12 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       });
     }
 
+    if (
+      message.member.roles.cache.find((r) => r.name === "Naomi") ||
+      message.member.roles.cache.find((r) => r.name === "cutie")
+    ) {
+      await message.react("<a:love:1149580277220388985>");
+    }
     if (isGoodMorning(content)) {
       await message.reply({
         content: Responses.greeting[getResponseKey(member)],
