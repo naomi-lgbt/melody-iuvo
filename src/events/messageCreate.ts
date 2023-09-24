@@ -37,6 +37,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
 
     const { content, member } = message;
 
+    if (message.channel?.id === bot.env?.ventChannel) {
+      setTimeout(async () => await message.delete(), 1000 * 60 * 60);
+      return;
+    }
+
     if (
       (bot.user && message.mentions.has(bot.user)) ||
       /melody/i.test(content)
