@@ -6,8 +6,8 @@ suite("isOwner", () => {
   test("should return true with Naomi's work ID", () => {
     assert.isTrue(isOwner("465650873650118659"));
   });
-  test("should return true with Naomi's personal ID", () => {
-    assert.isTrue(isOwner("710195136700874893"));
+  test("should return false with Naomi's former personal ID", () => {
+    assert.isFalse(isOwner("710195136700874893"));
   });
   test("should return false with a random ID", () => {
     assert.isFalse(isOwner("716707753090875473"));

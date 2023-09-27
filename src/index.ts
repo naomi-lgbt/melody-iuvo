@@ -6,6 +6,7 @@ import { autoModerationActionExecution } from "./events/autoModerationActionExec
 import { clientReady } from "./events/clientReady";
 import { interactionCreate } from "./events/interactionCreate";
 import { messageCreate } from "./events/messageCreate";
+import { voiceStateUpdate } from "./events/voiceStateUpdate";
 import { ExtendedClient } from "./interfaces/ExtendedClient";
 import { errorHandler } from "./utils/errorHandler";
 import { loadCommands } from "./utils/loadCommands";
@@ -63,6 +64,10 @@ import { validateEnv } from "./utils/validateEnv";
 
     bot.on(Events.AutoModerationActionExecution, async (action) => {
       await autoModerationActionExecution(bot, action);
+    });
+
+    bot.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+      await voiceStateUpdate(bot, oldState, newState);
     });
 
     /**
