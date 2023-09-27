@@ -67,7 +67,7 @@ export const handleAgeModal = async (
     embed.setColor(Colors.DarkGreen);
     await bot.env.birthdayHook.send({ embeds: [embed] });
 
-    await member.roles.add("1150088895782998087");
+    await member.roles.add("1156444314159824907");
     await interaction.editReply({
       content: "Welcome to the spicy section~!",
     });
