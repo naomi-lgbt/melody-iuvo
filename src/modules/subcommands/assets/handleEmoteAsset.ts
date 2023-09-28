@@ -23,9 +23,13 @@ export const handleEmoteAsset: AssetHandler = async (
         alt: "Test Alt",
         description: "Test Description",
       };
+      let index = 1;
+      let total = 1;
       if (!process.env.MOCHA) {
         const fileList = await getAssetList<Emote[]>(target, "emotes");
         file = getRandomValue(fileList);
+        index = fileList.findIndex((f) => f.fileName === file.fileName) + 1;
+        total = fileList.length;
       }
       const { fileName, name, description } = file;
       const embed = new EmbedBuilder();
@@ -38,6 +42,10 @@ export const handleEmoteAsset: AssetHandler = async (
         });
       }
       embed.setImage(`https://cdn.naomi.lgbt/${target}/emotes/${fileName}`);
+      embed.setFooter({
+        text: `Adventure ${index} of ${total}`,
+        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+      });
       return embed;
     }
 
