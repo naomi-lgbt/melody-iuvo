@@ -28,7 +28,7 @@ export const handlePortraitAsset: AssetHandler = async (
       let index = 1;
       let total = 1;
       if (!process.env.MOCHA) {
-        const fileList = await getAssetList<Portrait[]>(target, "adventures");
+        const fileList = await getAssetList<Portrait[]>(target, "portraits");
         file = getRandomValue(fileList);
         index = fileList.findIndex((f) => f.fileName === file.fileName) + 1;
         total = fileList.length;
