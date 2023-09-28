@@ -21,15 +21,23 @@ export const handleKoikatsuAsset: AssetHandler = async (
       alt: "Test Alt",
       description: "Test Description",
     };
+    let index = 1;
+    let total = 1;
     if (!process.env.MOCHA) {
       const fileList = await getAssetList<Pose[]>(target, "poses");
       file = getRandomValue(fileList);
+      index = fileList.findIndex((f) => f.fileName === file.fileName) + 1;
+      total = fileList.length;
     }
     const { fileName, name, description } = file;
     const embed = new EmbedBuilder();
     embed.setTitle(name);
     embed.setDescription(description);
     embed.setImage(`https://cdn.naomi.lgbt/${target}/koikatsu/${fileName}`);
+    embed.setFooter({
+      text: `Pose ${index} of ${total}`,
+      iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+    });
     return embed;
   } catch (err) {
     await errorHandler(bot, "handle koikatsu asset", err);

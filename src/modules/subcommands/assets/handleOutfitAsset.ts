@@ -20,15 +20,23 @@ export const handleOutfitAsset: AssetHandler = async (
       alt: "Test Alt",
       description: "Test Description",
     };
+    let index = 1;
+    let total = 1;
     if (!process.env.MOCHA) {
       const fileList = await getAssetList<Outfit[]>("naomi", "outfits");
       outfit = getRandomValue(fileList);
+      index = fileList.findIndex((f) => f.fileName === outfit.fileName) + 1;
+      total = fileList.length;
     }
 
     const embed = new EmbedBuilder();
     embed.setTitle(outfit.name);
     embed.setDescription(outfit.description);
     embed.setImage(`https://cdn.naomi.lgbt/naomi/outfits/${outfit.fileName}`);
+    embed.setFooter({
+      text: `Outfit ${index} of ${total}`,
+      iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`,
+    });
 
     return embed;
   } catch (err) {
