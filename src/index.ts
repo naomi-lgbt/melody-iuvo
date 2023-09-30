@@ -43,6 +43,7 @@ import { validateEnv } from "./utils/validateEnv";
     bot.cache = {
       wordGame: {},
       slots: {},
+      tarot: {},
     };
     bot.ticketLogs = {};
     await loadCommands(bot);

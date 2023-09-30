@@ -1,5 +1,99 @@
 import { TarotCard } from "../interfaces/TarotCard";
 
+export const TarotChoices = {
+  general: "I seek guidance in my past, present, and future.",
+  relationship: "I need guidance in my relationship.",
+  findLove: "I want help finding love.",
+  breakup: "I want to know why my last relationship failed.",
+  guidance: "I want general guidance.",
+  newJob: "I want guidance on a job offer or promotion I received.",
+  career: "I seek direction in my career.",
+  healing: "I want to heal from my past trauma and learn to love myself.",
+  present: "I want to understand where I currently am in life.",
+  future: "I want to know what the future holds.",
+};
+
+export const TarotHeaders: {
+  [key in keyof typeof TarotChoices]: {
+    first: string;
+    second: string;
+    third: string;
+    fourth: string;
+    fifth: string;
+  };
+} = {
+  general: {
+    first: "This card describes your past:",
+    second: "This card describes your present:",
+    third: "This card describes your future:",
+    fourth: "Here is what holds you back:",
+    fifth: "This is how you push forward:",
+  },
+  relationship: {
+    first: "This card describes you:",
+    second: "This card describes your partner:",
+    third: "This card describes your relationship:",
+    fourth: "The positive things:",
+    fifth: "The negative things:",
+  },
+  findLove: {
+    first: "This card describes you:",
+    second: "This card describes your past relationships:",
+    third: "What goes well in a relationship:",
+    fourth: "What hasn't gone well:",
+    fifth: "What you should work on:",
+  },
+  breakup: {
+    first: "Here's your part in the breakup:",
+    second: "Here's your partner's part in the breakup:",
+    third: "These outside forces affected the relationship:",
+    fourth: "What did you gain from the relationship:",
+    fifth: "What you still need to learn:",
+  },
+  guidance: {
+    first: "This represents past influences:",
+    second: "This represents your current situation:",
+    third: "These unexpected issues may occur:",
+    fourth: "Here's the best path forward:",
+    fifth: "Here could be the result:",
+  },
+  newJob: {
+    first: "Here are the positives of the new job:",
+    second: "Here are the negatives of the new job:",
+    third: "Here is where you are at in your career:",
+    fourth: "This is the best path forward:",
+    fifth: "Here could be the result:",
+  },
+  career: {
+    first: "Here is your current career situation:",
+    second: "Here is your attitude towards your career:",
+    third: "Here is what keeps you from excelling:",
+    fourth: "Here is what you should work on:",
+    fifth: "This is your next step:",
+  },
+  healing: {
+    first: "This is what makes you wonderful:",
+    second: "This is why you should be proud of yourself:",
+    third: "You have this to offer to others:",
+    fourth: "These thoughts are harming your ability to love yourself:",
+    fifth: "Do this to feel better about yourself:",
+  },
+  present: {
+    first: "This reflects where your love life is at:",
+    second: "This reflects where your family life is at:",
+    third: "This reflects where your career is at:",
+    fourth: "These are the positive forces in your life:",
+    fifth: "These are the negative forces in your life:",
+  },
+  future: {
+    first: "This represents your near future, and what is important:",
+    second: "This represents your future in love:",
+    third: "This represents your future in your career:",
+    fourth: "This represents your future in health:",
+    fifth: "This represents your future in family and home life:",
+  },
+};
+
 /**
  * {@link} Adapted from: https://github.com/ekelen/tarot-api/blob/main/static/card_data.json.
  */
