@@ -36,6 +36,11 @@ export interface ExtendedClient extends Client {
         balance: number;
       };
     };
+    tarot: {
+      [userId: string]: {
+        lastPlayed: number;
+      };
+    };
   };
   ticketLogs: { [key: string]: string };
 }
