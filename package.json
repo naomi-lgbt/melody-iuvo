@@ -11,7 +11,8 @@
     "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
     "test": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
     "test:nocov": "MOCHA=true ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
-    "posttest": "ts-node test/validateCoverage.ts --post-coverage"
+    "posttest": "ts-node test/validateCoverage.ts --post-coverage",
+    "twitchAuth": "ts-node script/twitchAuth.ts"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,9 @@
   "dependencies": {
     "@octokit/rest": "20.0.2",
     "@prisma/client": "5.4.1",
+    "@twurple/api": "7.0.3",
+    "@twurple/auth": "7.0.3",
+    "@twurple/eventsub-ws": "7.0.3",
     "discord.js": "14.13.0",
     "dotenv": "16.3.1",
     "jsdom": "22.1.0",
