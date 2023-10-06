@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Client, WebhookClient } from "discord.js";
+import { Client, Message, WebhookClient } from "discord.js";
 
 import { Command } from "./Command";
 
@@ -22,6 +22,7 @@ export interface ExtendedClient extends Client {
   automod: {
     [userId: string]: number;
   };
+  twitchNotif: Message | undefined;
   cache: {
     slots: {
       [userId: string]: {
