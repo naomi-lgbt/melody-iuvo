@@ -33,10 +33,9 @@ export const tarot: Command = {
     try {
       await interaction.deferReply();
 
-      if (
-        bot.cache.tarot[interaction.user.id]?.lastPlayed ??
-        0 > Date.now() - 1000 * 60 * 60 * 24
-      ) {
+      const cached = bot.cache.tarot[interaction.user.id]?.lastPlayed ?? 0;
+      const yesterday = Date.now() - 1000 * 60 * 60 * 24;
+      if (cached > yesterday) {
         await interaction.editReply({
           content:
             "It is dangerous to do more than one reading per day. You risk angering many spirits.",
