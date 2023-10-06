@@ -23,6 +23,9 @@ suite("isGoodMorning", () => {
   test("should not match 'naomi'", () => {
     assert.isFalse(isGoodMorning("naomi"));
   });
+  test("should not match morningggggg", () => {
+    assert.isFalse(isGoodMorning("morningggggg"));
+  });
 });
 
 suite("isGoodNight", () => {
@@ -40,6 +43,9 @@ suite("isGoodNight", () => {
   });
   test("should not match 'naomi'", () => {
     assert.isFalse(isGoodNight("naomi"));
+  });
+  test("should not match 'good nighty'", () => {
+    assert.isFalse(isGoodNight("good nighty"));
   });
 });
 
@@ -124,5 +130,8 @@ suite("isSorry", () => {
   });
   test("should not match 'i no sowwy'", () => {
     assert.isFalse(isSorry("i no sowwy"));
+  });
+  test("should not match scoops", () => {
+    assert.isFalse(isSorry("scoops"));
   });
 });
