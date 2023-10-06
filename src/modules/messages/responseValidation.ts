@@ -5,7 +5,7 @@
  * @returns {boolean} If the string matches.
  */
 export const isGoodMorning = (content: string): boolean =>
-  /good\s+(?:morning|day)|g'(?:morning|day)/i.test(content);
+  /\b(?:good\s+(?:morning|day)|g'(?:morning|day))\b/i.test(content);
 
 /**
  * Checks if a message matches a good night greeting.
@@ -14,7 +14,7 @@ export const isGoodMorning = (content: string): boolean =>
  * @returns {boolean} If the string matches.
  */
 export const isGoodNight = (content: string): boolean =>
-  /good\s+night|g'night|night\s+night|nini/i.test(content);
+  /\b(?:good\s+night|g'night|night\s+night|nini)\b/i.test(content);
 
 /**
  * Checks if a message is a thank you.
@@ -23,7 +23,7 @@ export const isGoodNight = (content: string): boolean =>
  * @returns {boolean} If the string matches.
  */
 export const isThanks = (content: string): boolean =>
-  /(?<!no\s*)thanks|(?<!no\s*)thank\s+you|(?<!no\s*)thankies|(?<!no\s*)\bty\b|(?<!no\s*)\bthx\b/i.test(
+  /\b(?:(?<!no\s*)thanks|(?<!no\s*)thank\s+you|(?<!no\s*)thankies|(?<!no\s*)ty|(?<!no\s*)thx)\b/i.test(
     content
   );
 
@@ -34,6 +34,6 @@ export const isThanks = (content: string): boolean =>
  * @returns {boolean} If the string matches.
  */
 export const isSorry = (content: string): boolean =>
-  /(?<!not\s*)sorry|(?<!no\s*)apologies|i\s+apologise|my\s+bad|oops|oopsie|(?<!not?\s*)sowwy/i.test(
+  /\b(?:(?<!not\s*)sorry|(?<!no\s*)apologies|i\s+apologise|my\s+bad|oops|oopsie|(?<!not?\s*)sowwy)\b/i.test(
     content
   );
