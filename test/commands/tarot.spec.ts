@@ -122,4 +122,37 @@ suite("tarot command", () => {
       "It is dangerous to do more than one reading per day. You risk angering many spirits."
     );
   });
+
+  test("should allow a run after more than 24 hours", async () => {
+    const command = new MockChatInputCommandInteraction({
+      commandName: "tarot",
+      guild,
+      bot,
+      user,
+      member,
+      channel,
+      options: [
+        {
+          name: "type",
+          value: "general",
+          type: ApplicationCommandOptionType.String,
+        },
+      ],
+    });
+    cache.tarot[user.id] = {
+      lastPlayed: Date.now() - 1000 * 60 * 60 * 25,
+    };
+    await tarot.run({ cache } as never, command as never);
+    assert.equal(command.replies.length, 1);
+    const embed = command.replies[0]?.embeds?.[0] as EmbedBuilder;
+    assert.exists(embed);
+    assert.equal(embed.data.title, "Your Tarot Reading");
+    assert.equal(embed.data.description, TarotChoices.general);
+    assert.equal(embed.data.fields?.length, 5);
+    assert.equal(embed.data.fields?.[0].name, TarotHeaders.general.first);
+    assert.equal(embed.data.fields?.[1].name, TarotHeaders.general.second);
+    assert.equal(embed.data.fields?.[2].name, TarotHeaders.general.third);
+    assert.equal(embed.data.fields?.[3].name, TarotHeaders.general.fourth);
+    assert.equal(embed.data.fields?.[4].name, TarotHeaders.general.fifth);
+  });
 });
