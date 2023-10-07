@@ -1,5 +1,5 @@
 import { ExtendedClient } from "../interfaces/ExtendedClient";
-import { SteamResponse } from "../interfaces/SteamGame";
+import { SteamResponse } from "../interfaces/Steam";
 
 import { errorHandler } from "./errorHandler";
 
