@@ -28,7 +28,7 @@ export const CurrencyItems: Item[] = [
   {
     name: "Custom Colour Role",
     description:
-      "You get your very own custom colour role, which you get to name AND set the colour for.",
+      "You get your very own custom colour role, which you get to name AND set the colour for. These are limited to 25 roles, after which the older ones will be replaced by the newer ones as purchased.",
     price: 250_000,
     internalId: "colour-role",
   },
