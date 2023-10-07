@@ -6,6 +6,13 @@ export const GameQueue: {
   purchased: boolean;
 }[] = [
   {
+    name: "Symphony of War",
+    url: "https://store.steampowered.com/app/1488200/Symphony_of_War_The_Nephilim_Saga/",
+    image: "https://cdn.akamai.steamstatic.com/steam/apps/1488200/header.jpg",
+    time: 36,
+    purchased: false,
+  },
+  {
     name: "Lost Sphear",
     url: "https://store.steampowered.com/app/525240/LOST_SPHEAR/",
     image:
@@ -46,10 +53,11 @@ export const GameQueue: {
     purchased: false,
   },
   {
-    name: "Symphony of War",
-    url: "https://store.steampowered.com/app/1488200/Symphony_of_War_The_Nephilim_Saga/",
-    image: "https://cdn.akamai.steamstatic.com/steam/apps/1488200/header.jpg",
-    time: 36,
+    name: "Telepath Tactics",
+    url: "https://store.steampowered.com/app/1849820/Telepath_Tactics_Liberated/",
+    image:
+      "https://store.steampowered.com/app/1849820/Telepath_Tactics_Liberated/",
+    time: 25,
     purchased: false,
   },
   {
@@ -103,10 +111,25 @@ export const GameQueue: {
     purchased: false,
   },
   {
+    name: "Rise of the Third Power",
+    url: "https://store.steampowered.com/app/698700/Rise_of_the_Third_Power/",
+    image: "https://store.steampowered.com/app/698700/Rise_of_the_Third_Power/",
+    time: 32,
+    purchased: false,
+  },
+  {
     name: "The Sea Between",
     url: "https://store.steampowered.com/app/896550/The_Sea_Between/",
     image: "https://cdn.akamai.steamstatic.com/steam/apps/896550/header.jpg",
     time: 25,
+    purchased: false,
+  },
+  {
+    name: "Heroines of Swords and Spells",
+    url: "https://store.steampowered.com/app/1212400/Heroines_of_Swords__Spells/",
+    image:
+      "https://store.steampowered.com/app/1212400/Heroines_of_Swords__Spells/",
+    time: 20,
     purchased: false,
   },
 ];
