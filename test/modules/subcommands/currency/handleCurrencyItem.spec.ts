@@ -13,6 +13,9 @@ import {
   MockWebhook,
 } from "discordjs-testing";
 
+import { CurrencyItems } from "../../../../src/config/Currency";
+import { makeChange } from "../../../../src/modules/makeChange";
+import { parseCurrencyString } from "../../../../src/modules/parseCurrencyString";
 import { handleCurrencyItem } from "../../../../src/modules/subcommands/currency/handleCurrencyItem";
 
 const guild = new MockGuild({
@@ -59,7 +62,7 @@ suite("handleCurrencyItem", () => {
       options: [
         {
           name: "target",
-          value: "bio-slot",
+          value: CurrencyItems[0].internalId,
           type: ApplicationCommandOptionType.String,
         },
       ],
@@ -71,16 +74,12 @@ suite("handleCurrencyItem", () => {
     );
     assert.equal(command.replies.length, 1);
     const embed = command.replies[0]?.embeds?.[0] as EmbedBuilder;
-    assert.equal(embed?.toJSON().title, "Slot in Bio");
-    assert.equal(
-      embed?.toJSON().description,
-      "Naomi's personal account has a space in her bio for a special person. You can become that special person, until someone buys this again and takes the slot from you."
-    );
+    assert.equal(embed?.toJSON().title, CurrencyItems[0].name);
+    assert.equal(embed?.toJSON().description, CurrencyItems[0].description);
     assert.deepEqual(embed?.toJSON().fields, [
       {
-        name: "53,921 NaomiCoin",
-        value:
-          "<:naomicopper:1146242994475900938>: 21\n<:naomisilver:1146242999471321159>: 39\n<:naomigold:1146242995893583973>: 5\n<:naomiplatinum:1146242997252530246>: 0\n<:naomiamethyst:1146242992315826206>: 0",
+        name: `${CurrencyItems[0].price.toLocaleString()} NaomiCoin`,
+        value: parseCurrencyString(makeChange(CurrencyItems[0].price)),
       },
     ]);
   });

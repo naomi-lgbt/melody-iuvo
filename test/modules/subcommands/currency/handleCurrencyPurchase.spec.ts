@@ -9,6 +9,8 @@ import {
   MockWebhook,
 } from "discordjs-testing";
 
+import { CurrencyItems } from "../../../../src/config/Currency";
+import { makeChange } from "../../../../src/modules/makeChange";
 import { handleCurrencyPurchase } from "../../../../src/modules/subcommands/currency/handleCurrencyPurchase";
 import { Database } from "../../../__mocks__/Database.mock";
 
@@ -57,7 +59,7 @@ suite("handleCurrencyPurchase", () => {
       options: [
         {
           name: "target",
-          value: "bio-slot",
+          value: CurrencyItems[0].internalId,
           type: ApplicationCommandOptionType.String,
         },
       ],
@@ -70,7 +72,9 @@ suite("handleCurrencyPurchase", () => {
     assert.equal(command.replies.length, 1);
     assert.equal(
       command.replies[0]?.content,
-      "It would seem you don't have enough NaomiCoin to purchase a **Slot in Bio**!\nYou have 0 NaomiCoin, and need 53,921."
+      `It would seem you don't have enough NaomiCoin to purchase a **${
+        CurrencyItems[0].name
+      }**!\nYou have 0 NaomiCoin, and need ${CurrencyItems[0].price.toLocaleString()}.`
     );
     assert.isTrue(command.ephemeral);
   });
@@ -117,7 +121,7 @@ suite("handleCurrencyPurchase", () => {
       options: [
         {
           name: "target",
-          value: "bio-slot",
+          value: CurrencyItems[0].internalId,
           type: ApplicationCommandOptionType.String,
         },
       ],
@@ -148,7 +152,7 @@ suite("handleCurrencyPurchase", () => {
       options: [
         {
           name: "target",
-          value: "bio-slot",
+          value: CurrencyItems[0].internalId,
           type: ApplicationCommandOptionType.String,
         },
       ],
@@ -160,22 +164,10 @@ suite("handleCurrencyPurchase", () => {
       },
       create: {
         userId: user.id,
-        currency: {
-          copper: 21,
-          silver: 39,
-          gold: 5,
-          platinum: 0,
-          amethyst: 0,
-        },
+        currency: makeChange(CurrencyItems[0].price),
       },
       update: {
-        currency: {
-          copper: 21,
-          silver: 39,
-          gold: 5,
-          platinum: 0,
-          amethyst: 0,
-        },
+        currency: makeChange(CurrencyItems[0].price),
       },
     });
     await handleCurrencyPurchase(
@@ -184,7 +176,7 @@ suite("handleCurrencyPurchase", () => {
     );
     assert.strictEqual(
       command.replies[0]?.content,
-      "It is my pleasure to present you with a **Slot in Bio**!\nYou now have 0 NaomiCoin."
+      `It is my pleasure to present you with a **${CurrencyItems[0].name}**!\nYou now have 0 NaomiCoin.`
     );
   });
 });
