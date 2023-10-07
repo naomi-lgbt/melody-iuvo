@@ -47,7 +47,7 @@
     "luxon": "3.4.3",
     "node-html-to-image": "4.0.0",
     "random": "3",
-    "winston": "3.10.0"
+    "winston": "3.11.0"
   },
   "devDependencies": {
     "@nhcarrigan/eslint-config": "1.1.3",
