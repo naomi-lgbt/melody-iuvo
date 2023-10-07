@@ -11,9 +11,9 @@ export const CurrencyName = "NaomiCoin";
 export const CurrencyValues: { [key in keyof users["currency"]]: number } = {
   copper: 1,
   silver: 100,
-  gold: 10000,
-  platinum: 1000000,
-  amethyst: 100000000,
+  gold: 10_000,
+  platinum: 1_000_000,
+  amethyst: 100_000_000,
 };
 
 export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
@@ -29,70 +29,70 @@ export const CurrencyItems: Item[] = [
     name: "Custom Colour Role",
     description:
       "You get your very own custom colour role, which you get to name AND set the colour for.",
-    price: 201680,
+    price: 250_000,
     internalId: "colour-role",
   },
   {
     name: "Set Naomi's Nickname",
     description:
       "Make Naomi change her nickname in the server to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
-    price: 66928,
+    price: 50_000,
     internalId: "set-nick",
   },
   {
     name: "Shut Naomi Up",
     description:
       "Make Naomi shut up for the remainder of her day. She cannot send any messages in this server (except in response to a project or work related query).",
-    price: 2984743,
+    price: 3_000_000,
     internalId: "shut-up",
   },
   {
     name: "Set Naomi's Status",
     description:
       "Make Naomi change her status (on her personal account) to whatever you want. Will stay for the remainder of her day. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
-    price: 415002,
+    price: 500_000,
     internalId: "set-status",
   },
   {
     name: "No Pings Please",
     description:
       "Naomi is not allowed to use the `everyone` or `here` pings for the rest of the month! Announcements are going to be very quiet.",
-    price: 732237,
+    price: 1_000_000,
     internalId: "no-pings",
   },
   {
     name: "Choose Stream Outfit",
     description:
       "Select the outfit for Naomi's next stream! Outfits may be viewed on her [website](<https://naomi.lgbt/tailor>)",
-    price: 1398241,
+    price: 1_500_000,
     internalId: "set-outfit",
   },
   {
     name: "Holopin Badge",
     description:
       "You get a special badge from our [Holopin Organisation](https://holopin.io/@naomis-novas)!",
-    price: 100000000,
+    price: 100_000_000,
     internalId: "holopin",
   },
   {
     name: "Choose Stream Game",
     description:
       "Choose the game to go next in Naomi's stream queue (behind any previously purchased games). Must be a game she has on her [Steam Library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>), unless you wish to gift her a game.",
-    price: 200000000,
+    price: 200_000_000,
     internalId: "stream-game",
   },
   {
     name: "Guest Star on Stream",
     description:
       "You get to vibe with Naomi in a voice call during her next stream!",
-    price: 300000000,
+    price: 300_000_000,
     internalId: "stream-guest",
   },
   {
     name: "Go on a 'Date' with Naomi",
     description:
       "You get an hour of time to vibe with Naomi, but you have to do the planning. You could play games, pair on some code, get your resume or project reviewed, and more! Must be family-friendly and appropriate for our community.",
-    price: 500000000,
+    price: 500_000_000,
     internalId: "date",
   },
 ];
