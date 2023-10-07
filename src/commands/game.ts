@@ -36,7 +36,11 @@ export const game: Command = {
       embed.setDescription(data.short_description);
       embed.setURL(data.website);
       embed.setImage(data.header_image);
-      await interaction.editReply({ embeds: [embed] });
+      await interaction.editReply({
+        content:
+          "[View Naomi's full library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>)",
+        embeds: [embed],
+      });
     } catch (err) {
       await errorHandler(bot, "game command", err);
       await interaction.editReply({
