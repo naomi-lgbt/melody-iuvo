@@ -39,6 +39,10 @@ export const game: Command = {
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
       await errorHandler(bot, "game command", err);
+      await interaction.editReply({
+        content:
+          "Forgive me, but I failed to complete your request. Please try again later.",
+      });
     }
   },
 };
