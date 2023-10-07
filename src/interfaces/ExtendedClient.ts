@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { Client, Message, WebhookClient } from "discord.js";
 
 import { Command } from "./Command";
+import { SteamGame } from "./Steam";
 
 export interface ExtendedClient extends Client {
   env: {
@@ -44,4 +45,5 @@ export interface ExtendedClient extends Client {
     };
   };
   ticketLogs: { [key: string]: string };
+  games: SteamGame[];
 }

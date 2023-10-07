@@ -1,7 +1,7 @@
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { errorHandler } from "../utils/errorHandler";
-import { logHandler } from "../utils/logHandler";
+import { loadSteam } from "../utils/loadSteam";
 import { mountTwitch } from "../utils/mountTwitch";
 import { registerCommands } from "../utils/registerCommands";
 
@@ -15,8 +15,9 @@ export const clientReady = async (bot: ExtendedClient) => {
     await registerCommands(bot);
     await processGithubIssues(bot);
     await mountTwitch(bot);
+    await loadSteam(bot);
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
-    logHandler.log("info", "Bot is ready.");
+    await bot.env.debugHook.send("Bot is ready.");
   } catch (err) {
     await errorHandler(bot, "client ready event", err);
   }
