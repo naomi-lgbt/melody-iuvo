@@ -46,8 +46,8 @@ export const mountTwitch = async (bot: ExtendedClient) => {
       const stream = await e.getStream();
       const result = await channel.send(
         stream
-          ? `# ${stream.title}\n\n<@!1154535918930231326>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
-          : "<@!1154535918930231326>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"
+          ? `# ${stream.title}\n\n<@&1154535918930231326>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
+          : "<@&1154535918930231326>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"
       );
       bot.twitchNotif = result;
     });
