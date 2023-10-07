@@ -26,13 +26,6 @@ export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
 
 export const CurrencyItems: Item[] = [
   {
-    name: "Slot in Bio",
-    description:
-      "Naomi's personal account has a space in her bio for a special person. You can become that special person, until someone buys this again and takes the slot from you.",
-    price: 53921,
-    internalId: "bio-slot",
-  },
-  {
     name: "Custom Colour Role",
     description:
       "You get your very own custom colour role, which you get to name AND set the colour for.",
@@ -40,16 +33,9 @@ export const CurrencyItems: Item[] = [
     internalId: "colour-role",
   },
   {
-    name: "Upload an Emote",
+    name: "Set Naomi's Nickname",
     description:
-      "You can submit an emote to be uploaded to the server. Must be family-friendly and appropriate for this community.",
-    price: 1291083,
-    internalId: "upload-emote",
-  },
-  {
-    name: "Set Naomi's Display Name",
-    description:
-      "Make Naomi change her display name (on her personal account) to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
+      "Make Naomi change her nickname in the server to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
     price: 66928,
     internalId: "set-nick",
   },
@@ -63,7 +49,7 @@ export const CurrencyItems: Item[] = [
   {
     name: "Set Naomi's Status",
     description:
-      "Make Naomi change her status (on her personal account) to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
+      "Make Naomi change her status (on her personal account) to whatever you want. Will stay for the remainder of her day. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
     price: 415002,
     internalId: "set-status",
   },
@@ -75,11 +61,11 @@ export const CurrencyItems: Item[] = [
     internalId: "no-pings",
   },
   {
-    name: "Choose Naomi's Avatar",
+    name: "Choose Stream Outfit",
     description:
-      "Make Naomi change her avatar (on her personal account) to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community, and comply with Discord ToS.",
+      "Select the outfit for Naomi's next stream! Outfits may be viewed on her [website](<https://naomi.lgbt/tailor>)",
     price: 1398241,
-    internalId: "set-avatar",
+    internalId: "set-outfit",
   },
   {
     name: "Holopin Badge",
@@ -87,6 +73,20 @@ export const CurrencyItems: Item[] = [
       "You get a special badge from our [Holopin Organisation](https://holopin.io/@naomis-novas)!",
     price: 100000000,
     internalId: "holopin",
+  },
+  {
+    name: "Choose Stream Game",
+    description:
+      "Choose the game to go next in Naomi's stream queue (behind any previously purchased games). Must be a game she has on her [Steam Library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>), unless you wish to gift her a game.",
+    price: 200000000,
+    internalId: "stream-game",
+  },
+  {
+    name: "Guest Star on Stream",
+    description:
+      "You get to vibe with Naomi in a voice call during her next stream!",
+    price: 300000000,
+    internalId: "stream-guest",
   },
   {
     name: "Go on a 'Date' with Naomi",
