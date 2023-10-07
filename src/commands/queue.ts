@@ -101,7 +101,6 @@ export const queue: Command = {
         });
       });
     } catch (err) {
-      console.log(err);
       await errorHandler(bot, "queue command", err);
       await interaction.editReply({
         content:
