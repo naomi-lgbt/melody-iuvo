@@ -29,6 +29,15 @@ export const queue: Command = {
       first.setFooter({
         text: `Game ${index + 1} out of ${GameQueue.length}`,
       });
+      if (GameQueue[index].purchased) {
+        first.addFields([
+          {
+            name: "Community Selected",
+            value:
+              "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue.",
+          },
+        ]);
+      }
 
       const prev = new ButtonBuilder()
         .setCustomId("prev")
@@ -87,6 +96,15 @@ export const queue: Command = {
                 ) + " hours"
           }\nTimes are estimated based on howlongtobeat.com and user reviews.`
         );
+        if (GameQueue[index].purchased) {
+          embed.addFields([
+            {
+              name: "Community Selected",
+              value:
+                "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue.",
+            },
+          ]);
+        }
         embed.setFooter({
           text: `Game ${index + 1} out of ${GameQueue.length}`,
         });
