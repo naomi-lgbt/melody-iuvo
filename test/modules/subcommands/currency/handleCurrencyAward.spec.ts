@@ -84,7 +84,7 @@ suite("handleCurrencyAward", () => {
     assert.equal(command.replies.length, 1);
     assert.equal(
       command.replies[0]?.content,
-      "Only my Mama may use this command."
+      "Only Mama Naomi may use this command."
     );
     assert.isTrue(command.ephemeral);
   });

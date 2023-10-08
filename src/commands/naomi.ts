@@ -14,7 +14,7 @@ const handlers: { [key: string]: CommandHandler } = {
 export const naomi: Command = {
   data: new SlashCommandBuilder()
     .setName("naomi")
-    .setDescription("Commands related to my Mama Naomi.")
+    .setDescription("Commands related to Mama Naomi.")
     .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()

@@ -53,7 +53,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       });
     }
     await bot.env.issuesHook.send({
-      content: `Forgive my intrusion, but it would seem my Mama is seeking your assistance with her work.\n\n${formatted}`,
+      content: `Forgive my intrusion, but it would seem our Mama is seeking your assistance with her work.\n\n${formatted}`,
     });
   } catch (err) {
     await errorHandler(bot, "process github issues", err);

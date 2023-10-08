@@ -42,7 +42,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     // at noon every day
     scheduleJob("0 12 * * *", async () => {
       await channel.send({
-        content: `Remember that you can donate to support my Mama's work: <https://donate.nhcarrigan.com>`,
+        content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`,
       });
     });
   } catch (err) {

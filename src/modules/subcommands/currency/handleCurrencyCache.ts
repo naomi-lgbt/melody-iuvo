@@ -10,7 +10,7 @@ export const handleCurrencyCache: CommandHandler = async (bot, interaction) => {
   try {
     if (!isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only my Mama may use this command.",
+        content: "Only Mama Naomi may use this command.",
       });
       return;
     }
