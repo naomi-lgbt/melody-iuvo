@@ -91,10 +91,7 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 5);
     const response = channel.messages.cache.last();
-    assert.equal(
-      response?.content,
-      "Hello, Mama. Might I be of assistance?"
-    );
+    assert.equal(response?.content, "Hello, Mama. Might I be of assistance?");
   });
 
   test("should process ticket command", async () => {

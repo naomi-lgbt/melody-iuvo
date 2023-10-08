@@ -44,8 +44,7 @@ export const Responses: {
     [ResponseIds.erin]:
       "Do you wish to help pick an outfit for Naomi? How is this one?",
     [ResponseIds.naomi]: "Mama, I chose this outfit for your next event.",
-    [ResponseIds.naomiAlt]:
-      "Mama, I chose this outfit for your next event.",
+    [ResponseIds.naomiAlt]: "Mama, I chose this outfit for your next event.",
     [ResponseIds.partnerRole]:
       "Looking through your beloved's wardrobe? Did you have a specific outfit in mind?",
     [ResponseIds.default]: "",
@@ -75,8 +74,7 @@ export const Responses: {
     [ResponseIds.erin]:
       "May you rest well. Dream of Naomi as she dreams of you.",
     [ResponseIds.naomi]: "Sleep well, Mama. I shall be here when you wake.",
-    [ResponseIds.naomiAlt]:
-      "Sleep well, Mama. I shall be here when you wake.",
+    [ResponseIds.naomiAlt]: "Sleep well, Mama. I shall be here when you wake.",
     [ResponseIds.partnerRole]:
       "Good night cutie. I am sure Mama will miss you.",
     [ResponseIds.default]: "Good night! We shall see you tomorrow.",
