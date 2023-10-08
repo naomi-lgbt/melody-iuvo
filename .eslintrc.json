@@ -15,7 +15,7 @@
       }
     },
     {
-      "files": ["src/modules/processGithubIssues.ts"],
+      "files": ["src/modules/processGithubIssues.ts", "src/server/serve.ts"],
       "rules": {
         "camelcase": ["error", { "allow": ["issue_number"] }]
       }

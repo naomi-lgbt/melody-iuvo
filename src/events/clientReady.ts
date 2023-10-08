@@ -2,6 +2,7 @@ import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processGithubIssues } from "../modules/processGithubIssues";
+import { serve } from "../server/serve";
 import { errorHandler } from "../utils/errorHandler";
 import { loadSteam } from "../utils/loadSteam";
 import { mountTwitch } from "../utils/mountTwitch";
@@ -18,6 +19,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     await processGithubIssues(bot);
     await mountTwitch(bot);
     await loadSteam(bot);
+    await serve(bot);
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
     await bot.env.debugHook.send("Bot is ready.");
 
