@@ -1,4 +1,5 @@
 import { scheduleJob } from "node-schedule";
+
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { errorHandler } from "../utils/errorHandler";
