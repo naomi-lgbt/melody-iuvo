@@ -105,7 +105,7 @@ suite("autoModerationActionExecution event", () => {
     assert.equal(channel.messages.cache.size, 1);
     assert.equal(
       channel.messages.cache.first()?.content,
-      "Mistress, you run this community, and you cannot follow the rules?"
+      "Mama, you run this community, and you cannot follow the rules?"
     );
     delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });

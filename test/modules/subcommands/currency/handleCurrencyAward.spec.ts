@@ -84,7 +84,7 @@ suite("handleCurrencyAward", () => {
     assert.equal(command.replies.length, 1);
     assert.equal(
       command.replies[0]?.content,
-      "Only my Mistress may use this command."
+      "Only my Mama may use this command."
     );
     assert.isTrue(command.ephemeral);
   });
@@ -121,7 +121,7 @@ suite("handleCurrencyAward", () => {
     );
     assert.strictEqual(
       command.replies[0]?.content,
-      "It would seem they are currently in the middle of a game. Best not to disturb them, Mistress."
+      "It would seem they are currently in the middle of a game. Best not to disturb them, Mama."
     );
   });
 

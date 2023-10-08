@@ -82,7 +82,7 @@ suite("handleCurrencyCache", () => {
     assert.equal(command.replies.length, 1);
     assert.equal(
       command.replies[0]?.content,
-      "Only my Mistress may use this command."
+      "Only my Mama may use this command."
     );
   });
 

@@ -61,7 +61,7 @@ export const handleCurrencyPurchase: CommandHandler = async (
       }**!\nYou now have ${newTotal.toLocaleString()} ${CurrencyName}.`,
     });
     await interaction.channel?.send({
-      content: `Mistress, ${interaction.user.username} has purchased ${item.name}!`,
+      content: `Mama, ${interaction.user.username} has purchased ${item.name}!`,
     });
   } catch (err) {
     await errorHandler(bot, "currency purchase command", err);

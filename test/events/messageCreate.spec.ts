@@ -93,7 +93,7 @@ suite("messageCreate", () => {
     const response = channel.messages.cache.last();
     assert.equal(
       response?.content,
-      "Hello, Mistress. Might I be of assistance?"
+      "Hello, Mama. Might I be of assistance?"
     );
   });
 
@@ -211,7 +211,7 @@ suite("messageCreate", () => {
     const response = channel.messages.cache.last();
     assert.equal(
       response?.content,
-      "Mistress, are you certain you are not pushing yourself too hard?"
+      "Mama, are you certain you are not pushing yourself too hard?"
     );
   });
 

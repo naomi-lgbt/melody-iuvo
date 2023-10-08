@@ -58,7 +58,7 @@ export const processQuestionModal = async (
     );
 
     await channel.send({
-      content: `Mistress, someone asked a question:\n\n${question}`,
+      content: `Mama, someone asked a question:\n\n${question}`,
       components: [row],
     });
     await interaction.editReply({
