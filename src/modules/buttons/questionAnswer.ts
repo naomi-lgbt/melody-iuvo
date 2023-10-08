@@ -23,7 +23,7 @@ export const questionAnswer = async (
   try {
     if (!isOwner(interaction.user.id)) {
       await interaction.reply({
-        content: "Only my Mistress can click these buttons.",
+        content: "Only Mama Naomi can click these buttons.",
         ephemeral: true,
       });
       return;

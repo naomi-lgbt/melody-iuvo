@@ -14,7 +14,7 @@ const handlers: { [key: string]: CommandHandler } = {
 export const naomi: Command = {
   data: new SlashCommandBuilder()
     .setName("naomi")
-    .setDescription("Commands related to my Mistress Naomi.")
+    .setDescription("Commands related to Mama Naomi.")
     .setDMPermission(false)
     .addSubcommand(
       new SlashCommandSubcommandBuilder()
@@ -46,7 +46,7 @@ export const naomi: Command = {
       new SlashCommandSubcommandBuilder()
         .setName("ask")
         .setDescription(
-          "Ask my mistress an anonymous question. Make sure to follow our community guidelines."
+          "Ask Mama Naomi an anonymous question. Make sure to follow our community guidelines."
         )
     ),
   run: async (bot, interaction) => {

@@ -13,7 +13,7 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
   try {
     if (!isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only my Mistress may use this command.",
+        content: "Only Mama Naomi may use this command.",
       });
       return;
     }
@@ -21,7 +21,7 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
     if (bot.cache.wordGame[target.id]) {
       await interaction.editReply({
         content:
-          "It would seem they are currently in the middle of a game. Best not to disturb them, Mistress.",
+          "It would seem they are currently in the middle of a game. Best not to disturb them, Mama.",
       });
       return;
     }
@@ -29,7 +29,7 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
     const userRecord = await getDatabaseRecord(bot, target.id);
     if (!userRecord) {
       await interaction.editReply({
-        content: "Please forgive me, Mistress. I cannot find their records.",
+        content: "Please forgive me, Mama. I cannot find their records.",
       });
       return;
     }
