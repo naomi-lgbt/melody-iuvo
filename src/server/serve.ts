@@ -110,15 +110,15 @@ export const serve = async (bot: ExtendedClient) => {
 
   if (process.env.NODE_ENV === "production") {
     const privateKey = await readFile(
-      "/etc/letsencrypt/live/example.com/privkey.pem",
+      "/etc/letsencrypt/live/melody.naomi.lgbt/privkey.pem",
       "utf8"
     );
     const certificate = await readFile(
-      "/etc/letsencrypt/live/example.com/cert.pem",
+      "/etc/letsencrypt/live/melody.naomi.lgbt/cert.pem",
       "utf8"
     );
     const ca = await readFile(
-      "/etc/letsencrypt/live/example.com/chain.pem",
+      "/etc/letsencrypt/live/melody.naomi.lgbt/chain.pem",
       "utf8"
     );
 
