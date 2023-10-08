@@ -60,12 +60,12 @@ export const serve = async (bot: ExtendedClient) => {
       }
       res.status(200).send("Signature is correct.");
 
-      if (IgnoredActors.includes(req.body.sender?.login)) {
+      const event = req.headers["x-github-event"];
+      if (event !== "pull_request") {
         return;
       }
 
-      const event = req.headers["x-github-event"];
-      if (event !== "pull_request") {
+      if (IgnoredActors.includes(req.body.pull_request.user.login)) {
         return;
       }
 
