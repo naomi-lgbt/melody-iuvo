@@ -1,3 +1,5 @@
+import { execSync } from "child_process";
+
 import { PrismaClient } from "@prisma/client";
 import { ActivityType, Client, Events, GatewayIntentBits } from "discord.js";
 
@@ -45,6 +47,7 @@ import { validateEnv } from "./utils/validateEnv";
       slots: {},
       tarot: {},
     };
+    bot.commit = execSync("git rev-parse HEAD").toString().trim();
     bot.ticketLogs = {};
     await loadCommands(bot);
 

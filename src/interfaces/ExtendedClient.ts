@@ -15,6 +15,7 @@ export interface ExtendedClient extends Client {
     issuesHook: WebhookClient;
     ventChannel: string;
   };
+  commit: string;
   db: PrismaClient;
   commands: Command[];
   cooldowns: {
