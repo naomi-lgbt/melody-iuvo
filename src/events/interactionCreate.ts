@@ -2,6 +2,7 @@ import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { ageGateModal } from "../modules/buttons/ageGateModal";
+import { processComfortButton } from "../modules/buttons/processComfortButton";
 import { processRoleButton } from "../modules/buttons/processRoleButton";
 import { questionAnswer } from "../modules/buttons/questionAnswer";
 import { questionDelete } from "../modules/buttons/questionDelete";
@@ -56,6 +57,9 @@ export const interactionCreate = async (
             "Forgive me, but this can only be done within Naomi's community.",
         });
         return;
+      }
+      if (interaction.customId === "comfort") {
+        await processComfortButton(bot, interaction);
       }
       if (interaction.customId.startsWith("role")) {
         await processRoleButton(bot, interaction);

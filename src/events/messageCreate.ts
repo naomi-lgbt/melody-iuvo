@@ -16,6 +16,7 @@ import {
   isThanks,
 } from "../modules/messages/responseValidation";
 import { startAgeGate } from "../modules/messages/startAgeGate";
+import { startComfortPost } from "../modules/messages/startComfortPost";
 import { startTicketPost } from "../modules/messages/startTicketPost";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
@@ -92,6 +93,10 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     }
 
     if (isOwner(message.author.id)) {
+      if (content === "~comfort") {
+        await startComfortPost(bot, message);
+        return;
+      }
       if (content === "~tickets") {
         await startTicketPost(bot, message);
         return;
