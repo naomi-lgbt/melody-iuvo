@@ -47,5 +47,10 @@ jobs:
       - name: Verify Build
         run: pnpm run build
 
+      ## This command swallows the failure code, which allows us to
+      ## generate the coverage so the about command tests work
+      - name: Generate Coverage
+        run: pnpm run test:generate
+
       - name: Run Tests
         run: pnpm run test

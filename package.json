@@ -10,6 +10,7 @@
     "start": "node -r dotenv/config prod/index.js",
     "pretest": "rimraf ./.nyc_output && ts-node test/validateCoverage.ts",
     "test": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
+    "test:generate": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000 || true",
     "test:nocov": "MOCHA=true ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
     "posttest": "ts-node test/validateCoverage.ts --post-coverage",
     "twitchAuth": "ts-node script/twitchAuth.ts"
