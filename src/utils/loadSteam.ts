@@ -13,6 +13,7 @@ export const loadSteam = async (bot: ExtendedClient) => {
     if (!process.env.STEAM_KEY) {
       bot.games = [];
       await bot.env.debugHook.send("No steam key present. Skipping game load.");
+      return;
     }
     const raw = await fetch(
       `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${process.env.STEAM_KEY}&steamid=76561198011176280&format=json`
