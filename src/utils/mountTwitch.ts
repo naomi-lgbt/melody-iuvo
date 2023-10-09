@@ -43,13 +43,19 @@ export const mountTwitch = async (bot: ExtendedClient) => {
     const client = new ApiClient({ authProvider: auth });
     const listener = new EventSubWsListener({ apiClient: client });
     listener.onStreamOnline("592893397", async (e) => {
+      if (bot.twitchNotif) {
+        await bot.twitchNotif.unpin().catch(() => null);
+      }
       const stream = await e.getStream();
       const result = await channel.send(
         stream
-          ? `# ${stream.title}\n\n<@&1154535918930231326>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
-          : "<@&1154535918930231326>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"
+          ? `# ${stream.title}\n\n<@&1160803262828642357>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
+          : "<@&1160803262828642357>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"
       );
-      bot.twitchNotif = result;
+      if (bot.twitchNotif?.id !== result.id) {
+        bot.twitchNotif = result;
+        await result.pin().catch(() => null);
+      }
     });
     listener.onStreamOffline("592893397", async (e) => {
       if (bot.twitchNotif) {
@@ -65,7 +71,6 @@ export const mountTwitch = async (bot: ExtendedClient) => {
           content: `Naomi has gone offline. Watch her latest VOD: ${vod.data[0].url}`,
         });
       }
-      delete bot.twitchNotif;
     });
     listener.start();
   } catch (err) {
