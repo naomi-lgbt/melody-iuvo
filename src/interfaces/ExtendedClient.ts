@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Client, Message, WebhookClient } from "discord.js";
+import { Client, Message, TextChannel, WebhookClient } from "discord.js";
 
 import { Command } from "./Command";
 import { SteamGame } from "./Steam";
@@ -17,6 +17,7 @@ export interface ExtendedClient extends Client {
   };
   commit: string;
   db: PrismaClient;
+  general: TextChannel;
   commands: Command[];
   cooldowns: {
     [userId: string]: number;
