@@ -22,7 +22,7 @@ export const loadGeneralChannel = async (bot: ExtendedClient) => {
       return;
     }
 
-    const channel = homeGuild.channels.cache.find((c) => c.name === "testing");
+    const channel = homeGuild.channels.cache.find((c) => c.name === "general");
     if (!channel || channel.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "General channel not found. Some features may not work."
