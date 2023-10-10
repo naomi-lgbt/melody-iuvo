@@ -19,23 +19,6 @@ export const mountTwitch = async (bot: ExtendedClient) => {
       );
       return;
     }
-    const homeGuild =
-      bot.guilds.cache.get(bot.env.homeGuild) ||
-      (await bot.guilds.fetch(bot.env.homeGuild));
-    if (!homeGuild) {
-      await bot.env.debugHook.send(
-        "Home guild not found. Twitch will not be loaded."
-      );
-      return;
-    }
-
-    const channel = homeGuild.channels.cache.find((c) => c.name === "general");
-    if (!channel || !channel.isTextBased()) {
-      await bot.env.debugHook.send(
-        "General channel not found. Twitch will not be loaded."
-      );
-      return;
-    }
     const auth = new StaticAuthProvider(
       process.env.TWITCH_CLIENT_ID,
       process.env.TWITCH_ACCESS_TOKEN
@@ -47,7 +30,7 @@ export const mountTwitch = async (bot: ExtendedClient) => {
         await bot.twitchNotif.unpin().catch(() => null);
       }
       const stream = await e.getStream();
-      const result = await channel.send(
+      const result = await bot.general.send(
         stream
           ? `# ${stream.title}\n\n<@&1160803262828642357>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
           : "<@&1160803262828642357>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"

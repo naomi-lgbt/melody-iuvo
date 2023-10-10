@@ -4,6 +4,7 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { serve } from "../server/serve";
 import { errorHandler } from "../utils/errorHandler";
+import { loadGeneralChannel } from "../utils/loadGeneralChannel";
 import { loadSteam } from "../utils/loadSteam";
 import { mountTwitch } from "../utils/mountTwitch";
 import { registerCommands } from "../utils/registerCommands";
@@ -17,33 +18,19 @@ export const clientReady = async (bot: ExtendedClient) => {
   try {
     await registerCommands(bot);
     await processGithubIssues(bot);
+    await loadGeneralChannel(bot);
     await mountTwitch(bot);
     await loadSteam(bot);
     await serve(bot);
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
     await bot.env.debugHook.send("Bot is ready.");
 
-    const guild =
-      bot.guilds.cache.get(bot.env.homeGuild) ||
-      (await bot.guilds.fetch(bot.env.homeGuild));
-    if (!guild) {
-      await bot.env.debugHook.send("Cannot find home guild.");
-      return;
-    }
-    const channel = guild.channels.cache.find((c) => c.name === "general");
-    if (!channel || !channel.isTextBased()) {
-      await bot.env.debugHook.send(
-        "General channel not found. Twitch will not be loaded."
-      );
-      return;
-    }
-
-    await channel.send({
+    await bot.general.send({
       content: "I am back from my nap!",
     });
     // at noon every day
     scheduleJob("0 12 * * *", async () => {
-      await channel.send({
+      await bot.general.send({
         content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`,
       });
     });
