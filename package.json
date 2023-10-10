@@ -1,6 +1,6 @@
 {
   "name": "melody-iuvo",
-  "version": "1.20.0",
+  "version": "1.21.0",
   "description": "This bot helps manage my community.",
   "main": "prod/index.js",
   "scripts": {
