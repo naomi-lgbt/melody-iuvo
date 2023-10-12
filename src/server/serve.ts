@@ -101,7 +101,9 @@ export const serve = async (bot: ExtendedClient) => {
       return;
     }
 
-    const user = req.body.data.included.find(
+    const obj = JSON.parse(req.body);
+
+    const user = obj.included.find(
       (obj: Record<string, string>) => obj.type === "user"
     );
 
