@@ -33,6 +33,44 @@ export const serve = async (bot: ExtendedClient) => {
     res.send("Melody online!");
   });
 
+  app.post("/patreon", async (req, res) => {
+    // validate headers
+    const header = req.headers["x-patreon-signature"];
+    if (!header) {
+      await bot.env.debugHook.send(
+        "Received request with no signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("No valid signature present.");
+      return;
+    }
+    const signature = createHmac("md5", secret);
+    const hash = signature.update(JSON.stringify(req.body)).digest("hex");
+    if (hash !== header) {
+      await bot.env.debugHook.send(
+        "Received request with bad signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("Signature is not correct.");
+      return;
+    }
+    res.status(200).send("Signature is correct.");
+
+    const event = req.headers["x-patreon-event"];
+
+    if (event !== "pledge:create") {
+      return;
+    }
+
+    const user = req.body.data.included.find(
+      (obj: Record<string, string>) => obj.type === "user"
+    );
+
+    await bot.general.send({
+      content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`,
+    });
+  });
+
   app.post("/github", async (req, res) => {
     try {
       const header = req.headers["x-hub-signature-256"];
