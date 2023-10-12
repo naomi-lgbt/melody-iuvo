@@ -16,21 +16,46 @@ import { errorHandler } from "../utils/errorHandler";
  * @param {ExtendedClient} bot The bot's Discord instance.
  */
 export const serve = async (bot: ExtendedClient) => {
-  const secret = process.env.GITHUB_WEBHOOK_SECRET;
+  const githubSecret = process.env.GITHUB_WEBHOOK_SECRET;
+  const kofiSecret = process.env.KOFI_WEBHOOK_SECRET;
   const token = process.env.GITHUB_TOKEN;
-  if (!secret || !token) {
+  if (!githubSecret || !token || !kofiSecret) {
     await bot.env.debugHook.send(
-      "No GitHub webhook secret provided.  Web server will not be started."
+      "Missing necessary secrets.  Web server will not be started."
     );
     return;
   }
   const app = express();
+  app.use(express.urlencoded());
   app.use(express.json());
 
   // mount your middleware and routes here
 
   app.get("/", (req, res) => {
     res.send("Melody online!");
+  });
+
+  app.post("/kofi", async (req, res) => {
+    const payload = req.body.data;
+    if (!payload) {
+      await bot.env.debugHook.send(
+        "Received request with no payload.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(400).send("Invalid payload.");
+      return;
+    }
+    if (payload.verification_token !== process.env.KOFI_TOKEN) {
+      await bot.env.debugHook.send(
+        "Received request with bad signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("Invalid signature.");
+      return;
+    }
+    await bot.general.send({
+      content: `## Big thanks to ${payload.from_name} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`,
+    });
   });
 
   app.post("/patreon", async (req, res) => {
@@ -44,7 +69,7 @@ export const serve = async (bot: ExtendedClient) => {
       res.status(403).send("No valid signature present.");
       return;
     }
-    const signature = createHmac("md5", secret);
+    const signature = createHmac("md5", githubSecret);
     const hash = signature.update(JSON.stringify(req.body)).digest("hex");
     if (hash !== header) {
       await bot.env.debugHook.send(
@@ -82,7 +107,7 @@ export const serve = async (bot: ExtendedClient) => {
         res.status(403).send("No valid signature present.");
         return;
       }
-      const signature = createHmac("sha256", secret)
+      const signature = createHmac("sha256", githubSecret)
         .update(JSON.stringify(req.body))
         .digest("hex");
       const trusted = Buffer.from(`sha256=${signature}`, "ascii");
