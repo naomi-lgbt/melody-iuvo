@@ -16,21 +16,85 @@ import { errorHandler } from "../utils/errorHandler";
  * @param {ExtendedClient} bot The bot's Discord instance.
  */
 export const serve = async (bot: ExtendedClient) => {
-  const secret = process.env.GITHUB_WEBHOOK_SECRET;
+  const githubSecret = process.env.GITHUB_WEBHOOK_SECRET;
+  const patreonSecret = process.env.PATREON_WEBHOOK_SECRET;
+  const kofiSecret = process.env.KOFI_WEBHOOK_SECRET;
   const token = process.env.GITHUB_TOKEN;
-  if (!secret || !token) {
+  if (!githubSecret || !token || !kofiSecret || !patreonSecret) {
     await bot.env.debugHook.send(
-      "No GitHub webhook secret provided.  Web server will not be started."
+      "Missing necessary secrets.  Web server will not be started."
     );
     return;
   }
   const app = express();
+  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
   // mount your middleware and routes here
 
   app.get("/", (req, res) => {
     res.send("Melody online!");
+  });
+
+  app.post("/kofi", async (req, res) => {
+    const payload = req.body.data;
+    if (!payload) {
+      await bot.env.debugHook.send(
+        "Received request with no payload.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(400).send("Invalid payload.");
+      return;
+    }
+    if (payload.verification_token !== process.env.KOFI_TOKEN) {
+      await bot.env.debugHook.send(
+        "Received request with bad signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("Invalid signature.");
+      return;
+    }
+    await bot.general.send({
+      content: `## Big thanks to ${payload.from_name} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`,
+    });
+  });
+
+  app.post("/patreon", async (req, res) => {
+    // validate headers
+    const header = req.headers["x-patreon-signature"];
+    if (!header) {
+      await bot.env.debugHook.send(
+        "Received request with no signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("No valid signature present.");
+      return;
+    }
+    const signature = createHmac("md5", patreonSecret);
+    const hash = signature.update(JSON.stringify(req.body)).digest("hex");
+    if (hash !== header) {
+      await bot.env.debugHook.send(
+        "Received request with bad signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 2000)
+      );
+      res.status(403).send("Signature is not correct.");
+      return;
+    }
+    res.status(200).send("Signature is correct.");
+
+    const event = req.headers["x-patreon-event"];
+
+    if (event !== "pledge:create") {
+      return;
+    }
+
+    const user = req.body.data.included.find(
+      (obj: Record<string, string>) => obj.type === "user"
+    );
+
+    await bot.general.send({
+      content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`,
+    });
   });
 
   app.post("/github", async (req, res) => {
@@ -44,7 +108,7 @@ export const serve = async (bot: ExtendedClient) => {
         res.status(403).send("No valid signature present.");
         return;
       }
-      const signature = createHmac("sha256", secret)
+      const signature = createHmac("sha256", githubSecret)
         .update(JSON.stringify(req.body))
         .digest("hex");
       const trusted = Buffer.from(`sha256=${signature}`, "ascii");
@@ -61,6 +125,11 @@ export const serve = async (bot: ExtendedClient) => {
       res.status(200).send("Signature is correct.");
 
       const event = req.headers["x-github-event"];
+      if (event === "sponsorship" && req.body.action === "created") {
+        await bot.general.send({
+          content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`,
+        });
+      }
       if (event !== "pull_request") {
         return;
       }
