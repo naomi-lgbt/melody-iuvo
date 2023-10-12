@@ -61,6 +61,11 @@ export const serve = async (bot: ExtendedClient) => {
       res.status(200).send("Signature is correct.");
 
       const event = req.headers["x-github-event"];
+      if (event === "sponsorship" && req.body.action === "created") {
+        await bot.general.send({
+          content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`,
+        });
+      }
       if (event !== "pull_request") {
         return;
       }
