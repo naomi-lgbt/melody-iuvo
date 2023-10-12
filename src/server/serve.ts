@@ -17,16 +17,17 @@ import { errorHandler } from "../utils/errorHandler";
  */
 export const serve = async (bot: ExtendedClient) => {
   const githubSecret = process.env.GITHUB_WEBHOOK_SECRET;
+  const patreonSecret = process.env.PATREON_WEBHOOK_SECRET;
   const kofiSecret = process.env.KOFI_WEBHOOK_SECRET;
   const token = process.env.GITHUB_TOKEN;
-  if (!githubSecret || !token || !kofiSecret) {
+  if (!githubSecret || !token || !kofiSecret || !patreonSecret) {
     await bot.env.debugHook.send(
       "Missing necessary secrets.  Web server will not be started."
     );
     return;
   }
   const app = express();
-  app.use(express.urlencoded());
+  app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
   // mount your middleware and routes here
@@ -69,7 +70,7 @@ export const serve = async (bot: ExtendedClient) => {
       res.status(403).send("No valid signature present.");
       return;
     }
-    const signature = createHmac("md5", githubSecret);
+    const signature = createHmac("md5", patreonSecret);
     const hash = signature.update(JSON.stringify(req.body)).digest("hex");
     if (hash !== header) {
       await bot.env.debugHook.send(
