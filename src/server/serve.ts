@@ -27,6 +27,7 @@ export const serve = async (bot: ExtendedClient) => {
     return;
   }
   const app = express();
+  app.post("/patreon", express.text({ type: "*/*" }));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
@@ -77,18 +78,17 @@ export const serve = async (bot: ExtendedClient) => {
     const header = req.headers["x-patreon-signature"];
     if (!header) {
       await bot.env.debugHook.send(
-        "Received request with no signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 1500)
+        "Received request with no signature.\n\n" + req.body.slice(0, 1500)
       );
       res.status(403).send("No valid signature present.");
       return;
     }
-    const signature = createHmac("md5", patreonSecret);
-    const hash = signature.update(JSON.stringify(req.body)).digest("hex");
+    const hash = createHmac("MD5", patreonSecret)
+      .update(req.body)
+      .digest("hex");
     if (hash !== header) {
       await bot.env.debugHook.send(
-        "Received request with bad signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 1500)
+        "Received request with bad signature.\n\n" + req.body.slice(0, 1500)
       );
       res.status(403).send("Signature is not correct.");
       return;
@@ -97,7 +97,7 @@ export const serve = async (bot: ExtendedClient) => {
 
     const event = req.headers["x-patreon-event"];
 
-    if (event !== "pledge:create") {
+    if (event !== "pledges:create") {
       return;
     }
 
