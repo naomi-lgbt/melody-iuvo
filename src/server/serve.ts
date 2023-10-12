@@ -27,6 +27,7 @@ export const serve = async (bot: ExtendedClient) => {
     return;
   }
   const app = express();
+  app.post("/patreon", express.text({ type: "*/*" }));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
@@ -37,25 +38,38 @@ export const serve = async (bot: ExtendedClient) => {
   });
 
   app.post("/kofi", async (req, res) => {
-    const payload = req.body.data;
-    if (!payload) {
+    const payload = JSON.parse(req.body.data);
+    const {
+      verification_token: verifyToken,
+      from_name: fromName,
+      is_subscription_payment: isSub,
+      is_first_subscription_payment: isFirstSub,
+    } = payload;
+    if (!verifyToken) {
       await bot.env.debugHook.send(
-        "Received request with no payload.\n\n" +
-          JSON.stringify(req.body).slice(0, 2000)
+        "Received request with no signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 1500)
       );
       res.status(400).send("Invalid payload.");
       return;
     }
-    if (payload.verification_token !== process.env.KOFI_TOKEN) {
+    if (verifyToken !== kofiSecret) {
       await bot.env.debugHook.send(
         "Received request with bad signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 2000)
+          JSON.stringify(req.body).slice(0, 1500)
       );
       res.status(403).send("Invalid signature.");
       return;
     }
+    res.status(200).send("Valid signature found!");
+
+    // ignore recurring subscriptions
+    if (isSub && !isFirstSub) {
+      return;
+    }
+
     await bot.general.send({
-      content: `## Big thanks to ${payload.from_name} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`,
+      content: `## Big thanks to ${fromName} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`,
     });
   });
 
@@ -64,18 +78,17 @@ export const serve = async (bot: ExtendedClient) => {
     const header = req.headers["x-patreon-signature"];
     if (!header) {
       await bot.env.debugHook.send(
-        "Received request with no signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 2000)
+        "Received request with no signature.\n\n" + req.body.slice(0, 1500)
       );
       res.status(403).send("No valid signature present.");
       return;
     }
-    const signature = createHmac("md5", patreonSecret);
-    const hash = signature.update(JSON.stringify(req.body)).digest("hex");
+    const hash = createHmac("MD5", patreonSecret)
+      .update(req.body)
+      .digest("hex");
     if (hash !== header) {
       await bot.env.debugHook.send(
-        "Received request with bad signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 2000)
+        "Received request with bad signature.\n\n" + req.body.slice(0, 1500)
       );
       res.status(403).send("Signature is not correct.");
       return;
@@ -84,11 +97,13 @@ export const serve = async (bot: ExtendedClient) => {
 
     const event = req.headers["x-patreon-event"];
 
-    if (event !== "pledge:create") {
+    if (event !== "pledges:create") {
       return;
     }
 
-    const user = req.body.data.included.find(
+    const obj = JSON.parse(req.body);
+
+    const user = obj.included.find(
       (obj: Record<string, string>) => obj.type === "user"
     );
 
@@ -103,7 +118,7 @@ export const serve = async (bot: ExtendedClient) => {
       if (!header || Array.isArray(header)) {
         await bot.env.debugHook.send(
           "Received request with no signature.\n\n" +
-            JSON.stringify(req.body).slice(0, 2000)
+            JSON.stringify(req.body).slice(0, 1500)
         );
         res.status(403).send("No valid signature present.");
         return;
@@ -117,7 +132,7 @@ export const serve = async (bot: ExtendedClient) => {
       if (!safe) {
         await bot.env.debugHook.send(
           "Received request with bad signature.\n\n" +
-            JSON.stringify(req.body).slice(0, 2000)
+            JSON.stringify(req.body).slice(0, 1500)
         );
         res.status(403).send("Signature is not correct.");
         return;
