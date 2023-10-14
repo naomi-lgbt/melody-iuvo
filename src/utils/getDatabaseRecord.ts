@@ -31,6 +31,7 @@ export const getDatabaseRecord = async (
       },
       plurals: [],
       front: "",
+      birthday: 0,
     },
   });
   return record;

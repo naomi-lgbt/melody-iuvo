@@ -2,6 +2,7 @@ import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processGithubIssues } from "../modules/processGithubIssues";
+import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
 import { serve } from "../server/serve";
 import { errorHandler } from "../utils/errorHandler";
 import { loadGeneralChannel } from "../utils/loadGeneralChannel";
@@ -27,6 +28,10 @@ export const clientReady = async (bot: ExtendedClient) => {
 
     await bot.general.send({
       content: "I am back from my nap!",
+    });
+    // at 9am every day
+    scheduleJob("0 9 * * *", async () => {
+      await scheduleBirthdayPosts(bot);
     });
     // at noon every day
     scheduleJob("0 12 * * *", async () => {
