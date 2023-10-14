@@ -101,6 +101,7 @@ suite("birthday command", () => {
       command.replies[0].content,
       "Your birthday has been set to Oct-1!"
     );
-    assert.strictEqual(userRecord?.birthday, 970383600000);
+    // This is approximate within 24 hours to account for potential timezone discrepancies.
+    assert.approximately(userRecord?.birthday ?? 0, 970383600000, 86400000);
   });
 });
