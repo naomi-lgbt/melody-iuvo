@@ -29,6 +29,7 @@ model users {
     currency      Currency
     plurals       Plural[]
     front         String   @default("")
+    birthday      Int      @default(0)
 
     @@unique([userId], map: "userId")
 }
