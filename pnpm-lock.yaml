@@ -77,8 +77,8 @@ devDependencies:
     specifier: 18.18.6
     version: 18.18.6
   '@types/node-schedule':
-    specifier: 2.1.1
-    version: 2.1.1
+    specifier: 2.1.2
+    version: 2.1.2
   chai:
     specifier: 4.3.10
     version: 4.3.10
@@ -1087,8 +1087,8 @@ packages:
     resolution: {integrity: sha512-RsOPImTriV/OE4A9qKjMtk2MnXiuLLbcO3nCXK+kvq4nr0iMfFgpjaX3MPLb6f7+EL1FGSelYvuJMV6REH+ZPQ==}
     dev: true
 
-  /@types/node-schedule@2.1.1:
-    resolution: {integrity: sha512-FaqkbBizA+DinA0XWtAhdbEXykUkkqzBWT4BSnhn71z9C+vvcDgNcHvTP59nBhMg3o39E/ZY8zB/AQ6/HGuRag==}
+  /@types/node-schedule@2.1.2:
+    resolution: {integrity: sha512-pNf6vCw14EYbqo0Y1eLGhkyv9RhgvphrxpPk4bd1CqwsWbHCrLSVYpO+9NmKOCUSYwxG6eRaWDR3Y6C+4gtzow==}
     dependencies:
       '@types/node': 18.18.6
     dev: true
