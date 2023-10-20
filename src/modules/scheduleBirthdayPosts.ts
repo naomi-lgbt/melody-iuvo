@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 
-import { BirthdayGifs, CryingGifs } from "../config/BirthdayGifs";
+import { BirthdayGifs } from "../config/BirthdayGifs";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -24,7 +24,9 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
 
     const ids = birthdays.map((doc) => `<@!${doc.userId}>`);
 
-    if (!ids.length) return;
+    if (!ids.length) {
+      return;
+    }
 
     const embed = new EmbedBuilder();
     embed.setTitle("Happy Birthday~! 🎉🥳🎊");
