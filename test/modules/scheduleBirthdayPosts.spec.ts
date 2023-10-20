@@ -2,7 +2,7 @@ import { assert } from "chai";
 import { ChannelType, EmbedBuilder } from "discord.js";
 import { MockChannel, MockGuild } from "discordjs-testing";
 
-import { BirthdayGifs, CryingGifs } from "../../src/config/BirthdayGifs";
+import { BirthdayGifs } from "../../src/config/BirthdayGifs";
 import { scheduleBirthdayPosts } from "../../src/modules/scheduleBirthdayPosts";
 import { Database } from "../__mocks__/Database.mock";
 
@@ -17,17 +17,9 @@ const general = new MockChannel({
 });
 
 suite("schedule birthday posts", () => {
-  test("posts correct embed when no birthdays found.", async () => {
+  test("does nothing when no birthdays found.", async () => {
     await scheduleBirthdayPosts({ general, db } as never);
-    assert.strictEqual(general.messages.cache.size, 1);
-    const embed = general.messages.cache.last()?.embeds?.[0] as EmbedBuilder;
-    assert.exists(embed);
-    assert.strictEqual(embed.data.title, "Oh no! 🙁");
-    assert.strictEqual(
-      embed.data.description,
-      "There are no birthdays today. 😭\n\nDon't forget you can use the `/birthday` command to set your birthday!"
-    );
-    assert.include(CryingGifs, embed.data.image?.url);
+    assert.strictEqual(general.messages.cache.size, 0);
   });
 
   test("posts correct content and embed when birthdays found.", async () => {
@@ -43,7 +35,7 @@ suite("schedule birthday posts", () => {
       },
     });
     await scheduleBirthdayPosts({ general, db } as never);
-    assert.strictEqual(general.messages.cache.size, 2);
+    assert.strictEqual(general.messages.cache.size, 1);
     assert.strictEqual(general.messages.cache.last()?.content, `<@!12345>`);
     const embed = general.messages.cache.last()?.embeds?.[0] as EmbedBuilder;
     assert.exists(embed);
