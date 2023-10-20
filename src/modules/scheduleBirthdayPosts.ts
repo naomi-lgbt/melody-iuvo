@@ -24,19 +24,7 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
 
     const ids = birthdays.map((doc) => `<@!${doc.userId}>`);
 
-    if (!ids.length) {
-      const noEmbed = new EmbedBuilder();
-      noEmbed.setTitle("Oh no! 🙁");
-      noEmbed.setDescription(
-        "There are no birthdays today. 😭\n\nDon't forget you can use the `/birthday` command to set your birthday!"
-      );
-      noEmbed.setImage(getRandomValue(CryingGifs));
-
-      await bot.general.send({
-        embeds: [noEmbed],
-      });
-      return;
-    }
+    if (!ids.length) return;
 
     const embed = new EmbedBuilder();
     embed.setTitle("Happy Birthday~! 🎉🥳🎊");
