@@ -34,7 +34,7 @@ export const handleOutfitAsset: AssetHandler = async (
     embed.setDescription(outfit.description);
     embed.setImage(`https://cdn.naomi.lgbt/naomi/outfits/${outfit.fileName}`);
     embed.setFooter({
-      text: `Outfit ${index} of ${total}`,
+      text: `Outfit ${index} of ${total} (${outfit.fileName})`,
       iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`,
     });
 

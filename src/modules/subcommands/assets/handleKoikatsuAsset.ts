@@ -35,7 +35,7 @@ export const handleKoikatsuAsset: AssetHandler = async (
     embed.setDescription(description);
     embed.setImage(`https://cdn.naomi.lgbt/${target}/koikatsu/${fileName}`);
     embed.setFooter({
-      text: `Pose ${index} of ${total}`,
+      text: `Pose ${index} of ${total} (${fileName})`,
       iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
     });
     return embed;

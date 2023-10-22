@@ -37,7 +37,7 @@ export const handleAdventureAsset: AssetHandler = async (
       embed.setDescription(description);
       embed.setImage(`https://cdn.naomi.lgbt/${target}/games/${fileName}`);
       embed.setFooter({
-        text: `Adventure ${index} of ${total}`,
+        text: `Adventure ${index} of ${total} (${fileName})`,
         iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
       });
       return embed;
