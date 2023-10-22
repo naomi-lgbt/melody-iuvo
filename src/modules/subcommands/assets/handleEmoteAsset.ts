@@ -43,7 +43,7 @@ export const handleEmoteAsset: AssetHandler = async (
       }
       embed.setImage(`https://cdn.naomi.lgbt/${target}/emotes/${fileName}`);
       embed.setFooter({
-        text: `Adventure ${index} of ${total}`,
+        text: `Emote ${index} of ${total} (${fileName})`,
         iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
       });
       return embed;

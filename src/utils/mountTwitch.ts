@@ -32,8 +32,8 @@ export const mountTwitch = async (bot: ExtendedClient) => {
       const stream = await e.getStream();
       const result = await bot.general.send(
         stream
-          ? `# ${stream.title}\n\n<@&1160803262828642357>, Naomi has gone live! She's playing ${stream.gameName}. Watch her stream: https://twitch.tv/naomilgbt`
-          : "<@&1160803262828642357>, Naomi has gone live!\n\nWatch her stream: https://twitch.tv/naomilgbt"
+          ? `# ${stream.title}\n##${stream.gameName}\n<@&1160803262828642357>, Naomi has gone live! [Watch her stream](https://twitch.tv/naomilgbt)?`
+          : "<@&1160803262828642357>, Naomi has gone live!\n[Watch her stream](https://twitch.tv/naomilgbt)?"
       );
       if (bot.twitchNotif?.id !== result.id) {
         bot.twitchNotif = result;
@@ -51,7 +51,7 @@ export const mountTwitch = async (bot: ExtendedClient) => {
             data: [{ url: "https://twitch.tv/naomilgbt/videos" }],
           }));
         await bot.twitchNotif.edit({
-          content: `Naomi has gone offline. Watch her latest VOD: ${vod.data[0].url}`,
+          content: `# Naomi has gone offline.\nDid you miss the stream? [Watch the replay](${vod.data[0].url})~!`,
         });
       }
     });

@@ -48,7 +48,7 @@ export const handlePortraitAsset: AssetHandler = async (
         value: `[${file.artist}](${file.url})`,
       });
       embed.setFooter({
-        text: `Artwork ${index} of ${total}`,
+        text: `Artwork ${index} of ${total} (${file.fileName})`,
         iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
       });
 
