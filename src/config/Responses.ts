@@ -11,7 +11,6 @@ type responseEvent =
 export enum ResponseIds {
   erin = "478752726612967435",
   naomi = "465650873650118659",
-  naomiAlt = "710195136700874893",
   partnerRole = "cutie",
   default = "default"
 }
@@ -26,8 +25,6 @@ export const Responses: {
     [ResponseIds.erin]: "",
     // naomi
     [ResponseIds.naomi]: "",
-    // naomi alt
-    [ResponseIds.naomiAlt]: "",
     // partners
     [ResponseIds.partnerRole]: "",
     // default
@@ -36,7 +33,6 @@ export const Responses: {
   melodyPing: {
     [ResponseIds.erin]: "Good day, my Queen. What might you require?",
     [ResponseIds.naomi]: "Hello, Mama. Might I be of assistance?",
-    [ResponseIds.naomiAlt]: "Hello, Mama. Might I be of assistance?",
     [ResponseIds.partnerRole]: "Hello, dear. What can I do for you today?",
     [ResponseIds.default]: "Yes? How may I be of service to you?"
   },
@@ -44,7 +40,6 @@ export const Responses: {
     [ResponseIds.erin]:
       "Do you wish to help pick an outfit for Naomi? How is this one?",
     [ResponseIds.naomi]: "Mama, I chose this outfit for your next event.",
-    [ResponseIds.naomiAlt]: "Mama, I chose this outfit for your next event.",
     [ResponseIds.partnerRole]:
       "Looking through your beloved's wardrobe? Did you have a specific outfit in mind?",
     [ResponseIds.default]: ""
@@ -53,8 +48,6 @@ export const Responses: {
     [ResponseIds.erin]:
       "<@!478752726612967435> my Queen, please do not make me call out your naughty behaviour again.",
     [ResponseIds.naomi]:
-      "Mama, you run this community, and you cannot follow the rules?",
-    [ResponseIds.naomiAlt]:
       "Mama, you run this community, and you cannot follow the rules?",
     [ResponseIds.partnerRole]:
       "{userping}, dating Naomi does not exempt you from the rules...",
@@ -65,7 +58,6 @@ export const Responses: {
     [ResponseIds.erin]:
       "Good morning my Queen. Naomi will be excited to see you today.",
     [ResponseIds.naomi]: "Welcome back Mama. Did you sleep well?",
-    [ResponseIds.naomiAlt]: "Welcome back Mama. Did you sleep well?",
     [ResponseIds.partnerRole]:
       "Hello there cutie! It is very good to see you again.",
     [ResponseIds.default]: "Good morning! How are you today?"
@@ -74,7 +66,6 @@ export const Responses: {
     [ResponseIds.erin]:
       "May you rest well. Dream of Naomi as she dreams of you.",
     [ResponseIds.naomi]: "Sleep well, Mama. I shall be here when you wake.",
-    [ResponseIds.naomiAlt]: "Sleep well, Mama. I shall be here when you wake.",
     [ResponseIds.partnerRole]:
       "Good night cutie. I am sure Mama will miss you.",
     [ResponseIds.default]: "Good night! We shall see you tomorrow."
@@ -85,9 +76,6 @@ export const Responses: {
       "{username}, my Queen, you already do so much, and yet you continue to do more.",
     // naomi
     [ResponseIds.naomi]:
-      "Mama, are you certain you are not pushing yourself too hard?",
-    // naomi alt
-    [ResponseIds.naomiAlt]:
       "Mama, are you certain you are not pushing yourself too hard?",
     // partners
     [ResponseIds.partnerRole]:
@@ -100,8 +88,6 @@ export const Responses: {
       "There is nothing you could ever do that would require an apology, my Queen.",
     // naomi
     [ResponseIds.naomi]: "Mama, I am sure your community forgives you.",
-    // naomi alt
-    [ResponseIds.naomiAlt]: "Mama, I am sure your community forgives you.",
     // partners
     [ResponseIds.partnerRole]:
       "Aww, {username} cutie, that's kind of you to apologise. But truly not necessary.",
