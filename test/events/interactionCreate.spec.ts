@@ -39,6 +39,8 @@ suite("interactionCreate", () => {
       channel,
       bot: user,
     });
+    // @ts-expect-error Need to update the mock.
+    command.isContextMenuCommand = () => false;
     await interactionCreate({} as never, command as never);
     assert.equal(command.replies.length, 1);
     assert.equal(
@@ -56,6 +58,8 @@ suite("interactionCreate", () => {
       bot: user,
       guild,
     });
+    // @ts-expect-error Need to update the mock.
+    command.isContextMenuCommand = () => false;
     await interactionCreate({ commands: [] } as never, command as never);
     assert.equal(command.replies.length, 1);
     assert.equal(
