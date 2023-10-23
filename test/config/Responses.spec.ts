@@ -2,13 +2,7 @@ import { assert } from "chai";
 
 import { Responses } from "../../src/config/Responses";
 
-const ids = [
-  "478752726612967435",
-  "465650873650118659",
-  "710195136700874893",
-  "cutie",
-  "default"
-];
+const ids = ["478752726612967435", "465650873650118659", "cutie", "default"];
 
 suite("Responses", () => {
   const keys = Object.keys(Responses);
@@ -24,6 +18,23 @@ suite("Responses", () => {
           Responses[key],
           id,
           `The ${key} response is missing ${id}`
+        );
+      }
+    }
+  });
+
+  test("should have at least 3 responses", () => {
+    for (const key of keys) {
+      // this one doesn't need to have responses, it's just for copy-paste purposes
+      if (key === "_template") {
+        continue;
+      }
+      for (const id of ids) {
+        assert.isArray(Responses[key][id], `${key}-${id} is not an array.`);
+        assert.isAtLeast(
+          Responses[key][id].filter(Boolean).length,
+          3,
+          `${key}-${id} does not have 3 keys.`
         );
       }
     }
