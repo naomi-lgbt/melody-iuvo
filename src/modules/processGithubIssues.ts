@@ -45,9 +45,14 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       .map((i) => `- [${i.title}](<${i.url}>)`)
       .join("\n");
     for (const issue of issues) {
+      const owner = issue.repository_url.split("/")[4];
+      const repo = issue.repository_url.split("/")[5];
+      if (!owner || !repo) {
+        continue;
+      }
       await github.issues.addLabels({
-        owner: issue.repository_url.split("/")[4],
-        repo: issue.repository_url.split("/")[5],
+        owner,
+        repo,
         issue_number: issue.number,
         labels: ["posted to discord"]
       });

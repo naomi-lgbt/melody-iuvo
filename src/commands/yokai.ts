@@ -22,7 +22,7 @@ export const yokai: Command = {
       const embed = new EmbedBuilder();
       const html = new JSDOM(text);
       embed.setTitle(
-        html.window.document.querySelectorAll("h1")?.[1].textContent ||
+        html.window.document.querySelectorAll("h1")?.[1]?.textContent ||
           "Unknown Yokai"
       );
       embed.setDescription(

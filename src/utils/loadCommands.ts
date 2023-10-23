@@ -21,6 +21,9 @@ export const loadCommands = async (bot: ExtendedClient) => {
     );
     for (const file of files) {
       const name = file.split(".")[0];
+      if (!name) {
+        continue;
+      }
       const mod = await import(join(process.cwd(), "prod", "commands", file));
       result.push(mod[name] as Command);
     }

@@ -2,6 +2,7 @@ import { EmbedBuilder } from "discord.js";
 
 import { AssetHandler } from "../../../interfaces/Asset";
 import { errorHandler } from "../../../utils/errorHandler";
+import { getRandomValue } from "../../../utils/getRandomValue";
 
 import { defaultAssetEmbed } from "./defaultAssetEmbed";
 
@@ -24,7 +25,7 @@ export const handleTattooAsset: AssetHandler = async (
       );
       const tattoos: { fileName: string; name: string }[] =
         await tattooData.json();
-      tattoo = tattoos[Math.floor(Math.random() * tattoos.length)];
+      tattoo = getRandomValue(tattoos);
     }
 
     const embed = new EmbedBuilder();

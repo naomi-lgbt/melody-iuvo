@@ -8,7 +8,7 @@ import { errorHandler } from "../utils/errorHandler";
 const shuffleArray = <T>(array: T[]): T[] => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = rand.uniformInt(0, i)();
-    [array[i], array[j]] = [array[j], array[i]];
+    [array[i], array[j]] = [array[j] as T, array[i] as T];
   }
   return array;
 };
@@ -55,13 +55,21 @@ export const tarot: Command = {
         return;
       }
 
-      bot.cache.tarot[interaction.user.id] = {
-        lastPlayed: Date.now()
-      };
-
       const [first, second, third, fourth, fifth] = shuffleArray([
         ...TarotCards
       ]).slice(0, 5);
+
+      if (!first || !second || !third || !fourth || !fifth) {
+        await interaction.editReply({
+          content:
+            "Something went wrong with doing your reading. Please try again later."
+        });
+        return;
+      }
+
+      bot.cache.tarot[interaction.user.id] = {
+        lastPlayed: Date.now()
+      };
 
       const embed = new EmbedBuilder();
       embed.setTitle("Your Tarot Reading");

@@ -20,16 +20,23 @@ export const queue: Command = {
       await interaction.deferReply();
       let index = 0;
       const first = new EmbedBuilder();
-      first.setTitle(GameQueue[index].name);
-      first.setURL(GameQueue[index].url);
-      first.setImage(GameQueue[index].image);
+      const game = GameQueue[index];
+      if (!game) {
+        await interaction.editReply({
+          content: "There was an error loading the queue."
+        });
+        return;
+      }
+      first.setTitle(game.name);
+      first.setURL(game.url);
+      first.setImage(game.image);
       first.setDescription(
-        `## Estimated playtime: ${GameQueue[index].time} hours\n### Time until first in queue: now\nTimes are estimated based on howlongtobeat.com and user reviews.`
+        `## Estimated playtime: ${game.time} hours\n### Time until first in queue: now\nTimes are estimated based on howlongtobeat.com and user reviews.`
       );
       first.setFooter({
         text: `Game ${index + 1} out of ${GameQueue.length}`
       });
-      if (GameQueue[index].purchased) {
+      if (game.purchased) {
         first.addFields([
           {
             name: "Community Selected",
@@ -78,13 +85,22 @@ export const queue: Command = {
         if (index < 0) {
           index = GameQueue.length - 1;
         }
+        const game = GameQueue[index];
+        if (!game) {
+          await interaction.editReply({
+            content: "There was an error loading the queue.",
+            embeds: [],
+            components: []
+          });
+          return;
+        }
         const embed = new EmbedBuilder();
-        embed.setTitle(GameQueue[index].name);
-        embed.setURL(GameQueue[index].url);
-        embed.setImage(GameQueue[index].image);
+        embed.setTitle(game.name);
+        embed.setURL(game.url);
+        embed.setImage(game.image);
         embed.setDescription(
           `## Estimated time: ${
-            GameQueue[index].time
+            game.time
           } hours\n### Time until first in queue: ${
             index === 0
               ? "now"
@@ -96,7 +112,7 @@ export const queue: Command = {
                 ) + " hours"
           }\nTimes are estimated based on howlongtobeat.com and user reviews.`
         );
-        if (GameQueue[index].purchased) {
+        if (game.purchased) {
           embed.addFields([
             {
               name: "Community Selected",

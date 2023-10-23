@@ -8,6 +8,12 @@ export const processRoleButton: ButtonHandler = async (bot, interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const id = interaction.customId.split("-")[1];
+    if (!id) {
+      await interaction.editReply({
+        content: "That button doesn't have a role id. So sorry."
+      });
+      return;
+    }
     const { member } = interaction;
     if (member.roles.cache.has(id)) {
       await member.roles.remove(id);

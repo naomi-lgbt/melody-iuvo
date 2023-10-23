@@ -55,8 +55,9 @@ export const naomi: Command = {
       if (subcommand !== "ask") {
         await interaction.deferReply();
       }
-      handlers[subcommand]
-        ? await handlers[subcommand](bot, interaction)
+      const handler = handlers[subcommand];
+      handler
+        ? await handler(bot, interaction)
         : await interaction.editReply({
             content:
               "I have failed you once again. The command you used does not have an instruction manual for me."

@@ -33,7 +33,7 @@ export const serve = async (bot: ExtendedClient) => {
 
   // mount your middleware and routes here
 
-  app.get("/", (req, res) => {
+  app.get("/", (_req, res) => {
     res.send("Melody online!");
   });
 

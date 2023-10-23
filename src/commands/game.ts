@@ -24,7 +24,7 @@ export const game: Command = {
         `https://store.steampowered.com/api/appdetails?appids=${target.appid}&key=${process.env.STEAM_KEY}`
       );
       const json = (await raw.json()) as SteamGameResponse;
-      const data = json[target.appid].data;
+      const data = json[target.appid]?.data;
       if (!data) {
         await interaction.editReply({
           content: `There was an error loading game data for ${target.appid}. Please try again later.`

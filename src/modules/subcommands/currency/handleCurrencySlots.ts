@@ -40,11 +40,9 @@ export const handleCurrencySlots: CommandHandler = async (bot, interaction) => {
       });
       return;
     }
+    const cached = bot.cache.slots[interaction.user.id];
     // played less than 5 minutes ago
-    if (
-      bot.cache.slots[interaction.user.id] &&
-      Date.now() - bot.cache.slots[interaction.user.id].lastPlayed < 300000
-    ) {
+    if (cached && Date.now() - cached.lastPlayed < 300000) {
       await interaction.editReply({
         content:
           "My oh my, it would seem you've become addicted to our slot machines. Give yourself a moment to breathe, and come play again in a few minutes."

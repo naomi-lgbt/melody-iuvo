@@ -43,6 +43,12 @@ export const processWordGuess = async (
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
     const cache = bot.cache.wordGame[interaction.user.id];
+    if (!cache) {
+      await interaction.editReply({
+        content: "It seems your cache broke. Please start a new game."
+      });
+      return;
+    }
     cache.guesses.push(formatWordGuess(guess, cache.target));
     if (guess === cache.target) {
       const newTotal = cache.balance + cache.wager * 4;

@@ -50,8 +50,9 @@ export const mountTwitch = async (bot: ExtendedClient) => {
           .catch(() => ({
             data: [{ url: "https://twitch.tv/naomilgbt/videos" }]
           }));
+        const vodUrl = vod.data[0]?.url ?? "https://twitch.tv/naomilgbt/videos";
         await bot.twitchNotif.edit({
-          content: `# Naomi has gone offline.\nDid you miss the stream? [Watch the replay](${vod.data[0].url})~!`
+          content: `# Naomi has gone offline.\nDid you miss the stream? [Watch the replay](${vodUrl})~!`
         });
       }
     });

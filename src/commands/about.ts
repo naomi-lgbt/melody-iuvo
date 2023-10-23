@@ -24,7 +24,10 @@ export const about: Command = {
       const lines = stdout.split("\n").slice(1);
       const typescript = lines.find((line) => line.includes("TypeScript"));
       const [files, code] = typescript
-        ? [typescript.split(",")[0], typescript.split(",")[4]]
+        ? [
+            typescript.split(",")[0] || "unknown",
+            typescript.split(",")[4] || "unknown"
+          ]
         : ["unknown", "unknown"];
       const coverageFile = await readFile(
         join(process.cwd(), "coverage", "index.html"),
@@ -34,7 +37,7 @@ export const about: Command = {
         /<div class='fl pad1y space-right2'>((?!div).)*<\/div>/gs
       );
       const lineTotals = coverageTotals
-        ? coverageTotals[3].match(/[\d.]+%/)?.[0] || "0%"
+        ? coverageTotals[3]?.match(/[\d.]+%/)?.[0] || "0%"
         : "0%";
 
       const embed = new EmbedBuilder();

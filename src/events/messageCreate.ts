@@ -141,10 +141,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       message.channel.name.startsWith("ticket-")
     ) {
       const id = message.channel.id;
-      if (!bot.ticketLogs[id]) {
+      const cached = bot.ticketLogs[id];
+      if (!cached) {
         return;
       }
-      await logTicketMessage(bot, message, bot.ticketLogs[id]);
+      await logTicketMessage(bot, message, cached);
     }
 
     const record = await getDatabaseRecord(bot, message.author.id);

@@ -32,24 +32,32 @@ export const formatWordGuess = (guess: string, target: string) => {
   const letters: string[] = [];
   const emotes: string[] = [];
   for (let i = 0; i < guess.length; i++) {
+    const guessed = guess[i];
+    /**
+     * Based on the loop parameters this should never be true.
+     * But typescript does not believe us :c.
+     */
+    if (!guessed) {
+      continue;
+    }
     if (guess[i] === target[i]) {
-      letters.push(asciiColours(guess[i], "green"));
+      letters.push(asciiColours(guessed, "green"));
       emotes.push("🟢");
-      targetCounts[guess[i]]--;
+      targetCounts[guessed]--;
       continue;
     }
     if (
-      target.includes(guess[i]) &&
-      targetCounts[guess[i]] > 0 &&
-      countCorrect(guess.slice(i), target.slice(i), guess[i]) <
-        targetCounts[guess[i]]
+      target.includes(guessed) &&
+      (targetCounts[guessed] ?? 0) > 0 &&
+      countCorrect(guess.slice(i), target.slice(i), guessed) <
+        (targetCounts[guessed] ?? 0)
     ) {
-      letters.push(asciiColours(guess[i], "yellow"));
+      letters.push(asciiColours(guessed, "yellow"));
       emotes.push("🟡");
-      targetCounts[guess[i]]--;
+      targetCounts[guessed]--;
       continue;
     }
-    letters.push(asciiColours(guess[i], "white"));
+    letters.push(asciiColours(guessed, "white"));
     emotes.push("⚪");
   }
   return `${letters.join("")}: ${emotes.join("")}`;

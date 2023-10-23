@@ -142,8 +142,9 @@ export const currency: Command = {
     try {
       await interaction.deferReply({ ephemeral: true });
       const subcommand = interaction.options.getSubcommand();
-      handlers[subcommand]
-        ? await handlers[subcommand](bot, interaction)
+      const handler = handlers[subcommand];
+      handler
+        ? await handler(bot, interaction)
         : await interaction.editReply({
             content:
               "I have failed you once again. The command you used does not have an instruction manual for me."

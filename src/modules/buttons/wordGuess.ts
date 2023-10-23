@@ -26,6 +26,7 @@ export const wordGuess = async (
         content: "Oh my, how on earth did you find this? This is not yours.",
         ephemeral: true
       });
+      return;
     }
     if (!bot.cache.wordGame[id]) {
       await interaction.reply({
