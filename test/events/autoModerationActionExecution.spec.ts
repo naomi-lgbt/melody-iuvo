@@ -2,6 +2,7 @@ import { assert } from "chai";
 import { ChannelType } from "discord.js";
 import { MockGuild, MockUser } from "discordjs-testing";
 
+import { Responses } from "../../src/config/Responses";
 import { autoModerationActionExecution } from "../../src/events/autoModerationActionExecution";
 
 const guild = new MockGuild({
@@ -80,9 +81,16 @@ suite("autoModerationActionExecution event", () => {
       action as never
     );
     assert.equal(channel.messages.cache.size, 1);
-    assert.equal(
-      channel.messages.cache.first()?.content,
-      `Oh dear, it would seem that <@${user.id}> has been naughty.`
+    const content = channel.messages.cache.first()?.content;
+    const mappedResponses = Responses.naughty.default.map((r) =>
+      r
+        .replace("{userping}", `<@${user.id}>`)
+        .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
+      content,
+      `${mappedResponses} does not include ${content}`
     );
     delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });
@@ -103,9 +111,16 @@ suite("autoModerationActionExecution event", () => {
       naomiAction as never
     );
     assert.equal(channel.messages.cache.size, 1);
-    assert.equal(
-      channel.messages.cache.first()?.content,
-      "Mama, you run this community, and you cannot follow the rules?"
+    const content = channel.messages.cache.first()?.content;
+    const mappedResponses = Responses.naughty["465650873650118659"].map((r) =>
+      r
+        .replace("{userping}", `<@${naomiUser.id}>`)
+        .replace("{username}", naomiUser.username)
+    );
+    assert.include(
+      mappedResponses,
+      content,
+      `${mappedResponses} does not include ${content}`
     );
     delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });

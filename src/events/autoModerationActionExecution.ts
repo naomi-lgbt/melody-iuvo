@@ -4,6 +4,7 @@ import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { getResponseKey } from "../modules/getResponseKey";
 import { errorHandler } from "../utils/errorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 /**
  * Processes when someone triggers the Discord automod.
@@ -39,10 +40,9 @@ export const autoModerationActionExecution = async (
       return;
     }
     await channel.send({
-      content: Responses.naughty[getResponseKey(member)].replace(
-        /\{userping\}/g,
-        `<@${userId}>`
-      ),
+      content: getRandomValue(
+        Responses.naughty[getResponseKey(member)]
+      ).replace(/\{userping\}/g, `<@${userId}>`),
       stickers: ["1146868650041675908"]
     });
   } catch (err) {

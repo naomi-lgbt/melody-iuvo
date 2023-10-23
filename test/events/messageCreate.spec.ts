@@ -7,6 +7,7 @@ import {
   MockUser
 } from "discordjs-testing";
 
+import { Responses } from "../../src/config/Responses";
 import { messageCreate } from "../../src/events/messageCreate";
 import { sumCurrency } from "../../src/modules/sumCurrency";
 import { Database } from "../__mocks__/Database.mock";
@@ -79,7 +80,16 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 3);
     const response = channel.messages.cache.last();
-    assert.equal(response?.content, "Yes? How may I be of service to you?");
+    const mappedResponses = Responses.melodyPing.default.map((r) =>
+      r
+        .replace("{userping}", `<@${user.id}>`)
+        .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
+      response?.content,
+      `${mappedResponses} does not include ${response?.content}`
+    );
   });
 
   test("should reply to messages with name when special response", async () => {
@@ -91,7 +101,17 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 5);
     const response = channel.messages.cache.last();
-    assert.equal(response?.content, "Hello, Mama. Might I be of assistance?");
+    const mappedResponses = Responses.melodyPing["465650873650118659"].map(
+      (r) =>
+        r
+          .replace("{userping}", `<@${user.id}>`)
+          .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
+      response?.content,
+      `${mappedResponses} does not include ${response?.content}`
+    );
   });
 
   test("should process ticket command", async () => {
@@ -163,14 +183,32 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 15);
     const response = channel.messages.cache.last();
-    assert.equal(response?.content, "Good morning! How are you today?");
+    const mappedResponses = Responses.greeting.default.map((r) =>
+      r
+        .replace("{userping}", `<@${user.id}>`)
+        .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
+      response?.content,
+      `${mappedResponses} does not include ${response?.content}`
+    );
   });
   test("should respond to good night", async () => {
     const msg = await channel.send("good night", user, member);
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 17);
     const response = channel.messages.cache.last();
-    assert.equal(response?.content, "Good night! We shall see you tomorrow.");
+    const mappedResponses = Responses.goodbye.default.map((r) =>
+      r
+        .replace("{userping}", `<@${user.id}>`)
+        .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
+      response?.content,
+      `${mappedResponses} does not include ${response?.content}`
+    );
   });
   // TODO: Cannot test until utility supports mentions
   // test("should respond to thanks", async () => {
@@ -181,9 +219,15 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 19);
     const response = channel.messages.cache.last();
-    assert.equal(
+    const mappedResponses = Responses.sorry.default.map((r) =>
+      r
+        .replace("{userping}", `<@${user.id}>`)
+        .replace("{username}", user.username)
+    );
+    assert.include(
+      mappedResponses,
       response?.content,
-      `It's okay, Test User. We all have our moments.`
+      `${mappedResponses} does not include ${response?.content}`
     );
   });
 
@@ -206,9 +250,15 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 22);
     const response = channel.messages.cache.last();
-    assert.equal(
+    const mappedResponses = Responses.thanks["465650873650118659"].map((r) =>
+      r
+        .replace("{userping}", `<@${naomiMember.id}>`)
+        .replace("{username}", naomiMember.user.username)
+    );
+    assert.include(
+      mappedResponses,
       response?.content,
-      "Mama, are you certain you are not pushing yourself too hard?"
+      `${mappedResponses} does not include ${response?.content}`
     );
   });
 
