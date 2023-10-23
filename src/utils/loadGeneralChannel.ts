@@ -22,6 +22,12 @@ export const loadGeneralChannel = async (bot: ExtendedClient) => {
       return;
     }
 
+    /**
+     * Fetching the members on boot so we can have them in the cache.
+     * This ensures that member leave/join events are not missed.
+     */
+    await homeGuild.members.fetch();
+
     const channel = homeGuild.channels.cache.find((c) => c.name === "general");
     if (!channel || channel.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
