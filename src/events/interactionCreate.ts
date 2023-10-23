@@ -29,6 +29,18 @@ export const interactionCreate = async (
   interaction: Interaction
 ) => {
   try {
+    if (interaction.isContextMenuCommand()) {
+      const context = bot.contexts.find(
+        (c) => c.data.name === interaction.commandName
+      );
+      if (!context) {
+        await interaction.reply({
+          content: `My deepest apologies, but I cannot find a ${interaction.commandName} command.`,
+        });
+        return;
+      }
+      await context.run(bot, interaction);
+    }
     if (interaction.isChatInputCommand()) {
       if (!isGuildSlashCommand(interaction)) {
         await interaction.reply({

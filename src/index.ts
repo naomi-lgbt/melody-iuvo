@@ -12,6 +12,7 @@ import { voiceStateUpdate } from "./events/voiceStateUpdate";
 import { ExtendedClient } from "./interfaces/ExtendedClient";
 import { errorHandler } from "./utils/errorHandler";
 import { loadCommands } from "./utils/loadCommands";
+import { loadContexts } from "./utils/loadContexts";
 import { validateEnv } from "./utils/validateEnv";
 
 (async () => {
@@ -50,6 +51,7 @@ import { validateEnv } from "./utils/validateEnv";
     bot.commit = execSync("git rev-parse HEAD").toString().trim();
     bot.ticketLogs = {};
     await loadCommands(bot);
+    await loadContexts(bot);
 
     /**
      * Mount event handlers.

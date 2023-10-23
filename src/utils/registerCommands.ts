@@ -20,7 +20,10 @@ export const registerCommands = async (
       throw new Error("Bot is not logged in. Cannot register commands yet.");
     }
     const rest = new restClass({ version: "10" }).setToken(bot.env.token);
-    const commands = bot.commands.map((c) => c.data.toJSON());
+    const commands = [
+      ...bot.commands.map((c) => c.data.toJSON()),
+      ...bot.contexts.map((c) => c.data),
+    ];
 
     await rest.put(
       Routes.applicationGuildCommands(bot.user.id, bot.env.homeGuild),
