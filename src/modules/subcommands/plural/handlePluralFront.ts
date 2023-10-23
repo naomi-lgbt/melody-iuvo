@@ -13,14 +13,14 @@ export const handlePluralFront: CommandHandler = async (bot, interaction) => {
     if (!name) {
       await bot.db.users.update({
         where: {
-          userId: interaction.user.id,
+          userId: interaction.user.id
         },
         data: {
-          front: "",
-        },
+          front: ""
+        }
       });
       await interaction.editReply({
-        content: "I have disabled auto-proxying for you.",
+        content: "I have disabled auto-proxying for you."
       });
       return;
     }
@@ -29,28 +29,28 @@ export const handlePluralFront: CommandHandler = async (bot, interaction) => {
     if (!exists) {
       await interaction.editReply({
         content:
-          "Please forgive me, but you do not have an identity with that name.",
+          "Please forgive me, but you do not have an identity with that name."
       });
       return;
     }
 
     await bot.db.users.update({
       where: {
-        userId: interaction.user.id,
+        userId: interaction.user.id
       },
       data: {
-        front: name,
-      },
+        front: name
+      }
     });
 
     await interaction.editReply({
-      content: `I will now auto-proxy your messages as ${name}.`,
+      content: `I will now auto-proxy your messages as ${name}.`
     });
   } catch (err) {
     await errorHandler(bot, "plural delete command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  ModalSubmitInteraction,
+  ModalSubmitInteraction
 } from "discord.js";
 
 import { CurrencyName, CurrencyWords } from "../../config/Currency";
@@ -25,14 +25,14 @@ export const processWordGuess = async (
     const [, id] = interaction.customId.split("-");
     if (id !== interaction.user.id) {
       await interaction.editReply({
-        content: "How did you submit a modal that isn't yours?",
+        content: "How did you submit a modal that isn't yours?"
       });
       return;
     }
     const guess = interaction.fields.getTextInputValue("guess");
     if (!CurrencyWords.includes(guess)) {
       await interaction.editReply({
-        content: "That's not in our dictionary.",
+        content: "That's not in our dictionary."
       });
       return;
     }
@@ -54,16 +54,16 @@ export const processWordGuess = async (
 \`\`\`ansi
 ${cache.guesses.join("\n")}
 \`\`\``,
-        components: [],
+        components: []
       });
       delete bot.cache.wordGame[interaction.user.id];
       await bot.db.users.update({
         where: {
-          userId: interaction.user.id,
+          userId: interaction.user.id
         },
         data: {
-          currency: { ...makeChange(newTotal) },
-        },
+          currency: { ...makeChange(newTotal) }
+        }
       });
       return;
     }
@@ -76,16 +76,16 @@ ${cache.guesses.join("\n")}
 \`\`\`ansi
 ${cache.guesses.join("\n")}
 \`\`\``,
-        components: [],
+        components: []
       });
       delete bot.cache.wordGame[interaction.user.id];
       await bot.db.users.update({
         where: {
-          userId: interaction.user.id,
+          userId: interaction.user.id
         },
         data: {
-          currency: { ...makeChange(cache.balance - cache.wager) },
-        },
+          currency: { ...makeChange(cache.balance - cache.wager) }
+        }
       });
       return;
     }
@@ -97,13 +97,13 @@ ${cache.guesses.join("\n")}
 ${cache.guesses.join("\n")}
 \`\`\`
               `,
-      components: [row],
+      components: [row]
     });
   } catch (err) {
     await errorHandler(bot, "process word guess", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

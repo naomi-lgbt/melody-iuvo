@@ -13,7 +13,7 @@ import {
   isGoodMorning,
   isGoodNight,
   isSorry,
-  isThanks,
+  isThanks
 } from "../modules/messages/responseValidation";
 import { startAgeGate } from "../modules/messages/startAgeGate";
 import { startComfortPost } from "../modules/messages/startComfortPost";
@@ -66,7 +66,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         stickers:
           getResponseKey(message.member) !== "default"
             ? []
-            : ["1146308020444332042"],
+            : ["1146308020444332042"]
       });
     }
 
@@ -85,12 +85,12 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (isGoodMorning(content)) {
         await message.reply({
-          content: Responses.greeting[getResponseKey(member)],
+          content: Responses.greeting[getResponseKey(member)]
         });
       }
       if (isGoodNight(content)) {
         await message.reply({
-          content: Responses.goodbye[getResponseKey(member)],
+          content: Responses.goodbye[getResponseKey(member)]
         });
       }
       if (isSorry(content)) {
@@ -98,7 +98,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
           content: Responses.sorry[getResponseKey(member)].replace(
             /\{username\}/g,
             message.author.username
-          ),
+          )
         });
       }
       if (isThanks(content)) {
@@ -108,7 +108,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
             content: Responses.thanks[getResponseKey(mentioned)].replace(
               /\{username\}/g,
               mentioned.user.username || "friend"
-            ),
+            )
           });
         }
       }
@@ -170,13 +170,13 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     const currencyEarned = calculateMessageCurrency(content);
     await bot.db.users.update({
       where: {
-        userId: message.author.id,
+        userId: message.author.id
       },
       data: {
         currency: {
-          ...makeChange(total + currencyEarned),
-        },
-      },
+          ...makeChange(total + currencyEarned)
+        }
+      }
     });
   } catch (err) {
     await errorHandler(bot, "message create event", err);

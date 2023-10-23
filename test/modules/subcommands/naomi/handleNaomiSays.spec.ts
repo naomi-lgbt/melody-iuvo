@@ -2,7 +2,7 @@ import { assert } from "chai";
 import {
   ApplicationCommandOptionType,
   AttachmentBuilder,
-  ChannelType,
+  ChannelType
 } from "discord.js";
 import {
   MockChannel,
@@ -10,40 +10,40 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handleNaomiSays } from "../../../../src/modules/subcommands/naomi/handleNaomiSays";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 suite("handleNaomiSays", () => {
   test("should display the modal", async () => {
@@ -59,9 +59,9 @@ suite("handleNaomiSays", () => {
         {
           name: "message",
           value: "Hello, world!",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply();
     await handleNaomiSays(

@@ -8,12 +8,12 @@ import { Database } from "../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const general = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("schedule birthday posts", () => {
@@ -27,12 +27,12 @@ suite("schedule birthday posts", () => {
     const day = new Date().getDate();
     await db.users.upsert({
       where: {
-        userId: "12345",
+        userId: "12345"
       },
       create: {
         userId: "12345",
-        birthday: new Date(`${month}-${day}-2000`),
-      },
+        birthday: new Date(`${month}-${day}-2000`)
+      }
     });
     await scheduleBirthdayPosts({ general, db } as never);
     assert.strictEqual(general.messages.cache.size, 1);

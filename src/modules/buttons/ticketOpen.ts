@@ -3,7 +3,7 @@ import {
   ModalBuilder,
   ModalActionRowComponentBuilder,
   TextInputBuilder,
-  TextInputStyle,
+  TextInputStyle
 } from "discord.js";
 
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
@@ -33,7 +33,7 @@ export const ticketOpenHandler: ButtonHandler = async (bot, interaction) => {
     await errorHandler(bot, "ticket open handler", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

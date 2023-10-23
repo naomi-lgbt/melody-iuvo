@@ -18,7 +18,7 @@ export const handleOutfitAsset: AssetHandler = async (
       fileName: "test",
       name: "Test Asset",
       alt: "Test Alt",
-      description: "Test Description",
+      description: "Test Description"
     };
     let index = 1;
     let total = 1;
@@ -35,7 +35,7 @@ export const handleOutfitAsset: AssetHandler = async (
     embed.setImage(`https://cdn.naomi.lgbt/naomi/outfits/${outfit.fileName}`);
     embed.setFooter({
       text: `Outfit ${index} of ${total} (${outfit.fileName})`,
-      iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`,
+      iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`
     });
 
     return embed;

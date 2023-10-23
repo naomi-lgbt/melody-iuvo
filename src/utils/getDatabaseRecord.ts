@@ -13,10 +13,10 @@ export const getDatabaseRecord = async (
 ) => {
   const record = await bot.db.users.upsert({
     where: {
-      userId,
+      userId
     },
     update: {
-      timestamp: new Date(),
+      timestamp: new Date()
     },
     create: {
       userId,
@@ -27,12 +27,12 @@ export const getDatabaseRecord = async (
         silver: 0,
         gold: 0,
         platinum: 0,
-        amethyst: 0,
+        amethyst: 0
       },
       plurals: [],
       front: "",
-      birthday: 0,
-    },
+      birthday: 0
+    }
   });
   return record;
 };

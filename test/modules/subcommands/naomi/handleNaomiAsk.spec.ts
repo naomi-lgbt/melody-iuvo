@@ -6,40 +6,40 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handleNaomiAsk } from "../../../../src/modules/subcommands/naomi/handleNaomiAsk";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 suite("handleNaomiAsk", () => {
   test("should display the modal", async () => {
@@ -50,7 +50,7 @@ suite("handleNaomiAsk", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await handleNaomiAsk(
       { ...bot, env: { debugHook } } as never,

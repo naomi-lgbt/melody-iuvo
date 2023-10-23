@@ -8,7 +8,7 @@ import {
   CurrencyItems,
   CurrencySlots,
   CurrencySlotReel,
-  CurrencyWords,
+  CurrencyWords
 } from "../../src/config/Currency";
 
 const emoteRegex = /^<(?:a)?:\w+:\d{18,19}>$/;

@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handleCurrencyAward } from "../../../../src/modules/subcommands/currency/handleCurrencyAward";
@@ -14,43 +14,43 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const naomi = new MockUser({
   username: "Naomi",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 // @ts-expect-error Need to manually set ID for owner only command.
 naomi._id = "465650873650118659";
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencyAward", () => {
@@ -67,14 +67,14 @@ suite("handleCurrencyAward", () => {
         {
           name: "target",
           value: user,
-          type: ApplicationCommandOptionType.User,
+          type: ApplicationCommandOptionType.User
         },
         {
           name: "amount",
           value: 100,
-          type: ApplicationCommandOptionType.Number,
-        },
-      ],
+          type: ApplicationCommandOptionType.Number
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyAward(
@@ -102,17 +102,17 @@ suite("handleCurrencyAward", () => {
         {
           name: "target",
           value: user,
-          type: ApplicationCommandOptionType.User,
+          type: ApplicationCommandOptionType.User
         },
         {
           name: "amount",
           value: 100,
-          type: ApplicationCommandOptionType.Number,
-        },
-      ],
+          type: ApplicationCommandOptionType.Number
+        }
+      ]
     });
     const cache = {
-      wordGame: { [user.id]: true },
+      wordGame: { [user.id]: true }
     };
     await command.deferReply({ ephemeral: true });
     await handleCurrencyAward(
@@ -138,14 +138,14 @@ suite("handleCurrencyAward", () => {
         {
           name: "target",
           value: user,
-          type: ApplicationCommandOptionType.User,
+          type: ApplicationCommandOptionType.User
         },
         {
           name: "amount",
           value: -100,
-          type: ApplicationCommandOptionType.Number,
-        },
-      ],
+          type: ApplicationCommandOptionType.Number
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyAward(
@@ -171,14 +171,14 @@ suite("handleCurrencyAward", () => {
         {
           name: "target",
           value: user,
-          type: ApplicationCommandOptionType.User,
+          type: ApplicationCommandOptionType.User
         },
         {
           name: "amount",
           value: 100,
-          type: ApplicationCommandOptionType.Number,
-        },
-      ],
+          type: ApplicationCommandOptionType.Number
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyAward(

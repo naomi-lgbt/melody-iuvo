@@ -18,8 +18,8 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
     ).getTime();
     const birthdays = await bot.db.users.findMany({
       where: {
-        birthday,
-      },
+        birthday
+      }
     });
 
     const ids = birthdays.map((doc) => `<@!${doc.userId}>`);
@@ -37,7 +37,7 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
 
     await bot.general.send({
       content: `${ids.join(", ")}`,
-      embeds: [embed],
+      embeds: [embed]
     });
   } catch (err) {
     await errorHandler(bot, "scheduled birthday post", err);

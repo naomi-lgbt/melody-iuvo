@@ -14,8 +14,8 @@ export const yokai: Command = {
       const raw = await fetch("https://yokai.com/?redirect_to=random", {
         redirect: "follow",
         headers: {
-          "User-Agent": "MelodyIuvo (bot by Naomi Carrigan)",
-        },
+          "User-Agent": "MelodyIuvo (bot by Naomi Carrigan)"
+        }
       });
       const text = await raw.text();
       const url = raw.url;
@@ -33,14 +33,14 @@ export const yokai: Command = {
       embed.setImage(html.window.document.querySelector("img")?.src || null);
       embed.setURL(url);
       await interaction.editReply({
-        embeds: [embed],
+        embeds: [embed]
       });
     } catch (err) {
       await errorHandler(bot, "yokai command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

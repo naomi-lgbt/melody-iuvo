@@ -6,40 +6,40 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { plural } from "../../src/commands/plural";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("Plural command", () => {
@@ -51,7 +51,7 @@ suite("Plural command", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await plural.run(
       { ...bot, env: { debugHook } } as never,
@@ -72,7 +72,7 @@ suite("Plural command", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await plural.run(
       { ...bot, env: { debugHook } } as never,

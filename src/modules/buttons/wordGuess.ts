@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle,
+  TextInputStyle
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -24,14 +24,14 @@ export const wordGuess = async (
     if (id !== interaction.user.id) {
       await interaction.reply({
         content: "Oh my, how on earth did you find this? This is not yours.",
-        ephemeral: true,
+        ephemeral: true
       });
     }
     if (!bot.cache.wordGame[id]) {
       await interaction.reply({
         content:
           "This might be a stale message, as you don't have a game in the cache. Please start a new game.",
-        ephemeral: true,
+        ephemeral: true
       });
       return;
     }
@@ -52,7 +52,7 @@ export const wordGuess = async (
     await errorHandler(bot, "word guess button", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

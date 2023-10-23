@@ -40,20 +40,20 @@ export const validateEnv = (): ExtendedClient["env"] => {
     token: process.env.TOKEN,
     homeGuild: process.env.HOME_GUILD_ID,
     debugHook: new WebhookClient({
-      url: process.env.DEBUG_HOOK,
+      url: process.env.DEBUG_HOOK
     }),
     ticketLogHook: new WebhookClient({
-      url: process.env.TICKET_LOG_HOOK,
+      url: process.env.TICKET_LOG_HOOK
     }),
     pluralLogHook: new WebhookClient({
-      url: process.env.PLURAL_LOG_HOOK,
+      url: process.env.PLURAL_LOG_HOOK
     }),
     birthdayHook: new WebhookClient({
-      url: process.env.BIRTHDAY_HOOK,
+      url: process.env.BIRTHDAY_HOOK
     }),
     issuesHook: new WebhookClient({
-      url: process.env.ISSUES_HOOK,
+      url: process.env.ISSUES_HOOK
     }),
-    ventChannel: process.env.VENT_CHANNEL_ID,
+    ventChannel: process.env.VENT_CHANNEL_ID
   };
 };

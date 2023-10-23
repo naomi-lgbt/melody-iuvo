@@ -27,7 +27,7 @@ export const generateLogs = async (
     ).catch(() => "no logs found...");
 
     const attachment = new AttachmentBuilder(Buffer.from(logs, "utf-8"), {
-      name: "log.txt",
+      name: "log.txt"
     });
 
     await unlink(join(process.cwd(), "logs", `${channelId}.txt`)).catch(

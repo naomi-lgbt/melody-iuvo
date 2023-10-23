@@ -13,7 +13,7 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
   try {
     if (!isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only Mama Naomi may use this command.",
+        content: "Only Mama Naomi may use this command."
       });
       return;
     }
@@ -21,7 +21,7 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
     if (bot.cache.wordGame[target.id]) {
       await interaction.editReply({
         content:
-          "It would seem they are currently in the middle of a game. Best not to disturb them, Mama.",
+          "It would seem they are currently in the middle of a game. Best not to disturb them, Mama."
       });
       return;
     }
@@ -29,36 +29,36 @@ export const handleCurrencyAward: CommandHandler = async (bot, interaction) => {
     const userRecord = await getDatabaseRecord(bot, target.id);
     if (!userRecord) {
       await interaction.editReply({
-        content: "Please forgive me, Mama. I cannot find their records.",
+        content: "Please forgive me, Mama. I cannot find their records."
       });
       return;
     }
     const oldTotal = sumCurrency(userRecord.currency);
     if (amount < 0 && oldTotal < Math.abs(amount)) {
       await interaction.editReply({
-        content: `You can't take away more ${CurrencyName} than the user has!`,
+        content: `You can't take away more ${CurrencyName} than the user has!`
       });
       return;
     }
     const newTotal = oldTotal + amount;
     await bot.db.users.update({
       where: {
-        userId: target.id,
+        userId: target.id
       },
       data: {
-        currency: { ...makeChange(newTotal) },
-      },
+        currency: { ...makeChange(newTotal) }
+      }
     });
     await interaction.editReply({
       content: `You have awarded ${amount.toLocaleString()} ${CurrencyName} to <@${
         target.id
-      }>! Their new total is ${newTotal.toLocaleString()} ${CurrencyName}.`,
+      }>! Their new total is ${newTotal.toLocaleString()} ${CurrencyName}.`
     });
   } catch (err) {
     await errorHandler(bot, "currency award command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

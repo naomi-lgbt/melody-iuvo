@@ -17,51 +17,51 @@ export const birthday: Command = {
         .setChoices(
           {
             name: "January",
-            value: "Jan",
+            value: "Jan"
           },
           {
             name: "February",
-            value: "Feb",
+            value: "Feb"
           },
           {
             name: "March",
-            value: "Mar",
+            value: "Mar"
           },
           {
             name: "April",
-            value: "Apr",
+            value: "Apr"
           },
           {
             name: "May",
-            value: "May",
+            value: "May"
           },
           {
             name: "June",
-            value: "Jun",
+            value: "Jun"
           },
           {
             name: "July",
-            value: "Jul",
+            value: "Jul"
           },
           {
             name: "August",
-            value: "Aug",
+            value: "Aug"
           },
           {
             name: "September",
-            value: "Sep",
+            value: "Sep"
           },
           {
             name: "October",
-            value: "Oct",
+            value: "Oct"
           },
           {
             name: "November",
-            value: "Nov",
+            value: "Nov"
           },
           {
             name: "December",
-            value: "Dec",
+            value: "Dec"
           }
         )
     )
@@ -81,7 +81,7 @@ export const birthday: Command = {
 
       if (!validateDate(month, day)) {
         await interaction.editReply({
-          content: `${month} ${day} is not a valid date!`,
+          content: `${month} ${day} is not a valid date!`
         });
         return;
       }
@@ -90,18 +90,18 @@ export const birthday: Command = {
       if (!record) {
         await interaction.editReply({
           content:
-            "I beg your pardon, but I seem to have misplaced your records.",
+            "I beg your pardon, but I seem to have misplaced your records."
         });
         return;
       }
 
       await bot.db.users.update({
         where: {
-          userId: record.userId,
+          userId: record.userId
         },
         data: {
-          birthday: new Date(`${month}-${day}-2000`).getTime(),
-        },
+          birthday: new Date(`${month}-${day}-2000`).getTime()
+        }
       });
 
       await interaction.editReply(
@@ -110,5 +110,5 @@ export const birthday: Command = {
     } catch (err) {
       await errorHandler(bot, "bbset command", err);
     }
-  },
+  }
 };

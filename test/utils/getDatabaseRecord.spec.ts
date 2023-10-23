@@ -15,7 +15,7 @@ suite("getDatabaseRecord", () => {
       silver: 0,
       gold: 0,
       platinum: 0,
-      amethyst: 0,
+      amethyst: 0
     });
     assert.deepEqual(result.plurals, []);
     assert.equal(result.front, "");

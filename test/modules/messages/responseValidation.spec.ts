@@ -4,7 +4,7 @@ import {
   isGoodMorning,
   isGoodNight,
   isThanks,
-  isSorry,
+  isSorry
 } from "../../../src/modules/messages/responseValidation";
 
 suite("isGoodMorning", () => {

@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { CurrencyDailyEvents } from "../../../../src/config/Currency";
@@ -15,34 +15,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencyDaily", () => {
@@ -54,7 +54,7 @@ suite("handleCurrencyDaily", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyDaily(
@@ -62,7 +62,7 @@ suite("handleCurrencyDaily", () => {
         ...bot,
         env: { debugHook },
         db,
-        cache: { wordGame: { [user.id]: {} } },
+        cache: { wordGame: { [user.id]: {} } }
       } as never,
       command.typeCast()
     );
@@ -82,7 +82,7 @@ suite("handleCurrencyDaily", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyDaily(
@@ -90,8 +90,8 @@ suite("handleCurrencyDaily", () => {
       command.typeCast()
     );
     assert.equal(command.replies.length, 1);
-    const triggeredEvent = CurrencyDailyEvents.find((e) =>
-      command.replies[0]?.content?.startsWith(`# ${e.title}`)
+    const triggeredEvent = CurrencyDailyEvents.find(
+      (e) => command.replies[0]?.content?.startsWith(`# ${e.title}`)
     );
     const regex = new RegExp(
       `# ${triggeredEvent?.title}\n${triggeredEvent?.description}\nYou (?:gained|lost) \\d+ NaomiCoin`
@@ -113,9 +113,9 @@ suite("handleCurrencyDaily", () => {
         {
           name: "target",
           value: "bio-slot",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyDaily(

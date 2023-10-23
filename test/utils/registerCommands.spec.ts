@@ -16,7 +16,7 @@ suite("registerCommands", () => {
       env: { token: "hi", homeGuild: "home" },
       user: { id: "user" },
       commands: [],
-      contexts: [],
+      contexts: []
     };
     await loadCommands(bot as never);
     await loadContexts(bot as never);
@@ -36,7 +36,7 @@ suite("registerCommands", () => {
       // @ts-expect-error Not importing the typedef
       ...bot.commands.map((c) => c.data.toJSON()),
       // @ts-expect-error Not importing the typedef
-      ...bot.contexts.map((c) => c.data),
+      ...bot.contexts.map((c) => c.data)
     ]);
   });
 });

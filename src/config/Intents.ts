@@ -6,5 +6,5 @@ export const Intents = [
   GatewayIntentBits.GuildMembers,
   GatewayIntentBits.MessageContent,
   GatewayIntentBits.AutoModerationExecution,
-  GatewayIntentBits.GuildVoiceStates,
+  GatewayIntentBits.GuildVoiceStates
 ];

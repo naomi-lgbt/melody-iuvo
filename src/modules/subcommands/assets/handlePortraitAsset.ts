@@ -23,7 +23,7 @@ export const handlePortraitAsset: AssetHandler = async (
         alt: "Test Alt",
         description: "Test Description",
         artist: "Test Artist",
-        url: "Test URL",
+        url: "Test URL"
       };
       let index = 1;
       let total = 1;
@@ -45,11 +45,11 @@ export const handlePortraitAsset: AssetHandler = async (
       );
       embed.addFields({
         name: "Art By:",
-        value: `[${file.artist}](${file.url})`,
+        value: `[${file.artist}](${file.url})`
       });
       embed.setFooter({
         text: `Artwork ${index} of ${total} (${file.fileName})`,
-        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`
       });
 
       return embed;

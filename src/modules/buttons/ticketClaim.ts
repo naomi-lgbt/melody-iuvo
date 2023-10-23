@@ -4,7 +4,7 @@ import {
   ButtonStyle,
   Embed,
   GuildMember,
-  Message,
+  Message
 } from "discord.js";
 
 import { TicketSupportRole } from "../../config/Tickets";
@@ -31,7 +31,7 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
 
     if (!isSupport && !isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only support members can claim a ticket.",
+        content: "Only support members can claim a ticket."
       });
       return;
     }
@@ -40,7 +40,7 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
     const updatedEmbed = {
       title: ticketEmbed.title || "Lost the Title",
       description: ticketEmbed.description || "Lost the Description",
-      fields: [{ name: "Claimed by:", value: `<@${member.user.id}>` }],
+      fields: [{ name: "Claimed by:", value: `<@${member.user.id}>` }]
     };
 
     const claimButton = new ButtonBuilder()
@@ -57,12 +57,12 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       claimButton,
-      closeButton,
+      closeButton
     ]);
 
     await (message as Message).edit({
       embeds: [updatedEmbed],
-      components: [row],
+      components: [row]
     });
 
     await interaction.editReply(
@@ -72,7 +72,7 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
     await errorHandler(bot, "ticket claim handler", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

@@ -13,7 +13,7 @@ export enum ResponseIds {
   naomi = "465650873650118659",
   naomiAlt = "710195136700874893",
   partnerRole = "cutie",
-  default = "default",
+  default = "default"
 }
 
 export const Responses: {
@@ -31,14 +31,14 @@ export const Responses: {
     // partners
     [ResponseIds.partnerRole]: "",
     // default
-    [ResponseIds.default]: "",
+    [ResponseIds.default]: ""
   },
   melodyPing: {
     [ResponseIds.erin]: "Good day, my Queen. What might you require?",
     [ResponseIds.naomi]: "Hello, Mama. Might I be of assistance?",
     [ResponseIds.naomiAlt]: "Hello, Mama. Might I be of assistance?",
     [ResponseIds.partnerRole]: "Hello, dear. What can I do for you today?",
-    [ResponseIds.default]: "Yes? How may I be of service to you?",
+    [ResponseIds.default]: "Yes? How may I be of service to you?"
   },
   outfit: {
     [ResponseIds.erin]:
@@ -47,7 +47,7 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "Mama, I chose this outfit for your next event.",
     [ResponseIds.partnerRole]:
       "Looking through your beloved's wardrobe? Did you have a specific outfit in mind?",
-    [ResponseIds.default]: "",
+    [ResponseIds.default]: ""
   },
   naughty: {
     [ResponseIds.erin]:
@@ -59,7 +59,7 @@ export const Responses: {
     [ResponseIds.partnerRole]:
       "{userping}, dating Naomi does not exempt you from the rules...",
     [ResponseIds.default]:
-      "Oh dear, it would seem that {userping} has been naughty.",
+      "Oh dear, it would seem that {userping} has been naughty."
   },
   greeting: {
     [ResponseIds.erin]:
@@ -68,7 +68,7 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "Welcome back Mama. Did you sleep well?",
     [ResponseIds.partnerRole]:
       "Hello there cutie! It is very good to see you again.",
-    [ResponseIds.default]: "Good morning! How are you today?",
+    [ResponseIds.default]: "Good morning! How are you today?"
   },
   goodbye: {
     [ResponseIds.erin]:
@@ -77,7 +77,7 @@ export const Responses: {
     [ResponseIds.naomiAlt]: "Sleep well, Mama. I shall be here when you wake.",
     [ResponseIds.partnerRole]:
       "Good night cutie. I am sure Mama will miss you.",
-    [ResponseIds.default]: "Good night! We shall see you tomorrow.",
+    [ResponseIds.default]: "Good night! We shall see you tomorrow."
   },
   thanks: {
     // erin
@@ -92,7 +92,7 @@ export const Responses: {
     // partners
     [ResponseIds.partnerRole]:
       "{username}, we are so grateful to have a cutie like you in our community.",
-    [ResponseIds.default]: "{username}, I appreciate your help in this matter.",
+    [ResponseIds.default]: "{username}, I appreciate your help in this matter."
   },
   sorry: {
     // erin
@@ -105,6 +105,6 @@ export const Responses: {
     // partners
     [ResponseIds.partnerRole]:
       "Aww, {username} cutie, that's kind of you to apologise. But truly not necessary.",
-    [ResponseIds.default]: "It's okay, {username}. We all have our moments.",
-  },
+    [ResponseIds.default]: "It's okay, {username}. We all have our moments."
+  }
 };

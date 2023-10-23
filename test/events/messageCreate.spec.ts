@@ -4,7 +4,7 @@ import {
   MockChannel,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { messageCreate } from "../../src/events/messageCreate";
@@ -13,21 +13,21 @@ import { Database } from "../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const naomi = new MockUser({
   username: "Naomi",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 // @ts-expect-error ID set for testing
 naomi._id = "465650873650118659";
@@ -36,20 +36,20 @@ const bot = new MockUser({
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const naomiMember = new MockMember({
   guild,
-  user: naomi,
+  user: naomi
 });
 
 const fakeClient = {
@@ -57,14 +57,14 @@ const fakeClient = {
     pluralLogHook: {
       messages: [] as unknown[],
       send: (message: unknown) =>
-        fakeClient.env.pluralLogHook.messages.push(message),
+        fakeClient.env.pluralLogHook.messages.push(message)
     },
     debugHook: {
       messages: [] as unknown[],
       send: (message: unknown) =>
-        fakeClient.env.debugHook.messages.push(message),
-    },
-  },
+        fakeClient.env.debugHook.messages.push(message)
+    }
+  }
 };
 
 suite("messageCreate", () => {
@@ -85,7 +85,7 @@ suite("messageCreate", () => {
   test("should reply to messages with name when special response", async () => {
     const naomiMember = new MockMember({
       guild,
-      user: naomi,
+      user: naomi
     });
     const msg = await channel.send("melody", naomi, naomiMember);
     await messageCreate({ db } as never, msg as never);
@@ -114,18 +114,18 @@ suite("messageCreate", () => {
     const msg = await channel.send("test", user, member);
     await db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
         plurals: [
           {
             name: "plural",
             prefix: "~pk",
-            avatar: "https://cdn.nhcarrigan.com/profile.png",
-          },
+            avatar: "https://cdn.nhcarrigan.com/profile.png"
+          }
         ],
-        front: "plural",
-      },
+        front: "plural"
+      }
     });
     await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 11);
@@ -138,18 +138,18 @@ suite("messageCreate", () => {
     const msg = await channel.send("~pk test", user, member);
     await db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
         plurals: [
           {
             name: "plural",
             prefix: "~pk",
-            avatar: "https://cdn.nhcarrigan.com/profile.png",
-          },
+            avatar: "https://cdn.nhcarrigan.com/profile.png"
+          }
         ],
-        front: "",
-      },
+        front: ""
+      }
     });
     await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 13);
@@ -218,8 +218,8 @@ suite("messageCreate", () => {
     assert.equal(channel.messages.cache.size, 23);
     const record = await db.users.findUnique({
       where: {
-        userId: user.id,
-      },
+        userId: user.id
+      }
     });
     assert.isNotNull(record);
     // @ts-expect-error It's not null, the assertion would throw.

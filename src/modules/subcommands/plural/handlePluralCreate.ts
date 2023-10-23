@@ -16,7 +16,7 @@ export const handlePluralCreate: CommandHandler = async (bot, interaction) => {
     if (record.plurals.length >= 5) {
       await interaction.editReply({
         content:
-          "Please forgive me, but because I am so new at this I can only support 5 identities at this time.",
+          "Please forgive me, but because I am so new at this I can only support 5 identities at this time."
       });
       return;
     }
@@ -26,28 +26,28 @@ export const handlePluralCreate: CommandHandler = async (bot, interaction) => {
     if (exists) {
       await interaction.editReply({
         content:
-          "Please forgive me, but you already have an identity with that name.",
+          "Please forgive me, but you already have an identity with that name."
       });
       return;
     }
 
     await bot.db.users.update({
       where: {
-        userId: interaction.user.id,
+        userId: interaction.user.id
       },
       data: {
-        plurals: [...record.plurals, { name, avatar, prefix }],
-      },
+        plurals: [...record.plurals, { name, avatar, prefix }]
+      }
     });
 
     await interaction.editReply({
-      content: `I have created that identity for you. Start a message with \`${prefix} \` and I will replace it with a message sent from your identity.`,
+      content: `I have created that identity for you. Start a message with \`${prefix} \` and I will replace it with a message sent from your identity.`
     });
   } catch (err) {
     await errorHandler(bot, "plural create command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

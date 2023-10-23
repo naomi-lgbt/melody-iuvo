@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { CurrencyItems } from "../../../../src/config/Currency";
@@ -16,34 +16,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencyPurchase", () => {
@@ -60,9 +60,9 @@ suite("handleCurrencyPurchase", () => {
         {
           name: "target",
           value: CurrencyItems[0].internalId,
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyPurchase(
@@ -92,9 +92,9 @@ suite("handleCurrencyPurchase", () => {
         {
           name: "target",
           value: "asd;fjasdk;f",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyPurchase(
@@ -122,12 +122,12 @@ suite("handleCurrencyPurchase", () => {
         {
           name: "target",
           value: CurrencyItems[0].internalId,
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     const cache = {
-      wordGame: { [user.id]: true },
+      wordGame: { [user.id]: true }
     };
     await command.deferReply({ ephemeral: true });
     await handleCurrencyPurchase(
@@ -153,22 +153,22 @@ suite("handleCurrencyPurchase", () => {
         {
           name: "target",
           value: CurrencyItems[0].internalId,
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await db.users.upsert({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       create: {
         userId: user.id,
-        currency: makeChange(CurrencyItems[0].price),
+        currency: makeChange(CurrencyItems[0].price)
       },
       update: {
-        currency: makeChange(CurrencyItems[0].price),
-      },
+        currency: makeChange(CurrencyItems[0].price)
+      }
     });
     await handleCurrencyPurchase(
       { ...bot, env: { debugHook }, db, cache: { wordGame: {} } } as never,

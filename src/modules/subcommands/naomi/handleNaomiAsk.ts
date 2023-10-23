@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle,
+  TextInputStyle
 } from "discord.js";
 
 import { CommandHandler } from "../../../interfaces/CommandHandler";
@@ -29,7 +29,7 @@ export const handleNaomiAsk: CommandHandler = async (bot, interaction) => {
     await errorHandler(bot, "naomi ask command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

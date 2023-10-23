@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handlePluralDelete } from "../../../../src/modules/subcommands/plural/handlePluralDelete";
@@ -14,34 +14,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 suite("handlePluralDelete", () => {
   test("should successfully delete an alter", async () => {
@@ -57,13 +57,13 @@ suite("handlePluralDelete", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await db.users.upsert({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       create: {
         userId: user.id,
@@ -71,10 +71,10 @@ suite("handlePluralDelete", () => {
           {
             name: "Test Alter",
             avatar: "https://cdn.nhcarrigan.com/profile.png",
-            prefix: "~ta",
-          },
-        ],
-      },
+            prefix: "~ta"
+          }
+        ]
+      }
     });
     await command.deferReply();
     await handlePluralDelete(
@@ -101,9 +101,9 @@ suite("handlePluralDelete", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply();
     await handlePluralDelete(

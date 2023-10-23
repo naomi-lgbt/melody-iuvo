@@ -24,8 +24,8 @@ export const errorHandler = async (
   embed.addFields([
     {
       name: "Message",
-      value: err.message || "No message available.",
-    },
+      value: err.message || "No message available."
+    }
   ]);
   await bot.env.debugHook.send({ embeds: [embed] });
 };

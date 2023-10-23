@@ -14,7 +14,7 @@ export const handlePluralDelete: CommandHandler = async (bot, interaction) => {
     if (!exists) {
       await interaction.editReply({
         content:
-          "Please forgive me, but you do not have an identity with that name.",
+          "Please forgive me, but you do not have an identity with that name."
       });
       return;
     }
@@ -22,21 +22,21 @@ export const handlePluralDelete: CommandHandler = async (bot, interaction) => {
 
     await bot.db.users.update({
       where: {
-        userId: interaction.user.id,
+        userId: interaction.user.id
       },
       data: {
-        plurals: [...record.plurals],
-      },
+        plurals: [...record.plurals]
+      }
     });
 
     await interaction.editReply({
-      content: "I have removed that identity for you.",
+      content: "I have removed that identity for you."
     });
   } catch (err) {
     await errorHandler(bot, "plural delete command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

@@ -2,44 +2,44 @@ import { assert } from "chai";
 import {
   ApplicationCommandOptionType,
   ChannelType,
-  EmbedBuilder,
+  EmbedBuilder
 } from "discord.js";
 import {
   MockChannel,
   MockChatInputCommandInteraction,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { tarot } from "../../src/commands/tarot";
 import { TarotChoices, TarotHeaders } from "../../src/config/TarotCards";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("tarot command", () => {
@@ -57,9 +57,9 @@ suite("tarot command", () => {
         {
           name: "type",
           value: "naomi",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await tarot.run({ cache } as never, command as never);
     assert.equal(command.replies.length, 1);
@@ -81,9 +81,9 @@ suite("tarot command", () => {
         {
           name: "type",
           value: "general",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await tarot.run({ cache } as never, command as never);
     assert.equal(command.replies.length, 1);
@@ -111,9 +111,9 @@ suite("tarot command", () => {
         {
           name: "type",
           value: "general",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await tarot.run({ cache } as never, command as never);
     assert.equal(command.replies.length, 1);
@@ -135,12 +135,12 @@ suite("tarot command", () => {
         {
           name: "type",
           value: "general",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     cache.tarot[user.id] = {
-      lastPlayed: Date.now() - 1000 * 60 * 60 * 25,
+      lastPlayed: Date.now() - 1000 * 60 * 60 * 25
     };
     await tarot.run({ cache } as never, command as never);
     assert.equal(command.replies.length, 1);

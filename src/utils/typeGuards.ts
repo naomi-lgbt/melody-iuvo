@@ -1,7 +1,7 @@
 import {
   ButtonInteraction,
   ChatInputCommandInteraction,
-  Message,
+  Message
 } from "discord.js";
 
 import { AssetTarget } from "../interfaces/Asset";

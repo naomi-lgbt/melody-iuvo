@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle,
+  TextInputStyle
 } from "discord.js";
 
 import { ButtonHandler } from "../../interfaces/ButtonHandler";
@@ -25,10 +25,10 @@ export const ageGateModal: ButtonHandler = async (bot, interaction) => {
       .setStyle(TextInputStyle.Paragraph)
       .setMaxLength(1024);
     const bDayRow = new ActionRowBuilder<TextInputBuilder>().addComponents([
-      bDay,
+      bDay
     ]);
     const howFindRow = new ActionRowBuilder<TextInputBuilder>().addComponents([
-      howFind,
+      howFind
     ]);
     const modal = new ModalBuilder()
       .addComponents([bDayRow, howFindRow])

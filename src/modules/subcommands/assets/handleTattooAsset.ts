@@ -16,7 +16,7 @@ export const handleTattooAsset: AssetHandler = async (
   try {
     let tattoo = {
       fileName: "test",
-      name: "Test Asset",
+      name: "Test Asset"
     };
     if (!process.env.MOCHA) {
       const tattooData = await fetch(

@@ -21,7 +21,7 @@ export const handleAdventureAsset: AssetHandler = async (
         fileName: "test",
         game: "Test Asset",
         alt: "Test Alt",
-        description: "Test Description",
+        description: "Test Description"
       };
       let index = 1;
       let total = 1;
@@ -38,7 +38,7 @@ export const handleAdventureAsset: AssetHandler = async (
       embed.setImage(`https://cdn.naomi.lgbt/${target}/games/${fileName}`);
       embed.setFooter({
         text: `Adventure ${index} of ${total} (${fileName})`,
-        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`
       });
       return embed;
     }

@@ -42,7 +42,7 @@ export const autoModerationActionExecution = async (
         /\{userping\}/g,
         `<@${userId}>`
       ),
-      stickers: ["1146868650041675908"],
+      stickers: ["1146868650041675908"]
     });
   } catch (err) {
     await errorHandler(bot, "autoModerationActionExecution", err);

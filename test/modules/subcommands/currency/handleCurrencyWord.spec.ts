@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handleCurrencyWord } from "../../../../src/modules/subcommands/currency/handleCurrencyWord";
@@ -14,34 +14,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencyWord", () => {
@@ -58,9 +58,9 @@ suite("handleCurrencyWord", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyWord(
@@ -68,7 +68,7 @@ suite("handleCurrencyWord", () => {
         ...bot,
         env: { debugHook },
         db,
-        cache: { wordGame: {}, slots: {} },
+        cache: { wordGame: {}, slots: {} }
       } as never,
       command.typeCast()
     );
@@ -93,14 +93,14 @@ suite("handleCurrencyWord", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await db.users.upsert({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       create: {
         userId: user.id,
@@ -109,8 +109,8 @@ suite("handleCurrencyWord", () => {
           silver: 39,
           gold: 5,
           platinum: 0,
-          amethyst: 0,
-        },
+          amethyst: 0
+        }
       },
       update: {
         currency: {
@@ -118,16 +118,16 @@ suite("handleCurrencyWord", () => {
           silver: 39,
           gold: 5,
           platinum: 0,
-          amethyst: 0,
-        },
-      },
+          amethyst: 0
+        }
+      }
     });
     await handleCurrencyWord(
       {
         ...bot,
         env: { debugHook },
         db,
-        cache: { wordGame: { [user.id]: true }, slots: {} },
+        cache: { wordGame: { [user.id]: true }, slots: {} }
       } as never,
       command.typeCast()
     );
@@ -152,14 +152,14 @@ suite("handleCurrencyWord", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await db.users.upsert({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       create: {
         userId: user.id,
@@ -168,8 +168,8 @@ suite("handleCurrencyWord", () => {
           silver: 39,
           gold: 5,
           platinum: 0,
-          amethyst: 0,
-        },
+          amethyst: 0
+        }
       },
       update: {
         currency: {
@@ -177,9 +177,9 @@ suite("handleCurrencyWord", () => {
           silver: 39,
           gold: 5,
           platinum: 0,
-          amethyst: 0,
-        },
-      },
+          amethyst: 0
+        }
+      }
     });
     await handleCurrencyWord(
       {
@@ -188,8 +188,8 @@ suite("handleCurrencyWord", () => {
         db,
         cache: {
           wordGame: {},
-          slots: {},
-        },
+          slots: {}
+        }
       } as never,
       command.typeCast()
     );

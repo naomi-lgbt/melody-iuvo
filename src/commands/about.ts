@@ -48,7 +48,7 @@ export const about: Command = {
           value: version
             ? `[${version}](https://github.com/naomi-lgbt/melody-iuvo/releases/tag/v${version})`
             : "Unable to parse version from package.json",
-          inline: true,
+          inline: true
         },
         {
           name: "Commit",
@@ -56,32 +56,32 @@ export const about: Command = {
             0,
             7
           )}](https://github.com/naomi-lgbt/melody-iuvo/commit/${commit})`,
-          inline: true,
+          inline: true
         },
         {
           name: "Source Code",
           value: "[GitHub](https://github.com/naomi-lgbt/melody-iuvo)",
-          inline: true,
+          inline: true
         },
         {
           name: "Files",
           value: files,
-          inline: true,
+          inline: true
         },
         {
           name: "Lines of Code",
           value: code,
-          inline: true,
+          inline: true
         },
         {
           name: "Code Coverage",
           value: `[${lineTotals}](https://naomi.lgbt/melody-iuvo)`,
-          inline: true,
-        },
+          inline: true
+        }
       ]);
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
       await errorHandler(bot, "about command", err);
     }
-  },
+  }
 };

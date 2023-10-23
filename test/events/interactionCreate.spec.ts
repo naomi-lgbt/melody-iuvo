@@ -5,29 +5,29 @@ import {
   MockChatInputCommandInteraction,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { interactionCreate } from "../../src/events/interactionCreate";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("interactionCreate", () => {
@@ -37,7 +37,7 @@ suite("interactionCreate", () => {
       member,
       user,
       channel,
-      bot: user,
+      bot: user
     });
     // @ts-expect-error Need to update the mock.
     command.isContextMenuCommand = () => false;
@@ -56,7 +56,7 @@ suite("interactionCreate", () => {
       user,
       channel,
       bot: user,
-      guild,
+      guild
     });
     // @ts-expect-error Need to update the mock.
     command.isContextMenuCommand = () => false;

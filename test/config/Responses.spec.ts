@@ -7,7 +7,7 @@ const ids = [
   "465650873650118659",
   "710195136700874893",
   "cutie",
-  "default",
+  "default"
 ];
 
 suite("Responses", () => {

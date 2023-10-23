@@ -2,7 +2,7 @@ import { assert } from "chai";
 import {
   ApplicationCommandOptionType,
   ChannelType,
-  EmbedBuilder,
+  EmbedBuilder
 } from "discord.js";
 import {
   MockChannel,
@@ -10,7 +10,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { CurrencyItems } from "../../../../src/config/Currency";
@@ -19,34 +19,34 @@ import { parseCurrencyString } from "../../../../src/modules/parseCurrencyString
 import { handleCurrencyItem } from "../../../../src/modules/subcommands/currency/handleCurrencyItem";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencyItem", () => {
@@ -63,9 +63,9 @@ suite("handleCurrencyItem", () => {
         {
           name: "target",
           value: CurrencyItems[0].internalId,
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencyItem(
@@ -79,8 +79,8 @@ suite("handleCurrencyItem", () => {
     assert.deepEqual(embed?.toJSON().fields, [
       {
         name: `${CurrencyItems[0].price.toLocaleString()} NaomiCoin`,
-        value: parseCurrencyString(makeChange(CurrencyItems[0].price)),
-      },
+        value: parseCurrencyString(makeChange(CurrencyItems[0].price))
+      }
     ]);
   });
 
@@ -97,9 +97,9 @@ suite("handleCurrencyItem", () => {
         {
           name: "target",
           value: ";aldsfkjasd;lkfj",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
 
     await command.deferReply({ ephemeral: true });

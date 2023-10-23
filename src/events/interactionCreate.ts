@@ -35,7 +35,7 @@ export const interactionCreate = async (
       );
       if (!context) {
         await interaction.reply({
-          content: `My deepest apologies, but I cannot find a ${interaction.commandName} command.`,
+          content: `My deepest apologies, but I cannot find a ${interaction.commandName} command.`
         });
         return;
       }
@@ -45,7 +45,7 @@ export const interactionCreate = async (
       if (!isGuildSlashCommand(interaction)) {
         await interaction.reply({
           content:
-            "Forgive me, but this can only be done within Naomi's community.",
+            "Forgive me, but this can only be done within Naomi's community."
         });
         return;
       }
@@ -55,7 +55,7 @@ export const interactionCreate = async (
       if (!target) {
         await interaction.reply({
           content:
-            "My deepest apologies, but I cannot follow those instructions at this time.",
+            "My deepest apologies, but I cannot follow those instructions at this time."
         });
         return;
       }
@@ -66,7 +66,7 @@ export const interactionCreate = async (
       if (!isGuildButtonCommand(interaction)) {
         await interaction.editReply({
           content:
-            "Forgive me, but this can only be done within Naomi's community.",
+            "Forgive me, but this can only be done within Naomi's community."
         });
         return;
       }
@@ -127,7 +127,7 @@ export const interactionCreate = async (
       }
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
       return;
     }

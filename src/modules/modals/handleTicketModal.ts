@@ -5,7 +5,7 @@ import {
   ChannelType,
   EmbedBuilder,
   ModalSubmitInteraction,
-  TextChannel,
+  TextChannel
 } from "discord.js";
 
 import { TicketSupportRole } from "../../config/Tickets";
@@ -48,7 +48,7 @@ export const handleTicketModal = async (
 
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
       claimButton,
-      closeButton,
+      closeButton
     ]);
 
     const ticketEmbed = new EmbedBuilder();
@@ -59,13 +59,13 @@ export const handleTicketModal = async (
 
     const ticketThread = await (channel as TextChannel).threads.create({
       name: `ticket-${user.username}`,
-      type: ChannelType.PrivateThread,
+      type: ChannelType.PrivateThread
     });
     await ticketThread.members.add(user.id);
     await ticketThread.send({
       content: `<@&${TicketSupportRole}>, a ticket has been opened!`,
       embeds: [ticketEmbed],
-      components: [row],
+      components: [row]
     });
     await createLogFile(bot, ticketThread.id, user.tag, reason);
     await interaction.editReply(
@@ -75,7 +75,7 @@ export const handleTicketModal = async (
     await errorHandler(bot, "handle ticket modal", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

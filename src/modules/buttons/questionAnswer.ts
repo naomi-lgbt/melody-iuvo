@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ModalBuilder,
   TextInputBuilder,
-  TextInputStyle,
+  TextInputStyle
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -24,7 +24,7 @@ export const questionAnswer = async (
     if (!isOwner(interaction.user.id)) {
       await interaction.reply({
         content: "Only Mama Naomi can click these buttons.",
-        ephemeral: true,
+        ephemeral: true
       });
       return;
     }
@@ -44,7 +44,7 @@ export const questionAnswer = async (
     await errorHandler(bot, "question answer button", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };
