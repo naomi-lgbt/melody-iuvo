@@ -21,6 +21,7 @@ import { startTicketPost } from "../modules/messages/startTicketPost";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
+import { getRandomValue } from "../utils/getRandomValue";
 import { isOwner } from "../utils/isOwner";
 import { isGuildMessage } from "../utils/typeGuards";
 
@@ -62,7 +63,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       /melody/i.test(content)
     ) {
       await message.reply({
-        content: Responses.melodyPing[getResponseKey(message.member)],
+        content: getRandomValue(
+          Responses.melodyPing[getResponseKey(message.member)]
+        ),
         stickers:
           getResponseKey(message.member) !== "default"
             ? []
@@ -85,30 +88,28 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (isGoodMorning(content)) {
         await message.reply({
-          content: Responses.greeting[getResponseKey(member)]
+          content: getRandomValue(Responses.greeting[getResponseKey(member)])
         });
       }
       if (isGoodNight(content)) {
         await message.reply({
-          content: Responses.goodbye[getResponseKey(member)]
+          content: getRandomValue(Responses.goodbye[getResponseKey(member)])
         });
       }
       if (isSorry(content)) {
         await message.reply({
-          content: Responses.sorry[getResponseKey(member)].replace(
-            /\{username\}/g,
-            message.author.username
-          )
+          content: getRandomValue(
+            Responses.sorry[getResponseKey(member)]
+          ).replace(/\{username\}/g, message.author.username)
         });
       }
       if (isThanks(content)) {
         const mentioned = message.mentions.members?.first();
         if (mentioned) {
           await message.channel.send({
-            content: Responses.thanks[getResponseKey(mentioned)].replace(
-              /\{username\}/g,
-              mentioned.user.username || "friend"
-            )
+            content: getRandomValue(
+              Responses.thanks[getResponseKey(mentioned)]
+            ).replace(/\{username\}/g, mentioned.user.username || "friend")
           });
         }
       }

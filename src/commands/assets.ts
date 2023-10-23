@@ -15,6 +15,7 @@ import { handlePortraitAsset } from "../modules/subcommands/assets/handlePortrai
 import { handleReferenceAsset } from "../modules/subcommands/assets/handleReferenceAsset";
 import { handleTattooAsset } from "../modules/subcommands/assets/handleTattooAsset";
 import { errorHandler } from "../utils/errorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 const handlers: { [key: string]: AssetHandler } = {
   adventure: handleAdventureAsset,
@@ -144,7 +145,9 @@ export const assets: Command = {
       await interaction.editReply({
         content:
           subcommand === "outfit"
-            ? Responses.outfit[getResponseKey(interaction.member)]
+            ? getRandomValue(
+                Responses.outfit[getResponseKey(interaction.member)]
+              )
             : "",
         embeds: [embed]
       });
