@@ -6,27 +6,27 @@ import { proxyPluralMessage } from "../../../src/modules/messages/proxyPluralMes
 
 const dmChannel = new MockChannel({
   name: "test-channel",
-  type: ChannelType.DM,
+  type: ChannelType.DM
 });
 const guild = new MockGuild({
-  name: "test-guild",
+  name: "test-guild"
 });
 const channel = new MockChannel({
   name: "test-channel",
   type: ChannelType.GuildText,
-  guild,
+  guild
 });
 const user = new MockUser({
   username: "test-user",
   avatar: "https://cdn.nhcarrigan.com/profile.png",
   bot: false,
   system: false,
-  discriminator: 0,
+  discriminator: 0
 });
 const plural = {
   name: "test-plural",
   prefix: "~test",
-  avatar: "https://cdn.nhcarrigan.com/profile.png",
+  avatar: "https://cdn.nhcarrigan.com/profile.png"
 };
 
 const fakeClient = {
@@ -34,9 +34,9 @@ const fakeClient = {
     pluralLogHook: {
       messages: [] as unknown[],
       send: (message: unknown) =>
-        fakeClient.env.pluralLogHook.messages.push(message),
-    },
-  },
+        fakeClient.env.pluralLogHook.messages.push(message)
+    }
+  }
 };
 
 suite("proxyPluralMessage", () => {

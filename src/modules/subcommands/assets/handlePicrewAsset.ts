@@ -29,7 +29,7 @@ export const handlePicrewAsset: AssetHandler = async (
     embed.setImage(`https://cdn.naomi.lgbt/naomi/picrew/${picrew}`);
     embed.setFooter({
       text: `Picrew ${index} of ${total}`,
-      iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`,
+      iconURL: `https://cdn.nhcarrigan.com/avatars/naomi.png`
     });
 
     return embed;

@@ -35,7 +35,7 @@ All conversations in these threads must still comply with our Code of Conduct an
     await errorHandler(bot, "start comfort post", err);
     await message.reply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

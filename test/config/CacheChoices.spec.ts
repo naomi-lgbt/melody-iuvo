@@ -13,7 +13,7 @@ suite("Cache Choices", () => {
     const fakeClient = {} as ExtendedClient;
     fakeClient.cache = {
       wordGame: {},
-      slots: {},
+      slots: {}
     };
     const values = CacheChoices.map((c) => c.value);
     const keys = Object.keys(fakeClient.cache);

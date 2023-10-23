@@ -16,15 +16,14 @@ export const handleCurrencyWord: CommandHandler = async (bot, interaction) => {
     const userRecord = await getDatabaseRecord(bot, interaction.user.id);
     if (!userRecord) {
       await interaction.editReply({
-        content:
-          "I beg your pardon, but I seem to have misplaced your records.",
+        content: "I beg your pardon, but I seem to have misplaced your records."
       });
       return;
     }
     const oldTotal = sumCurrency(userRecord.currency);
     if (oldTotal < wager) {
       await interaction.editReply({
-        content: "It would seem you do not have that much to wager.",
+        content: "It would seem you do not have that much to wager."
       });
       return;
     }
@@ -32,7 +31,7 @@ export const handleCurrencyWord: CommandHandler = async (bot, interaction) => {
     const targetWord = getRandomValue(CurrencyWords);
     if (bot.cache.wordGame[interaction.user.id]) {
       await interaction.editReply({
-        content: "It would seem you are already playing one of these.",
+        content: "It would seem you are already playing one of these."
       });
       return;
     }
@@ -40,7 +39,7 @@ export const handleCurrencyWord: CommandHandler = async (bot, interaction) => {
       wager,
       target: targetWord,
       guesses: [],
-      balance: oldTotal,
+      balance: oldTotal
     };
 
     const button = new ButtonBuilder()
@@ -52,13 +51,13 @@ export const handleCurrencyWord: CommandHandler = async (bot, interaction) => {
     await interaction.editReply({
       content:
         "You have five guesses to guess this 5-letter word. Letters will be yellow if they are in the word, but not in the correct position. Letters will be green if they are in the correct position. Good luck~!",
-      components: [row],
+      components: [row]
     });
   } catch (err) {
     await errorHandler(bot, "word command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

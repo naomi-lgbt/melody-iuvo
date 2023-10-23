@@ -2,7 +2,7 @@ import { Plural } from "@prisma/client";
 import {
   EmbedBuilder,
   MessageType,
-  WebhookMessageCreateOptions,
+  WebhookMessageCreateOptions
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -39,9 +39,9 @@ export const proxyPluralMessage = async (
       username: identity.name,
       avatarURL: identity.avatar,
       allowedMentions: {
-        parse: [],
+        parse: []
       },
-      embeds: [],
+      embeds: []
     };
 
     if (message.type === MessageType.Reply && message?.reference?.messageId) {
@@ -53,7 +53,7 @@ export const proxyPluralMessage = async (
         (message.mentions.users.size ? `<@${originalMsg.author.id}>, ` : "") +
         `${content.content}`;
       content.allowedMentions = {
-        users: [originalMsg.author.id],
+        users: [originalMsg.author.id]
       };
 
       content.embeds?.push(
@@ -62,7 +62,7 @@ export const proxyPluralMessage = async (
           .setAuthor({
             name: originalMsg.author.username,
             iconURL: originalMsg.author.displayAvatarURL(),
-            url: originalMsg.url,
+            url: originalMsg.url
           })
           .setURL(originalMsg.url)
       );
@@ -77,9 +77,9 @@ export const proxyPluralMessage = async (
           .setDescription(message.content.slice(0, 4000))
           .setAuthor({
             name: message.author.username,
-            iconURL: message.author.displayAvatarURL(),
-          }),
-      ],
+            iconURL: message.author.displayAvatarURL()
+          })
+      ]
     });
   } catch (err) {
     await errorHandler(bot, "proxy plural message", err);

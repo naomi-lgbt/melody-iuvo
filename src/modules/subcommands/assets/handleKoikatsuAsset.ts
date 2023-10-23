@@ -19,7 +19,7 @@ export const handleKoikatsuAsset: AssetHandler = async (
       fileName: "test",
       name: "Test Asset",
       alt: "Test Alt",
-      description: "Test Description",
+      description: "Test Description"
     };
     let index = 1;
     let total = 1;
@@ -36,7 +36,7 @@ export const handleKoikatsuAsset: AssetHandler = async (
     embed.setImage(`https://cdn.naomi.lgbt/${target}/koikatsu/${fileName}`);
     embed.setFooter({
       text: `Pose ${index} of ${total} (${fileName})`,
-      iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+      iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`
     });
     return embed;
   } catch (err) {

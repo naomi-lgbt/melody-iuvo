@@ -10,14 +10,14 @@ import { logTicketMessage } from "../../src/modules/logTicketMessage";
 
 const channel = new MockChannel({
   name: "test-channel",
-  type: ChannelType.PublicThread,
+  type: ChannelType.PublicThread
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 
 suite("logTicketMessage", () => {

@@ -8,7 +8,7 @@ import { errorHandler } from "../utils/errorHandler";
 
 const handlers: { [key: string]: CommandHandler } = {
   says: handleNaomiSays,
-  ask: handleNaomiAsk,
+  ask: handleNaomiAsk
 };
 
 export const naomi: Command = {
@@ -55,18 +55,19 @@ export const naomi: Command = {
       if (subcommand !== "ask") {
         await interaction.deferReply();
       }
-      handlers[subcommand]
-        ? await handlers[subcommand](bot, interaction)
+      const handler = handlers[subcommand];
+      handler
+        ? await handler(bot, interaction)
         : await interaction.editReply({
             content:
-              "I have failed you once again. The command you used does not have an instruction manual for me.",
+              "I have failed you once again. The command you used does not have an instruction manual for me."
           });
     } catch (err) {
       await errorHandler(bot, "naomi command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

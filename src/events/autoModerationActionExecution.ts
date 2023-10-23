@@ -27,7 +27,8 @@ export const autoModerationActionExecution = async (
     if (!member) {
       return;
     }
-    if (bot.automod[userId] && bot.automod[userId] > Date.now() - 1000 * 60) {
+    const cached = bot.automod[userId];
+    if (cached && cached > Date.now() - 1000 * 60) {
       return;
     }
     bot.automod[userId] = Date.now();
@@ -42,7 +43,7 @@ export const autoModerationActionExecution = async (
         /\{userping\}/g,
         `<@${userId}>`
       ),
-      stickers: ["1146868650041675908"],
+      stickers: ["1146868650041675908"]
     });
   } catch (err) {
     await errorHandler(bot, "autoModerationActionExecution", err);

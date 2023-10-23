@@ -21,7 +21,7 @@ export const handleEmoteAsset: AssetHandler = async (
         fileName: "test",
         name: "Test Asset",
         alt: "Test Alt",
-        description: "Test Description",
+        description: "Test Description"
       };
       let index = 1;
       let total = 1;
@@ -38,13 +38,13 @@ export const handleEmoteAsset: AssetHandler = async (
       if (target === "becca") {
         embed.addFields({
           name: "Art By:",
-          value: `[Starfazers](https://starfazers.art)`,
+          value: `[Starfazers](https://starfazers.art)`
         });
       }
       embed.setImage(`https://cdn.naomi.lgbt/${target}/emotes/${fileName}`);
       embed.setFooter({
         text: `Emote ${index} of ${total} (${fileName})`,
-        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`,
+        iconURL: `https://cdn.nhcarrigan.com/avatars/${target}.png`
       });
       return embed;
     }

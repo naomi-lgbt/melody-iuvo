@@ -8,9 +8,9 @@ const fakeClient = {
     debugHook: {
       messages: [] as unknown[],
       send: (message: unknown) =>
-        fakeClient.env.debugHook.messages.push(message),
-    },
-  },
+        fakeClient.env.debugHook.messages.push(message)
+    }
+  }
 };
 
 const error = new Error("test");
@@ -33,13 +33,13 @@ suite("errorHandler", () => {
               fields: [
                 {
                   name: "Message",
-                  value: error.message,
-                },
-              ],
-            },
-          },
-        ],
-      },
+                  value: error.message
+                }
+              ]
+            }
+          }
+        ]
+      }
     ]);
   });
 
@@ -55,12 +55,12 @@ suite("errorHandler", () => {
             fields: [
               {
                 name: "Message",
-                value: "No message available.",
-              },
-            ],
-          },
-        },
-      ],
+                value: "No message available."
+              }
+            ]
+          }
+        }
+      ]
     });
   });
 });

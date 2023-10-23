@@ -33,7 +33,7 @@ export const serve = async (bot: ExtendedClient) => {
 
   // mount your middleware and routes here
 
-  app.get("/", (req, res) => {
+  app.get("/", (_req, res) => {
     res.send("Melody online!");
   });
 
@@ -43,7 +43,7 @@ export const serve = async (bot: ExtendedClient) => {
       verification_token: verifyToken,
       from_name: fromName,
       is_subscription_payment: isSub,
-      is_first_subscription_payment: isFirstSub,
+      is_first_subscription_payment: isFirstSub
     } = payload;
     if (!verifyToken) {
       await bot.env.debugHook.send(
@@ -69,7 +69,7 @@ export const serve = async (bot: ExtendedClient) => {
     }
 
     await bot.general.send({
-      content: `## Big thanks to ${fromName} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`,
+      content: `## Big thanks to ${fromName} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`
     });
   });
 
@@ -108,7 +108,7 @@ export const serve = async (bot: ExtendedClient) => {
     );
 
     await bot.general.send({
-      content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`,
+      content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`
     });
   });
 
@@ -142,7 +142,7 @@ export const serve = async (bot: ExtendedClient) => {
       const event = req.headers["x-github-event"];
       if (event === "sponsorship" && req.body.action === "created") {
         await bot.general.send({
-          content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`,
+          content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`
         });
       }
       if (event !== "pull_request") {
@@ -163,14 +163,14 @@ export const serve = async (bot: ExtendedClient) => {
       const isMerged =
         req.body.action === "closed" && req.body.pull_request.merged;
       const github = new Octokit({
-        auth: process.env.GITHUB_TOKEN,
+        auth: process.env.GITHUB_TOKEN
       });
       if (isFirstTimer) {
         await github.issues.createComment({
           owner,
           repo,
           issue_number: number,
-          body: FirstTimer,
+          body: FirstTimer
         });
       }
       if (isMerged) {
@@ -178,7 +178,7 @@ export const serve = async (bot: ExtendedClient) => {
           owner,
           repo,
           issue_number: number,
-          body: ThankYou,
+          body: ThankYou
         });
       }
     } catch (err) {
@@ -209,7 +209,7 @@ export const serve = async (bot: ExtendedClient) => {
     const credentials = {
       key: privateKey,
       cert: certificate,
-      ca: ca,
+      ca: ca
     };
 
     const httpsServer = https.createServer(credentials, app);

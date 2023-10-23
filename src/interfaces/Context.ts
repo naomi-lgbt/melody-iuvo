@@ -1,6 +1,6 @@
 import {
   ContextMenuCommandInteraction,
-  ContextMenuCommandType,
+  ContextMenuCommandType
 } from "discord.js";
 
 import { ExtendedClient } from "./ExtendedClient";

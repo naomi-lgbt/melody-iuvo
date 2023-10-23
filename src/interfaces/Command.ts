@@ -1,6 +1,6 @@
 import {
   SlashCommandBuilder,
-  SlashCommandSubcommandsOnlyBuilder,
+  SlashCommandSubcommandsOnlyBuilder
 } from "discord.js";
 
 import { ExtendedClient } from "./ExtendedClient";

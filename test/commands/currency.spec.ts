@@ -6,49 +6,49 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { currency } from "../../src/commands/currency";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const naomi = new MockUser({
   username: "Naomi",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 // @ts-expect-error Need to manually set ID for owner only command.
 naomi._id = "465650873650118659";
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("Currency command", () => {
@@ -60,7 +60,7 @@ suite("Currency command", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await currency.run(
       { ...bot, env: { debugHook } } as never,
@@ -86,9 +86,9 @@ suite("Currency command", () => {
         {
           name: "target",
           type: ApplicationCommandOptionType.String,
-          value: "naomi",
-        },
-      ],
+          value: "naomi"
+        }
+      ]
     });
     await currency.run(
       { ...bot, env: { debugHook } } as never,

@@ -24,7 +24,10 @@ export const about: Command = {
       const lines = stdout.split("\n").slice(1);
       const typescript = lines.find((line) => line.includes("TypeScript"));
       const [files, code] = typescript
-        ? [typescript.split(",")[0], typescript.split(",")[4]]
+        ? [
+            typescript.split(",")[0] || "unknown",
+            typescript.split(",")[4] || "unknown"
+          ]
         : ["unknown", "unknown"];
       const coverageFile = await readFile(
         join(process.cwd(), "coverage", "index.html"),
@@ -34,7 +37,7 @@ export const about: Command = {
         /<div class='fl pad1y space-right2'>((?!div).)*<\/div>/gs
       );
       const lineTotals = coverageTotals
-        ? coverageTotals[3].match(/[\d.]+%/)?.[0] || "0%"
+        ? coverageTotals[3]?.match(/[\d.]+%/)?.[0] || "0%"
         : "0%";
 
       const embed = new EmbedBuilder();
@@ -48,7 +51,7 @@ export const about: Command = {
           value: version
             ? `[${version}](https://github.com/naomi-lgbt/melody-iuvo/releases/tag/v${version})`
             : "Unable to parse version from package.json",
-          inline: true,
+          inline: true
         },
         {
           name: "Commit",
@@ -56,32 +59,32 @@ export const about: Command = {
             0,
             7
           )}](https://github.com/naomi-lgbt/melody-iuvo/commit/${commit})`,
-          inline: true,
+          inline: true
         },
         {
           name: "Source Code",
           value: "[GitHub](https://github.com/naomi-lgbt/melody-iuvo)",
-          inline: true,
+          inline: true
         },
         {
           name: "Files",
           value: files,
-          inline: true,
+          inline: true
         },
         {
           name: "Lines of Code",
           value: code,
-          inline: true,
+          inline: true
         },
         {
           name: "Code Coverage",
           value: `[${lineTotals}](https://naomi.lgbt/melody-iuvo)`,
-          inline: true,
-        },
+          inline: true
+        }
       ]);
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
       await errorHandler(bot, "about command", err);
     }
-  },
+  }
 };

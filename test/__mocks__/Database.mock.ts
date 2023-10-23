@@ -26,7 +26,7 @@ class User {
 
   public async upsert(options) {
     const exists = await this.findUnique({
-      where: { userId: options.where.userId },
+      where: { userId: options.where.userId }
     });
     if (exists) {
       for (const key of Object.keys(options.update)) {
@@ -40,7 +40,7 @@ class User {
 
   public async update(options) {
     const exists = await this.findUnique({
-      where: { userId: options.where.userId },
+      where: { userId: options.where.userId }
     });
     if (!exists) {
       throw new Error("User not found");

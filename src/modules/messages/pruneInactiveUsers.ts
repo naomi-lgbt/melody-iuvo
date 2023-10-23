@@ -36,8 +36,8 @@ export const pruneInactiveUsers = async (
             .catch(() => logHandler.error(`Failed to kick ${user.id}`));
           await bot.db.users.delete({
             where: {
-              userId: user.id,
-            },
+              userId: user.id
+            }
           });
         }
         count++;
@@ -53,7 +53,7 @@ export const pruneInactiveUsers = async (
     await errorHandler(bot, "prune inactive users", err);
     await message.reply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  Message,
+  Message
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -32,7 +32,7 @@ export const postReactionRoles = async (
     const row = new ActionRowBuilder<ButtonBuilder>().addComponents(buttons);
     await message.channel.send({
       content: "Hello friends~! Click these buttons to get a role.",
-      components: [row],
+      components: [row]
     });
     await message.delete();
   } catch (err) {

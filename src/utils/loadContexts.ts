@@ -21,6 +21,9 @@ export const loadContexts = async (bot: ExtendedClient): Promise<void> => {
     );
     for (const file of files) {
       const name = file.split(".")[0];
+      if (!name) {
+        continue;
+      }
       const mod = await import(join(process.cwd(), "prod", "contexts", file));
       result.push(mod[name] as Context);
     }

@@ -5,19 +5,19 @@ import { MockChannel, MockGuild, MockUser } from "discordjs-testing";
 import { startComfortPost } from "../../../src/modules/messages/startComfortPost";
 
 const guild = new MockGuild({
-  name: "test-guild",
+  name: "test-guild"
 });
 const channel = new MockChannel({
   name: "test-channel",
   type: ChannelType.GuildText,
-  guild,
+  guild
 });
 const user = new MockUser({
   username: "test-user",
   avatar: "https://cdn.nhcarrigan.com/profile.png",
   bot: false,
   system: false,
-  discriminator: 0,
+  discriminator: 0
 });
 
 suite("startComfortPost", () => {

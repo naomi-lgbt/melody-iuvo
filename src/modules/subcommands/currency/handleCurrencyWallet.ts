@@ -18,8 +18,7 @@ export const handleCurrencyWallet: CommandHandler = async (
     const userRecord = await getDatabaseRecord(bot, interaction.user.id);
     if (!userRecord) {
       await interaction.editReply({
-        content:
-          "I beg your pardon, but I seem to have misplaced your records.",
+        content: "I beg your pardon, but I seem to have misplaced your records."
       });
       return;
     }
@@ -29,17 +28,17 @@ export const handleCurrencyWallet: CommandHandler = async (
     embed.addFields([
       {
         name: "Total",
-        value: sumCurrency(userRecord.currency).toLocaleString(),
-      },
+        value: sumCurrency(userRecord.currency).toLocaleString()
+      }
     ]);
     await interaction.editReply({
-      embeds: [embed],
+      embeds: [embed]
     });
   } catch (err) {
     await errorHandler(bot, "currency wallet command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

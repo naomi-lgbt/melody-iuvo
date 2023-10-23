@@ -21,7 +21,7 @@ import { validateEnv } from "./utils/validateEnv";
      * Initial setup.
      */
     const bot = new Client({
-      intents: Intents,
+      intents: Intents
     }) as ExtendedClient;
     bot.env = validateEnv();
 
@@ -46,7 +46,7 @@ import { validateEnv } from "./utils/validateEnv";
     bot.cache = {
       wordGame: {},
       slots: {},
-      tarot: {},
+      tarot: {}
     };
     bot.commit = execSync("git rev-parse HEAD").toString().trim();
     bot.ticketLogs = {};
@@ -78,13 +78,13 @@ import { validateEnv } from "./utils/validateEnv";
 
     bot.on(Events.GuildMemberAdd, async (member) => {
       await bot.general.send({
-        content: `## <a:love:1149580277220388985> Give a warm welcome to ${member.user.username}, the newest member of our comfy corner! <a:love:1149580277220388985>`,
+        content: `## <a:love:1149580277220388985> Give a warm welcome to ${member.user.username}, the newest member of our comfy corner! <a:love:1149580277220388985>`
       });
     });
 
     bot.on(Events.GuildMemberRemove, async (member) => {
       await bot.general.send({
-        content: `## <a:love:1149580277220388985> Good bye dearest ${member.user.username}. We will miss you! <a:love:1149580277220388985>`,
+        content: `## <a:love:1149580277220388985> Good bye dearest ${member.user.username}. We will miss you! <a:love:1149580277220388985>`
       });
     });
 
@@ -96,11 +96,11 @@ import { validateEnv } from "./utils/validateEnv";
     bot.user?.setActivity({
       name: "Custom Status",
       type: ActivityType.Custom,
-      state: "I am Naomi's personal assistant.",
+      state: "I am Naomi's personal assistant."
     });
   } catch (err) {
     const bot = new Client({
-      intents: [GatewayIntentBits.Guilds],
+      intents: [GatewayIntentBits.Guilds]
     }) as ExtendedClient;
     bot.env = validateEnv();
     await errorHandler(bot, "entry file", err);

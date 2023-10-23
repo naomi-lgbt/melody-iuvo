@@ -3,6 +3,13 @@ import { assert } from "chai";
 import { getRandomValue } from "../../src/utils/getRandomValue";
 
 suite("getRandomValue", () => {
+  test("should error on empty array", () => {
+    assert.throws(() => getRandomValue([]), "Should not receive empty array.");
+    assert.throws(
+      () => getRandomValue([undefined]),
+      "Should not receive empty array."
+    );
+  });
   test("should generate uniform distribution", () => {
     const counts: { [key: number]: number } = {};
     for (let i = 0; i < 10000; i++) {

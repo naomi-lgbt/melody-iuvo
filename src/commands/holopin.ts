@@ -30,16 +30,16 @@ export const holopin: Command = {
       const arrayBuffer = await res.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const attachment = new AttachmentBuilder(buffer, {
-        name: `${target}.png`,
+        name: `${target}.png`
       });
 
       await interaction.editReply({
         content:
           "Remember that you can claim badges for contributing to Mama Naomi's projects by following the instructions in <#1156373406372089877>~!",
-        files: [attachment],
+        files: [attachment]
       });
     } catch (err) {
       await errorHandler(bot, "holopin command", err);
     }
-  },
+  }
 };

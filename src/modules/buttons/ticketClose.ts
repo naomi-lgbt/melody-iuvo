@@ -16,7 +16,7 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
 
     if (!guild || !member || !channel) {
       await interaction.editReply({
-        content: "Error finding the guild!",
+        content: "Error finding the guild!"
       });
       return;
     }
@@ -32,7 +32,7 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
 
     if (!isSupport && !isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only support members can claim a ticket.",
+        content: "Only support members can claim a ticket."
       });
       return;
     }
@@ -44,7 +44,7 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
       name: "User",
       value:
         (channel as TextChannel)?.name.split("-").slice(1).join("-") ||
-        "unknown",
+        "unknown"
     });
 
     const logFile = await generateLogs(bot, channel.id);
@@ -54,7 +54,7 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
     await errorHandler(bot, "close handler", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

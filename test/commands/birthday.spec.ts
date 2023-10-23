@@ -5,7 +5,7 @@ import {
   MockChatInputCommandInteraction,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { birthday } from "../../src/commands/birthday";
@@ -13,30 +13,30 @@ import { Database } from "../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("birthday command", () => {
@@ -52,14 +52,14 @@ suite("birthday command", () => {
         {
           name: "month",
           value: "Naomi",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "day",
           value: 1,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await birthday.run({ db } as never, command as never);
     assert.lengthOf(command.replies, 1);
@@ -81,20 +81,20 @@ suite("birthday command", () => {
         {
           name: "month",
           value: "Oct",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "day",
           value: 1,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await birthday.run({ db } as never, command as never);
     const userRecord = await db.users.findUnique({
       where: {
-        userId: user.id,
-      },
+        userId: user.id
+      }
     });
     assert.lengthOf(command.replies, 1);
     assert.strictEqual(

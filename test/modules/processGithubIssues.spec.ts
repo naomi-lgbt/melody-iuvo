@@ -7,9 +7,9 @@ const fakeClient = {
     debugHook: {
       messages: [] as { content: string }[],
       send: (msg: { content: string }) =>
-        fakeClient.env.debugHook.messages.push(msg),
-    },
-  },
+        fakeClient.env.debugHook.messages.push(msg)
+    }
+  }
 };
 
 suite("processGithubIssues", () => {

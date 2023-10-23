@@ -5,36 +5,36 @@ import {
   MockChatInputCommandInteraction,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { holopin } from "../../src/commands/holopin";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("holopin command", () => {
@@ -50,9 +50,9 @@ suite("holopin command", () => {
         {
           name: "username",
           value: "alkdsjfadskjfhasdkljhflasdkjhflakjsdhf",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await holopin.run({} as never, command.typeCast());
     assert.lengthOf(command.replies, 1);
@@ -74,9 +74,9 @@ suite("holopin command", () => {
         {
           name: "username",
           value: "nhcarrigan",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await holopin.run({} as never, command.typeCast());
     assert.lengthOf(command.replies, 1);

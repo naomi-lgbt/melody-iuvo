@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handlePluralFront } from "../../../../src/modules/subcommands/plural/handlePluralFront";
@@ -14,34 +14,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 suite("handlePluralFront", () => {
   test("should not be able to set front without matching alter", async () => {
@@ -57,9 +57,9 @@ suite("handlePluralFront", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply();
     await handlePluralFront(
@@ -81,7 +81,7 @@ suite("handlePluralFront", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await command.deferReply();
     await handlePluralFront(
@@ -108,23 +108,23 @@ suite("handlePluralFront", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
         plurals: [
           {
             name: "Test Alter",
             avatar: "https://cdn.nhcarrigan.com/profile.png",
-            prefix: "~ta",
-          },
-        ],
-      },
+            prefix: "~ta"
+          }
+        ]
+      }
     });
     await command.deferReply();
     await handlePluralFront(

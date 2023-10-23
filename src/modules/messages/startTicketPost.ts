@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  EmbedBuilder,
+  EmbedBuilder
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -39,7 +39,7 @@ export const startTicketPost = async (
     await errorHandler(bot, "start ticket post", err);
     await message.reply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

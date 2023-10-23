@@ -5,14 +5,14 @@ import { MockGuild, MockUser } from "discordjs-testing";
 import { autoModerationActionExecution } from "../../src/events/autoModerationActionExecution";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 
 const naomiUser = new MockUser({
@@ -20,20 +20,20 @@ const naomiUser = new MockUser({
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 // @ts-expect-error overriding ID for testing.
 naomiUser._id = "465650873650118659";
 const action = {
   userId: user.id,
-  guild,
+  guild
 };
 
 suite("autoModerationActionExecution event", () => {
   test("should not send message without AUTOMOD_TEASE_CHANNEL_ID", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildText,
+      type: ChannelType.GuildText
     });
     await autoModerationActionExecution(
       { automod: {} } as never,
@@ -45,7 +45,7 @@ suite("autoModerationActionExecution event", () => {
   test("should not send if channel is not a text channel", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildCategory,
+      type: ChannelType.GuildCategory
     });
     await autoModerationActionExecution(
       { automod: {} } as never,
@@ -57,7 +57,7 @@ suite("autoModerationActionExecution event", () => {
   test("should not send if member record not found", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildText,
+      type: ChannelType.GuildText
     });
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(
@@ -71,7 +71,7 @@ suite("autoModerationActionExecution event", () => {
   test("should send the message when automod is triggered", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildText,
+      type: ChannelType.GuildText
     });
     guild.members.add(user);
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
@@ -90,12 +90,12 @@ suite("autoModerationActionExecution event", () => {
   test("should send the message when automod is triggered by special response", async () => {
     const naomiAction = {
       userId: "465650873650118659",
-      guild,
+      guild
     };
     guild.members.add(naomiUser);
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildText,
+      type: ChannelType.GuildText
     });
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(
@@ -113,7 +113,7 @@ suite("autoModerationActionExecution event", () => {
   test("should not trigger within the cooldown", async () => {
     const channel = await guild.channels.create({
       name: "test-channel",
-      type: ChannelType.GuildText,
+      type: ChannelType.GuildText
     });
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(

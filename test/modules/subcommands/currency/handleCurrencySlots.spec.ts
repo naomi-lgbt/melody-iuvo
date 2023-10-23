@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handleCurrencySlots } from "../../../../src/modules/subcommands/currency/handleCurrencySlots";
@@ -14,34 +14,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 
 suite("handleCurrencySlots", () => {
@@ -58,9 +58,9 @@ suite("handleCurrencySlots", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencySlots(
@@ -68,7 +68,7 @@ suite("handleCurrencySlots", () => {
         ...bot,
         env: { debugHook },
         db,
-        cache: { wordGame: {}, slots: {} },
+        cache: { wordGame: {}, slots: {} }
       } as never,
       command.typeCast()
     );
@@ -93,9 +93,9 @@ suite("handleCurrencySlots", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencySlots(
@@ -103,7 +103,7 @@ suite("handleCurrencySlots", () => {
         ...bot,
         env: { debugHook },
         db,
-        cache: { wordGame: { [user.id]: true }, slots: {} },
+        cache: { wordGame: { [user.id]: true }, slots: {} }
       } as never,
       command.typeCast()
     );
@@ -128,9 +128,9 @@ suite("handleCurrencySlots", () => {
         {
           name: "wager",
           value: 100,
-          type: ApplicationCommandOptionType.Integer,
-        },
-      ],
+          type: ApplicationCommandOptionType.Integer
+        }
+      ]
     });
     await command.deferReply({ ephemeral: true });
     await handleCurrencySlots(
@@ -140,8 +140,8 @@ suite("handleCurrencySlots", () => {
         db,
         cache: {
           wordGame: {},
-          slots: { [user.id]: { lastPlayed: Date.now() } },
-        },
+          slots: { [user.id]: { lastPlayed: Date.now() } }
+        }
       } as never,
       command.typeCast()
     );

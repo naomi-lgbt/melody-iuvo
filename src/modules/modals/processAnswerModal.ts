@@ -15,11 +15,11 @@ export const processAnswerModal = async (
 ) => {
   try {
     await interaction.deferReply({
-      ephemeral: true,
+      ephemeral: true
     });
     if (!interaction.message) {
       await interaction.editReply({
-        content: "Something went wrong. Please try again.",
+        content: "Something went wrong. Please try again."
       });
       return;
     }
@@ -28,16 +28,16 @@ export const processAnswerModal = async (
       content: `**${interaction.message.content
         .split("\n")
         .slice(-1)}**\n\n${answer}`,
-      components: [],
+      components: []
     });
     await interaction.editReply({
-      content: "Your answer has been submitted.",
+      content: "Your answer has been submitted."
     });
   } catch (err) {
     await errorHandler(bot, "process answer modal", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

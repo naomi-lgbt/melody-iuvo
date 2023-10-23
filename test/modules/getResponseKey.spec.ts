@@ -4,18 +4,18 @@ import { MockGuild, MockMember, MockUser } from "discordjs-testing";
 import { getResponseKey } from "../../src/modules/getResponseKey";
 
 const guild = new MockGuild({
-  name: "test-guild",
+  name: "test-guild"
 });
 const user = new MockUser({
   username: "test-user",
   avatar: "https://cdn.nhcarrigan.com/profile.png",
   bot: false,
   system: false,
-  discriminator: 0,
+  discriminator: 0
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 
 suite("getResponseKey", () => {
@@ -25,7 +25,7 @@ suite("getResponseKey", () => {
 
   test("should return 'cute' if the member is a cutie", () => {
     member.roles.create({
-      name: "cutie",
+      name: "cutie"
     });
     assert.strictEqual(getResponseKey(member as never), "cutie");
   });

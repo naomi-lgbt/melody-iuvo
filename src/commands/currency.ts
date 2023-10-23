@@ -24,7 +24,7 @@ const handlers: { [key: string]: CommandHandler } = {
   purchase: handleCurrencyPurchase,
   slots: handleCurrencySlots,
   wallet: handleCurrencyWallet,
-  word: handleCurrencyWord,
+  word: handleCurrencyWord
 };
 
 export const currency: Command = {
@@ -142,18 +142,19 @@ export const currency: Command = {
     try {
       await interaction.deferReply({ ephemeral: true });
       const subcommand = interaction.options.getSubcommand();
-      handlers[subcommand]
-        ? await handlers[subcommand](bot, interaction)
+      const handler = handlers[subcommand];
+      handler
+        ? await handler(bot, interaction)
         : await interaction.editReply({
             content:
-              "I have failed you once again. The command you used does not have an instruction manual for me.",
+              "I have failed you once again. The command you used does not have an instruction manual for me."
           });
     } catch (err) {
       await errorHandler(bot, "misc command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

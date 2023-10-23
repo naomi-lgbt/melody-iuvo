@@ -7,19 +7,19 @@ import { Database } from "../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "test-guild",
+  name: "test-guild"
 });
 const channel = new MockChannel({
   name: "test-channel",
   type: ChannelType.GuildText,
-  guild,
+  guild
 });
 const user = new MockUser({
   username: "test-user",
   avatar: "https://cdn.nhcarrigan.com/profile.png",
   bot: false,
   system: false,
-  discriminator: 0,
+  discriminator: 0
 });
 
 suite("pruneInactiveUsers", () => {
@@ -36,11 +36,11 @@ suite("pruneInactiveUsers", () => {
     const message = await channel.send("prune --dryrun", user);
     db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
-        timestamp: new Date(Date.now() - 3592000000),
-      },
+        timestamp: new Date(Date.now() - 3592000000)
+      }
     });
     await pruneInactiveUsers({ db } as never, message as never);
     assert.equal(channel.messages.cache.size, 4);
@@ -52,11 +52,11 @@ suite("pruneInactiveUsers", () => {
     const message = await channel.send("prune", user);
     db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
-        timestamp: new Date(Date.now() - 3592000000),
-      },
+        timestamp: new Date(Date.now() - 3592000000)
+      }
     });
     await pruneInactiveUsers({ db } as never, message as never);
     assert.equal(channel.messages.cache.size, 6);

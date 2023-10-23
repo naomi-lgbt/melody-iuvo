@@ -41,7 +41,7 @@ export const voiceStateUpdate = async (
     }
 
     await genChat.send({
-      content: `Heya <@&${eventRoleId}>~!\n\nNaomi is streaming in ${newState.channel}! Come join us!`,
+      content: `Heya <@&${eventRoleId}>~!\n\nNaomi is streaming in ${newState.channel}! Come join us!`
     });
   } catch (err) {
     await errorHandler(bot, "voiceStateUpdate", err);

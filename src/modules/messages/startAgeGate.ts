@@ -3,7 +3,7 @@ import {
   ButtonBuilder,
   ButtonStyle,
   EmbedBuilder,
-  Message,
+  Message
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -30,7 +30,7 @@ export const startAgeGate = async (bot: ExtendedClient, message: Message) => {
       );
     await message.channel.send({
       embeds: [embed],
-      components: [row],
+      components: [row]
     });
   } catch (err) {
     await errorHandler(bot, "start age gate", err);

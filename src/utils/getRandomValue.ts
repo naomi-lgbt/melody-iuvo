@@ -8,6 +8,10 @@ import rand from "random";
  * @returns {T} A random item from the array.
  */
 export const getRandomValue = <T>(array: T[]): T => {
-  const random = rand.uniformInt(0, array.length - 1);
-  return array[random()];
+  if (!array.length || !array[0]) {
+    throw new Error("Should not receive empty array.");
+  }
+  const randomGenerator = rand.uniformInt(0, array.length - 1);
+  const random = randomGenerator();
+  return array[random] ?? array[0];
 };

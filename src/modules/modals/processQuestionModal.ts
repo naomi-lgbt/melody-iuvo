@@ -2,7 +2,7 @@ import {
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
-  ModalSubmitInteraction,
+  ModalSubmitInteraction
 } from "discord.js";
 
 import { ExtendedClient } from "../../interfaces/ExtendedClient";
@@ -22,13 +22,13 @@ export const processQuestionModal = async (
     await interaction.deferReply({ ephemeral: true });
     if (!interaction.guild) {
       await interaction.editReply({
-        content: "Please forgive me. I cannot find your guild records.",
+        content: "Please forgive me. I cannot find your guild records."
       });
       return;
     }
     if (!process.env.QUESTION_CHANNEL_ID) {
       await interaction.editReply({
-        content: "Oh dear, it seems the question channel is not configured.",
+        content: "Oh dear, it seems the question channel is not configured."
       });
       return;
     }
@@ -38,7 +38,7 @@ export const processQuestionModal = async (
     if (!channel || !channel.isTextBased()) {
       await interaction.editReply({
         content:
-          "The question channel is not configured correctly. Please tell Naomi.",
+          "The question channel is not configured correctly. Please tell Naomi."
       });
       return;
     }
@@ -59,16 +59,16 @@ export const processQuestionModal = async (
 
     await channel.send({
       content: `Mama, someone asked a question:\n\n${question}`,
-      components: [row],
+      components: [row]
     });
     await interaction.editReply({
-      content: "Your question has been sent to Naomi!",
+      content: "Your question has been sent to Naomi!"
     });
   } catch (err) {
     await errorHandler(bot, "process question modal", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

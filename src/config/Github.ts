@@ -5,7 +5,7 @@ export const IgnoredActors = [
   "lgtm-com[bot]",
   "deepsource-autofix[bot]",
   "sonarcloud[bot]",
-  "naomi-lgbt",
+  "naomi-lgbt"
 ];
 
 export const ThankYou = `## Thank You

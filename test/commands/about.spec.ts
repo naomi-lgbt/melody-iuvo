@@ -5,36 +5,36 @@ import {
   MockChatInputCommandInteraction,
   MockGuild,
   MockMember,
-  MockUser,
+  MockUser
 } from "discordjs-testing";
 
 import { about } from "../../src/commands/about";
 
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 
 suite("about command", () => {
@@ -45,7 +45,7 @@ suite("about command", () => {
       bot,
       user,
       member,
-      channel,
+      channel
     });
     await about.run({ commit: "12345678" } as never, command as never);
     assert.lengthOf(command.replies, 1);

@@ -6,7 +6,7 @@ import {
   MockGuild,
   MockMember,
   MockUser,
-  MockWebhook,
+  MockWebhook
 } from "discordjs-testing";
 
 import { handlePluralCreate } from "../../../../src/modules/subcommands/plural/handlePluralCreate";
@@ -14,34 +14,34 @@ import { Database } from "../../../__mocks__/Database.mock";
 
 const db = new Database();
 const guild = new MockGuild({
-  name: "Test Guild",
+  name: "Test Guild"
 });
 const bot = new MockUser({
   username: "Test Bot",
   avatar: "test",
   discriminator: 1234,
   bot: true,
-  system: false,
+  system: false
 });
 const user = new MockUser({
   username: "Test User",
   avatar: "test",
   discriminator: 1234,
   bot: false,
-  system: false,
+  system: false
 });
 const member = new MockMember({
   guild,
-  user,
+  user
 });
 const channel = new MockChannel({
   name: "test-channel",
   guild,
-  type: ChannelType.GuildText,
+  type: ChannelType.GuildText
 });
 const debugHook = new MockWebhook({
   channel,
-  user: bot,
+  user: bot
 });
 suite("handlePluralCreate", () => {
   test("should successfully create an alter", async () => {
@@ -57,19 +57,19 @@ suite("handlePluralCreate", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "avatar",
           value: "https://cdn.nhcarrigan.com/profile.png",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "prefix",
           value: "~ta",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply();
     await handlePluralCreate(
@@ -96,19 +96,19 @@ suite("handlePluralCreate", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "avatar",
           value: "https://cdn.nhcarrigan.com/profile.png",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "prefix",
           value: "~ta",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await command.deferReply();
     await handlePluralCreate(
@@ -135,27 +135,27 @@ suite("handlePluralCreate", () => {
         {
           name: "name",
           value: "Test Alter",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "avatar",
           value: "https://cdn.nhcarrigan.com/profile.png",
-          type: ApplicationCommandOptionType.String,
+          type: ApplicationCommandOptionType.String
         },
         {
           name: "prefix",
           value: "~ta",
-          type: ApplicationCommandOptionType.String,
-        },
-      ],
+          type: ApplicationCommandOptionType.String
+        }
+      ]
     });
     await db.users.update({
       where: {
-        userId: user.id,
+        userId: user.id
       },
       data: {
-        plurals: [1, 2, 3, 4, 5],
-      },
+        plurals: [1, 2, 3, 4, 5]
+      }
     });
     await command.deferReply();
     await handlePluralCreate(

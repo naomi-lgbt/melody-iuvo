@@ -24,7 +24,7 @@ export const faq: Command = {
       if (!target) {
         await interaction.editReply({
           content:
-            "I am so sorry, but I do not seem to have that question in my records.",
+            "I am so sorry, but I do not seem to have that question in my records."
         });
         return;
       }
@@ -36,8 +36,8 @@ export const faq: Command = {
       await errorHandler(bot, "faq command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

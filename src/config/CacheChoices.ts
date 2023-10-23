@@ -6,10 +6,10 @@ export const CacheChoices: {
 }[] = [
   {
     name: "Word Game",
-    value: "wordGame",
+    value: "wordGame"
   },
   {
     name: "Slots",
-    value: "slots",
-  },
+    value: "slots"
+  }
 ];

@@ -15,7 +15,7 @@ export const game: Command = {
       if (!bot.games || !bot.games.length || !process.env.STEAM_KEY) {
         await interaction.editReply({
           content:
-            "Steam has not been properly configured. I am unable to recommend games at this time.",
+            "Steam has not been properly configured. I am unable to recommend games at this time."
         });
         return;
       }
@@ -24,10 +24,10 @@ export const game: Command = {
         `https://store.steampowered.com/api/appdetails?appids=${target.appid}&key=${process.env.STEAM_KEY}`
       );
       const json = (await raw.json()) as SteamGameResponse;
-      const data = json[target.appid].data;
+      const data = json[target.appid]?.data;
       if (!data) {
         await interaction.editReply({
-          content: `There was an error loading game data for ${target.appid}. Please try again later.`,
+          content: `There was an error loading game data for ${target.appid}. Please try again later.`
         });
         return;
       }
@@ -39,14 +39,14 @@ export const game: Command = {
       await interaction.editReply({
         content:
           "[View Naomi's full library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>)",
-        embeds: [embed],
+        embeds: [embed]
       });
     } catch (err) {
       await errorHandler(bot, "game command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

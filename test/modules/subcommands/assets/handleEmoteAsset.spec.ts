@@ -25,8 +25,8 @@ suite("handleEmoteAsset", () => {
     assert.deepEqual(embed.toJSON().fields, [
       {
         name: "Art By:",
-        value: "[Starfazers](https://starfazers.art)",
-      },
+        value: "[Starfazers](https://starfazers.art)"
+      }
     ]);
   });
 

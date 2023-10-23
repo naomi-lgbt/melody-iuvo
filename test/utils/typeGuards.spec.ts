@@ -4,7 +4,7 @@ import {
   isGuildButtonCommand,
   isGuildSlashCommand,
   isAssetTarget,
-  isGuildMessage,
+  isGuildMessage
 } from "../../src/utils/typeGuards";
 
 const mockButton: { [key: string]: unknown } = {};

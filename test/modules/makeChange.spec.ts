@@ -7,7 +7,7 @@ const currencyOne = {
   silver: 44,
   gold: 0,
   platinum: 4,
-  amethyst: 5,
+  amethyst: 5
 };
 
 const currencyTwo = {
@@ -15,7 +15,7 @@ const currencyTwo = {
   silver: 1,
   gold: 1,
   platinum: 1,
-  amethyst: 1,
+  amethyst: 1
 };
 
 const noCurrency = {
@@ -23,7 +23,7 @@ const noCurrency = {
   silver: 0,
   gold: 0,
   platinum: 0,
-  amethyst: 0,
+  amethyst: 0
 };
 
 suite("makeChange module", () => {

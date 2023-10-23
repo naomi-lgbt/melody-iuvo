@@ -24,7 +24,7 @@ const handlers: { [key: string]: AssetHandler } = {
   picrew: handlePicrewAsset,
   portrait: handlePortraitAsset,
   reference: handleReferenceAsset,
-  tattoo: handleTattooAsset,
+  tattoo: handleTattooAsset
 };
 
 export const assets: Command = {
@@ -127,7 +127,7 @@ export const assets: Command = {
             .addChoices(
               ...ReferenceData.map((ref) => ({
                 name: ref.name,
-                value: ref.name,
+                value: ref.name
               }))
             )
         )
@@ -137,22 +137,23 @@ export const assets: Command = {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
       const target = interaction.options.getString("target") || "";
-      const embed = handlers[subcommand]
-        ? await handlers[subcommand](bot, target as AssetTarget)
+      const handler = handlers[subcommand];
+      const embed = handler
+        ? await handler(bot, target as AssetTarget)
         : defaultAssetEmbed;
       await interaction.editReply({
         content:
           subcommand === "outfit"
             ? Responses.outfit[getResponseKey(interaction.member)]
             : "",
-        embeds: [embed],
+        embeds: [embed]
       });
     } catch (err) {
       await errorHandler(bot, "assets command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

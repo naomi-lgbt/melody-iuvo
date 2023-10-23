@@ -4,7 +4,7 @@ import {
   ButtonStyle,
   ComponentType,
   EmbedBuilder,
-  SlashCommandBuilder,
+  SlashCommandBuilder
 } from "discord.js";
 
 import { GameQueue } from "../config/GameQueue";
@@ -20,22 +20,29 @@ export const queue: Command = {
       await interaction.deferReply();
       let index = 0;
       const first = new EmbedBuilder();
-      first.setTitle(GameQueue[index].name);
-      first.setURL(GameQueue[index].url);
-      first.setImage(GameQueue[index].image);
+      const game = GameQueue[index];
+      if (!game) {
+        await interaction.editReply({
+          content: "There was an error loading the queue."
+        });
+        return;
+      }
+      first.setTitle(game.name);
+      first.setURL(game.url);
+      first.setImage(game.image);
       first.setDescription(
-        `## Estimated playtime: ${GameQueue[index].time} hours\n### Time until first in queue: now\nTimes are estimated based on howlongtobeat.com and user reviews.`
+        `## Estimated playtime: ${game.time} hours\n### Time until first in queue: now\nTimes are estimated based on howlongtobeat.com and user reviews.`
       );
       first.setFooter({
-        text: `Game ${index + 1} out of ${GameQueue.length}`,
+        text: `Game ${index + 1} out of ${GameQueue.length}`
       });
-      if (GameQueue[index].purchased) {
+      if (game.purchased) {
         first.addFields([
           {
             name: "Community Selected",
             value:
-              "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue.",
-          },
+              "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue."
+          }
         ]);
       }
 
@@ -49,24 +56,24 @@ export const queue: Command = {
         .setStyle(ButtonStyle.Primary);
       const row = new ActionRowBuilder<ButtonBuilder>().addComponents([
         prev,
-        next,
+        next
       ]);
 
       const res = await interaction.editReply({
         embeds: [first],
-        components: [row],
+        components: [row]
       });
 
       const collector = res.createMessageComponentCollector({
         componentType: ComponentType.Button,
-        time: 1000 * 60 * 10,
+        time: 1000 * 60 * 10
       });
 
       collector.on("collect", async (i) => {
         if (i.user.id !== interaction.user.id) {
           await interaction.reply({
             content: "Clicking other peoples' buttons is most unkind.",
-            ephemeral: true,
+            ephemeral: true
           });
           return;
         }
@@ -78,13 +85,22 @@ export const queue: Command = {
         if (index < 0) {
           index = GameQueue.length - 1;
         }
+        const game = GameQueue[index];
+        if (!game) {
+          await interaction.editReply({
+            content: "There was an error loading the queue.",
+            embeds: [],
+            components: []
+          });
+          return;
+        }
         const embed = new EmbedBuilder();
-        embed.setTitle(GameQueue[index].name);
-        embed.setURL(GameQueue[index].url);
-        embed.setImage(GameQueue[index].image);
+        embed.setTitle(game.name);
+        embed.setURL(game.url);
+        embed.setImage(game.image);
         embed.setDescription(
           `## Estimated time: ${
-            GameQueue[index].time
+            game.time
           } hours\n### Time until first in queue: ${
             index === 0
               ? "now"
@@ -96,34 +112,34 @@ export const queue: Command = {
                 ) + " hours"
           }\nTimes are estimated based on howlongtobeat.com and user reviews.`
         );
-        if (GameQueue[index].purchased) {
+        if (game.purchased) {
           embed.addFields([
             {
               name: "Community Selected",
               value:
-                "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue.",
-            },
+                "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue."
+            }
           ]);
         }
         embed.setFooter({
-          text: `Game ${index + 1} out of ${GameQueue.length}`,
+          text: `Game ${index + 1} out of ${GameQueue.length}`
         });
         await i.editReply({
-          embeds: [embed],
+          embeds: [embed]
         });
       });
 
       collector.on("end", async () => {
         await interaction.editReply({
-          components: [],
+          components: []
         });
       });
     } catch (err) {
       await errorHandler(bot, "queue command", err);
       await interaction.editReply({
         content:
-          "Forgive me, but I failed to complete your request. Please try again later.",
+          "Forgive me, but I failed to complete your request. Please try again later."
       });
     }
-  },
+  }
 };

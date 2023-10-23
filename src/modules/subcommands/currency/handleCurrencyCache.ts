@@ -10,7 +10,7 @@ export const handleCurrencyCache: CommandHandler = async (bot, interaction) => {
   try {
     if (!isOwner(interaction.user.id)) {
       await interaction.editReply({
-        content: "Only Mama Naomi may use this command.",
+        content: "Only Mama Naomi may use this command."
       });
       return;
     }
@@ -21,13 +21,13 @@ export const handleCurrencyCache: CommandHandler = async (bot, interaction) => {
     ) as keyof ExtendedClient["cache"];
     delete bot.cache[prop][target.id];
     await interaction.editReply({
-      content: `Cleared ${target.username}'s ${prop} cache!`,
+      content: `Cleared ${target.username}'s ${prop} cache!`
     });
   } catch (err) {
     await errorHandler(bot, "currency cache command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

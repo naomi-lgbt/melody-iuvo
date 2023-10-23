@@ -15,7 +15,7 @@ export const handleCurrencyItem: CommandHandler = async (bot, interaction) => {
     const item = CurrencyItems.find((i) => i.internalId === id);
     if (!item) {
       await interaction.editReply({
-        content: "Forgive me, but I was unable to locate that item.",
+        content: "Forgive me, but I was unable to locate that item."
       });
       return;
     }
@@ -25,17 +25,17 @@ export const handleCurrencyItem: CommandHandler = async (bot, interaction) => {
     embed.addFields([
       {
         name: `${item.price.toLocaleString()} ${CurrencyName}`,
-        value: parseCurrencyString(makeChange(item.price)),
-      },
+        value: parseCurrencyString(makeChange(item.price))
+      }
     ]);
     await interaction.editReply({
-      embeds: [embed],
+      embeds: [embed]
     });
   } catch (err) {
     await errorHandler(bot, "currency item command", err);
     await interaction.editReply({
       content:
-        "Forgive me, but I failed to complete your request. Please try again later.",
+        "Forgive me, but I failed to complete your request. Please try again later."
     });
   }
 };

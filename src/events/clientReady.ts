@@ -27,7 +27,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     await bot.env.debugHook.send("Bot is ready.");
 
     await bot.general.send({
-      content: "I am back from my nap!",
+      content: "I am back from my nap!"
     });
     // at 9am every day
     scheduleJob("0 9 * * *", async () => {
@@ -36,7 +36,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     // at noon every day
     scheduleJob("0 12 * * *", async () => {
       await bot.general.send({
-        content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`,
+        content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`
       });
     });
   } catch (err) {

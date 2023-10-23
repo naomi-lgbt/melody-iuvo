@@ -13,7 +13,7 @@ export const CurrencyValues: { [key in keyof users["currency"]]: number } = {
   silver: 100,
   gold: 10_000,
   platinum: 1_000_000,
-  amethyst: 100_000_000,
+  amethyst: 100_000_000
 };
 
 export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
@@ -21,7 +21,7 @@ export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
   silver: "<:naomisilver:1146242999471321159>",
   gold: "<:naomigold:1146242995893583973>",
   platinum: "<:naomiplatinum:1146242997252530246>",
-  amethyst: "<:naomiamethyst:1146242992315826206>",
+  amethyst: "<:naomiamethyst:1146242992315826206>"
 };
 
 export const CurrencyItems: Item[] = [
@@ -30,71 +30,71 @@ export const CurrencyItems: Item[] = [
     description:
       "You get your very own custom colour role, which you get to name AND set the colour for. These are limited to 25 roles, after which the older ones will be replaced by the newer ones as purchased.",
     price: 250_000,
-    internalId: "colour-role",
+    internalId: "colour-role"
   },
   {
     name: "Set Naomi's Nickname",
     description:
       "Make Naomi change her nickname in the server to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
     price: 50_000,
-    internalId: "set-nick",
+    internalId: "set-nick"
   },
   {
     name: "Shut Naomi Up",
     description:
       "Make Naomi shut up for the remainder of her day. She cannot send any messages in this server (except in response to a project or work related query).",
     price: 3_000_000,
-    internalId: "shut-up",
+    internalId: "shut-up"
   },
   {
     name: "Set Naomi's Status",
     description:
       "Make Naomi change her status (on her personal account) to whatever you want. Will stay for the remainder of her day. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
     price: 500_000,
-    internalId: "set-status",
+    internalId: "set-status"
   },
   {
     name: "No Pings Please",
     description:
       "Naomi is not allowed to use the `everyone` or `here` pings for the rest of the month! Announcements are going to be very quiet.",
     price: 1_000_000,
-    internalId: "no-pings",
+    internalId: "no-pings"
   },
   {
     name: "Choose Stream Outfit",
     description:
       "Select the outfit for Naomi's next stream! Outfits may be viewed on her [website](<https://naomi.lgbt/tailor>)",
     price: 1_500_000,
-    internalId: "set-outfit",
+    internalId: "set-outfit"
   },
   {
     name: "Holopin Badge",
     description:
       "You get a special badge from our [Holopin Organisation](https://holopin.io/@naomis-novas)!",
     price: 100_000_000,
-    internalId: "holopin",
+    internalId: "holopin"
   },
   {
     name: "Choose Stream Game",
     description:
       "Choose the game to go next in Naomi's stream queue (behind any previously purchased games). Must be a game she has on her [Steam Library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>), unless you wish to gift her a game.",
     price: 200_000_000,
-    internalId: "stream-game",
+    internalId: "stream-game"
   },
   {
     name: "Guest Star on Stream",
     description:
       "You get to vibe with Naomi in a voice call during her next stream!",
     price: 300_000_000,
-    internalId: "stream-guest",
+    internalId: "stream-guest"
   },
   {
     name: "Go on a 'Date' with Naomi",
     description:
       "You get an hour of time to vibe with Naomi, but you have to do the planning. You could play games, pair on some code, get your resume or project reviewed, and more! Must be family-friendly and appropriate for our community.",
     price: 500_000_000,
-    internalId: "date",
-  },
+    internalId: "date"
+  }
 ];
 
 /**
@@ -115,7 +115,7 @@ export const CurrencySlots = [
   "<:heart:1146275223088410715>",
   "<:grin:1146275097343176724>",
   "<:facepalm:1146275094549766224>",
-  "<:blush:1146275091357892618>",
+  "<:blush:1146275091357892618>"
 ];
 
 /**
@@ -139,15 +139,15 @@ export const CurrencyDailyEvents: {
       "You found some spare change on the ground. You pick it up and put it in your pocket.",
     min: 10,
     max: 1000,
-    loss: false,
+    loss: false
   },
   {
     title: "There was a hole in your pocket!",
     description: "Some of your coins have fallen out as you travelled.",
     min: 10,
     max: 1000,
-    loss: true,
-  },
+    loss: true
+  }
 ];
 
 /**
@@ -5858,5 +5858,5 @@ export const CurrencyWords = [
   "roble",
   "rumba",
   "biffy",
-  "pupal",
+  "pupal"
 ];

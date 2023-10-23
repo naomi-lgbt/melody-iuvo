@@ -2,7 +2,7 @@ import {
   Colors,
   EmbedBuilder,
   GuildMember,
-  ModalSubmitInteraction,
+  ModalSubmitInteraction
 } from "discord.js";
 import { DateTime } from "luxon";
 
@@ -28,13 +28,13 @@ export const handleAgeModal = async (
 
     const embed = new EmbedBuilder().setAuthor({
       name: member.user.username,
-      iconURL: member.user.displayAvatarURL(),
+      iconURL: member.user.displayAvatarURL()
     });
     embed.addFields([
       {
         name: "How did you find us?",
-        value: interaction.fields.getTextInputValue("how-find"),
-      },
+        value: interaction.fields.getTextInputValue("how-find")
+      }
     ]);
     const rawDate = interaction.fields.getTextInputValue("birthday");
     const age = Math.abs(
@@ -42,7 +42,7 @@ export const handleAgeModal = async (
     );
     if (isNaN(age)) {
       await interaction.editReply({
-        content: `${rawDate} does not appear to be in the correct format. Please use dd/mm/yyyy format.`,
+        content: `${rawDate} does not appear to be in the correct format. Please use dd/mm/yyyy format.`
       });
       return;
     }
@@ -54,7 +54,7 @@ export const handleAgeModal = async (
       embed.setColor(Colors.DarkRed);
       await bot.env.birthdayHook.send({ embeds: [embed] });
       await interaction.editReply({
-        content: "You are not old enough to access this category.",
+        content: "You are not old enough to access this category."
       });
       return;
     }
@@ -69,7 +69,7 @@ export const handleAgeModal = async (
 
     await member.roles.add("1156444314159824907");
     await interaction.editReply({
-      content: "Welcome to the spicy section~!",
+      content: "Welcome to the spicy section~!"
     });
     return;
   } catch (err) {
