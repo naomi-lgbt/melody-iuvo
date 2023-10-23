@@ -32,16 +32,30 @@ import { isGuildMessage } from "../utils/typeGuards";
  */
 export const messageCreate = async (bot: ExtendedClient, message: Message) => {
   try {
+    /**
+     * We actually want to delete Becca's level up messages from the
+     * vent channel, so we run this before confirming the message comes
+     * from a non-bot user.
+     */
+    if (message.channel?.id === bot.env?.ventChannel) {
+      setTimeout(
+        async () =>
+          /**
+           * This can error on plural messages. We don't care if it
+           * errors, because it should only error if the message is
+           * already deleted.
+           */
+          await message.delete().catch(() => null),
+        1000 * 60 * 60
+      );
+      return;
+    }
+
     if (message.author.bot || !isGuildMessage(message)) {
       return;
     }
 
     const { content, member } = message;
-
-    if (message.channel?.id === bot.env?.ventChannel) {
-      setTimeout(async () => await message.delete(), 1000 * 60 * 60);
-      return;
-    }
 
     if (
       (bot.user && message.mentions.has(bot.user)) ||
@@ -56,39 +70,47 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       });
     }
 
+    /**
+     * We don't want to run these in the heavier vent channel and comfort channels.
+     */
     if (
-      message.member.roles.cache.find((r) => r.name === "Naomi") ||
-      message.member.roles.cache.find((r) => r.name === "cutie")
+      message.channel.name !== "vent" &&
+      !message.channel.name.startsWith("comfort")
     ) {
-      await message.react("<a:love:1149580277220388985>");
-    }
-    if (isGoodMorning(content)) {
-      await message.reply({
-        content: Responses.greeting[getResponseKey(member)],
-      });
-    }
-    if (isGoodNight(content)) {
-      await message.reply({
-        content: Responses.goodbye[getResponseKey(member)],
-      });
-    }
-    if (isSorry(content)) {
-      await message.reply({
-        content: Responses.sorry[getResponseKey(member)].replace(
-          /\{username\}/g,
-          message.author.username
-        ),
-      });
-    }
-    if (isThanks(content)) {
-      const mentioned = message.mentions.members?.first();
-      if (mentioned) {
-        await message.channel.send({
-          content: Responses.thanks[getResponseKey(mentioned)].replace(
+      if (
+        message.member.roles.cache.find((r) => r.name === "Naomi") ||
+        message.member.roles.cache.find((r) => r.name === "cutie")
+      ) {
+        await message.react("<a:love:1149580277220388985>");
+      }
+      if (isGoodMorning(content)) {
+        await message.reply({
+          content: Responses.greeting[getResponseKey(member)],
+        });
+      }
+      if (isGoodNight(content)) {
+        await message.reply({
+          content: Responses.goodbye[getResponseKey(member)],
+        });
+      }
+      if (isSorry(content)) {
+        await message.reply({
+          content: Responses.sorry[getResponseKey(member)].replace(
             /\{username\}/g,
-            mentioned.user.username || "friend"
+            message.author.username
           ),
         });
+      }
+      if (isThanks(content)) {
+        const mentioned = message.mentions.members?.first();
+        if (mentioned) {
+          await message.channel.send({
+            content: Responses.thanks[getResponseKey(mentioned)].replace(
+              /\{username\}/g,
+              mentioned.user.username || "friend"
+            ),
+          });
+        }
       }
     }
 
