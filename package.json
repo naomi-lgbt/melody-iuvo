@@ -39,7 +39,7 @@
   "dependencies": {
     "@octokit/rest": "20.0.2",
     "@prisma/client": "5.4.2",
-    "@twurple/api": "7.0.3",
+    "@twurple/api": "7.0.4",
     "@twurple/auth": "7.0.4",
     "@twurple/eventsub-ws": "7.0.3",
     "discord.js": "14.13.0",
