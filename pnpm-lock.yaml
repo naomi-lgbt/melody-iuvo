@@ -79,6 +79,9 @@ devDependencies:
   '@types/node-schedule':
     specifier: 2.1.2
     version: 2.1.2
+  '@types/string-similarity':
+    specifier: 4.0.1
+    version: 4.0.1
   chai:
     specifier: 4.3.10
     version: 4.3.10
@@ -103,6 +106,9 @@ devDependencies:
   rimraf:
     specifier: 5.0.5
     version: 5.0.5
+  string-similarity:
+    specifier: 4.0.4
+    version: 4.0.4
   ts-mocha:
     specifier: 10.0.0
     version: 10.0.0(mocha@10.2.0)
@@ -1085,6 +1091,10 @@ packages:
       '@types/http-errors': 2.0.2
       '@types/mime': 3.0.2
       '@types/node': 20.8.9
+    dev: true
+
+  /@types/string-similarity@4.0.1:
+    resolution: {integrity: sha512-aUPUr+8RUgQH33o+DKPecDCJg1Z967Xwsqgjqfz6ZFpy6d8VDayMT7JmVMKaVAekGgRZpZmxxLS/jGQqk1kzTg==}
     dev: true
 
   /@types/tough-cookie@4.0.3:
@@ -4684,6 +4694,11 @@ packages:
       fast-fifo: 1.3.2
       queue-tick: 1.0.1
     dev: false
+
+  /string-similarity@4.0.4:
+    resolution: {integrity: sha512-/q/8Q4Bl4ZKAPjj8WerIBJWALKkaPRfrvhfF8k/B23i4nzrlRj2/go1m90In7nG/3XDSbOo0+pu6RvCTM9RGMQ==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    dev: true
 
   /string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
