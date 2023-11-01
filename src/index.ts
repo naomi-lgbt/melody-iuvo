@@ -50,6 +50,7 @@ import { validateEnv } from "./utils/validateEnv";
     };
     bot.commit = execSync("git rev-parse HEAD").toString().trim();
     bot.ticketLogs = {};
+    bot.beanedUser = null;
     await loadCommands(bot);
     await loadContexts(bot);
 

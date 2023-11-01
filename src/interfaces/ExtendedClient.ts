@@ -50,4 +50,5 @@ export interface ExtendedClient extends Client {
   };
   ticketLogs: { [key: string]: string };
   games: SteamGame[];
+  beanedUser: string | null;
 }
