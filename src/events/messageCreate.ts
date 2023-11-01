@@ -80,6 +80,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       message.channel.name !== "vent" &&
       !message.channel.name.startsWith("comfort")
     ) {
+      if (message.author.id === bot.beanedUser) {
+        await message.react("<a:beaned:1169327059919704176>");
+      }
       if (
         message.member.roles.cache.find((r) => r.name === "Naomi") ||
         message.member.roles.cache.find((r) => r.name === "cutie")

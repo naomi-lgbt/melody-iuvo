@@ -44,6 +44,10 @@ export const clientReady = async (bot: ExtendedClient) => {
         content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`
       });
     });
+    // at midnight every day
+    scheduleJob("0 0 * * * ", () => {
+      bot.beanedUser = null;
+    });
   } catch (err) {
     await errorHandler(bot, "client ready event", err);
   }
