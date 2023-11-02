@@ -44,6 +44,9 @@ jobs:
       - name: Lint Source Files
         run: pnpm run lint
 
+      - name: Check for Unused Code/Deps
+        run: pnpm run audit
+
       - name: Verify Build
         run: pnpm run build
 
