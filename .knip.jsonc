@@ -10,12 +10,15 @@
     "src/contexts/*.ts"
   ],
   "project": ["src/**/*.ts"],
-  "ignore": [
-    // Ignored because it's dynamically used by TypeScript.
-    "src/config/i18n/i18next.d.ts"
-  ],
   "ignoreDependencies": [
     // This one is ignored because knip can't parse the config?
-    "@nhcarrigan/prettier-config"
+    "@nhcarrigan/prettier-config",
+    // These are used in testing
+    "@types/chai",
+    "@types/mocha",
+    "@types/string-similarity",
+    "chai",
+    "discordjs-testing",
+    "string-similarity"
   ]
 }

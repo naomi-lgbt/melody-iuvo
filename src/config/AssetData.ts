@@ -1,5 +1,3 @@
-import { AssetTarget } from "../interfaces/Asset";
-
 export const ReferenceData: {
   name: string;
   fileName: string;
@@ -36,12 +34,3 @@ export const ReferenceData: {
       "Naomi keeps her toes painted a sparkly purple, and never wears socks or shoes."
   }
 ];
-
-export const AssetTargets: {
-  [key: string]: Partial<AssetTarget>[];
-} = {
-  adventure: ["naomi", "becca", "rosalia"],
-  emote: ["naomi", "becca"],
-  portrait: ["naomi", "becca", "rosalia", "beccalia"],
-  koikatsu: ["naomi", "becca", "rosalia", "beccalia", "melody"]
-};
