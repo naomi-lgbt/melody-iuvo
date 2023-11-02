@@ -1,0 +1,21 @@
+{
+  "$schema": "https://unpkg.com/knip@2/schema.json",
+  "entry": [
+    "src/index.ts",
+    /**
+     * Because the commands are dynamically generated, knip can't follow them.
+     * Treat them as entry files to allow for dependency and import/export validation.
+     */
+    "src/commands/*.ts",
+    "src/contexts/*.ts"
+  ],
+  "project": ["src/**/*.ts"],
+  "ignore": [
+    // Ignored because it's dynamically used by TypeScript.
+    "src/config/i18n/i18next.d.ts"
+  ],
+  "ignoreDependencies": [
+    // This one is ignored because knip can't parse the config?
+    "@nhcarrigan/prettier-config"
+  ]
+}
