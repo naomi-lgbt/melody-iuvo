@@ -6,7 +6,7 @@ import { processGithubIssues } from "../modules/processGithubIssues";
 import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
 import { serve } from "../server/serve";
 import { errorHandler } from "../utils/errorHandler";
-import { loadGeneralChannel } from "../utils/loadGeneralChannel";
+import { loadDiscordCache } from "../utils/loadDiscordCache";
 import { loadSteam } from "../utils/loadSteam";
 import { mountTwitch } from "../utils/mountTwitch";
 import { registerCommands } from "../utils/registerCommands";
@@ -20,7 +20,7 @@ export const clientReady = async (bot: ExtendedClient) => {
   try {
     await registerCommands(bot);
     await processGithubIssues(bot);
-    await loadGeneralChannel(bot);
+    await loadDiscordCache(bot);
     await mountTwitch(bot);
     await loadSteam(bot);
     await serve(bot);

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Client, Message, TextChannel, WebhookClient } from "discord.js";
+import { Client, Message, Role, TextChannel, WebhookClient } from "discord.js";
 
 import { Command } from "./Command";
 import { Context } from "./Context";
@@ -12,13 +12,13 @@ export interface ExtendedClient extends Client {
     debugHook: WebhookClient;
     ticketLogHook: WebhookClient;
     pluralLogHook: WebhookClient;
-    birthdayHook: WebhookClient;
-    issuesHook: WebhookClient;
-    ventChannel: string;
   };
   commit: string;
   db: PrismaClient;
   general: TextChannel;
+  contributing: TextChannel;
+  vent: TextChannel;
+  coven: Role;
   commands: Command[];
   contexts: Context[];
   cooldowns: {

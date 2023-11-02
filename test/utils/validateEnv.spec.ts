@@ -33,29 +33,11 @@ suite("validateEnv utility", () => {
     assert.throws(validateEnv, "Missing PLURAL_LOG_HOOK environment variable");
   });
 
-  test("throws an error when missing BIRTHDAY_HOOK", () => {
+  test("throws an error when missing MONGO_URI", () => {
     process.env.PLURAL_LOG_HOOK =
       // This is not a live webhook URL, so don't bother trying to use it.
       "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    assert.throws(validateEnv, "Missing BIRTHDAY_HOOK environment variable");
-  });
 
-  test("throws an error when missing ISSUES_HOOK", () => {
-    process.env.BIRTHDAY_HOOK =
-      // This is not a live webhook URL, so don't bother trying to use it.
-      "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    assert.throws(validateEnv, "Missing ISSUES_HOOK environment variable");
-  });
-
-  test("throws an error when missing VENT_CHANNEL_ID", () => {
-    process.env.ISSUES_HOOK =
-      // This is not a live webhook URL, so don't bother trying to use it.
-      "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    assert.throws(validateEnv, "Missing VENT_CHANNEL_ID environment variable");
-  });
-
-  test("throws an error when missing MONGO_URI", () => {
-    process.env.VENT_CHANNEL_ID = "123";
     assert.throws(validateEnv, "Missing MONGO_URI environment variable");
   });
 
@@ -67,7 +49,6 @@ suite("validateEnv utility", () => {
     assert.instanceOf(result.debugHook, WebhookClient);
     assert.instanceOf(result.ticketLogHook, WebhookClient);
     assert.instanceOf(result.pluralLogHook, WebhookClient);
-    assert.instanceOf(result.birthdayHook, WebhookClient);
   });
 
   after(() => {
@@ -77,8 +58,5 @@ suite("validateEnv utility", () => {
     delete process.env.MONGO_URI;
     delete process.env.TICKET_LOG_HOOK;
     delete process.env.PLURAL_LOG_HOOK;
-    delete process.env.BIRTHDAY_HOOK;
-    delete process.env.ISSUES_HOOK;
-    delete process.env.VENT_CHANNEL_ID;
   });
 });

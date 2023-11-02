@@ -44,6 +44,11 @@ const channel = new MockChannel({
   guild,
   type: ChannelType.GuildText
 });
+const vent = new MockChannel({
+  name: "abyss",
+  guild,
+  type: ChannelType.GuildText
+});
 const member = new MockMember({
   guild,
   user
@@ -65,19 +70,20 @@ const fakeClient = {
       send: (message: unknown) =>
         fakeClient.env.debugHook.messages.push(message)
     }
-  }
+  },
+  vent
 };
 
 suite("messageCreate", () => {
   test("should not respond to bot messages", async () => {
     const msg = await channel.send("test", bot);
-    await messageCreate({} as never, msg as never);
+    await messageCreate({ ...fakeClient } as never, msg as never);
     assert.equal(channel.messages.cache.size, 1);
   });
 
   test("should reply to messages with name", async () => {
     const msg = await channel.send("melody", user, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 3);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.melodyPing.default.map((r) =>
@@ -98,7 +104,7 @@ suite("messageCreate", () => {
       user: naomi
     });
     const msg = await channel.send("melody", naomi, naomiMember);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 5);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.melodyPing["465650873650118659"].map(
@@ -116,7 +122,7 @@ suite("messageCreate", () => {
 
   test("should process ticket command", async () => {
     const msg = await channel.send("~tickets", naomi, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 7);
     const response = channel.messages.cache.last();
     assert.exists(response?.embeds?.[0]);
@@ -124,7 +130,7 @@ suite("messageCreate", () => {
 
   test("should process prune command", async () => {
     const msg = await channel.send("~prune --dryrun", naomi, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 9);
     const response = channel.messages.cache.last();
     assert.equal(response?.content, "Found no inactive users.");
@@ -180,7 +186,7 @@ suite("messageCreate", () => {
 
   test("should respond to good morning", async () => {
     const msg = await channel.send("good morning", user, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 15);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.greeting.default.map((r) =>
@@ -196,7 +202,7 @@ suite("messageCreate", () => {
   });
   test("should respond to good night", async () => {
     const msg = await channel.send("good night", user, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 17);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.goodbye.default.map((r) =>
@@ -216,7 +222,7 @@ suite("messageCreate", () => {
   // });
   test("should respond to sorry", async () => {
     const msg = await channel.send("sorry", user, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 19);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.sorry.default.map((r) =>
@@ -236,7 +242,7 @@ suite("messageCreate", () => {
     const collection = new Collection();
     // @ts-expect-error Assigning to non-defined property until test package is updated
     msg.mentions = { members: collection };
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 20);
     const response = channel.messages.cache.last();
     assert.equal(response?.content, "thanks");
@@ -247,7 +253,7 @@ suite("messageCreate", () => {
     const collection = new Collection([[naomiMember.id, naomiMember]]);
     // @ts-expect-error Assigning to non-defined property until test package is updated
     msg.mentions = { members: collection };
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 22);
     const response = channel.messages.cache.last();
     const mappedResponses = Responses.thanks["465650873650118659"].map((r) =>
@@ -264,7 +270,7 @@ suite("messageCreate", () => {
 
   test("should process currency", async () => {
     const msg = await channel.send("test", user, member);
-    await messageCreate({ db } as never, msg as never);
+    await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 23);
     const record = await db.users.findUnique({
       where: {

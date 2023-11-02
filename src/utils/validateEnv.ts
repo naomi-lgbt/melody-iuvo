@@ -23,15 +23,6 @@ export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.PLURAL_LOG_HOOK) {
     throw new Error("Missing PLURAL_LOG_HOOK environment variable");
   }
-  if (!process.env.BIRTHDAY_HOOK) {
-    throw new Error("Missing BIRTHDAY_HOOK environment variable");
-  }
-  if (!process.env.ISSUES_HOOK) {
-    throw new Error("Missing ISSUES_HOOK environment variable");
-  }
-  if (!process.env.VENT_CHANNEL_ID) {
-    throw new Error("Missing VENT_CHANNEL_ID environment variable");
-  }
   if (!process.env.MONGO_URI) {
     throw new Error("Missing MONGO_URI environment variable");
   }
@@ -47,13 +38,6 @@ export const validateEnv = (): ExtendedClient["env"] => {
     }),
     pluralLogHook: new WebhookClient({
       url: process.env.PLURAL_LOG_HOOK
-    }),
-    birthdayHook: new WebhookClient({
-      url: process.env.BIRTHDAY_HOOK
-    }),
-    issuesHook: new WebhookClient({
-      url: process.env.ISSUES_HOOK
-    }),
-    ventChannel: process.env.VENT_CHANNEL_ID
+    })
   };
 };
