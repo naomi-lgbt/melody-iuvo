@@ -33,6 +33,21 @@ export const pruneInactiveUsers = async (
         await getDatabaseRecord(bot, user.id);
         continue;
       }
+      // we need filters
+      const isPartner = user.roles.cache.find(
+        (r) => r.name.toLowerCase() === "cutie"
+      );
+      const isStaff = user.roles.cache.find(
+        (r) => r.name.toLowerCase() === "staff"
+      );
+      const isDonor = user.roles.cache.find(
+        (r) =>
+          r.name.toLowerCase() === "generous child" ||
+          r.name.toLowerCase() === "donate"
+      );
+      if (isPartner || isStaff || isDonor) {
+        continue;
+      }
       // check if user.timestamp is older than 30 days
       if (record.timestamp < new Date(Date.now() - 2592000000)) {
         users.push(
