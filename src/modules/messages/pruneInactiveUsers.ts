@@ -35,17 +35,18 @@ export const pruneInactiveUsers = async (
       }
       // we need filters
       const isPartner = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "cutie"
+        (r) => r.name.toLowerCase() === "concubine"
       );
       const isStaff = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "staff"
+        (r) => r.name.toLowerCase() === "high council"
       );
       const isDonor = user.roles.cache.find(
-        (r) =>
-          r.name.toLowerCase() === "generous child" ||
-          r.name.toLowerCase() === "donate"
+        (r) => r.name.toLowerCase() === "ritualist"
       );
-      if (isPartner || isStaff || isDonor) {
+      const isRegular = user.roles.cache.find(
+        (r) => r.name.toLowerCase() === "coven"
+      );
+      if (isPartner || isStaff || isDonor || isRegular) {
         continue;
       }
       // check if user.timestamp is older than 30 days
