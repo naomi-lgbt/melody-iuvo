@@ -29,7 +29,7 @@ suite("pruneInactiveUsers", () => {
     await pruneInactiveUsers({ db } as never, message as never);
     assert.equal(channel.messages.cache.size, 2);
     const reply = channel.messages.cache.last();
-    assert.equal(reply?.content, "Would kick 0 inactive users: ");
+    assert.equal(reply?.content, "Found no inactive users.");
   });
 
   test("should prune users inactive for more than a month", async () => {
@@ -45,10 +45,8 @@ suite("pruneInactiveUsers", () => {
     await pruneInactiveUsers({ db } as never, message as never);
     assert.equal(channel.messages.cache.size, 4);
     const reply = channel.messages.cache.last();
-    assert.equal(
-      reply?.content,
-      `Would kick 1 inactive users: - <@!${user.id}>`
-    );
+    assert.equal(reply?.content, `Would kick 1 inactive users:`);
+    assert.lengthOf(reply?.attachments ?? [], 1);
   });
 
   test("should actively kick users", async () => {
@@ -64,7 +62,8 @@ suite("pruneInactiveUsers", () => {
     await pruneInactiveUsers({ db } as never, message as never);
     assert.equal(channel.messages.cache.size, 6);
     const reply = channel.messages.cache.last();
-    assert.equal(reply?.content, `Kicked 1 inactive users: - <@!${user.id}>`);
+    assert.equal(reply?.content, `Kicked 1 inactive users:`);
     assert.equal(guild.members.cache.size, 0);
+    assert.lengthOf(reply?.attachments ?? [], 1);
   });
 });
