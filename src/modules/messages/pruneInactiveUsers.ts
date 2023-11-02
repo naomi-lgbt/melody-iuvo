@@ -15,7 +15,10 @@ export const pruneInactiveUsers = async (
   message: GuildMessage
 ) => {
   try {
-    const dryrun = message.content.includes("--dryrun");
+    const dryrun =
+      message.content.includes("--dryrun") ||
+      message.content.includes("--dry-run");
+    const ids: string[] = [];
     const records = await bot.db.users.findMany();
     const guildMembers = await message.guild.members.fetch();
     let count = 0;
@@ -30,6 +33,7 @@ export const pruneInactiveUsers = async (
       }
       // check if user.timestamp is older than 30 days
       if (record.timestamp < new Date(Date.now() - 2592000000)) {
+        ids.push(`- <@!${record.userId}>`);
         if (!dryrun) {
           await user
             .kick("Failed activity requirement.")
@@ -45,8 +49,8 @@ export const pruneInactiveUsers = async (
     }
     await message.reply(
       dryrun
-        ? `Would kick ${count} inactive users.`
-        : `Kicked ${count} inactive users.`
+        ? `Would kick ${count} inactive users: ${ids.join("\n")}`
+        : `Kicked ${count} inactive users: ${ids.join("\n")}`
     );
     return;
   } catch (err) {
