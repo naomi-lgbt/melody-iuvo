@@ -127,7 +127,7 @@ suite("messageCreate", () => {
     await messageCreate({ db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 9);
     const response = channel.messages.cache.last();
-    assert.equal(response?.content, "Would kick 0 inactive users.");
+    assert.equal(response?.content, "Would kick 0 inactive users: ");
   });
 
   test("should process autofronted proxy", async () => {
