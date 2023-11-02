@@ -30,7 +30,9 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
      */
     await homeGuild.members.fetch();
 
-    const channel = homeGuild.channels.cache.find((c) => c.name === "general");
+    const channel = homeGuild.channels.cache.find(
+      (c) => c.name === "mystic-circle"
+    );
     if (!channel || channel.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "General channel not found. Some features may not work."

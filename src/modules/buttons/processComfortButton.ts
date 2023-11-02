@@ -19,7 +19,7 @@ export const processComfortButton: ButtonHandler = async (bot, interaction) => {
     }
 
     const thread = await (channel as TextChannel).threads.create({
-      name: `comfort-${user.username}`,
+      name: `counsel-${user.username}`,
       type: ChannelType.PrivateThread
     });
     await thread.members.add("465650873650118659");
