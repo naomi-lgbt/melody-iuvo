@@ -30,6 +30,7 @@ model users {
     plurals       Plural[]
     front         String   @default("")
     birthday      Int      @default(0)
+    initiations   Int      @default(0)
 
     @@unique([userId], map: "userId")
 }
