@@ -15,7 +15,6 @@ import {
   isSorry,
   isThanks
 } from "../modules/messages/responseValidation";
-import { startAgeGate } from "../modules/messages/startAgeGate";
 import { startComfortPost } from "../modules/messages/startComfortPost";
 import { startTicketPost } from "../modules/messages/startTicketPost";
 import { sumCurrency } from "../modules/sumCurrency";
@@ -134,9 +133,6 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       if (content.startsWith("~roles")) {
         await postReactionRoles(bot, message);
         return;
-      }
-      if (content === "~agegate") {
-        await startAgeGate(bot, message);
       }
     }
 

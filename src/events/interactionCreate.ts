@@ -1,7 +1,6 @@
 import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
-import { ageGateModal } from "../modules/buttons/ageGateModal";
 import { processComfortButton } from "../modules/buttons/processComfortButton";
 import { processRoleButton } from "../modules/buttons/processRoleButton";
 import { questionAnswer } from "../modules/buttons/questionAnswer";
@@ -10,7 +9,6 @@ import { ticketClaimHandler } from "../modules/buttons/ticketClaim";
 import { ticketCloseHandler } from "../modules/buttons/ticketClose";
 import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
 import { wordGuess } from "../modules/buttons/wordGuess";
-import { handleAgeModal } from "../modules/modals/handleAgeModal";
 import { handleTicketModal } from "../modules/modals/handleTicketModal";
 import { processAnswerModal } from "../modules/modals/processAnswerModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
@@ -97,8 +95,6 @@ export const interactionCreate = async (
         case "close":
           await ticketCloseHandler(bot, interaction);
           return;
-        case "age-gate":
-          await ageGateModal(bot, interaction);
       }
     }
     if (interaction.isModalSubmit()) {
@@ -114,9 +110,6 @@ export const interactionCreate = async (
       }
       if (interaction.customId === "answer") {
         await processAnswerModal(bot, interaction);
-      }
-      if (interaction.customId === "age-verify") {
-        await handleAgeModal(bot, interaction);
       }
     }
   } catch (err) {
