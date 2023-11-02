@@ -32,7 +32,7 @@ export const getDatabaseRecord = async (
       plurals: [],
       front: "",
       birthday: 0,
-      initiations: 0
+      initiations: []
     }
   });
   return record;

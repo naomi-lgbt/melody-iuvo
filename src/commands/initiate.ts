@@ -49,9 +49,18 @@ export const initiate: Command = {
       }
 
       const record = await getDatabaseRecord(bot, target.id);
-      const initiations = record.initiations + 1;
+      const initiations = record.initiations;
 
-      if (initiations < 3) {
+      if (initiations.includes(interaction.user.id)) {
+        await interaction.editReply({
+          content: "You have already nominated this member for initiation."
+        });
+        return;
+      }
+
+      initiations.push(interaction.user.id);
+
+      if (initiations.length < 3) {
         await bot.db.users.update({
           where: {
             userId: target.id
@@ -74,6 +83,15 @@ export const initiate: Command = {
       );
       await interaction.editReply({
         content: "Your nomination has been logged."
+      });
+
+      await bot.db.users.update({
+        where: {
+          userId: target.id
+        },
+        data: {
+          initiations: []
+        }
       });
     } catch (err) {
       await errorHandler(bot, "initiate command", err);
