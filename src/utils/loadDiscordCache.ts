@@ -5,12 +5,14 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "./errorHandler";
 
 /**
- * Fetches the general channel from the home guild and mounts it
- * to the bot. This avoids excessive API calls for other logic.
+ * Fetches some Discord data to cache, avoiding extraneous API calls.
+ * - General channel.
+ * - Full member list (to ensure join/leave events work).
+ * - Coven role.
  *
  * @param {ExtendedClient} bot The bot's Discord instance.
  */
-export const loadGeneralChannel = async (bot: ExtendedClient) => {
+export const loadDiscordCache = async (bot: ExtendedClient) => {
   try {
     const homeGuild =
       bot.guilds.cache.get(bot.env.homeGuild) ||
