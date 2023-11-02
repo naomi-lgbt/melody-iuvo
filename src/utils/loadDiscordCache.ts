@@ -30,17 +30,52 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
      */
     await homeGuild.members.fetch();
 
-    const channel = homeGuild.channels.cache.find(
+    const general = homeGuild.channels.cache.find(
       (c) => c.name === "mystic-circle"
     );
-    if (!channel || channel.type !== ChannelType.GuildText) {
+    if (!general || general.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "General channel not found. Some features may not work."
       );
       return;
     }
     if (!bot.general) {
-      bot.general = channel;
+      bot.general = general;
+    }
+
+    const contribute = homeGuild.channels.cache.find(
+      (c) => c.name === "scribes-hall"
+    );
+    if (!contribute || contribute.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send(
+        "Contribute channel not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.contributing) {
+      bot.contributing = contribute;
+    }
+
+    const vent = homeGuild.channels.cache.find((c) => c.name === "abyss");
+    if (!vent || vent.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send(
+        "Vent channel not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.vent) {
+      bot.vent = vent;
+    }
+
+    const coven = homeGuild.roles.cache.find((r) => r.name === "Coven");
+    if (!coven) {
+      await bot.env.debugHook.send(
+        "Coven role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.coven) {
+      bot.coven = coven;
     }
   } catch (err) {
     await errorHandler(bot, "load general channel", err);

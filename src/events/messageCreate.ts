@@ -38,7 +38,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * vent channel, so we run this before confirming the message comes
      * from a non-bot user.
      */
-    if (message.channel?.id === bot.env?.ventChannel) {
+    if (message.channel?.id === bot.vent.id) {
       setTimeout(
         async () =>
           /**
@@ -77,8 +77,8 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * We don't want to run these in the heavier vent channel and comfort channels.
      */
     if (
-      message.channel.name !== "vent" &&
-      !message.channel.name.startsWith("comfort")
+      message.channel.id !== bot.vent.id &&
+      !message.channel.name.startsWith("counsel")
     ) {
       if (message.author.id === bot.beanedUser) {
         await message.react("<a:beaned:1169327059919704176>");

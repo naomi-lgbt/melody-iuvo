@@ -67,7 +67,6 @@ suite("validateEnv utility", () => {
     assert.instanceOf(result.debugHook, WebhookClient);
     assert.instanceOf(result.ticketLogHook, WebhookClient);
     assert.instanceOf(result.pluralLogHook, WebhookClient);
-    assert.instanceOf(result.birthdayHook, WebhookClient);
   });
 
   after(() => {
