@@ -38,7 +38,6 @@ export const Questions = [
   "What obstacles would be included in the World's most amazing obstacle course?",
   "What makes you roll your eyes every time you hear it?",
   "What do you think you are much better at than you actually are?",
-  "Should kidneys be able to be bought and sold?",
   "What's the most creative use of emojis you've ever seen?",
   "When was the last time you got to tell someone “I told you so.”?",
   "What riddles do you know?",
