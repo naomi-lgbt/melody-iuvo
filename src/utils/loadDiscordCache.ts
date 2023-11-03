@@ -19,7 +19,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       (await bot.guilds.fetch(bot.env.homeGuild));
     if (!homeGuild) {
       await bot.env.debugHook.send(
-        "Home guild not found. General channel cannot be loaded."
+        "Home guild not found. Channels and roles cannot be loaded."
       );
       return;
     }
@@ -39,21 +39,15 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.discord.channels.general) {
-      bot.discord.channels.general = general;
-    }
 
-    const contribute = homeGuild.channels.cache.find(
+    const contributing = homeGuild.channels.cache.find(
       (c) => c.name === "scribes-hall"
     );
-    if (!contribute || contribute.type !== ChannelType.GuildText) {
+    if (!contributing || contributing.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "Contribute channel not found. Some features may not work."
       );
       return;
-    }
-    if (!bot.discord.channels.contributing) {
-      bot.discord.channels.contributing = contribute;
     }
 
     const vent = homeGuild.channels.cache.find((c) => c.name === "abyss");
@@ -63,9 +57,6 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.discord.channels.vent) {
-      bot.discord.channels.vent = vent;
-    }
 
     const regular = homeGuild.roles.cache.find((r) => r.name === "Coven");
     if (!regular) {
@@ -74,9 +65,6 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.discord.roles.regular) {
-      bot.discord.roles.regular = regular;
-    }
 
     const partner = homeGuild.roles.cache.find((r) => r.name === "Concubine");
     if (!partner) {
@@ -84,9 +72,6 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         "Partner role not found. Some features may not work."
       );
       return;
-    }
-    if (!bot.discord.roles.partner) {
-      bot.discord.roles.partner = partner;
     }
 
     const staff = homeGuild.roles.cache.find((r) => r.name === "High Council");
@@ -110,6 +95,21 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     if (!bot.discord.roles.donor) {
       bot.discord.roles.donor = donor;
     }
+
+    bot.discord = {
+      guild: homeGuild,
+      channels: {
+        general,
+        vent,
+        contributing
+      },
+      roles: {
+        staff,
+        regular,
+        donor,
+        partner
+      }
+    };
   } catch (err) {
     await errorHandler(bot, "load general channel", err);
   }
