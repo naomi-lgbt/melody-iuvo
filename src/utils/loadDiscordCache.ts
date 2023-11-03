@@ -31,7 +31,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     await homeGuild.members.fetch();
 
     const general = homeGuild.channels.cache.find(
-      (c) => c.name === "mystic-circle"
+      (c) => c.name === "the-grove"
     );
     if (!general || general.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
@@ -66,7 +66,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       return;
     }
 
-    const partner = homeGuild.roles.cache.find((r) => r.name === "Concubine");
+    const partner = homeGuild.roles.cache.find((r) => r.name === "Handfasted");
     if (!partner) {
       await bot.env.debugHook.send(
         "Partner role not found. Some features may not work."
