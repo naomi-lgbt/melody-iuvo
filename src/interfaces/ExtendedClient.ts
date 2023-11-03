@@ -18,7 +18,7 @@ export interface ExtendedClient extends Client {
   general: TextChannel;
   contributing: TextChannel;
   vent: TextChannel;
-  coven: Role;
+  regular: Role;
   partner: Role;
   donor: Role;
   staff: Role;

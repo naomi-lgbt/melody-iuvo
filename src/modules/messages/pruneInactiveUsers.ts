@@ -37,7 +37,7 @@ export const pruneInactiveUsers = async (
       const isPartner = user.roles.cache.has(bot.partner.id);
       const isStaff = user.roles.cache.has(bot.staff.id);
       const isDonor = user.roles.cache.has(bot.donor.id);
-      const isRegular = user.roles.cache.has(bot.coven.id);
+      const isRegular = user.roles.cache.has(bot.regular.id);
       if (isPartner || isStaff || isDonor || isRegular) {
         continue;
       }

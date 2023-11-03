@@ -31,7 +31,7 @@ export const initiate: Command = {
         return;
       }
 
-      const isInitiatied = interaction.member.roles.cache.has(bot.coven.id);
+      const isInitiatied = interaction.member.roles.cache.has(bot.regular.id);
       if (!isInitiatied) {
         await interaction.editReply({
           content: "Only current coven members may nominate new initiates."
@@ -39,7 +39,7 @@ export const initiate: Command = {
         return;
       }
 
-      const targetIsInitiated = target.roles.cache.has(bot.coven.id);
+      const targetIsInitiated = target.roles.cache.has(bot.regular.id);
 
       if (targetIsInitiated) {
         await interaction.editReply({
@@ -75,7 +75,7 @@ export const initiate: Command = {
         return;
       }
 
-      await target.roles.add(bot.coven);
+      await target.roles.add(bot.regular);
       await bot.general.send(
         `## <:pentatrans:1169725148740472912> ${
           target.user.displayName || target.user.username

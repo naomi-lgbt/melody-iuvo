@@ -74,8 +74,8 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.coven) {
-      bot.coven = coven;
+    if (!bot.regular) {
+      bot.regular = coven;
     }
 
     const partner = homeGuild.roles.cache.find((r) => r.name === "Concubine");
