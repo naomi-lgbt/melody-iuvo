@@ -86,8 +86,8 @@ devDependencies:
     specifier: 8.52.0
     version: 8.52.0
   knip:
-    specifier: 2.38.6
-    version: 2.38.6
+    specifier: 2.39.0
+    version: 2.39.0
   mocha:
     specifier: 10.2.0
     version: 10.2.0
@@ -3900,8 +3900,8 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /knip@2.38.6:
-    resolution: {integrity: sha512-FUkcSx0VGmRQ70rQzcygZrP3FPpoFS5CFp7sONGclB+HIIA6DJ11u1MZXmh0XsXewgeIm9guCkAD6xoO4i/hWA==}
+  /knip@2.39.0:
+    resolution: {integrity: sha512-2piCiCtazV+EfshVmblfaVRTsWI+mZ/ipmBJw2V6BorN0nX+t0BcmMX7s3ozrjpS/ZWANUHOcfWyzA5dbjMM/w==}
     engines: {node: '>=16.17.0 <17 || >=18.6.0'}
     hasBin: true
     dependencies:
