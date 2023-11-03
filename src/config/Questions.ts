@@ -497,5 +497,6 @@ export const Questions = [
   "What are a couple of your favourite quotes?",
   "Would you rather take a walk through a forest or along a beach?",
   "What do you probably spend too much money or time on but it is totally worth it?",
-  "What are you a stickler for?"
+  "What are you a stickler for?",
+  "What is your favourite genre of music?"
 ];
