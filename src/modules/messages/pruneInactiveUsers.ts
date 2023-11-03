@@ -34,18 +34,10 @@ export const pruneInactiveUsers = async (
         continue;
       }
       // we need filters
-      const isPartner = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "concubine"
-      );
-      const isStaff = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "high council"
-      );
-      const isDonor = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "ritualist"
-      );
-      const isRegular = user.roles.cache.find(
-        (r) => r.name.toLowerCase() === "coven"
-      );
+      const isPartner = user.roles.cache.has(bot.partner.id);
+      const isStaff = user.roles.cache.has(bot.staff.id);
+      const isDonor = user.roles.cache.has(bot.donor.id);
+      const isRegular = user.roles.cache.has(bot.coven.id);
       if (isPartner || isStaff || isDonor || isRegular) {
         continue;
       }

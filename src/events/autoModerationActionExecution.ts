@@ -41,7 +41,7 @@ export const autoModerationActionExecution = async (
     }
     await channel.send({
       content: getRandomValue(
-        Responses.naughty[getResponseKey(member)]
+        Responses.naughty[getResponseKey(bot, member)]
       ).replace(/\{userping\}/g, `<@${userId}>`),
       stickers: ["1146868650041675908"]
     });

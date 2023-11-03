@@ -146,7 +146,7 @@ export const assets: Command = {
         content:
           subcommand === "outfit"
             ? getRandomValue(
-                Responses.outfit[getResponseKey(interaction.member)]
+                Responses.outfit[getResponseKey(bot, interaction.member)]
               )
             : "",
         embeds: [embed]

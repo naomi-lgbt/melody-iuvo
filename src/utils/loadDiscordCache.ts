@@ -77,6 +77,39 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     if (!bot.coven) {
       bot.coven = coven;
     }
+
+    const partner = homeGuild.roles.cache.find((r) => r.name === "Concubine");
+    if (!partner) {
+      await bot.env.debugHook.send(
+        "Partner role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.partner) {
+      bot.partner = partner;
+    }
+
+    const staff = homeGuild.roles.cache.find((r) => r.name === "High Council");
+    if (!staff) {
+      await bot.env.debugHook.send(
+        "Staff role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.staff) {
+      bot.staff = staff;
+    }
+
+    const donor = homeGuild.roles.cache.find((r) => r.name === "Ritualist");
+    if (!donor) {
+      await bot.env.debugHook.send(
+        "Donor role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.donor) {
+      bot.donor = donor;
+    }
   } catch (err) {
     await errorHandler(bot, "load general channel", err);
   }
