@@ -16,7 +16,7 @@ const general = new MockChannel({
 
 suite("post question module", () => {
   test("should post a properly formatted question", async () => {
-    await postQuestion({ general } as never);
+    await postQuestion({ discord: { channels: { general } } } as never);
     assert.strictEqual(general.messages.cache.size, 1);
     const message = general.messages.cache.first()?.content;
     if (!message) {

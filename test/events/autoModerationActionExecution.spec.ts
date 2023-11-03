@@ -75,9 +75,11 @@ suite("autoModerationActionExecution event", () => {
       type: ChannelType.GuildText
     });
     guild.members.add(user);
-    process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(
-      { automod: {} } as never,
+      {
+        automod: {},
+        discord: { channels: { general: channel }, roles: { partner: {} } }
+      } as never,
       action as never
     );
     assert.equal(channel.messages.cache.size, 1);
@@ -92,7 +94,6 @@ suite("autoModerationActionExecution event", () => {
       content,
       `${mappedResponses} does not include ${content}`
     );
-    delete process.env.AUTOMOD_TEASE_CHANNEL_ID;
   });
 
   test("should send the message when automod is triggered by special response", async () => {
@@ -107,7 +108,10 @@ suite("autoModerationActionExecution event", () => {
     });
     process.env.AUTOMOD_TEASE_CHANNEL_ID = channel.id;
     await autoModerationActionExecution(
-      { automod: {} } as never,
+      {
+        automod: {},
+        discord: { channels: { general: channel }, roles: { partner: {} } }
+      } as never,
       naomiAction as never
     );
     assert.equal(channel.messages.cache.size, 1);

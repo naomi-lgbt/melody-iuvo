@@ -71,7 +71,14 @@ const fakeClient = {
         fakeClient.env.debugHook.messages.push(message)
     }
   },
-  vent
+  discord: {
+    channels: {
+      vent
+    },
+    roles: {
+      partner: {}
+    }
+  }
 };
 
 suite("messageCreate", () => {

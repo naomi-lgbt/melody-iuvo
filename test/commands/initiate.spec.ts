@@ -53,8 +53,14 @@ const role = new MockRole({
 
 const client = {
   db,
-  general,
-  coven: role
+  discord: {
+    channels: {
+      general
+    },
+    roles: {
+      regular: role
+    }
+  }
 } as never;
 
 suite("initiate command", () => {

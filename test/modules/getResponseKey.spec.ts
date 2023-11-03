@@ -20,19 +20,37 @@ const member = new MockMember({
 
 suite("getResponseKey", () => {
   test("should return default if no conditions are met", () => {
-    assert.strictEqual(getResponseKey(member as never), "default");
+    assert.strictEqual(
+      getResponseKey(
+        { discord: { roles: { partner: {} } } } as never,
+        member as never
+      ),
+      "default"
+    );
   });
 
   test("should return 'cute' if the member is a cutie", () => {
-    member.roles.create({
+    const role = member.roles.create({
       name: "cutie"
     });
-    assert.strictEqual(getResponseKey(member as never), "cutie");
+    assert.strictEqual(
+      getResponseKey(
+        { discord: { roles: { partner: role } } } as never,
+        member as never
+      ),
+      "cutie"
+    );
   });
 
   test("should return the user ID if there is individual response", () => {
     // @ts-expect-error Overriding id for testing
     member._id = "465650873650118659";
-    assert.strictEqual(getResponseKey(member as never), "465650873650118659");
+    assert.strictEqual(
+      getResponseKey(
+        { discord: { roles: { partner: {} } } } as never,
+        member as never
+      ),
+      "465650873650118659"
+    );
   });
 });

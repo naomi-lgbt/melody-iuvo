@@ -97,7 +97,10 @@ suite("bean command", () => {
         }
       ]
     });
-    const botMock = { beanedUser: null, general: channel };
+    const botMock = {
+      beanedUser: null,
+      discord: { channels: { general: channel } }
+    };
     await bean.run(botMock as never, command as never);
     assert.lengthOf(command.replies, 1);
     assert.strictEqual(command.replies[0].content, "Done~!");
