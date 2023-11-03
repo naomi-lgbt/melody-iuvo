@@ -38,7 +38,6 @@ export const Questions = [
   "What obstacles would be included in the World's most amazing obstacle course?",
   "What makes you roll your eyes every time you hear it?",
   "What do you think you are much better at than you actually are?",
-  "Should kidneys be able to be bought and sold?",
   "What's the most creative use of emojis you've ever seen?",
   "When was the last time you got to tell someone “I told you so.”?",
   "What riddles do you know?",
@@ -498,5 +497,6 @@ export const Questions = [
   "What are a couple of your favourite quotes?",
   "Would you rather take a walk through a forest or along a beach?",
   "What do you probably spend too much money or time on but it is totally worth it?",
-  "What are you a stickler for?"
+  "What are you a stickler for?",
+  "What is your favourite genre of music?"
 ];
