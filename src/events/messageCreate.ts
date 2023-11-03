@@ -37,7 +37,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * vent channel, so we run this before confirming the message comes
      * from a non-bot user.
      */
-    if (message.channel?.id === bot.vent.id) {
+    if (message.channel?.id === bot.discord.channels.vent.id) {
       setTimeout(
         async () =>
           /**
@@ -63,10 +63,10 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     ) {
       await message.reply({
         content: getRandomValue(
-          Responses.melodyPing[getResponseKey(message.member)]
+          Responses.melodyPing[getResponseKey(bot, message.member)]
         ),
         stickers:
-          getResponseKey(message.member) !== "default"
+          getResponseKey(bot, message.member) !== "default"
             ? []
             : ["1146308020444332042"]
       });
@@ -76,32 +76,36 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * We don't want to run these in the heavier vent channel and comfort channels.
      */
     if (
-      message.channel.id !== bot.vent.id &&
+      message.channel.id !== bot.discord.channels.vent.id &&
       !message.channel.name.startsWith("counsel")
     ) {
       if (message.author.id === bot.beanedUser) {
         await message.react("<a:beaned:1169327059919704176>");
       }
       if (
-        message.member.roles.cache.find((r) => r.name === "Naomi") ||
-        message.member.roles.cache.find((r) => r.name === "cutie")
+        isOwner(message.member.id) ||
+        message.member.roles.cache.has(bot.discord.roles.partner.id)
       ) {
         await message.react("<a:love:1149580277220388985>");
       }
       if (isGoodMorning(content)) {
         await message.reply({
-          content: getRandomValue(Responses.greeting[getResponseKey(member)])
+          content: getRandomValue(
+            Responses.greeting[getResponseKey(bot, member)]
+          )
         });
       }
       if (isGoodNight(content)) {
         await message.reply({
-          content: getRandomValue(Responses.goodbye[getResponseKey(member)])
+          content: getRandomValue(
+            Responses.goodbye[getResponseKey(bot, member)]
+          )
         });
       }
       if (isSorry(content)) {
         await message.reply({
           content: getRandomValue(
-            Responses.sorry[getResponseKey(member)]
+            Responses.sorry[getResponseKey(bot, member)]
           ).replace(/\{username\}/g, message.author.username)
         });
       }
@@ -110,7 +114,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         if (mentioned) {
           await message.channel.send({
             content: getRandomValue(
-              Responses.thanks[getResponseKey(mentioned)]
+              Responses.thanks[getResponseKey(bot, mentioned)]
             ).replace(/\{username\}/g, mentioned.user.username || "friend")
           });
         }

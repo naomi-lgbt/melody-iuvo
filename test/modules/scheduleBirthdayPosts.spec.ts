@@ -34,7 +34,10 @@ suite("schedule birthday posts", () => {
         birthday: new Date(`${month}-${day}-2000`)
       }
     });
-    await scheduleBirthdayPosts({ general, db } as never);
+    await scheduleBirthdayPosts({
+      discord: { channels: { general } },
+      db
+    } as never);
     assert.strictEqual(general.messages.cache.size, 1);
     assert.strictEqual(general.messages.cache.last()?.content, `<@!12345>`);
     const embed = general.messages.cache.last()?.embeds?.[0] as EmbedBuilder;

@@ -17,9 +17,6 @@ export const autoModerationActionExecution = async (
   action: AutoModerationActionExecution
 ) => {
   try {
-    if (!process.env.AUTOMOD_TEASE_CHANNEL_ID) {
-      return;
-    }
     const { userId, guild } = action;
     const member =
       action.member ||
@@ -33,15 +30,9 @@ export const autoModerationActionExecution = async (
       return;
     }
     bot.automod[userId] = Date.now();
-    const channel =
-      guild.channels.cache.get(process.env.AUTOMOD_TEASE_CHANNEL_ID) ||
-      (await guild.channels.fetch(process.env.AUTOMOD_TEASE_CHANNEL_ID));
-    if (!channel || !channel.isTextBased()) {
-      return;
-    }
-    await channel.send({
+    await bot.discord.channels.general.send({
       content: getRandomValue(
-        Responses.naughty[getResponseKey(member)]
+        Responses.naughty[getResponseKey(bot, member)]
       ).replace(/\{userping\}/g, `<@${userId}>`),
       stickers: ["1146868650041675908"]
     });

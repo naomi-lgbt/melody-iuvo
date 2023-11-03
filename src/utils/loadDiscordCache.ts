@@ -6,9 +6,9 @@ import { errorHandler } from "./errorHandler";
 
 /**
  * Fetches some Discord data to cache, avoiding extraneous API calls.
- * - General channel.
  * - Full member list (to ensure join/leave events work).
- * - Coven role.
+ * - General, Contributing, and Vent channels.
+ * - Regular, Partner, Staff, and Donor roles.
  *
  * @param {ExtendedClient} bot The bot's Discord instance.
  */
@@ -39,8 +39,8 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.general) {
-      bot.general = general;
+    if (!bot.discord.channels.general) {
+      bot.discord.channels.general = general;
     }
 
     const contribute = homeGuild.channels.cache.find(
@@ -52,8 +52,8 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.contributing) {
-      bot.contributing = contribute;
+    if (!bot.discord.channels.contributing) {
+      bot.discord.channels.contributing = contribute;
     }
 
     const vent = homeGuild.channels.cache.find((c) => c.name === "abyss");
@@ -63,19 +63,52 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.vent) {
-      bot.vent = vent;
+    if (!bot.discord.channels.vent) {
+      bot.discord.channels.vent = vent;
     }
 
-    const coven = homeGuild.roles.cache.find((r) => r.name === "Coven");
-    if (!coven) {
+    const regular = homeGuild.roles.cache.find((r) => r.name === "Coven");
+    if (!regular) {
       await bot.env.debugHook.send(
-        "Coven role not found. Some features may not work."
+        "Regular role not found. Some features may not work."
       );
       return;
     }
-    if (!bot.coven) {
-      bot.coven = coven;
+    if (!bot.discord.roles.regular) {
+      bot.discord.roles.regular = regular;
+    }
+
+    const partner = homeGuild.roles.cache.find((r) => r.name === "Concubine");
+    if (!partner) {
+      await bot.env.debugHook.send(
+        "Partner role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.discord.roles.partner) {
+      bot.discord.roles.partner = partner;
+    }
+
+    const staff = homeGuild.roles.cache.find((r) => r.name === "High Council");
+    if (!staff) {
+      await bot.env.debugHook.send(
+        "Staff role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.discord.roles.staff) {
+      bot.discord.roles.staff = staff;
+    }
+
+    const donor = homeGuild.roles.cache.find((r) => r.name === "Ritualist");
+    if (!donor) {
+      await bot.env.debugHook.send(
+        "Donor role not found. Some features may not work."
+      );
+      return;
+    }
+    if (!bot.discord.roles.donor) {
+      bot.discord.roles.donor = donor;
     }
   } catch (err) {
     await errorHandler(bot, "load general channel", err);

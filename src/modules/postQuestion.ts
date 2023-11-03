@@ -12,7 +12,7 @@ export const postQuestion = async (bot: ExtendedClient) => {
   try {
     const question = getRandomValue(Questions);
 
-    await bot.general.send({
+    await bot.discord.channels.general.send({
       content: `# ${question}\n<@&1167154309503398018>`
     });
   } catch (err) {

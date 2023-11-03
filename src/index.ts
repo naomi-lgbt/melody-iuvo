@@ -78,13 +78,13 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     bot.on(Events.GuildMemberAdd, async (member) => {
-      await bot.general.send({
+      await bot.discord.channels.general.send({
         content: `## <a:love:1149580277220388985> Give a warm welcome to ${member.user.username}, the newest member of our comfy corner! <a:love:1149580277220388985>`
       });
     });
 
     bot.on(Events.GuildMemberRemove, async (member) => {
-      await bot.general.send({
+      await bot.discord.channels.general.send({
         content: `## <a:love:1149580277220388985> Good bye dearest ${member.user.username}. We will miss you! <a:love:1149580277220388985>`
       });
     });
