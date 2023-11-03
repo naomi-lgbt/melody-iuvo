@@ -81,9 +81,6 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.discord.roles.staff) {
-      bot.discord.roles.staff = staff;
-    }
 
     const donor = homeGuild.roles.cache.find((r) => r.name === "Ritualist");
     if (!donor) {
@@ -92,25 +89,29 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
       return;
     }
-    if (!bot.discord.roles.donor) {
-      bot.discord.roles.donor = donor;
-    }
 
-    bot.discord = {
-      guild: homeGuild,
-      channels: {
-        general,
-        vent,
-        contributing
-      },
-      roles: {
-        staff,
-        regular,
-        donor,
-        partner
-      }
-    };
+    if (!bot.discord) {
+      bot.discord = {
+        guild: homeGuild,
+        channels: {
+          general,
+          vent,
+          contributing
+        },
+        roles: {
+          staff,
+          regular,
+          donor,
+          partner
+        }
+      };
+      await bot.env.debugHook.send("Discord cache loaded~!");
+      return;
+    }
+    await bot.env.debugHook.send(
+      "Race condition when loading discord cache..."
+    );
   } catch (err) {
-    await errorHandler(bot, "load general channel", err);
+    await errorHandler(bot, "load discord cache", err);
   }
 };
