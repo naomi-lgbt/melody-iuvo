@@ -57,7 +57,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
         labels: ["posted to discord"]
       });
     }
-    await bot.contributing.send({
+    await bot.discord.channels.contributing.send({
       content: `Forgive my intrusion, but it would seem our Mama is seeking your assistance with her work.\n\n${formatted}`
     });
   } catch (err) {

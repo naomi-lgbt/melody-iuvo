@@ -31,7 +31,9 @@ export const initiate: Command = {
         return;
       }
 
-      const isInitiatied = interaction.member.roles.cache.has(bot.regular.id);
+      const isInitiatied = interaction.member.roles.cache.has(
+        bot.discord.roles.regular.id
+      );
       if (!isInitiatied) {
         await interaction.editReply({
           content: "Only current coven members may nominate new initiates."
@@ -39,7 +41,9 @@ export const initiate: Command = {
         return;
       }
 
-      const targetIsInitiated = target.roles.cache.has(bot.regular.id);
+      const targetIsInitiated = target.roles.cache.has(
+        bot.discord.roles.regular.id
+      );
 
       if (targetIsInitiated) {
         await interaction.editReply({
@@ -75,8 +79,8 @@ export const initiate: Command = {
         return;
       }
 
-      await target.roles.add(bot.regular);
-      await bot.general.send(
+      await target.roles.add(bot.discord.roles.regular);
+      await bot.discord.channels.general.send(
         `## <:pentatrans:1169725148740472912> ${
           target.user.displayName || target.user.username
         } has been successfully initiated into the coven~! <:pentatrans:1169725148740472912>`

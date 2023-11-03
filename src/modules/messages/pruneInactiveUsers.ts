@@ -34,10 +34,10 @@ export const pruneInactiveUsers = async (
         continue;
       }
       // we need filters
-      const isPartner = user.roles.cache.has(bot.partner.id);
-      const isStaff = user.roles.cache.has(bot.staff.id);
-      const isDonor = user.roles.cache.has(bot.donor.id);
-      const isRegular = user.roles.cache.has(bot.regular.id);
+      const isPartner = user.roles.cache.has(bot.discord.roles.partner.id);
+      const isStaff = user.roles.cache.has(bot.discord.roles.staff.id);
+      const isDonor = user.roles.cache.has(bot.discord.roles.donor.id);
+      const isRegular = user.roles.cache.has(bot.discord.roles.regular.id);
       if (isPartner || isStaff || isDonor || isRegular) {
         continue;
       }
