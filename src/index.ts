@@ -87,6 +87,17 @@ import { validateEnv } from "./utils/validateEnv";
       await bot.discord.channels.general.send({
         content: `## <a:love:1149580277220388985> Good bye dearest ${member.user.username}. We will miss you! <a:love:1149580277220388985>`
       });
+      await bot.db.users
+        .delete({
+          where: {
+            userId: member.id
+          }
+        })
+        /**
+         * Should only fail if the record doesn't exist. In which case,
+         * we don't care that it failed because we wanted the record to not exist.
+         */
+        .catch(() => null);
     });
 
     /**
