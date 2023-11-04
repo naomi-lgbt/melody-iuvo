@@ -6,6 +6,7 @@ import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
 import { makeChange } from "../modules/makeChange";
+import { auditGuildsAndDatabase } from "../modules/messages/auditGuildsAndDatabase";
 import { postReactionRoles } from "../modules/messages/postReactionRoles";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
@@ -136,6 +137,10 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (content.startsWith("~roles")) {
         await postReactionRoles(bot, message);
+        return;
+      }
+      if (content === "~audit") {
+        await auditGuildsAndDatabase(bot, message);
         return;
       }
     }
