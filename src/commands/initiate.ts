@@ -83,7 +83,7 @@ export const initiate: Command = {
       await bot.discord.channels.general.send(
         `## <:pentatrans:1169725148740472912> ${
           target.user.displayName || target.user.username
-        } has been successfully initiated into the coven~! <:pentatrans:1169725148740472912>`
+        } has been successfully initiated into the coven~! Make sure to use the \`/training\` command to complete your training! <:pentatrans:1169725148740472912>`
       );
       await interaction.editReply({
         content: "Your nomination has been logged."
