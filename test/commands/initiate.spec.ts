@@ -206,7 +206,7 @@ suite("initiate command", () => {
     assert.strictEqual(general.messages.cache.size, 1);
     assert.strictEqual(
       general.messages.cache.first()?.content,
-      `## <:pentatrans:1169725148740472912> ${target.username} has been successfully initiated into the coven~! <:pentatrans:1169725148740472912>`
+      `## <:pentatrans:1169725148740472912> ${target.username} has been successfully initiated into the coven~! Make sure to use the \`/training\` command to complete your training! <:pentatrans:1169725148740472912>`
     );
   });
 

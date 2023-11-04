@@ -1,6 +1,7 @@
 import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { announceCovenStats } from "../modules/announceCovenStats";
 import { postQuestion } from "../modules/postQuestion";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
@@ -29,6 +30,10 @@ export const clientReady = async (bot: ExtendedClient) => {
 
     await bot.discord.channels.general.send({
       content: "I am back from my nap!"
+    });
+    // at 8am every day
+    scheduleJob("0 8 * * *", async () => {
+      await announceCovenStats(bot);
     });
     // at 9am every day
     scheduleJob("0 9 * * *", async () => {
