@@ -13,10 +13,10 @@ dependencies:
     version: 5.5.2(prisma@5.5.2)
   '@twurple/api':
     specifier: 7.0.4
-    version: 7.0.4(@twurple/auth@7.0.4)
+    version: 7.0.4(@twurple/auth@7.0.5)
   '@twurple/auth':
-    specifier: 7.0.4
-    version: 7.0.4
+    specifier: 7.0.5
+    version: 7.0.5
   '@twurple/eventsub-ws':
     specifier: 7.0.4
     version: 7.0.4(@twurple/api@7.0.4)
@@ -1077,6 +1077,18 @@ packages:
       - encoding
     dev: false
 
+  /@twurple/api-call@7.0.5:
+    resolution: {integrity: sha512-l7gZUc+S0RPe2CIFk/56N3D1lQuhRktyzKUGrfOR5Z7igmLtWCeEgwoKryzoJF7e56UHT2fdHZZo3DTjJy7kjg==}
+    dependencies:
+      '@d-fischer/cross-fetch': 5.0.2
+      '@d-fischer/qs': 7.0.2
+      '@d-fischer/shared-utils': 3.6.3
+      '@twurple/common': 7.0.5
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@twurple/api@7.0.4(@twurple/auth@7.0.4):
     resolution: {integrity: sha512-7qr0paddLVo89HooqUnIAcWeESRC0G5o4O3RKhNfVKB/wcufoixMlP1mTza5WtSMcyGIsRDLmip/NPxhi6bCDg==}
     peerDependencies:
@@ -1098,6 +1110,27 @@ packages:
       - encoding
     dev: false
 
+  /@twurple/api@7.0.4(@twurple/auth@7.0.5):
+    resolution: {integrity: sha512-7qr0paddLVo89HooqUnIAcWeESRC0G5o4O3RKhNfVKB/wcufoixMlP1mTza5WtSMcyGIsRDLmip/NPxhi6bCDg==}
+    peerDependencies:
+      '@twurple/auth': 7.0.4
+    dependencies:
+      '@d-fischer/cache-decorators': 3.0.3
+      '@d-fischer/cross-fetch': 5.0.2
+      '@d-fischer/detect-node': 3.0.1
+      '@d-fischer/logger': 4.2.3
+      '@d-fischer/rate-limiter': 0.7.5
+      '@d-fischer/shared-utils': 3.6.3
+      '@d-fischer/typed-event-emitter': 3.3.2
+      '@twurple/api-call': 7.0.4
+      '@twurple/auth': 7.0.5
+      '@twurple/common': 7.0.4
+      retry: 0.13.1
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@twurple/auth@7.0.4:
     resolution: {integrity: sha512-VQD76qh2XngP2Eyp+YWvUDcjmADt0Q7B0ajXT1GAIATsvBcpGfy54Nk+0b4CLe/Q8rEidPDWyxshZCTv5VZdjQ==}
     dependencies:
@@ -1111,8 +1144,29 @@ packages:
       - encoding
     dev: false
 
+  /@twurple/auth@7.0.5:
+    resolution: {integrity: sha512-UiKVvs6Omp+31Kh1guHlm7vuOMFyp3Ut8nJoA34fohdGI2Hf6OjcW4F3iY6eOse4FGBZhSyVeAUOXxJy/QlWlA==}
+    dependencies:
+      '@d-fischer/logger': 4.2.3
+      '@d-fischer/shared-utils': 3.6.3
+      '@d-fischer/typed-event-emitter': 3.3.2
+      '@twurple/api-call': 7.0.5
+      '@twurple/common': 7.0.5
+      tslib: 2.6.2
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@twurple/common@7.0.4:
     resolution: {integrity: sha512-bhN3Mw5qDqEhGDZdVKDPkxL8rje3nPjhY6TG9CtUIWXQ34bQggBhv35CFlP7K6mP5O+UulKZEwwx8IvyOghkfQ==}
+    dependencies:
+      '@d-fischer/shared-utils': 3.6.3
+      klona: 2.0.6
+      tslib: 2.6.2
+    dev: false
+
+  /@twurple/common@7.0.5:
+    resolution: {integrity: sha512-TwdiDmyadpSL9OIgq3/Nm+Wpb3IUw+uKQf3/JOXuTdgPnWkRrqF7o3zrYX+2tVlRhyKF0tCYxwQuX8F19NyyUA==}
     dependencies:
       '@d-fischer/shared-utils': 3.6.3
       klona: 2.0.6
@@ -1142,7 +1196,7 @@ packages:
       '@d-fischer/logger': 4.2.3
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api': 7.0.4(@twurple/auth@7.0.4)
+      '@twurple/api': 7.0.4(@twurple/auth@7.0.5)
       '@twurple/auth': 7.0.4
       '@twurple/common': 7.0.4
       '@twurple/eventsub-base': 7.0.4
