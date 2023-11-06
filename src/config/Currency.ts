@@ -26,13 +26,6 @@ export const CurrencyEmotes: { [key in keyof users["currency"]]: string } = {
 
 export const CurrencyItems: Item[] = [
   {
-    name: "Custom Colour Role",
-    description:
-      "You get your very own custom colour role, which you get to name AND set the colour for. These are limited to 25 roles, after which the older ones will be replaced by the newer ones as purchased.",
-    price: 250_000,
-    internalId: "colour-role"
-  },
-  {
     name: "Set Naomi's Nickname",
     description:
       "Make Naomi change her nickname in the server to whatever you want. Will remain until the next time this is purchased. Must be family-friendly and appropriate for this community. Advertisements are not permitted.",
