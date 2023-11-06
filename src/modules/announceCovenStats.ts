@@ -47,7 +47,7 @@ export const announceCovenStats = async (bot: ExtendedClient) => {
       },
       {
         name: "Magic",
-        value: `Light Magic: ${lightRole?.members.size ?? 0}\nDark Magic: ${
+        value: `Divine Magic: ${lightRole?.members.size ?? 0}\nArcane Magic: ${
           darkRole?.members.size ?? 0
         }`,
         inline: true
@@ -63,7 +63,7 @@ export const announceCovenStats = async (bot: ExtendedClient) => {
       },
       {
         name: "Untrained Initiates",
-        value: `${untrained} (remember to use the \`/training\` command to complete your training!)`,
+        value: `${untrained}\n(remember to use the \`/training\` command to complete your training!)`,
         inline: false
       }
     );
