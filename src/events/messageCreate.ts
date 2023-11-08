@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message, MessageType } from "discord.js";
 
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
@@ -89,14 +89,14 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       ) {
         await message.react("<a:love:1149580277220388985>");
       }
-      if (isGoodMorning(content)) {
+      if (isGoodMorning(content) && message.type !== MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
             Responses.greeting[getResponseKey(bot, member)]
           )
         });
       }
-      if (isGoodNight(content)) {
+      if (isGoodNight(content) && message.type === MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
             Responses.goodbye[getResponseKey(bot, member)]
