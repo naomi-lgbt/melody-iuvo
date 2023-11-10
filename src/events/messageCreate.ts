@@ -38,7 +38,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * vent channel, so we run this before confirming the message comes
      * from a non-bot user.
      */
-    if (message.channel?.id === bot.discord.channels.vent?.id) {
+    if (message.channel?.id === bot.discord?.channels?.vent?.id) {
       setTimeout(
         async () =>
           /**
