@@ -96,7 +96,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
           )
         });
       }
-      if (isGoodNight(content) && message.type === MessageType.Reply) {
+      if (isGoodNight(content) && message.type !== MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
             Responses.goodbye[getResponseKey(bot, member)]
