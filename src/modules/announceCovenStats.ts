@@ -11,8 +11,11 @@ import { errorHandler } from "../utils/errorHandler";
  */
 export const announceCovenStats = async (bot: ExtendedClient) => {
   try {
-    const roles = await bot.discord.guild.roles.fetch();
-    const covenRole = roles.find((r) => r.id === bot.discord.roles.regular.id);
+    const roles = await bot.discord.guild?.roles.fetch();
+    if (!roles) {
+      return;
+    }
+    const covenRole = roles.find((r) => r.id === bot.discord.roles.regular?.id);
     const positiveRole = roles.find((r) => r.id === FocusRoles.positive);
     const comfortingRole = roles.find((r) => r.id === FocusRoles.comforting);
     const studiousRole = roles.find((r) => r.id === FocusRoles.studious);
@@ -67,7 +70,7 @@ export const announceCovenStats = async (bot: ExtendedClient) => {
         inline: false
       }
     );
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       embeds: [embed]
     });
   } catch (err) {

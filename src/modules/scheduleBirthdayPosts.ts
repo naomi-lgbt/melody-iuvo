@@ -35,7 +35,7 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
     );
     embed.setImage(getRandomValue(BirthdayGifs));
 
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       content: `${ids.join(", ")}`,
       embeds: [embed]
     });

@@ -55,6 +55,12 @@ export const training: Command = {
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });
+      if (!bot.discord.roles.regular) {
+        await interaction.editReply({
+          content: "I cannot find the coven role. Please contact Naomi."
+        });
+        return;
+      }
       const { member: rawMember } = interaction;
       const member = await rawMember.fetch();
       const isInCoven = member.roles.cache.has(bot.discord.roles.regular.id);

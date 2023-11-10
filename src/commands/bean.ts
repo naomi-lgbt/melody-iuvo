@@ -34,7 +34,7 @@ export const bean: Command = {
       const reason = interaction.options.getString("reason", true);
       bot.beanedUser = target.id;
 
-      await bot.discord.channels.general.send({
+      await bot.discord.channels.general?.send({
         content: `<@!${target.id}> has been beaned!\nWhy?\nWell...\n${reason}`
       });
       await interaction.editReply({

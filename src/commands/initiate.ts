@@ -18,6 +18,12 @@ export const initiate: Command = {
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });
+      if (!bot.discord.roles.regular) {
+        await interaction.editReply({
+          content: "I cannot find the coven role. Please contact Naomi."
+        });
+        return;
+      }
       const targetUser = interaction.options.getUser("target", true);
       const target =
         interaction.guild.members.cache.get(targetUser.id) ||
@@ -80,7 +86,7 @@ export const initiate: Command = {
       }
 
       await target.roles.add(bot.discord.roles.regular);
-      await bot.discord.channels.general.send(
+      await bot.discord.channels.general?.send(
         `## <:pentatrans:1169725148740472912> ${
           target.user.displayName || target.user.username
         } has been successfully initiated into the coven~! Make sure to use the \`/training\` command to complete your training! <:pentatrans:1169725148740472912>`

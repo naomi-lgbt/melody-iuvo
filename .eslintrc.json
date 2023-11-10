@@ -25,6 +25,13 @@
       "rules": {
         "require-await": "off"
       }
+    },
+    {
+      "files": ["src/utils/loadDiscordCache.ts"],
+      "rules": {
+        // This only runs once so we don't need to worry about race conditions
+        "require-atomic-updates": "off"
+      }
     }
   ]
 }

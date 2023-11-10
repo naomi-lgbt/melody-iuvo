@@ -38,7 +38,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * vent channel, so we run this before confirming the message comes
      * from a non-bot user.
      */
-    if (message.channel?.id === bot.discord.channels.vent.id) {
+    if (message.channel?.id === bot.discord.channels.vent?.id) {
       setTimeout(
         async () =>
           /**
@@ -77,7 +77,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * We don't want to run these in the heavier vent channel and comfort channels.
      */
     if (
-      message.channel.id !== bot.discord.channels.vent.id &&
+      message.channel.id !== bot.discord.channels.vent?.id &&
       !message.channel.name.startsWith("counsel")
     ) {
       if (message.author.id === bot.beanedUser) {
@@ -85,7 +85,8 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (
         isOwner(message.member.id) ||
-        message.member.roles.cache.has(bot.discord.roles.partner.id)
+        (bot.discord.roles.partner &&
+          message.member.roles.cache.has(bot.discord.roles.partner.id))
       ) {
         await message.react("<a:love:1149580277220388985>");
       }

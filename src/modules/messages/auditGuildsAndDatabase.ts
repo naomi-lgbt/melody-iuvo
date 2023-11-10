@@ -16,13 +16,19 @@ export const auditGuildsAndDatabase = async (
   message: Message
 ) => {
   try {
+    if (!bot.discord.guild) {
+      await message.reply({
+        content: "Home guild not configured. Cannot audit database."
+      });
+      return;
+    }
     await message.reply({ content: "Beginning audit..." });
     const guilds = await bot.guilds.fetch();
     if (guilds.size === 1) {
       await message.reply({ content: "I am only in this guild, thankfully." });
     } else {
       const guildsToRemove = guilds.filter(
-        (g) => g.id !== bot.discord.guild.id
+        (g) => g.id !== bot.discord.guild?.id
       );
       await message.reply({
         content: `Removing myself from ${guildsToRemove.size} guilds.`

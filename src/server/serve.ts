@@ -68,7 +68,7 @@ export const serve = async (bot: ExtendedClient) => {
       return;
     }
 
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       content: `## Big thanks to ${fromName} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`
     });
   });
@@ -107,7 +107,7 @@ export const serve = async (bot: ExtendedClient) => {
       (obj: Record<string, string>) => obj.type === "user"
     );
 
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`
     });
   });
@@ -141,7 +141,7 @@ export const serve = async (bot: ExtendedClient) => {
 
       const event = req.headers["x-github-event"];
       if (event === "sponsorship" && req.body.action === "created") {
-        await bot.discord.channels.general.send({
+        await bot.discord.channels.general?.send({
           content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`
         });
       }

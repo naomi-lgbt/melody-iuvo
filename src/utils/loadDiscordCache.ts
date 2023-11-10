@@ -1,4 +1,4 @@
-import { ChannelType } from "discord.js";
+import { ChannelType, GuildTextBasedChannel } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 
@@ -16,101 +16,95 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
   try {
     const homeGuild =
       bot.guilds.cache.get(bot.env.homeGuild) ||
-      (await bot.guilds.fetch(bot.env.homeGuild));
+      (await bot.guilds.fetch(bot.env.homeGuild).catch(() => null));
     if (!homeGuild) {
       await bot.env.debugHook.send(
         "Home guild not found. Channels and roles cannot be loaded."
       );
-      return;
     }
 
     /**
      * Fetching the members on boot so we can have them in the cache.
      * This ensures that member leave/join events are not missed.
      */
-    await homeGuild.members.fetch();
+    await homeGuild?.members.fetch();
 
-    const general = homeGuild.channels.cache.find(
-      (c) => c.name === "the-grove"
-    );
+    const general =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "the-grove"
+      ) as GuildTextBasedChannel) ?? null;
     if (!general || general.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "General channel not found. Some features may not work."
       );
-      return;
     }
 
-    const contributing = homeGuild.channels.cache.find(
-      (c) => c.name === "scribes-hall"
-    );
+    const contributing =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "scribes-hall"
+      ) as GuildTextBasedChannel) ?? null;
     if (!contributing || contributing.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "Contribute channel not found. Some features may not work."
       );
-      return;
     }
 
-    const vent = homeGuild.channels.cache.find((c) => c.name === "abyss");
+    const vent =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "abyss"
+      ) as GuildTextBasedChannel) ?? null;
     if (!vent || vent.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(
         "Vent channel not found. Some features may not work."
       );
-      return;
     }
 
-    const regular = homeGuild.roles.cache.find((r) => r.name === "Coven");
+    const regular =
+      homeGuild?.roles.cache.find((r) => r.name === "Coven") ?? null;
     if (!regular) {
       await bot.env.debugHook.send(
         "Regular role not found. Some features may not work."
       );
-      return;
     }
 
-    const partner = homeGuild.roles.cache.find((r) => r.name === "Handfasted");
+    const partner =
+      homeGuild?.roles.cache.find((r) => r.name === "Handfasted") ?? null;
     if (!partner) {
       await bot.env.debugHook.send(
         "Partner role not found. Some features may not work."
       );
-      return;
     }
 
-    const staff = homeGuild.roles.cache.find((r) => r.name === "High Council");
+    const staff =
+      homeGuild?.roles.cache.find((r) => r.name === "High Council") ?? null;
     if (!staff) {
       await bot.env.debugHook.send(
         "Staff role not found. Some features may not work."
       );
-      return;
     }
 
-    const donor = homeGuild.roles.cache.find((r) => r.name === "Ritualist");
+    const donor =
+      homeGuild?.roles.cache.find((r) => r.name === "Ritualist") ?? null;
     if (!donor) {
       await bot.env.debugHook.send(
         "Donor role not found. Some features may not work."
       );
-      return;
     }
-
-    if (!bot.discord) {
-      bot.discord = {
-        guild: homeGuild,
-        channels: {
-          general,
-          vent,
-          contributing
-        },
-        roles: {
-          staff,
-          regular,
-          donor,
-          partner
-        }
-      };
-      await bot.env.debugHook.send("Discord cache loaded~!");
-      return;
-    }
-    await bot.env.debugHook.send(
-      "Race condition when loading discord cache..."
-    );
+    bot.discord = {
+      guild: homeGuild,
+      channels: {
+        general: general,
+        vent: vent,
+        contributing: contributing
+      },
+      roles: {
+        staff: staff,
+        regular: regular,
+        donor: donor,
+        partner: partner
+      }
+    };
+    await bot.env.debugHook.send("Discord cache loaded~!");
   } catch (err) {
     await errorHandler(bot, "load discord cache", err);
   }

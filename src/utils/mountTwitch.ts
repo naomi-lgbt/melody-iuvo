@@ -30,14 +30,14 @@ export const mountTwitch = async (bot: ExtendedClient) => {
         await bot.twitchNotif.unpin().catch(() => null);
       }
       const stream = await e.getStream();
-      const result = await bot.discord.channels.general.send(
+      const result = await bot.discord.channels.general?.send(
         stream
           ? `# ${stream.title}\n## ${stream.gameName}\n<@&1160803262828642357>, Naomi has gone live! [Watch her stream](https://twitch.tv/naomilgbt)?`
           : "<@&1160803262828642357>, Naomi has gone live!\n[Watch her stream](https://twitch.tv/naomilgbt)?"
       );
-      if (bot.twitchNotif?.id !== result.id) {
+      if (bot.twitchNotif?.id !== result?.id) {
         bot.twitchNotif = result;
-        await result.pin().catch(() => null);
+        await result?.pin().catch(() => null);
       }
     });
     listener.onStreamOffline("592893397", async (e) => {
