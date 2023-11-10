@@ -18,12 +18,6 @@ export const pruneInactiveUsers = async (
 ) => {
   try {
     const { partner, staff, donor, regular } = bot.discord.roles;
-    if (!partner || !staff || !donor || !regular) {
-      await message.reply(
-        "Missing roles. Cannot run prune as filters will not be correct."
-      );
-      return;
-    }
     const dryrun =
       message.content.includes("--dryrun") ||
       message.content.includes("--dry-run");
@@ -41,10 +35,10 @@ export const pruneInactiveUsers = async (
         continue;
       }
       // we need filters
-      const isPartner = user.roles.cache.has(partner.id);
-      const isStaff = user.roles.cache.has(staff.id);
-      const isDonor = user.roles.cache.has(donor.id);
-      const isRegular = user.roles.cache.has(regular.id);
+      const isPartner = partner && user.roles.cache.has(partner.id);
+      const isStaff = staff && user.roles.cache.has(staff.id);
+      const isDonor = donor && user.roles.cache.has(donor.id);
+      const isRegular = regular && user.roles.cache.has(regular.id);
       if (isPartner || isStaff || isDonor || isRegular) {
         continue;
       }

@@ -1,3 +1,5 @@
+import rand from "random";
+
 import { CurrencyDailyEvents } from "../config/Currency";
 
 /**
@@ -9,5 +11,6 @@ import { CurrencyDailyEvents } from "../config/Currency";
 export const getDailyEventChange = (
   event: (typeof CurrencyDailyEvents)[0]
 ): number => {
-  return Math.floor(Math.random() * event.max) + event.min;
+  const generator = rand.uniformInt(event.min, event.max);
+  return generator();
 };
