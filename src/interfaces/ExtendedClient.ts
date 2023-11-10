@@ -4,7 +4,7 @@ import {
   Guild,
   Message,
   Role,
-  TextChannel,
+  GuildTextBasedChannel,
   WebhookClient
 } from "discord.js";
 
@@ -21,13 +21,18 @@ export interface ExtendedClient extends Client {
     pluralLogHook: WebhookClient;
   };
   discord: {
-    guild: Guild;
+    guild: Guild | null;
     channels: {
-      general: TextChannel;
-      contributing: TextChannel;
-      vent: TextChannel;
+      general: GuildTextBasedChannel | null;
+      contributing: GuildTextBasedChannel | null;
+      vent: GuildTextBasedChannel | null;
     };
-    roles: { regular: Role; partner: Role; donor: Role; staff: Role };
+    roles: {
+      regular: Role | null;
+      partner: Role | null;
+      donor: Role | null;
+      staff: Role | null;
+    };
   };
   commit: string;
   db: PrismaClient;
