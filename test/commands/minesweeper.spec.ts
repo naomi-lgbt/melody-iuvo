@@ -51,7 +51,7 @@ suite("minesweeper command", () => {
       await minesweeper.run({} as never, command as never);
       assert.lengthOf(command.replies, 1);
       const content = command.replies[0].content ?? "";
-      assert.isBelow(content.length, 4000, "Message is too long for Discord.");
+      assert.isBelow(content.length, 2000, "Message is too long for Discord.");
       const rows = content.split("\n");
       assert.isAtLeast(rows.length, 5, "Has not enough rows.");
       assert.isAtMost(rows.length, 10, "Has too many rows.");

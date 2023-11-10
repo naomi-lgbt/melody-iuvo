@@ -14,7 +14,7 @@ export const bubbles: Command = {
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();
-      const randomGenerator = rand.uniformInt(5, 10);
+      const randomGenerator = rand.uniformInt(4, 7);
       const rows = randomGenerator();
       const columns = randomGenerator();
       const bubbleWrap = Array.from({ length: rows }, () =>
