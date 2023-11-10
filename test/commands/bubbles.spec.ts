@@ -51,21 +51,22 @@ suite("bubbles command", () => {
       await bubbles.run({ commit: "12345678" } as never, command as never);
       assert.lengthOf(command.replies, 1);
       const content = command.replies[0].content ?? "";
+      assert.isBelow(content.length, 4000, "Message is too long for Discord.");
       assert.match(content, /^Please enjoy this sheet of bubble wrap\.\n/);
       const wrap = content.replace(
         "Please enjoy this sheet of bubble wrap.\n",
         ""
       );
       const rows = wrap.split("\n");
-      assert.isAtLeast(rows.length, 10, "Has not enough rows.");
-      assert.isAtMost(rows.length, 20, "Has too many rows.");
+      assert.isAtLeast(rows.length, 5, "Has not enough rows.");
+      assert.isAtMost(rows.length, 10, "Has too many rows.");
       for (const row of rows) {
         const columns = row.replace(
           /\|\|<a:bubble:1172567849550745720>\|\|/g,
           "."
         );
-        assert.isAtLeast(columns.length, 10, "Has not enough columns.");
-        assert.isAtMost(columns.length, 20, "Has too many columnsd.");
+        assert.isAtLeast(columns.length, 5, "Has not enough columns.");
+        assert.isAtMost(columns.length, 10, "Has too many columnsd.");
       }
     }
   });
