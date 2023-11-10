@@ -28,7 +28,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
     await bot.env.debugHook.send("Bot is ready.");
 
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       content: "I am back from my nap!"
     });
     // at 8am every day
@@ -45,7 +45,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     });
     // at noon every day
     scheduleJob("0 12 * * *", async () => {
-      await bot.discord.channels.general.send({
+      await bot.discord.channels.general?.send({
         content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`
       });
     });

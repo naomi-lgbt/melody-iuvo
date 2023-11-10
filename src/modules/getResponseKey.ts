@@ -17,7 +17,10 @@ export const getResponseKey = (
   if (member.id in Responses._template) {
     return member.id as ResponseIds;
   }
-  if (member.roles.cache.has(bot.discord.roles.partner.id)) {
+  if (
+    bot.discord.roles.partner &&
+    member.roles.cache.has(bot.discord.roles.partner.id)
+  ) {
     return ResponseIds.partnerRole;
   }
   return ResponseIds.default;

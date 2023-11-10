@@ -30,7 +30,7 @@ export const autoModerationActionExecution = async (
       return;
     }
     bot.automod[userId] = Date.now();
-    await bot.discord.channels.general.send({
+    await bot.discord.channels.general?.send({
       content: getRandomValue(
         Responses.naughty[getResponseKey(bot, member)]
       ).replace(/\{userping\}/g, `<@${userId}>`),
