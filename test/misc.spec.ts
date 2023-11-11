@@ -1,9 +1,9 @@
 import { assert } from "chai";
 
 import { Command } from "../src/interfaces/Command";
+import { Context } from "../src/interfaces/Context";
 import { loadCommands } from "../src/utils/loadCommands";
 import { loadContexts } from "../src/utils/loadContexts";
-import { Context } from "../src/interfaces/Context";
 
 suite("command data", () => {
   test("should all be set to DMs false", async () => {
