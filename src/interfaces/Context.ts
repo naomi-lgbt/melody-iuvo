@@ -1,15 +1,12 @@
 import {
-  ContextMenuCommandInteraction,
-  ContextMenuCommandType
+  ContextMenuCommandBuilder,
+  ContextMenuCommandInteraction
 } from "discord.js";
 
 import { ExtendedClient } from "./ExtendedClient";
 
 export interface Context {
-  data: {
-    name: string;
-    type: ContextMenuCommandType;
-  };
+  data: ContextMenuCommandBuilder;
   run: (
     bot: ExtendedClient,
     interaction: ContextMenuCommandInteraction
