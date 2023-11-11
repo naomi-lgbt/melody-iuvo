@@ -17,6 +17,7 @@ export const tarot: Command = {
   data: new SlashCommandBuilder()
     .setName("tarot")
     .setDescription("Get a daily tarot reading.")
+    .setDMPermission(false)
     .addStringOption((option) =>
       option
         .setName("type")

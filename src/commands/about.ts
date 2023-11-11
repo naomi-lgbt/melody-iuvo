@@ -13,7 +13,8 @@ const asyncExec = promisify(exec);
 export const about: Command = {
   data: new SlashCommandBuilder()
     .setName("about")
-    .setDescription("Get information about Melody."),
+    .setDescription("Get information about Melody.")
+    .setDMPermission(false),
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();

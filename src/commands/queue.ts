@@ -14,7 +14,8 @@ import { errorHandler } from "../utils/errorHandler";
 export const queue: Command = {
   data: new SlashCommandBuilder()
     .setName("queue")
-    .setDescription("View Naomi's game queue for streams!"),
+    .setDescription("View Naomi's game queue for streams!")
+    .setDMPermission(false),
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();
