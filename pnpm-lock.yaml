@@ -18,8 +18,8 @@ dependencies:
     specifier: 7.0.5
     version: 7.0.5
   '@twurple/eventsub-ws':
-    specifier: 7.0.4
-    version: 7.0.4(@twurple/api@7.0.4)
+    specifier: 7.0.5
+    version: 7.0.5(@twurple/api@7.0.4)
   discord.js:
     specifier: 14.13.0
     version: 14.13.0
@@ -1092,27 +1092,6 @@ packages:
       - encoding
     dev: false
 
-  /@twurple/api@7.0.4(@twurple/auth@7.0.4):
-    resolution: {integrity: sha512-7qr0paddLVo89HooqUnIAcWeESRC0G5o4O3RKhNfVKB/wcufoixMlP1mTza5WtSMcyGIsRDLmip/NPxhi6bCDg==}
-    peerDependencies:
-      '@twurple/auth': 7.0.4
-    dependencies:
-      '@d-fischer/cache-decorators': 3.0.3
-      '@d-fischer/cross-fetch': 5.0.2
-      '@d-fischer/detect-node': 3.0.1
-      '@d-fischer/logger': 4.2.3
-      '@d-fischer/rate-limiter': 0.7.5
-      '@d-fischer/shared-utils': 3.6.3
-      '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api-call': 7.0.4
-      '@twurple/auth': 7.0.4
-      '@twurple/common': 7.0.4
-      retry: 0.13.1
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - encoding
-    dev: false
-
   /@twurple/api@7.0.4(@twurple/auth@7.0.5):
     resolution: {integrity: sha512-7qr0paddLVo89HooqUnIAcWeESRC0G5o4O3RKhNfVKB/wcufoixMlP1mTza5WtSMcyGIsRDLmip/NPxhi6bCDg==}
     peerDependencies:
@@ -1134,14 +1113,22 @@ packages:
       - encoding
     dev: false
 
-  /@twurple/auth@7.0.4:
-    resolution: {integrity: sha512-VQD76qh2XngP2Eyp+YWvUDcjmADt0Q7B0ajXT1GAIATsvBcpGfy54Nk+0b4CLe/Q8rEidPDWyxshZCTv5VZdjQ==}
+  /@twurple/api@7.0.5(@twurple/auth@7.0.5):
+    resolution: {integrity: sha512-64EMJci32pXp/5lR8E3b0bMAoDbArQAnmcE8gPa3NdtycDOcrixDtcjxhMfHAYWVkxj3aWGdRSE5urHJ0VFCuQ==}
+    peerDependencies:
+      '@twurple/auth': 7.0.5
     dependencies:
+      '@d-fischer/cache-decorators': 3.0.3
+      '@d-fischer/cross-fetch': 5.0.2
+      '@d-fischer/detect-node': 3.0.1
       '@d-fischer/logger': 4.2.3
+      '@d-fischer/rate-limiter': 0.7.5
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api-call': 7.0.4
-      '@twurple/common': 7.0.4
+      '@twurple/api-call': 7.0.5
+      '@twurple/auth': 7.0.5
+      '@twurple/common': 7.0.5
+      retry: 0.13.1
       tslib: 2.6.2
     transitivePeerDependencies:
       - encoding
@@ -1176,33 +1163,33 @@ packages:
       tslib: 2.6.2
     dev: false
 
-  /@twurple/eventsub-base@7.0.4:
-    resolution: {integrity: sha512-en2HeaZmkReU3JtT0nvnWonc1x81NSiX1RtZInpqLJorpEP36GOI1Pkvz3MoaiBDcmCyPhiED+qcITIaTBvxyQ==}
+  /@twurple/eventsub-base@7.0.5:
+    resolution: {integrity: sha512-bWMbDtjFvSSyMUuRRCxvsZIwFnIbRaepsidBC/E0PNwvYoJoiII46YOU2H+R4wjEiZS4K/h52Ju9tiik1qD2tA==}
     dependencies:
       '@d-fischer/logger': 4.2.3
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api': 7.0.4(@twurple/auth@7.0.4)
-      '@twurple/auth': 7.0.4
-      '@twurple/common': 7.0.4
+      '@twurple/api': 7.0.5(@twurple/auth@7.0.5)
+      '@twurple/auth': 7.0.5
+      '@twurple/common': 7.0.5
       tslib: 2.6.2
     transitivePeerDependencies:
       - encoding
     dev: false
 
-  /@twurple/eventsub-ws@7.0.4(@twurple/api@7.0.4):
-    resolution: {integrity: sha512-GwheBRnheRceiZBfn84h+JMeCx3t3qMSgHxOMjiHbfkMmPYdAvudlST0+5MF4Lr3niwQNjf7iQLOVpSLfUPECg==}
+  /@twurple/eventsub-ws@7.0.5(@twurple/api@7.0.4):
+    resolution: {integrity: sha512-8/0I1eZGueSvzFoGEfTwOsyxceookQ5ScDPIawAOi1AGXfuMeJo0LURARtii1qHNih/E18BEfwPOriV1opCZKg==}
     peerDependencies:
-      '@twurple/api': 7.0.4
+      '@twurple/api': 7.0.5
     dependencies:
       '@d-fischer/connection': 8.0.5
       '@d-fischer/logger': 4.2.3
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
       '@twurple/api': 7.0.4(@twurple/auth@7.0.5)
-      '@twurple/auth': 7.0.4
-      '@twurple/common': 7.0.4
-      '@twurple/eventsub-base': 7.0.4
+      '@twurple/auth': 7.0.5
+      '@twurple/common': 7.0.5
+      '@twurple/eventsub-base': 7.0.5
       tslib: 2.6.2
     transitivePeerDependencies:
       - bufferutil
