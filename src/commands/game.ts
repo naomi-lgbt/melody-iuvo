@@ -8,7 +8,8 @@ import { getRandomValue } from "../utils/getRandomValue";
 export const game: Command = {
   data: new SlashCommandBuilder()
     .setName("game")
-    .setDescription("Get a random game from Naomi's Steam library."),
+    .setDescription("Get a random game from Naomi's Steam library.")
+    .setDMPermission(false),
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();

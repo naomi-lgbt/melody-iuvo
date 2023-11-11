@@ -9,6 +9,7 @@ export const birthday: Command = {
   data: new SlashCommandBuilder()
     .setName("birthday")
     .setDescription("Set your birthday!")
+    .setDMPermission(false)
     .addStringOption((option) =>
       option
         .setName("month")

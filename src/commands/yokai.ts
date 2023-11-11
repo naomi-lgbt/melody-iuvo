@@ -7,7 +7,8 @@ import { errorHandler } from "../utils/errorHandler";
 export const yokai: Command = {
   data: new SlashCommandBuilder()
     .setName("yokai")
-    .setDescription("Get a random yokai"),
+    .setDescription("Get a random yokai")
+    .setDMPermission(false),
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();

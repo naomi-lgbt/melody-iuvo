@@ -7,6 +7,7 @@ export const holopin: Command = {
   data: new SlashCommandBuilder()
     .setName("holopin")
     .setDescription("Display a user's Holopin badge board.")
+    .setDMPermission(false)
     .addStringOption((option) =>
       option
         .setName("username")

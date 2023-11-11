@@ -1,6 +1,7 @@
 import {
   ActionRowBuilder,
   ComponentType,
+  ContextMenuCommandBuilder,
   Message,
   StringSelectMenuBuilder
 } from "discord.js";
@@ -11,10 +12,10 @@ import { errorHandler } from "../utils/errorHandler";
 import { isOwner } from "../utils/isOwner";
 
 export const snippet: Context = {
-  data: {
-    name: "snippet",
-    type: 3
-  },
+  data: new ContextMenuCommandBuilder()
+    .setName("snippet")
+    .setType(3)
+    .setDMPermission(false),
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });

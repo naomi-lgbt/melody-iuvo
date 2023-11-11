@@ -1,4 +1,4 @@
-import { Message, MessageType } from "discord.js";
+import { ChannelType, Message, MessageType } from "discord.js";
 
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
@@ -33,6 +33,12 @@ import { isGuildMessage } from "../utils/typeGuards";
  */
 export const messageCreate = async (bot: ExtendedClient, message: Message) => {
   try {
+    /**
+     * We want to ignore all DMs.
+     */
+    if (message.channel.type === ChannelType.DM) {
+      return;
+    }
     /**
      * We actually want to delete Becca's level up messages from the
      * vent channel, so we run this before confirming the message comes
