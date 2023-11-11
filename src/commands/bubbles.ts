@@ -1,8 +1,10 @@
 import { SlashCommandBuilder } from "discord.js";
 import rand from "random";
 
+import { Bubbles } from "../config/Bubbles";
 import { Command } from "../interfaces/Command";
 import { errorHandler } from "../utils/errorHandler";
+import { getRandomValue } from "../utils/getRandomValue";
 
 export const bubbles: Command = {
   data: new SlashCommandBuilder()
@@ -14,11 +16,14 @@ export const bubbles: Command = {
   run: async (bot, interaction) => {
     try {
       await interaction.deferReply();
-      const randomGenerator = rand.uniformInt(4, 7);
+      const randomGenerator = rand.uniformInt(5, 15);
       const rows = randomGenerator();
       const columns = randomGenerator();
       const bubbleWrap = Array.from({ length: rows }, () =>
-        "||<a:bubble:1172567849550745720>||".repeat(columns)
+        Array.from(
+          { length: columns },
+          () => `||${getRandomValue(Bubbles)}||`
+        ).join(" ")
       ).join("\n");
       await interaction.editReply({
         content: `Please enjoy this sheet of bubble wrap.\n${bubbleWrap}`

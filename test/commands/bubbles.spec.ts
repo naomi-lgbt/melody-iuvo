@@ -58,15 +58,15 @@ suite("bubbles command", () => {
         ""
       );
       const rows = wrap.split("\n");
-      assert.isAtLeast(rows.length, 4, "Has not enough rows.");
-      assert.isAtMost(rows.length, 7, "Has too many rows.");
+      assert.isAtLeast(rows.length, 5, "Has not enough rows.");
+      assert.isAtMost(rows.length, 15, "Has too many rows.");
       for (const row of rows) {
         const columns = row.replace(
-          /\|\|<a:bubble:1172567849550745720>\|\|/g,
+          /\|\|\p{Extended_Pictographic}\|\|\s?/gu,
           "."
         );
-        assert.isAtLeast(columns.length, 4, "Has not enough columns.");
-        assert.isAtMost(columns.length, 7, "Has too many columnsd.");
+        assert.isAtLeast(columns.length, 5, "Has not enough columns.");
+        assert.isAtMost(columns.length, 15, "Has too many columns.");
       }
     }
   });
