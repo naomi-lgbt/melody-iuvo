@@ -39,7 +39,7 @@
   "homepage": "https://github.com/naomi-lgbt/melody-iuvo#readme",
   "dependencies": {
     "@octokit/rest": "20.0.2",
-    "@prisma/client": "5.5.2",
+    "@prisma/client": "5.6.0",
     "@twurple/api": "7.0.5",
     "@twurple/auth": "7.0.5",
     "@twurple/eventsub-ws": "7.0.5",
@@ -73,7 +73,7 @@
     "mocha": "10.2.0",
     "nyc": "15.1.0",
     "prettier": "3.1.0",
-    "prisma": "5.5.2",
+    "prisma": "5.6.0",
     "rimraf": "5.0.5",
     "string-similarity": "4.0.4",
     "ts-mocha": "10.0.0",
