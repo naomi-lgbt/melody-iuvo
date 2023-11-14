@@ -4,6 +4,7 @@ import http from "http";
 import https from "https";
 
 import { Octokit } from "@octokit/rest";
+import { EmbedBuilder } from "discord.js";
 import express from "express";
 
 import { FirstTimer, IgnoredActors, ThankYou } from "../config/Github";
@@ -183,6 +184,83 @@ export const serve = async (bot: ExtendedClient) => {
       }
     } catch (err) {
       await errorHandler(bot, "github webhook", err);
+    }
+  });
+
+  app.post("/airtable", async (req, res) => {
+    try {
+      if (req.body.secret !== process.env.AIRTABLE_SECRET) {
+        res.status(403).send("Invalid secret.");
+        await bot.env.debugHook.send({
+          content: "Received an airtable payload with an invalid secret."
+        });
+        return;
+      }
+      if (req.body.base === "Ban Appeals") {
+        const { userId, why, rule, change } = req.body;
+        res.status(200).send("OK~!");
+        const embed = new EmbedBuilder();
+        embed.setTitle("New Ban Appeal~!");
+        embed.setDescription(`<@!${userId}> (${userId})`);
+        embed.addFields([
+          {
+            name: "Why do you think you were removed from the community?",
+            value: why
+          },
+          {
+            name: "Which rule do you believe you violated?",
+            value: rule
+          },
+          {
+            name: "How will your behaviour change?",
+            value: change
+          }
+        ]);
+
+        const channel = bot.discord.guild?.channels.cache.find(
+          (c) => c.name === "council-activity"
+        );
+        if (channel && "send" in channel) {
+          await channel.send({
+            embeds: [embed]
+          });
+          return;
+        }
+        await bot.env.debugHook.send({
+          content:
+            "Received a ban appeal, but could not find the public staff log channel."
+        });
+        return;
+      }
+
+      if (req.body.base === "Staff Applications") {
+        const { userId, url } = req.body;
+        res.status(200).send("OK~!");
+        const channel = bot.discord.guild?.channels.cache.find(
+          (c) => c.name === "council-chat"
+        );
+        if (channel && "send" in channel) {
+          const message = await channel.send({
+            content: `[<@!${userId}> (${userId}) has filed a staff application.](${url})\nIf you do not have access to our application table, please DM Naomi with your email address.\n**DO NOT** discuss this application outside of the thread I created. Once the application is approved or denied, the thread will be deleted.`
+          });
+          await message.startThread({
+            name: `Staff Application - ${userId}`
+          });
+          return;
+        }
+        await bot.env.debugHook.send({
+          content:
+            "Received a staff application, but could not find the private staff channel."
+        });
+        return;
+      }
+
+      res.status(400).send("Bad base name");
+      await bot.env.debugHook.send({
+        content: `Received airtable automation from ${req.body.base}, did not know what to do with it.`
+      });
+    } catch (err) {
+      await errorHandler(bot, "airtable webhook", err);
     }
   });
 
