@@ -197,7 +197,7 @@ export const serve = async (bot: ExtendedClient) => {
         return;
       }
       if (req.body.base === "Ban Appeals") {
-        const { userId, why, rule, change } = req.body;
+        const { userId, why, rule, change, reason } = req.body;
         res.status(200).send("OK~!");
         const embed = new EmbedBuilder();
         embed.setTitle("New Ban Appeal~!");
@@ -210,6 +210,10 @@ export const serve = async (bot: ExtendedClient) => {
           {
             name: "Which rule do you believe you violated?",
             value: rule
+          },
+          {
+            name: "Why do you want to return to the community?",
+            value: reason
           },
           {
             name: "How will your behaviour change?",
