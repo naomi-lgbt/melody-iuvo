@@ -68,7 +68,7 @@
     "@types/string-similarity": "4.0.2",
     "chai": "4.3.10",
     "discordjs-testing": "0.2.0",
-    "eslint": "8.53.0",
+    "eslint": "8.54.0",
     "knip": "2.41.3",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
