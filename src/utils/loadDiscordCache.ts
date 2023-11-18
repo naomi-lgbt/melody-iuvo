@@ -41,7 +41,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
 
     const contributing =
       (homeGuild?.channels.cache.find(
-        (c) => c.name === "scribes-hall"
+        (c) => c.name === "the-grove"
       ) as GuildTextBasedChannel) ?? null;
     if (!contributing || contributing.type !== ChannelType.GuildText) {
       await bot.env.debugHook.send(

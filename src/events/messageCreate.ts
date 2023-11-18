@@ -16,8 +16,7 @@ import {
   isSorry,
   isThanks
 } from "../modules/messages/responseValidation";
-import { startComfortPost } from "../modules/messages/startComfortPost";
-import { startTicketPost } from "../modules/messages/startTicketPost";
+import { startCounselPost } from "../modules/messages/startCounselPost";
 import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
@@ -130,12 +129,8 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     }
 
     if (isOwner(message.author.id)) {
-      if (content === "~comfort") {
-        await startComfortPost(bot, message);
-        return;
-      }
-      if (content === "~tickets") {
-        await startTicketPost(bot, message);
+      if (content === "~counsel") {
+        await startCounselPost(bot, message);
         return;
       }
       if (content.startsWith("~prune")) {
