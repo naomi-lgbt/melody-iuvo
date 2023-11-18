@@ -21,8 +21,8 @@ import { registerCommands } from "../utils/registerCommands";
 export const clientReady = async (bot: ExtendedClient) => {
   try {
     await registerCommands(bot);
-    await processGithubIssues(bot);
     await loadDiscordCache(bot);
+    await processGithubIssues(bot);
     await mountTwitch(bot);
     await loadSteam(bot);
     await serve(bot);
