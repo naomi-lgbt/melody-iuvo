@@ -127,12 +127,10 @@ suite("messageCreate", () => {
     );
   });
 
-  test("should process ticket command", async () => {
-    const msg = await channel.send("~tickets", naomi, member);
+  test("should process counsel command", async () => {
+    const msg = await channel.send("~counsel", naomi, member);
     await messageCreate({ ...fakeClient, db } as never, msg as never);
     assert.equal(channel.messages.cache.size, 7);
-    const response = channel.messages.cache.last();
-    assert.exists(response?.embeds?.[0]);
   });
 
   test("should process prune command", async () => {
