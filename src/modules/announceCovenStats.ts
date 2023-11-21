@@ -63,13 +63,16 @@ export const announceCovenStats = async (bot: ExtendedClient) => {
           alchemistRole?.members.size ?? 0
         }\nWanderer: ${wandererRole?.members.size ?? 0}`,
         inline: true
-      },
-      {
+      }
+    );
+
+    if (untrained > 0) {
+      embed.addFields({
         name: "Untrained Initiates",
         value: `${untrained}\n(remember to use the \`/training\` command to complete your training!)`,
         inline: false
-      }
-    );
+      });
+    }
     await bot.discord.channels.general?.send({
       embeds: [embed]
     });
