@@ -41,35 +41,33 @@ export const announceCovenStats = async (bot: ExtendedClient) => {
     embed.addFields(
       {
         name: "Virtues",
-        value: `Positivity: ${positiveRole?.members.size ?? 0}\nComfort: ${
-          comfortingRole?.members.size ?? 0
-        }\nLearning: ${studiousRole?.members.size ?? 0}\nProtection: ${
-          protectiveRole?.members.size ?? 0
-        }\nAdventure: ${adventurousRole?.members.size ?? 0}`,
+        value: `Positivity: ${positiveRole?.members.size ?? 0}\nComfort: ${comfortingRole?.members.size ?? 0
+          }\nLearning: ${studiousRole?.members.size ?? 0}\nProtection: ${protectiveRole?.members.size ?? 0
+          }\nAdventure: ${adventurousRole?.members.size ?? 0}`,
         inline: true
       },
       {
         name: "Magic",
-        value: `Divine Magic: ${lightRole?.members.size ?? 0}\nArcane Magic: ${
-          darkRole?.members.size ?? 0
-        }`,
+        value: `Divine Magic: ${lightRole?.members.size ?? 0}\nArcane Magic: ${darkRole?.members.size ?? 0
+          }`,
         inline: true
       },
       {
         name: "Roles",
-        value: `Guardian: ${guardianRole?.members.size ?? 0}\nForager: ${
-          foragerRole?.members.size ?? 0
-        }\nLibrarian: ${librarianRole?.members.size ?? 0}\nAlchemist: ${
-          alchemistRole?.members.size ?? 0
-        }\nWanderer: ${wandererRole?.members.size ?? 0}`,
+        value: `Guardian: ${guardianRole?.members.size ?? 0}\nForager: ${foragerRole?.members.size ?? 0
+          }\nLibrarian: ${librarianRole?.members.size ?? 0}\nAlchemist: ${alchemistRole?.members.size ?? 0
+          }\nWanderer: ${wandererRole?.members.size ?? 0}`,
         inline: true
-      },
-      {
+      }
+    );
+
+    if (untrained > 0) {
+      embed.addFields({
         name: "Untrained Initiates",
         value: `${untrained}\n(remember to use the \`/training\` command to complete your training!)`,
         inline: false
-      }
-    );
+      });
+    }
     await bot.discord.channels.general?.send({
       embeds: [embed]
     });
