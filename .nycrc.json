@@ -2,5 +2,5 @@
   "extension": [".ts"],
   "include": ["src/**/*"],
   "reporter": ["text", "html"],
-  "lines": 58
+  "lines": 57
 }

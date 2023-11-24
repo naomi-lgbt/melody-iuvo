@@ -24,10 +24,11 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     }
 
     /**
-     * Fetching the members on boot so we can have them in the cache.
+     * Fetching the members and roles on boot so we can have them in the cache.
      * This ensures that member leave/join events are not missed.
      */
     await homeGuild?.members.fetch();
+    await homeGuild?.roles.fetch();
 
     const general =
       (homeGuild?.channels.cache.find(
