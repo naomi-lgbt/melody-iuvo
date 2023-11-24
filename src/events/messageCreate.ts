@@ -2,6 +2,7 @@ import { ChannelType, Message, MessageType } from "discord.js";
 
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { assignRoles } from "../modules/assignRoles";
 import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
@@ -144,6 +145,17 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       if (content === "~audit") {
         await auditGuildsAndDatabase(bot, message);
         return;
+      }
+      if (content === "~roles") {
+        const members = await bot.discord.guild?.members.fetch();
+        if (!members) {
+          await message.reply("Could not load members.");
+          return;
+        }
+        await message.reply(`Assigning roles to ${members.size} members.`);
+        for (const [, member] of members) {
+          await assignRoles(bot, member);
+        }
       }
     }
 
