@@ -31,9 +31,6 @@ export const queue: Command = {
       first.setTitle(game.name);
       first.setURL(game.url);
       first.setImage(game.image);
-      first.setDescription(
-        `## These are the games Naomi intends to choose from for her streams.`
-      );
       first.setFooter({
         text: `Game ${index + 1} out of ${GameQueue.length}`
       });
@@ -61,6 +58,8 @@ export const queue: Command = {
       ]);
 
       const res = await interaction.editReply({
+        content:
+          "These are the games Naomi intends to select from when building her stream schedule. They are in no particular order. You CAN redeem NaomiCoin to select a new game to be used for her next week's stream schedule.",
         embeds: [first],
         components: [row]
       });
@@ -99,9 +98,6 @@ export const queue: Command = {
         embed.setTitle(game.name);
         embed.setURL(game.url);
         embed.setImage(game.image);
-        embed.setDescription(
-          `## These are the games Naomi intends to choose from for her streams.`
-        );
         if (game.purchased) {
           embed.addFields([
             {
