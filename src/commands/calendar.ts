@@ -45,10 +45,7 @@ export const calendar: Command = {
               item.start?.date ?? item.start?.dateTime ?? Date.now()
             ),
             end: new Date(item.end?.date ?? item.end?.dateTime ?? Date.now()),
-            title:
-              calendarName === "gmail"
-                ? "Personal Event"
-                : `Meeting for ${calendarName}`
+            title: calendarName === "gmail" ? "Personal Event" : `Meeting`
           }))
         );
       }
