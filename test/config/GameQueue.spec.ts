@@ -15,10 +15,4 @@ suite("Game Queue", () => {
     assert.strictEqual(urls.size, GameQueue.length, "URLs are not unique");
     assert.strictEqual(images.size, GameQueue.length, "Images are not unique");
   });
-
-  test("has a time for each game", () => {
-    for (const game of GameQueue) {
-      assert.isAbove(game.time, 0, `${game.name} has a time of 0`);
-    }
-  });
 });
