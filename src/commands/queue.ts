@@ -32,7 +32,7 @@ export const queue: Command = {
       first.setURL(game.url);
       first.setImage(game.image);
       first.setDescription(
-        `## Estimated playtime: ${game.time} hours\n### Time until first in queue: now\nTimes are estimated based on howlongtobeat.com and user reviews.`
+        `## These are the games Naomi intends to choose from for her streams.`
       );
       first.setFooter({
         text: `Game ${index + 1} out of ${GameQueue.length}`
@@ -42,7 +42,7 @@ export const queue: Command = {
           {
             name: "Community Selected",
             value:
-              "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue."
+              "A member of the community redeemed NaomiCoin to add this to the pool of games. Naomi will prioritise this game in her schedule."
           }
         ]);
       }
@@ -100,25 +100,14 @@ export const queue: Command = {
         embed.setURL(game.url);
         embed.setImage(game.image);
         embed.setDescription(
-          `## Estimated time: ${
-            game.time
-          } hours\n### Time until first in queue: ${
-            index === 0
-              ? "now"
-              : String(
-                  GameQueue.slice(0, index + 1).reduce(
-                    (sum, game) => sum + game.time,
-                    0
-                  )
-                ) + " hours"
-          }\nTimes are estimated based on howlongtobeat.com and user reviews.`
+          `## These are the games Naomi intends to choose from for her streams.`
         );
         if (game.purchased) {
           embed.addFields([
             {
               name: "Community Selected",
               value:
-                "A member of the community purchased this queue slot through the currency system. This game will not move to a later position in the queue."
+                "A member of the community redeemed NaomiCoin to add this to the pool of games. Naomi will prioritise this game in her schedule."
             }
           ]);
         }
