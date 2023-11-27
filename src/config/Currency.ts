@@ -70,7 +70,7 @@ export const CurrencyItems: Item[] = [
   {
     name: "Choose Stream Game",
     description:
-      "Choose the game to go next in Naomi's stream queue (behind any previously purchased games). Must be a game she has on her [Steam Library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>), unless you wish to gift her a game.",
+      "Add a game to Naomi's stream pool. She'll prioritise it in next week's schedule. Must be a game she has on her [Steam Library](<https://steamcommunity.com/id/naomi-lgbt/games/?tab=all&sort=name>), unless you wish to gift her a game.",
     price: 200_000_000,
     internalId: "stream-game"
   },
