@@ -110,7 +110,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
           )
         });
       }
-      if (isSorry(content)) {
+      if (isSorry(content) && message.author.id !== bot.user?.id) {
         await message.reply({
           content: getRandomValue(
             Responses.sorry[getResponseKey(bot, member)]
@@ -119,7 +119,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       }
       if (isThanks(content)) {
         const mentioned = message.mentions.members?.first();
-        if (mentioned) {
+        if (mentioned && mentioned.id !== bot.user?.id) {
           await message.channel.send({
             content: getRandomValue(
               Responses.thanks[getResponseKey(bot, mentioned)]
