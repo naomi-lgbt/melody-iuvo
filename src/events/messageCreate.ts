@@ -117,9 +117,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
           ).replace(/\{username\}/g, message.author.username)
         });
       }
-      if (isThanks(content) && !message.mentions.has(bot.user)) {
+      if (isThanks(content)) {
         const mentioned = message.mentions.members?.first();
-        if (mentioned) {
+        if (mentioned && mentioned.id !== bot.user?.id) {
           await message.channel.send({
             content: getRandomValue(
               Responses.thanks[getResponseKey(bot, mentioned)]
