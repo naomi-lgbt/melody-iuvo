@@ -2,7 +2,10 @@ import { authenticate } from "@google-cloud/local-auth";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 
-const scopes = ["https://www.googleapis.com/auth/calendar.readonly"];
+const scopes = [
+  "https://www.googleapis.com/auth/calendar.readonly",
+  "https://www.googleapis.com/auth/drive.readonly"
+];
 const tokenPath = join(process.cwd(), "calendar", "token.json");
 const credPath = join(process.cwd(), "calendar", "credentials.json");
 

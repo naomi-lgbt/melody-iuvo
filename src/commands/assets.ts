@@ -1,4 +1,14 @@
-import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from "discord.js";
+import { readFile } from "fs/promises";
+import { join } from "path";
+
+import {
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  SlashCommandBuilder,
+  SlashCommandSubcommandBuilder
+} from "discord.js";
+import { google } from "googleapis";
 
 import { ReferenceData } from "../config/AssetData";
 import { Responses } from "../config/Responses";
@@ -16,6 +26,7 @@ import { handleReferenceAsset } from "../modules/subcommands/assets/handleRefere
 import { handleTattooAsset } from "../modules/subcommands/assets/handleTattooAsset";
 import { errorHandler } from "../utils/errorHandler";
 import { getRandomValue } from "../utils/getRandomValue";
+import { isOwner } from "../utils/isOwner";
 
 const handlers: { [key: string]: AssetHandler } = {
   adventure: handleAdventureAsset,
@@ -151,6 +162,48 @@ export const assets: Command = {
             : "",
         embeds: [embed]
       });
+      if (subcommand === "outfit" && isOwner(interaction.user.id)) {
+        const fileName = embed.data.footer?.text
+          .replace(/.*\((.*)\)/, "$1")
+          .replace(".png", "");
+        if (!fileName) {
+          return;
+        }
+        const mapped = fileName
+          .split("-")
+          .map((w) => w[0]?.toUpperCase() + w.slice(1));
+        const result = `Naomi (${mapped.join(" ")}).vrm`;
+        const tokenContent = await readFile(
+          join(process.cwd(), "calendar", "token.json"),
+          "utf-8"
+        );
+        const credentials = JSON.parse(tokenContent);
+        const client = google.auth.fromJSON(credentials);
+        // @ts-expect-error type def is weird?
+        const drive = google.drive({ version: "v3", auth: client });
+        const files = await drive.files.list({
+          pageSize: 1,
+          q: `name = "${result}"`
+        });
+        const file = files.data.files?.[0];
+        if (!file) {
+          await bot.env.debugHook.send({
+            content: `Failed to load drive file: ${result}`
+          });
+          await bot.env.debugHook.send({
+            content: JSON.stringify(file, null, 2)
+          });
+          return;
+        }
+        const button = new ButtonBuilder()
+          .setStyle(ButtonStyle.Link)
+          .setLabel("Download VRM")
+          .setURL(`https://drive.google.com/file/d/${file.id}/view`);
+        const row = new ActionRowBuilder<ButtonBuilder>().addComponents(button);
+        await interaction.editReply({
+          components: [row]
+        });
+      }
     } catch (err) {
       await errorHandler(bot, "assets command", err);
       await interaction.editReply({
