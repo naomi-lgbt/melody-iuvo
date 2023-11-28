@@ -110,7 +110,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
           )
         });
       }
-      if (isSorry(content) && !message.mentions.has(bot.user)) {
+      if (isSorry(content) && message.author.id !== bot.user?.id) {
         await message.reply({
           content: getRandomValue(
             Responses.sorry[getResponseKey(bot, member)]
