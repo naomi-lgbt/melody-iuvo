@@ -1,3 +1,4 @@
+import { toString } from "cronstrue";
 import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
@@ -58,6 +59,20 @@ export const clientReady = async (bot: ExtendedClient) => {
     scheduleJob("0 0 * * * ", () => {
       bot.beanedUser = null;
     });
+
+    const reminders = await bot.db.reminder.findMany();
+    for (const reminder of reminders) {
+      scheduleJob(reminder.cron, async () => {
+        await bot.discord.channels.general?.send({
+          content: `## ${reminder.title}\n<@!465650873650118659>, ${reminder.text}`
+        });
+      });
+      await bot.env.debugHook.send({
+        content: `Reminder ${reminder.title} scheduled for ${toString(
+          reminder.cron
+        )}`
+      });
+    }
   } catch (err) {
     await errorHandler(bot, "client ready event", err);
   }

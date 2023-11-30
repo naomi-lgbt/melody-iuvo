@@ -23,6 +23,9 @@ dependencies:
   '@twurple/eventsub-ws':
     specifier: 7.0.5
     version: 7.0.5(@twurple/api@7.0.5)
+  cronstrue:
+    specifier: 2.44.0
+    version: 2.44.0
   discord.js:
     specifier: 14.14.1
     version: 14.14.1
@@ -2194,6 +2197,11 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       luxon: 3.4.3
+    dev: false
+
+  /cronstrue@2.44.0:
+    resolution: {integrity: sha512-71aQD16uXrqjDUYHsFYY4/SSmEepzQZqTqWsU9x2kDMCYKyIp/5e0QW/cp2lBNO9PJB1xOpIbBJuQEa5yKx98A==}
+    hasBin: true
     dev: false
 
   /cross-fetch@4.0.0:
