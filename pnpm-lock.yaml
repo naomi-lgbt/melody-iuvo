@@ -15,14 +15,14 @@ dependencies:
     specifier: 5.6.0
     version: 5.6.0(prisma@5.6.0)
   '@twurple/api':
-    specifier: 7.0.5
-    version: 7.0.5(@twurple/auth@7.0.6)
+    specifier: 7.0.6
+    version: 7.0.6(@twurple/auth@7.0.6)
   '@twurple/auth':
     specifier: 7.0.6
     version: 7.0.6
   '@twurple/eventsub-ws':
     specifier: 7.0.5
-    version: 7.0.5(@twurple/api@7.0.5)
+    version: 7.0.5(@twurple/api@7.0.6)
   cronstrue:
     specifier: 2.44.0
     version: 2.44.0
@@ -1149,10 +1149,10 @@ packages:
       - encoding
     dev: false
 
-  /@twurple/api@7.0.5(@twurple/auth@7.0.6):
-    resolution: {integrity: sha512-64EMJci32pXp/5lR8E3b0bMAoDbArQAnmcE8gPa3NdtycDOcrixDtcjxhMfHAYWVkxj3aWGdRSE5urHJ0VFCuQ==}
+  /@twurple/api@7.0.6(@twurple/auth@7.0.6):
+    resolution: {integrity: sha512-Fe8haADUI+m4juCuNxtkWBX2HkCU6FA2+2Biq2/KRTp50FVRCeOBdDQpkdM4r+T2KE0NaiTpiH2rtaRodkR/gQ==}
     peerDependencies:
-      '@twurple/auth': 7.0.5
+      '@twurple/auth': 7.0.6
     dependencies:
       '@d-fischer/cache-decorators': 3.0.3
       '@d-fischer/cross-fetch': 5.0.2
@@ -1161,9 +1161,9 @@ packages:
       '@d-fischer/rate-limiter': 0.7.5
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api-call': 7.0.5
+      '@twurple/api-call': 7.0.6
       '@twurple/auth': 7.0.6
-      '@twurple/common': 7.0.5
+      '@twurple/common': 7.0.6
       retry: 0.13.1
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -1226,7 +1226,7 @@ packages:
       - encoding
     dev: false
 
-  /@twurple/eventsub-ws@7.0.5(@twurple/api@7.0.5):
+  /@twurple/eventsub-ws@7.0.5(@twurple/api@7.0.6):
     resolution: {integrity: sha512-8/0I1eZGueSvzFoGEfTwOsyxceookQ5ScDPIawAOi1AGXfuMeJo0LURARtii1qHNih/E18BEfwPOriV1opCZKg==}
     peerDependencies:
       '@twurple/api': 7.0.5
@@ -1235,7 +1235,7 @@ packages:
       '@d-fischer/logger': 4.2.3
       '@d-fischer/shared-utils': 3.6.3
       '@d-fischer/typed-event-emitter': 3.3.2
-      '@twurple/api': 7.0.5(@twurple/auth@7.0.6)
+      '@twurple/api': 7.0.6(@twurple/auth@7.0.6)
       '@twurple/auth': 7.0.5
       '@twurple/common': 7.0.5
       '@twurple/eventsub-base': 7.0.5
