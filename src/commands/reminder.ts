@@ -67,7 +67,7 @@ export const reminder: Command = {
         content: `Your ${title} job has been scheduled for ${cronString}`
       });
     } catch (err) {
-      await errorHandler(bot, "about command", err);
+      await errorHandler(bot, "reminder command", err);
     }
   }
 };
