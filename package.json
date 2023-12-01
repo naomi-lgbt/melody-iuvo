@@ -39,6 +39,7 @@
   "homepage": "https://github.com/naomi-lgbt/melody-iuvo#readme",
   "dependencies": {
     "@google-cloud/local-auth": "3.0.0",
+    "@octokit/graphql": "7.0.2",
     "@octokit/rest": "20.0.2",
     "@prisma/client": "5.6.0",
     "@twurple/api": "7.0.6",

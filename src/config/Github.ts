@@ -21,3 +21,13 @@ export const FirstTimer = `## Congratulations
 Congratulations on making your first pull request to our project. We are excited to review your changes, and thank you for your patience.
 
 If you have any questions, please feel free to ask us in our [Discord server](https://chat.naomi.lgbt).`;
+
+export const ProjectCardSortOrder = [
+  "Actively Working On",
+  "High Priority",
+  "Medium Priority",
+  "Low Priority",
+  "Backburner",
+  "Blocked",
+  "Evergreen"
+];
