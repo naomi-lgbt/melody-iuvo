@@ -27,8 +27,8 @@ dependencies:
     specifier: 7.0.6
     version: 7.0.6(@twurple/api@7.0.6)
   cronstrue:
-    specifier: 2.44.0
-    version: 2.44.0
+    specifier: 2.47.0
+    version: 2.47.0
   discord.js:
     specifier: 14.14.1
     version: 14.14.1
@@ -2129,8 +2129,8 @@ packages:
       luxon: 3.4.3
     dev: false
 
-  /cronstrue@2.44.0:
-    resolution: {integrity: sha512-71aQD16uXrqjDUYHsFYY4/SSmEepzQZqTqWsU9x2kDMCYKyIp/5e0QW/cp2lBNO9PJB1xOpIbBJuQEa5yKx98A==}
+  /cronstrue@2.47.0:
+    resolution: {integrity: sha512-fnFwJy7zslTEz6h7O7BkwgHNBvuuPmkhAYKqPDxK5mBQLz2nG08T9afbnjm+yrvcc/wxrd+otaVSnoXT9ulUOw==}
     hasBin: true
     dev: false
 
