@@ -79,6 +79,7 @@ export const tasks: Command = {
       }
       `);
 
+      const count = projects.node.items.nodes.length;
       const result = projects.node.items.nodes
         .filter((node) => node.content)
         .map((node) => {
@@ -130,6 +131,9 @@ export const tasks: Command = {
       const embed = new EmbedBuilder();
       embed.setTitle("Mama Naomi's Tasks");
       embed.setDescription(result);
+      embed.setFooter({
+        text: `Mama has ${count} tickets on her task board currently.`
+      });
 
       const button = new ButtonBuilder()
         .setLabel("View All Tasks")
