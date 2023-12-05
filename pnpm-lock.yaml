@@ -89,8 +89,8 @@ devDependencies:
     specifier: 20.10.3
     version: 20.10.3
   '@types/node-schedule':
-    specifier: 2.1.4
-    version: 2.1.4
+    specifier: 2.1.5
+    version: 2.1.5
   '@types/spotify-web-api-node':
     specifier: 5.0.11
     version: 5.0.11
@@ -1263,8 +1263,8 @@ packages:
     resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
     dev: true
 
-  /@types/node-schedule@2.1.4:
-    resolution: {integrity: sha512-H32fetKLCtKatSkQ6VT9wuiHyrLftuUZZp8g3iU8biYxjQIB/MlV0K4UX/mMOIdGnADCnbe5uzIa5mO6LqVD1g==}
+  /@types/node-schedule@2.1.5:
+    resolution: {integrity: sha512-bN0MiplDBUxNMmlEi4iykjLYD7+Ze3DEevzliCn8WYuDwYSPj/5XFh8wZw+YXPLpLxiNWlIONYiQ67g/vowSMA==}
     dependencies:
       '@types/node': 20.10.3
     dev: true
