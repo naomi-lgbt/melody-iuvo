@@ -33,7 +33,7 @@ export const autoModerationActionExecution = async (
     await bot.discord.channels.general?.send({
       content: getRandomValue(
         Responses.naughty[getResponseKey(bot, member)]
-      ).replace(/\{userping\}/g, `<@${userId}>`),
+      ).replace(/\{userping\}/g, `<@${userId}>`)
     });
   } catch (err) {
     await errorHandler(bot, "autoModerationActionExecution", err);
