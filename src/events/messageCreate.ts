@@ -71,7 +71,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       await message.reply({
         content: getRandomValue(
           Responses.melodyPing[getResponseKey(bot, message.member)]
-        ),
+        )
       });
     }
 
