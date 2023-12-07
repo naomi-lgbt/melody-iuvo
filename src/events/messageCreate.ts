@@ -72,10 +72,6 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         content: getRandomValue(
           Responses.melodyPing[getResponseKey(bot, message.member)]
         ),
-        stickers:
-          getResponseKey(bot, message.member) !== "default"
-            ? []
-            : ["1146308020444332042"]
       });
     }
 
