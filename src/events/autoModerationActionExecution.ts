@@ -34,7 +34,6 @@ export const autoModerationActionExecution = async (
       content: getRandomValue(
         Responses.naughty[getResponseKey(bot, member)]
       ).replace(/\{userping\}/g, `<@${userId}>`),
-      stickers: ["1146868650041675908"]
     });
   } catch (err) {
     await errorHandler(bot, "autoModerationActionExecution", err);
