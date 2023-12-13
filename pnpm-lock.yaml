@@ -98,8 +98,8 @@ devDependencies:
     specifier: 8.55.0
     version: 8.55.0
   knip:
-    specifier: 3.7.1
-    version: 3.7.1(@types/node@20.10.4)(typescript@5.3.3)
+    specifier: 3.8.0
+    version: 3.8.0(@types/node@20.10.4)(typescript@5.3.3)
   mocha:
     specifier: 10.2.0
     version: 10.2.0
@@ -3919,8 +3919,8 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /knip@3.7.1(@types/node@20.10.4)(typescript@5.3.3):
-    resolution: {integrity: sha512-e/LyOHFE1p35DqRMI4Wz1vyLFrMP6uMlP3i2S/yaqUMt3+p6Mmn0USnOK0JNkuFUGIG9jcw63tZgBwMrY7j2IA==}
+  /knip@3.8.0(@types/node@20.10.4)(typescript@5.3.3):
+    resolution: {integrity: sha512-qfGg1j1oL0gAJfYEZqaFtw8un3YI8AjU/0z+b5MOGyNYrGLRzAzKaUeUM8+8JCDGHCq1xPzwWI4+Z82GD6kjgg==}
     engines: {node: '>=18.6.0'}
     hasBin: true
     peerDependencies:
