@@ -47,12 +47,6 @@ export const clientReady = async (bot: ExtendedClient) => {
     scheduleJob("0 11 * * *", async () => {
       await postQuestion(bot);
     });
-    // at noon every day
-    scheduleJob("0 12 * * *", async () => {
-      await bot.discord.channels.general?.send({
-        content: `Remember that you can donate to support Mama Naomi's work: <https://donate.nhcarrigan.com>`
-      });
-    });
     // at midnight every day
     scheduleJob("0 0 * * * ", () => {
       bot.beanedUser = null;
