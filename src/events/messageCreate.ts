@@ -64,24 +64,24 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
 
     const { content, member } = message;
 
-    if (
-      (bot.user && message.mentions.has(bot.user)) ||
-      /melody/i.test(content)
-    ) {
-      await message.reply({
-        content: getRandomValue(
-          Responses.melodyPing[getResponseKey(bot, message.member)]
-        )
-      });
-    }
-
     /**
      * We don't want to run these in the heavier vent channel and comfort channels.
      */
     if (
       message.channel.id !== bot.discord.channels.vent?.id &&
-      !message.channel.name.startsWith("counsel")
+      !message.channel.name.startsWith("counsel") &&
+      message.channel.name !== "partners"
     ) {
+      if (
+        (bot.user && message.mentions.has(bot.user)) ||
+        /melody/i.test(content)
+      ) {
+        await message.reply({
+          content: getRandomValue(
+            Responses.melodyPing[getResponseKey(bot, message.member)]
+          )
+        });
+      }
       if (message.author.id === bot.beanedUser) {
         await message.react("<a:beaned:1169327059919704176>");
       }
