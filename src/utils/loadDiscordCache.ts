@@ -69,7 +69,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     }
 
     const partner =
-      homeGuild?.roles.cache.find((r) => r.name === "Handfasted") ?? null;
+      homeGuild?.roles.cache.find((r) => r.name === "NaomiCule") ?? null;
     if (!partner) {
       await bot.env.debugHook.send(
         "Partner role not found. Some features may not work."
