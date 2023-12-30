@@ -122,8 +122,7 @@ export const assets: Command = {
               { name: "Rosalia", value: "rosalia" },
               { name: "Beccalia", value: "beccalia" },
               { name: "Novas", value: "novas" },
-              { name: "Melody", value: "melody" },
-              { name: "Erin", value: "erin" }
+              { name: "Melody", value: "melody" }
             )
         )
     )

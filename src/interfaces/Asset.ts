@@ -8,8 +8,7 @@ export type AssetTarget =
   | "rosalia"
   | "beccalia"
   | "novas"
-  | "melody"
-  | "erin";
+  | "melody";
 
 export type AssetType =
   | "adventures"

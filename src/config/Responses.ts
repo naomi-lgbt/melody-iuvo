@@ -9,7 +9,6 @@ type responseEvent =
   | "sorry";
 
 export enum ResponseIds {
-  erin = "478752726612967435",
   naomi = "465650873650118659",
   partnerRole = "cutie",
   default = "default"
@@ -21,17 +20,11 @@ export const Responses: {
   };
 } = {
   _template: {
-    [ResponseIds.erin]: [""],
     [ResponseIds.naomi]: [""],
     [ResponseIds.partnerRole]: [""],
     [ResponseIds.default]: [""]
   },
   melodyPing: {
-    [ResponseIds.erin]: [
-      "Good day, my Queen. What might you require?",
-      "My Queen, I am always at your service.",
-      "I am ready to serve, my Queen."
-    ],
     [ResponseIds.naomi]: [
       "Hello, Mama. Might I be of assistance?",
       "Yes, Mama, what can I do for you?",
@@ -49,11 +42,6 @@ export const Responses: {
     ]
   },
   outfit: {
-    [ResponseIds.erin]: [
-      "Do you wish to help pick an outfit for Naomi? How is this one?",
-      "Awww, are you planning for a date night? How adorable!",
-      "Does this option meet my Queen's need?"
-    ],
     [ResponseIds.naomi]: [
       "Mama, I chose this outfit for your next event.",
       "Here you go Mama. I hope this one is what you had in mind.",
@@ -71,11 +59,6 @@ export const Responses: {
     ]
   },
   naughty: {
-    [ResponseIds.erin]: [
-      "{userping}, my Queen, please do not make me call out your naughty behaviour again.",
-      "You know, {userping}, you may be Naomi's favourite, but we all need to follow the rules.",
-      "Perhaps that belongs in Mama's DMs {userping}?"
-    ],
     [ResponseIds.naomi]: [
       "{userping}, you run this community, and you cannot follow the rules?",
       "Come now, {userping}, you are supposed to be leading by example here.",
@@ -93,11 +76,6 @@ export const Responses: {
     ]
   },
   greeting: {
-    [ResponseIds.erin]: [
-      "Good morning my Queen. Naomi will be excited to see you today.",
-      "My Queen, it is so very good to see you again.",
-      "I hope you got plenty of rest, my Queen."
-    ],
     [ResponseIds.naomi]: [
       "Welcome back Mama. Did you sleep well?",
       "Hello, Mama! Have you got any exciting plans for the day?",
@@ -115,11 +93,6 @@ export const Responses: {
     ]
   },
   goodbye: {
-    [ResponseIds.erin]: [
-      "May you rest well. Dream of Naomi as she dreams of you.",
-      "You shall be missed, my Queen. I wish you sweet dreams.",
-      "Good night, my Queen. We will miss you!"
-    ],
     [ResponseIds.naomi]: [
       "Sleep well, Mama. I shall be here when you wake.",
       "Sweet dreams, Mama. Things will be quiet here without you.",
@@ -137,11 +110,6 @@ export const Responses: {
     ]
   },
   thanks: {
-    [ResponseIds.erin]: [
-      "{username}, my Queen, you already do so much, and yet you continue to do more.",
-      "I know that there is no gratitude that matches how much Naomi appreciates your love, {username}.",
-      "Isn't {username} just wonderful? She does so much for us."
-    ],
     [ResponseIds.naomi]: [
       "{username}, are you certain you are not pushing yourself too hard?",
       "Take care that you do not overburden yourself, {username}.",
@@ -159,11 +127,6 @@ export const Responses: {
     ]
   },
   sorry: {
-    [ResponseIds.erin]: [
-      "There is nothing you could ever do that would require an apology, my Queen.",
-      "My Queen, you know that you can do no wrong, yes?",
-      "Nothing, my Queen, will ever shake Naomi's love for you."
-    ],
     [ResponseIds.naomi]: [
       "Mama, I am sure your community forgives you.",
       "Come now, Mama, you are being far too hard on yourself.",
