@@ -60,6 +60,16 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
     }
 
+    const partners =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "partners"
+      ) as GuildTextBasedChannel) ?? null;
+    if (!partners || partners.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send(
+        "Partners channel not found. Some features may not work."
+      );
+    }
+
     const regular =
       homeGuild?.roles.cache.find((r) => r.name === "Coven") ?? null;
     if (!regular) {
@@ -94,15 +104,16 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
     bot.discord = {
       guild: homeGuild,
       channels: {
-        general: general,
-        vent: vent,
-        contributing: contributing
+        general,
+        vent,
+        contributing,
+        partners
       },
       roles: {
-        staff: staff,
-        regular: regular,
-        donor: donor,
-        partner: partner
+        staff,
+        regular,
+        donor,
+        partner
       }
     };
     await bot.env.debugHook.send("Discord cache loaded~!");
