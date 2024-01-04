@@ -31,6 +31,7 @@ export interface ExtendedClient extends Client {
     roles: {
       regular: Role | null;
       partner: Role | null;
+      friend: Role | null;
       donor: Role | null;
       staff: Role | null;
     };

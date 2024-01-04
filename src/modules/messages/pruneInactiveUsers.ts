@@ -17,7 +17,7 @@ export const pruneInactiveUsers = async (
   message: GuildMessage
 ) => {
   try {
-    const { partner, staff, donor, regular } = bot.discord.roles;
+    const { partner, staff, donor, regular, friend } = bot.discord.roles;
     const dryrun =
       message.content.includes("--dryrun") ||
       message.content.includes("--dry-run");
@@ -36,10 +36,11 @@ export const pruneInactiveUsers = async (
       }
       // we need filters
       const isPartner = partner && user.roles.cache.has(partner.id);
+      const isFriend = friend && user.roles.cache.has(friend.id);
       const isStaff = staff && user.roles.cache.has(staff.id);
       const isDonor = donor && user.roles.cache.has(donor.id);
       const isRegular = regular && user.roles.cache.has(regular.id);
-      if (isPartner || isStaff || isDonor || isRegular) {
+      if (isPartner || isStaff || isDonor || isRegular || isFriend) {
         continue;
       }
       // check if user.timestamp is older than 30 days

@@ -92,6 +92,12 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       ) {
         await message.react("<a:love:1149580277220388985>");
       }
+      if (
+        bot.discord.roles.friend &&
+        message.member.roles.cache.has(bot.discord.roles.friend.id)
+      ) {
+        await message.react("<a:lovelovelove:1149580280013791333>");
+      }
       if (isGoodMorning(content) && message.type !== MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
