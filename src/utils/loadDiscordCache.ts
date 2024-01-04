@@ -86,6 +86,14 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       );
     }
 
+    const friend =
+      homeGuild?.roles.cache.find((r) => r.name === "Supplicant") ?? null;
+    if (!friend) {
+      await bot.env.debugHook.send(
+        "Friend role not found. Some features may not work."
+      );
+    }
+
     const staff =
       homeGuild?.roles.cache.find((r) => r.name === "High Council") ?? null;
     if (!staff) {
@@ -112,6 +120,7 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       roles: {
         staff,
         regular,
+        friend,
         donor,
         partner
       }
