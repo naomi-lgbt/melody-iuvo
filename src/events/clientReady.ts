@@ -56,7 +56,7 @@ export const clientReady = async (bot: ExtendedClient) => {
     for (const reminder of reminders) {
       scheduleJob(reminder.cron, async () => {
         await bot.discord.channels.general?.send({
-          content: `## ${reminder.title}\n<@!465650873650118659>, ${reminder.text}`
+          content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
       });
       await bot.env.debugHook.send({

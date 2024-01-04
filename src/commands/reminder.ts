@@ -28,6 +28,12 @@ export const reminder: Command = {
         .setName("text")
         .setDescription("The text for the reminder.")
         .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("target")
+        .setDescription("The user to remind.")
+        .setRequired(true)
     ),
   run: async (bot, interaction) => {
     try {
@@ -41,6 +47,7 @@ export const reminder: Command = {
       const cron = interaction.options.getString("cron", true);
       const title = interaction.options.getString("title", true);
       const text = interaction.options.getString("text", true);
+      const userId = interaction.options.getUser("target", true).id;
 
       const cronString = toString(cron);
 
@@ -48,13 +55,14 @@ export const reminder: Command = {
         data: {
           cron,
           title,
-          text
+          text,
+          userId
         }
       });
 
       scheduleJob(reminder.cron, async () => {
         await bot.discord.channels.general?.send({
-          content: `## ${reminder.title}\n<@!465650873650118659>, ${reminder.text}`
+          content: `## ${reminder.title}\n<@!${userId}>, ${reminder.text}`
         });
       });
       await bot.env.debugHook.send({

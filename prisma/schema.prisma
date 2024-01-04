@@ -36,10 +36,11 @@ model users {
 }
 
 model Reminder {
-    id    String @id @default(auto()) @map("_id") @db.ObjectId
-    title String
-    text  String @default("Reminder text")
-    cron  String @default("0 9 * * *")
+    id     String @id @default(auto()) @map("_id") @db.ObjectId
+    userId String
+    title  String
+    text   String @default("Reminder text")
+    cron   String @default("0 9 * * *")
 
-    @@unique([title], map: "title_1")
+    @@unique([title, userId], map: "title_1_userId_1")
 }
