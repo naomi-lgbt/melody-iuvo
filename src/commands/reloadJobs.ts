@@ -23,10 +23,14 @@ export const reloadJobs: Command = {
       await bot.env.debugHook.send({
         content: "Cancelling all existing reminders."
       });
-      for (const job of bot.jobs) {
-        job.cancel();
-      }
+      const cachedJobs = [...bot.jobs];
       bot.jobs = [];
+      for (const job of cachedJobs) {
+        job.cancel();
+        await bot.env.debugHook.send({
+          content: `Cancelling job ${job.name}`
+        });
+      }
       const reminders = await bot.db.reminder.findMany();
       for (const reminder of reminders) {
         const job = scheduleJob(reminder.cron, async () => {
