@@ -46,11 +46,9 @@ export const reloadJobs: Command = {
         });
       }
       await interaction.editReply({
-        content: `All reminder CRON jobs have been reloaded. Current jobs:\n\n${JSON.stringify(
-          scheduledJobs,
-          null,
-          2
-        )}`
+        content: `All reminder CRON jobs have been reloaded.\nCached Reminders: ${bot.jobs.map(
+          (j) => j.name
+        )}\nScheduled Jobs: ${Object.values(scheduledJobs).map((j) => j.name)}`
       });
     } catch (err) {
       await errorHandler(bot, "faq command", err);
