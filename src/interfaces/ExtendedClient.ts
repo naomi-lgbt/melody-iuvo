@@ -7,6 +7,7 @@ import {
   GuildTextBasedChannel,
   WebhookClient
 } from "discord.js";
+import { Job } from "node-schedule";
 
 import { Command } from "./Command";
 import { Context } from "./Context";
@@ -47,6 +48,7 @@ export interface ExtendedClient extends Client {
     [userId: string]: number;
   };
   twitchNotif: Message | undefined;
+  jobs: Job[];
   cache: {
     slots: {
       [userId: string]: {
