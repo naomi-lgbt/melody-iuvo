@@ -67,7 +67,7 @@
     "@types/node-schedule": "2.1.5",
     "@types/spotify-web-api-node": "5.0.11",
     "@types/string-similarity": "4.0.2",
-    "chai": "4.3.10",
+    "chai": "4.4.0",
     "discordjs-testing": "0.2.0",
     "eslint": "8.56.0",
     "knip": "3.12.0",
