@@ -60,11 +60,12 @@ export const reminder: Command = {
         }
       });
 
-      scheduleJob(reminder.cron, async () => {
+      const job = scheduleJob(reminder.cron, async () => {
         await bot.discord.channels.general?.send({
           content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
       });
+      bot.jobs.push(job);
       await bot.env.debugHook.send({
         content: `Reminder ${reminder.title} scheduled for ${toString(
           reminder.cron
