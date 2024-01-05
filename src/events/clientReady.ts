@@ -32,29 +32,29 @@ export const clientReady = async (bot: ExtendedClient) => {
       content: "I am back from my nap!"
     });
     // at 7am every day
-    scheduleJob("0 7 * * *", async () => {
+    scheduleJob("__dailySong", "0 7 * * *", async () => {
       await getSpotifySong(bot);
     });
     // at 8am every day
-    scheduleJob("0 8 * * *", async () => {
+    scheduleJob("__covenStats", "0 8 * * *", async () => {
       await announceCovenStats(bot);
     });
     // at 9am every day
-    scheduleJob("0 9 * * *", async () => {
+    scheduleJob("__birthdaysToday", "0 9 * * *", async () => {
       await scheduleBirthdayPosts(bot);
     });
     // at 11am every day
-    scheduleJob("0 11 * * *", async () => {
+    scheduleJob("__questionOfTheDay", "0 11 * * *", async () => {
       await postQuestion(bot);
     });
     // at midnight every day
-    scheduleJob("0 0 * * * ", () => {
+    scheduleJob("__resetBeaned", "0 0 * * * ", () => {
       bot.beanedUser = null;
     });
 
     const reminders = await bot.db.reminder.findMany();
     for (const reminder of reminders) {
-      const job = scheduleJob(reminder.cron, async () => {
+      const job = scheduleJob(reminder.title, reminder.cron, async () => {
         await bot.discord.channels.general?.send({
           content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
