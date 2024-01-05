@@ -1,6 +1,6 @@
 import { toString } from "cronstrue";
 import { SlashCommandBuilder } from "discord.js";
-import { scheduleJob } from "node-schedule";
+import { scheduleJob, scheduledJobs } from "node-schedule";
 
 import { Command } from "../interfaces/Command";
 import { errorHandler } from "../utils/errorHandler";
@@ -33,7 +33,7 @@ export const reloadJobs: Command = {
       }
       const reminders = await bot.db.reminder.findMany();
       for (const reminder of reminders) {
-        const job = scheduleJob(reminder.cron, async () => {
+        const job = scheduleJob(reminder.title, reminder.cron, async () => {
           await bot.discord.channels.general?.send({
             content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
           });
@@ -46,7 +46,11 @@ export const reloadJobs: Command = {
         });
       }
       await interaction.editReply({
-        content: "All reminder CRON jobs have been reloaded."
+        content: `All reminder CRON jobs have been reloaded. Current jobs:\n\n${JSON.stringify(
+          scheduledJobs,
+          null,
+          2
+        )}`
       });
     } catch (err) {
       await errorHandler(bot, "faq command", err);

@@ -54,7 +54,7 @@ export const clientReady = async (bot: ExtendedClient) => {
 
     const reminders = await bot.db.reminder.findMany();
     for (const reminder of reminders) {
-      const job = scheduleJob(reminder.cron, async () => {
+      const job = scheduleJob(reminder.title, reminder.cron, async () => {
         await bot.discord.channels.general?.send({
           content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
