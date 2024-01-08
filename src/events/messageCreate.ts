@@ -24,6 +24,7 @@ import { getDatabaseRecord } from "../utils/getDatabaseRecord";
 import { getRandomValue } from "../utils/getRandomValue";
 import { isOwner } from "../utils/isOwner";
 import { isGuildMessage } from "../utils/typeGuards";
+import { execSync } from "child_process";
 
 /**
  * Handles the MessageCreate event from Discord.
@@ -63,6 +64,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     }
 
     const { content, member } = message;
+
+    if (isOwner(member?.id) && content === "Melody, take a nap.") {
+      await message.reply("G'night!");
+      execSync("pm2 stop melody");
+    }
 
     /**
      * We don't want to run these in the heavier vent channel and comfort channels.
