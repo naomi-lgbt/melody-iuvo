@@ -2,9 +2,6 @@ import { toString } from "cronstrue";
 import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
-import { announceCovenStats } from "../modules/announceCovenStats";
-import { getSpotifySong } from "../modules/getSpotifySong";
-import { postQuestion } from "../modules/postQuestion";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
 import { serve } from "../server/serve";
@@ -31,21 +28,9 @@ export const clientReady = async (bot: ExtendedClient) => {
     await bot.discord.channels.general?.send({
       content: "I am back from my nap!"
     });
-    // at 7am every day
-    scheduleJob("__dailySong", "0 7 * * *", async () => {
-      await getSpotifySong(bot);
-    });
-    // at 8am every day
-    scheduleJob("__covenStats", "0 8 * * *", async () => {
-      await announceCovenStats(bot);
-    });
     // at 9am every day
     scheduleJob("__birthdaysToday", "0 9 * * *", async () => {
       await scheduleBirthdayPosts(bot);
-    });
-    // at 11am every day
-    scheduleJob("__questionOfTheDay", "0 11 * * *", async () => {
-      await postQuestion(bot);
     });
     // at midnight every day
     scheduleJob("__resetBeaned", "0 0 * * * ", () => {

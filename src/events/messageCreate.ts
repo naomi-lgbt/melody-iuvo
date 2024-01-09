@@ -1,3 +1,5 @@
+import { execSync } from "child_process";
+
 import { ChannelType, Message, MessageType } from "discord.js";
 
 import { Responses } from "../config/Responses";
@@ -24,7 +26,6 @@ import { getDatabaseRecord } from "../utils/getDatabaseRecord";
 import { getRandomValue } from "../utils/getRandomValue";
 import { isOwner } from "../utils/isOwner";
 import { isGuildMessage } from "../utils/typeGuards";
-import { execSync } from "child_process";
 
 /**
  * Handles the MessageCreate event from Discord.
