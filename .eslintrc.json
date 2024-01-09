@@ -1,0 +1,37 @@
+{
+  "extends": "@nhcarrigan",
+  "overrides": [
+    {
+      "files": ["src/modules/subcommands/**/*.ts", "src/modules/buttons/*.ts"],
+      "rules": {
+        "jsdoc/require-param": "off",
+        "jsdoc/require-returns": "off"
+      }
+    },
+    {
+      "files": ["src/modules/subcommands/assets/handleReferenceAsset.ts"],
+      "rules": {
+        "require-await": "off"
+      }
+    },
+    {
+      "files": ["src/modules/processGithubIssues.ts", "src/server/serve.ts"],
+      "rules": {
+        "camelcase": ["error", { "allow": ["issue_number"] }]
+      }
+    },
+    {
+      "files": ["test/__mocks__/Database.mock.ts"],
+      "rules": {
+        "require-await": "off"
+      }
+    },
+    {
+      "files": ["src/utils/loadDiscordCache.ts"],
+      "rules": {
+        // This only runs once so we don't need to worry about race conditions
+        "require-atomic-updates": "off"
+      }
+    }
+  ]
+}
