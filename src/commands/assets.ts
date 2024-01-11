@@ -187,7 +187,11 @@ export const assets: Command = {
         const file = files.data.files?.[0];
         if (!file) {
           await bot.env.debugHook.send({
-            content: `Failed to load drive file: ${result}`
+            content: `Failed to load drive file: ${result}`,
+            username: bot.user?.username ?? "Melody",
+            avatarURL:
+              bot.user?.displayAvatarURL() ??
+              "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
           });
           await bot.env.debugHook.send({
             content: JSON.stringify(file, null, 2)

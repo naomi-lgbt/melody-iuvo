@@ -15,7 +15,11 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     if (!process.env.GITHUB_TOKEN || !process.env.ISSUE_CHANNEL_ID) {
       await bot.env.debugHook.send({
         content:
-          "Tried to post issues, but missing GITHUB_TOKEN or ISSUE_CHANNEL_ID."
+          "Tried to post issues, but missing GITHUB_TOKEN or ISSUE_CHANNEL_ID.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       return;
     }
