@@ -18,9 +18,13 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       bot.guilds.cache.get(bot.env.homeGuild) ||
       (await bot.guilds.fetch(bot.env.homeGuild).catch(() => null));
     if (!homeGuild) {
-      await bot.env.debugHook.send(
-        "Home guild not found. Channels and roles cannot be loaded."
-      );
+      await bot.env.debugHook.send({
+        content: "Home guild not found. Channels and roles cannot be loaded.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     /**
@@ -35,9 +39,13 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         (c) => c.name === "the-grove"
       ) as GuildTextBasedChannel) ?? null;
     if (!general || general.type !== ChannelType.GuildText) {
-      await bot.env.debugHook.send(
-        "General channel not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "General channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const contributing =
@@ -45,9 +53,13 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         (c) => c.name === "the-grove"
       ) as GuildTextBasedChannel) ?? null;
     if (!contributing || contributing.type !== ChannelType.GuildText) {
-      await bot.env.debugHook.send(
-        "Contribute channel not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Contribute channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const vent =
@@ -55,9 +67,13 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         (c) => c.name === "abyss"
       ) as GuildTextBasedChannel) ?? null;
     if (!vent || vent.type !== ChannelType.GuildText) {
-      await bot.env.debugHook.send(
-        "Vent channel not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Vent channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const partners =
@@ -65,49 +81,73 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         (c) => c.name === "partners"
       ) as GuildTextBasedChannel) ?? null;
     if (!partners || partners.type !== ChannelType.GuildText) {
-      await bot.env.debugHook.send(
-        "Partners channel not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Partners channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const regular =
       homeGuild?.roles.cache.find((r) => r.name === "Coven") ?? null;
     if (!regular) {
-      await bot.env.debugHook.send(
-        "Regular role not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Regular role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const partner =
       homeGuild?.roles.cache.find((r) => r.name === "NaomiCule") ?? null;
     if (!partner) {
-      await bot.env.debugHook.send(
-        "Partner role not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Partner role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const friend =
       homeGuild?.roles.cache.find((r) => r.name === "Supplicant") ?? null;
     if (!friend) {
-      await bot.env.debugHook.send(
-        "Friend role not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Friend role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const staff =
       homeGuild?.roles.cache.find((r) => r.name === "High Council") ?? null;
     if (!staff) {
-      await bot.env.debugHook.send(
-        "Staff role not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Staff role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
 
     const donor =
       homeGuild?.roles.cache.find((r) => r.name === "Ritualist") ?? null;
     if (!donor) {
-      await bot.env.debugHook.send(
-        "Donor role not found. Some features may not work."
-      );
+      await bot.env.debugHook.send({
+        content: "Donor role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     }
     bot.discord = {
       guild: homeGuild,
@@ -125,7 +165,13 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         partner
       }
     };
-    await bot.env.debugHook.send("Discord cache loaded~!");
+    await bot.env.debugHook.send({
+      content: "Discord cache loaded~!",
+      username: bot.user?.username ?? "Melody",
+      avatarURL:
+        bot.user?.displayAvatarURL() ??
+        "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+    });
   } catch (err) {
     await errorHandler(bot, "load discord cache", err);
   }

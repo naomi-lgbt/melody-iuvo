@@ -22,9 +22,13 @@ export const serve = async (bot: ExtendedClient) => {
   const kofiSecret = process.env.KOFI_WEBHOOK_SECRET;
   const token = process.env.GITHUB_TOKEN;
   if (!githubSecret || !token || !kofiSecret || !patreonSecret) {
-    await bot.env.debugHook.send(
-      "Missing necessary secrets.  Web server will not be started."
-    );
+    await bot.env.debugHook.send({
+      content: "Missing necessary secrets.  Web server will not be started.",
+      username: bot.user?.username ?? "Melody",
+      avatarURL:
+        bot.user?.displayAvatarURL() ??
+        "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+    });
     return;
   }
   const app = express();
@@ -47,18 +51,28 @@ export const serve = async (bot: ExtendedClient) => {
       is_first_subscription_payment: isFirstSub
     } = payload;
     if (!verifyToken) {
-      await bot.env.debugHook.send(
-        "Received request with no signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 1500)
-      );
+      await bot.env.debugHook.send({
+        content:
+          "Received request with no signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 1500),
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
       res.status(400).send("Invalid payload.");
       return;
     }
     if (verifyToken !== kofiSecret) {
-      await bot.env.debugHook.send(
-        "Received request with bad signature.\n\n" +
-          JSON.stringify(req.body).slice(0, 1500)
-      );
+      await bot.env.debugHook.send({
+        content:
+          "Received request with bad signature.\n\n" +
+          JSON.stringify(req.body).slice(0, 1500),
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
       res.status(403).send("Invalid signature.");
       return;
     }
@@ -78,9 +92,14 @@ export const serve = async (bot: ExtendedClient) => {
     // validate headers
     const header = req.headers["x-patreon-signature"];
     if (!header) {
-      await bot.env.debugHook.send(
-        "Received request with no signature.\n\n" + req.body.slice(0, 1500)
-      );
+      await bot.env.debugHook.send({
+        content:
+          "Received request with no signature.\n\n" + req.body.slice(0, 1500),
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
       res.status(403).send("No valid signature present.");
       return;
     }
@@ -88,9 +107,14 @@ export const serve = async (bot: ExtendedClient) => {
       .update(req.body)
       .digest("hex");
     if (hash !== header) {
-      await bot.env.debugHook.send(
-        "Received request with bad signature.\n\n" + req.body.slice(0, 1500)
-      );
+      await bot.env.debugHook.send({
+        content:
+          "Received request with bad signature.\n\n" + req.body.slice(0, 1500),
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
       res.status(403).send("Signature is not correct.");
       return;
     }
@@ -117,10 +141,15 @@ export const serve = async (bot: ExtendedClient) => {
     try {
       const header = req.headers["x-hub-signature-256"];
       if (!header || Array.isArray(header)) {
-        await bot.env.debugHook.send(
-          "Received request with no signature.\n\n" +
-            JSON.stringify(req.body).slice(0, 1500)
-        );
+        await bot.env.debugHook.send({
+          content:
+            "Received request with no signature.\n\n" +
+            JSON.stringify(req.body).slice(0, 1500),
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+        });
         res.status(403).send("No valid signature present.");
         return;
       }
@@ -131,10 +160,15 @@ export const serve = async (bot: ExtendedClient) => {
       const sent = Buffer.from(header, "ascii");
       const safe = timingSafeEqual(trusted, sent);
       if (!safe) {
-        await bot.env.debugHook.send(
-          "Received request with bad signature.\n\n" +
-            JSON.stringify(req.body).slice(0, 1500)
-        );
+        await bot.env.debugHook.send({
+          content:
+            "Received request with bad signature.\n\n" +
+            JSON.stringify(req.body).slice(0, 1500),
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+        });
         res.status(403).send("Signature is not correct.");
         return;
       }
@@ -192,7 +226,11 @@ export const serve = async (bot: ExtendedClient) => {
       if (req.body.secret !== process.env.AIRTABLE_SECRET) {
         res.status(403).send("Invalid secret.");
         await bot.env.debugHook.send({
-          content: "Received an airtable payload with an invalid secret."
+          content: "Received an airtable payload with an invalid secret.",
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
       }
@@ -232,7 +270,11 @@ export const serve = async (bot: ExtendedClient) => {
         }
         await bot.env.debugHook.send({
           content:
-            "Received a ban appeal, but could not find the public staff log channel."
+            "Received a ban appeal, but could not find the public staff log channel.",
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
       }
@@ -254,14 +296,22 @@ export const serve = async (bot: ExtendedClient) => {
         }
         await bot.env.debugHook.send({
           content:
-            "Received a staff application, but could not find the private staff channel."
+            "Received a staff application, but could not find the private staff channel.",
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
       }
 
       res.status(400).send("Bad base name");
       await bot.env.debugHook.send({
-        content: `Received airtable automation from ${req.body.base}, did not know what to do with it.`
+        content: `Received airtable automation from ${req.body.base}, did not know what to do with it.`,
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     } catch (err) {
       await errorHandler(bot, "airtable webhook", err);
@@ -271,7 +321,13 @@ export const serve = async (bot: ExtendedClient) => {
   const httpServer = http.createServer(app);
 
   httpServer.listen(9080, async () => {
-    await bot.env.debugHook.send("http server listening on port 9080");
+    await bot.env.debugHook.send({
+      content: "http server listening on port 9080",
+      username: bot.user?.username ?? "Melody",
+      avatarURL:
+        bot.user?.displayAvatarURL() ??
+        "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+    });
   });
 
   if (process.env.NODE_ENV === "production") {
@@ -297,7 +353,13 @@ export const serve = async (bot: ExtendedClient) => {
     const httpsServer = https.createServer(credentials, app);
 
     httpsServer.listen(9443, async () => {
-      await bot.env.debugHook.send("https server listening on port 9443");
+      await bot.env.debugHook.send({
+        content: "https server listening on port 9443",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
     });
   }
 };

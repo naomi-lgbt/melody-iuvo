@@ -69,7 +69,11 @@ export const reminder: Command = {
       await bot.env.debugHook.send({
         content: `Reminder ${reminder.title} scheduled for ${toString(
           reminder.cron
-        )}`
+        )}`,
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
 
       await interaction.editReply({

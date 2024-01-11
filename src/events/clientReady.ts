@@ -23,7 +23,13 @@ export const clientReady = async (bot: ExtendedClient) => {
     await loadSteam(bot);
     await serve(bot);
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
-    await bot.env.debugHook.send("Bot is ready.");
+    await bot.env.debugHook.send({
+      content: "Bot is ready.",
+      username: bot.user?.username ?? "Melody",
+      avatarURL:
+        bot.user?.displayAvatarURL() ??
+        "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+    });
 
     await bot.discord.channels.general?.send({
       content: "I am back from my nap!"
@@ -48,7 +54,11 @@ export const clientReady = async (bot: ExtendedClient) => {
       await bot.env.debugHook.send({
         content: `Reminder ${reminder.title} scheduled for ${toString(
           reminder.cron
-        )}`
+        )}`,
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     }
   } catch (err) {

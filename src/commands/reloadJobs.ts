@@ -21,14 +21,22 @@ export const reloadJobs: Command = {
         return;
       }
       await bot.env.debugHook.send({
-        content: "Cancelling all existing reminders."
+        content: "Cancelling all existing reminders.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       const cachedJobs = [...bot.jobs];
       bot.jobs = [];
       for (const job of cachedJobs) {
         job.cancel();
         await bot.env.debugHook.send({
-          content: `Cancelling job ${job.name}`
+          content: `Cancelling job ${job.name}`,
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
       }
       const reminders = await bot.db.reminder.findMany();
@@ -42,7 +50,11 @@ export const reloadJobs: Command = {
         await bot.env.debugHook.send({
           content: `Reminder ${reminder.title} scheduled for ${toString(
             reminder.cron
-          )}`
+          )}`,
+          username: bot.user?.username ?? "Melody",
+          avatarURL:
+            bot.user?.displayAvatarURL() ??
+            "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
       }
       await interaction.editReply({
