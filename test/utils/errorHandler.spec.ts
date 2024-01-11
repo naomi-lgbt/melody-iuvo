@@ -25,6 +25,7 @@ suite("errorHandler", () => {
   test("sends the correct embed data", () => {
     assert.deepEqual(fakeClient.env.debugHook.messages, [
       {
+        avatarURL: "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
         embeds: [
           {
             data: {
@@ -38,7 +39,8 @@ suite("errorHandler", () => {
               ]
             }
           }
-        ]
+        ],
+        username: "Melody"
       }
     ]);
   });
@@ -47,6 +49,7 @@ suite("errorHandler", () => {
     await errorHandler(fakeClient as never, "test", "test");
     assert.lengthOf(fakeClient.env.debugHook.messages, 2);
     assert.deepEqual(fakeClient.env.debugHook.messages[1], {
+      avatarURL: "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png",
       embeds: [
         {
           data: {
@@ -60,7 +63,8 @@ suite("errorHandler", () => {
             ]
           }
         }
-      ]
+      ],
+      username: "Melody"
     });
   });
 });
