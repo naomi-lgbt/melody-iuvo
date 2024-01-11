@@ -67,7 +67,7 @@
     "chai": "4.4.0",
     "discordjs-testing": "0.2.0",
     "eslint": "8.56.0",
-    "knip": "3.13.1",
+    "knip": "3.13.2",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
     "prettier": "3.1.1",
