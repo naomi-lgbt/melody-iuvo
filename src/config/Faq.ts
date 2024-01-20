@@ -11,7 +11,6 @@ export const Faq: { title: string; description: string }[] = [
   },
   {
     title: "How do I get Naomi to do work for me?",
-    description:
-      "There are a couple of forms linked in <#1131640463787577435>. Fill out the appropriate form, and we'll create a thread for you to discuss your needs further."
+    description: "Reach out to us~! We'll be happy to discuss your needs."
   }
 ];
