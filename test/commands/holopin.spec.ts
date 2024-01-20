@@ -82,7 +82,7 @@ suite("holopin command", () => {
     assert.lengthOf(command.replies, 1);
     assert.equal(
       command.replies[0].content,
-      "Remember that you can claim badges for contributing to Mama Naomi's projects by following the instructions in <#1156373406372089877>~!"
+      "Remember that you can claim badges for contributing to Mama Naomi's projects~!"
     );
     assert.lengthOf(command.replies[0].attachments || [], 1);
   });

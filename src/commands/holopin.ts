@@ -36,7 +36,7 @@ export const holopin: Command = {
 
       await interaction.editReply({
         content:
-          "Remember that you can claim badges for contributing to Mama Naomi's projects by following the instructions in <#1156373406372089877>~!",
+          "Remember that you can claim badges for contributing to Mama Naomi's projects~!",
         files: [attachment]
       });
     } catch (err) {

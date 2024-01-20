@@ -16,15 +16,6 @@ Please take a moment to review these mental health resources, and reach out to a
 We sincerely hope you're able to get the help you need.`
   },
   {
-    name: "correct-channel",
-    response: `Hello,
-    
-It looks like you may have posted this in the incorrect channel. For a quick breakdown:
-- Programming discussion goes in <#1156385378475986997>
-- Contributing questions go in <#1156373521879007272>
-- For help with Mama's projects, ask in <#1156373502945923182>`
-  },
-  {
     name: "family-friendly",
     response: `Hello,
     

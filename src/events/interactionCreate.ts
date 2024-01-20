@@ -12,7 +12,6 @@ import { wordGuess } from "../modules/buttons/wordGuess";
 import { handleTicketModal } from "../modules/modals/handleTicketModal";
 import { processAnswerModal } from "../modules/modals/processAnswerModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
-import { processWordGuess } from "../modules/modals/processWordGuess";
 import { errorHandler } from "../utils/errorHandler";
 import { isGuildButtonCommand, isGuildSlashCommand } from "../utils/typeGuards";
 
@@ -98,10 +97,6 @@ export const interactionCreate = async (
       }
     }
     if (interaction.isModalSubmit()) {
-      if (interaction.customId.startsWith("word-")) {
-        await interaction.deferReply({ ephemeral: true });
-        await processWordGuess(bot, interaction);
-      }
       if (interaction.customId === "ticket-modal") {
         await handleTicketModal(bot, interaction);
       }

@@ -5,10 +5,8 @@ import { ChannelType, Message, MessageType } from "discord.js";
 import { Responses } from "../config/Responses";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { assignRoles } from "../modules/assignRoles";
-import { calculateMessageCurrency } from "../modules/calculateMessageCurrency";
 import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
-import { makeChange } from "../modules/makeChange";
 import { auditGuildsAndDatabase } from "../modules/messages/auditGuildsAndDatabase";
 import { postReactionRoles } from "../modules/messages/postReactionRoles";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
@@ -20,7 +18,6 @@ import {
   isThanks
 } from "../modules/messages/responseValidation";
 import { startCounselPost } from "../modules/messages/startCounselPost";
-import { sumCurrency } from "../modules/sumCurrency";
 import { errorHandler } from "../utils/errorHandler";
 import { getDatabaseRecord } from "../utils/getDatabaseRecord";
 import { getRandomValue } from "../utils/getRandomValue";
@@ -197,20 +194,6 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       await proxyPluralMessage(bot, message, prefixUsed);
       proxied = true;
     }
-
-    // Currency Logic
-    const total = sumCurrency(record.currency);
-    const currencyEarned = calculateMessageCurrency(content);
-    await bot.db.users.update({
-      where: {
-        userId: message.author.id
-      },
-      data: {
-        currency: {
-          ...makeChange(total + currencyEarned)
-        }
-      }
-    });
   } catch (err) {
     await errorHandler(bot, "message create event", err);
   }
