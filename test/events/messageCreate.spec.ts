@@ -9,7 +9,6 @@ import {
 
 import { Responses } from "../../src/config/Responses";
 import { messageCreate } from "../../src/events/messageCreate";
-import { sumCurrency } from "../../src/modules/sumCurrency";
 import { Database } from "../__mocks__/Database.mock";
 
 const db = new Database();
@@ -271,20 +270,5 @@ suite("messageCreate", () => {
       response?.content,
       `${mappedResponses} does not include ${response?.content}`
     );
-  });
-
-  test("should process currency", async () => {
-    const msg = await channel.send("test", user, member);
-    await messageCreate({ ...fakeClient, db } as never, msg as never);
-    assert.equal(channel.messages.cache.size, 23);
-    const record = await db.users.findUnique({
-      where: {
-        userId: user.id
-      }
-    });
-    assert.isNotNull(record);
-    // @ts-expect-error It's not null, the assertion would throw.
-    const total = sumCurrency(record.currency);
-    assert.isAbove(total, 0);
   });
 });

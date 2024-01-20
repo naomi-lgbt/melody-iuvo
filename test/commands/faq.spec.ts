@@ -96,7 +96,7 @@ suite("Faq command", () => {
     );
     assert.strictEqual(
       embed.toJSON().description,
-      "There are a couple of forms linked in <#1131640463787577435>. Fill out the appropriate form, and we'll create a thread for you to discuss your needs further."
+      "Reach out to us~! We'll be happy to discuss your needs."
     );
   });
 });
