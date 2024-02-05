@@ -18,8 +18,8 @@ dependencies:
     specifier: 5.9.1
     version: 5.9.1(prisma@5.9.1)
   cronstrue:
-    specifier: 2.47.0
-    version: 2.47.0
+    specifier: 2.48.0
+    version: 2.48.0
   discord.js:
     specifier: 14.14.1
     version: 14.14.1
@@ -1967,8 +1967,8 @@ packages:
       luxon: 3.4.3
     dev: false
 
-  /cronstrue@2.47.0:
-    resolution: {integrity: sha512-fnFwJy7zslTEz6h7O7BkwgHNBvuuPmkhAYKqPDxK5mBQLz2nG08T9afbnjm+yrvcc/wxrd+otaVSnoXT9ulUOw==}
+  /cronstrue@2.48.0:
+    resolution: {integrity: sha512-w+VAWjiBJmKYeeK+i0ur3G47LcKNgFuWwb8LVJTaXSS2ExtQ5zdiIVnuysgB3N457gTaSllme0qTpdsJWK/wIg==}
     hasBin: true
     dev: false
 
