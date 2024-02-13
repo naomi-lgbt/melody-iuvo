@@ -188,7 +188,11 @@ export const serve = async (bot: ExtendedClient) => {
         });
       }
 
-      if (IgnoredActors.includes(req.body.pull_request.user.login)) {
+      if (
+        IgnoredActors.includes(
+          req.body.pull_request?.user.login || req.body.sender?.login
+        )
+      ) {
         return;
       }
 
@@ -224,7 +228,7 @@ export const serve = async (bot: ExtendedClient) => {
         const github = new Octokit({
           auth: process.env.GITHUB_TOKEN
         });
-        if (isMerged && req.body.pull_request.user.login !== "naomi-lgbt") {
+        if (isMerged && req.body.pull_request?.user.login !== "naomi-lgbt") {
           await github.issues.createComment({
             owner,
             repo,
