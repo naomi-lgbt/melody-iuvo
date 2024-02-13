@@ -11,6 +11,13 @@ import { IgnoredActors, ThankYou } from "../config/Github";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
 
+import { generateCommentEmbed } from "./github/generateCommentEmbed";
+import { generateForkEmbed } from "./github/generateForkEmbed";
+import { generateIssuesEmbed } from "./github/generateIssueEmbed";
+import { generatePingEmbed } from "./github/generatePingEmbed";
+import { generatePullEmbed } from "./github/generatePullEmbed";
+import { generateStarEmbed } from "./github/generateStarEmbed";
+
 /**
  * Instantiates the web server for GitHub webhooks.
  *
@@ -174,7 +181,7 @@ export const serve = async (bot: ExtendedClient) => {
       }
       res.status(200).send("Signature is correct.");
 
-      const event = req.headers["x-github-event"];
+      const event = req.headers["x-github-event"] as string;
       if (event === "sponsorship" && req.body.action === "created") {
         await bot.discord.channels.general?.send({
           content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`
@@ -183,6 +190,29 @@ export const serve = async (bot: ExtendedClient) => {
 
       if (IgnoredActors.includes(req.body.pull_request.user.login)) {
         return;
+      }
+
+      const embedGenerator = {
+        ping: generatePingEmbed,
+        star: generateStarEmbed,
+        issues: generateIssuesEmbed,
+        pull_request: generatePullEmbed,
+        issue_comment: generateCommentEmbed,
+        fork: generateForkEmbed
+      };
+
+      const isValidKey = (
+        event: string
+      ): event is keyof typeof embedGenerator => {
+        return event in embedGenerator;
+      };
+
+      const embed = isValidKey(event) ? embedGenerator[event](req.body) : null;
+
+      if (embed) {
+        await bot.discord.channels.general?.send({
+          embeds: [embed]
+        });
       }
 
       if (event === "pull_request") {

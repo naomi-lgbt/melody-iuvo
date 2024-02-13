@@ -32,6 +32,29 @@
         // This only runs once so we don't need to worry about race conditions
         "require-atomic-updates": "off"
       }
+    },
+    {
+      "files": ["src/server/github/*.ts"],
+      "rules": {
+        "camelcase": [
+          "error",
+          {
+            "allow": ["icon_url"]
+          }
+        ],
+        "jsdoc/require-jsdoc": "off"
+      }
+    },
+    {
+      "files": ["src/server/serve.ts"],
+      "rules": {
+        "camelcase": [
+          "error", 
+          {
+            "allow": ["pull_request", "issue_comment", "issue_number"]
+          }
+        ]
+      }
     }
   ]
 }
