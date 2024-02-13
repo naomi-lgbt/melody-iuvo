@@ -7,9 +7,16 @@ import { Octokit } from "@octokit/rest";
 import { EmbedBuilder } from "discord.js";
 import express from "express";
 
-import { FirstTimer, IgnoredActors, ThankYou } from "../config/Github";
+import { IgnoredActors, ThankYou } from "../config/Github";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { errorHandler } from "../utils/errorHandler";
+
+import { generateCommentEmbed } from "./github/generateCommentEmbed";
+import { generateForkEmbed } from "./github/generateForkEmbed";
+import { generateIssuesEmbed } from "./github/generateIssueEmbed";
+import { generatePingEmbed } from "./github/generatePingEmbed";
+import { generatePullEmbed } from "./github/generatePullEmbed";
+import { generateStarEmbed } from "./github/generateStarEmbed";
 
 /**
  * Instantiates the web server for GitHub webhooks.
@@ -174,47 +181,57 @@ export const serve = async (bot: ExtendedClient) => {
       }
       res.status(200).send("Signature is correct.");
 
-      const event = req.headers["x-github-event"];
+      const event = req.headers["x-github-event"] as string;
       if (event === "sponsorship" && req.body.action === "created") {
         await bot.discord.channels.general?.send({
           content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`
         });
-      }
-      if (event !== "pull_request") {
-        return;
       }
 
       if (IgnoredActors.includes(req.body.pull_request.user.login)) {
         return;
       }
 
-      const owner = req.body.repository.owner.login;
-      const repo = req.body.repository.name;
-      const number = req.body.number;
-      const isFirstTimer =
-        req.body.action === "opened" &&
-        (req.body.author_association === "FIRST_TIMER" ||
-          req.body.author_association === "FIRST_TIME_CONTRIBUTOR");
-      const isMerged =
-        req.body.action === "closed" && req.body.pull_request.merged;
-      const github = new Octokit({
-        auth: process.env.GITHUB_TOKEN
-      });
-      if (isFirstTimer) {
-        await github.issues.createComment({
-          owner,
-          repo,
-          issue_number: number,
-          body: FirstTimer
+      const embedGenerator = {
+        ping: generatePingEmbed,
+        star: generateStarEmbed,
+        issues: generateIssuesEmbed,
+        pull_request: generatePullEmbed,
+        issue_comment: generateCommentEmbed,
+        fork: generateForkEmbed
+      };
+
+      const isValidKey = (
+        event: string
+      ): event is keyof typeof embedGenerator => {
+        return event in embedGenerator;
+      };
+
+      const embed = isValidKey(event) ? embedGenerator[event](req.body) : null;
+
+      if (embed) {
+        await bot.discord.channels.general?.send({
+          embeds: [embed]
         });
       }
-      if (isMerged) {
-        await github.issues.createComment({
-          owner,
-          repo,
-          issue_number: number,
-          body: ThankYou
+
+      if (event === "pull_request") {
+        const owner = req.body.repository.owner.login;
+        const repo = req.body.repository.name;
+        const number = req.body.number;
+        const isMerged =
+          req.body.action === "closed" && req.body.pull_request.merged;
+        const github = new Octokit({
+          auth: process.env.GITHUB_TOKEN
         });
+        if (isMerged && req.body.pull_request.user.login !== "naomi-lgbt") {
+          await github.issues.createComment({
+            owner,
+            repo,
+            issue_number: number,
+            body: ThankYou
+          });
+        }
       }
     } catch (err) {
       await errorHandler(bot, "github webhook", err);
