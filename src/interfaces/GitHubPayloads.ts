@@ -1,28 +1,7 @@
 /**
- * The structure of the comment data from the Github Webhook.
- */
-export interface GithubCommentPayload {
-  action: string;
-  issue: GithubIssuePayload;
-  comment: {
-    html_url: string;
-    body: string;
-    user: GithubUserPayload;
-  };
-  repository: GithubRepoPayload;
-  sender: GithubUserPayload;
-}
-
-export interface GithubForkPayload {
-  forkee: GithubRepoPayload;
-  repository: GithubRepoPayload;
-  sender: GithubUserPayload;
-}
-
-/**
  * The structure of the NESTED issue data from the GitHub Webhook.
  */
-export interface GithubIssuePayload {
+interface GithubIssuePayload {
   id: number;
   node_id: string;
   url: string;
@@ -38,41 +17,7 @@ export interface GithubIssuePayload {
   closed_by: GithubUserPayload;
 }
 
-/**
- * The structure of the top level issue data from the GitHub webhook.
- */
-export interface GithubIssuesPayload {
-  action: string;
-  issue: GithubIssuePayload;
-  repository: GithubRepoPayload;
-  sender: GithubUserPayload;
-}
-
-/**
- * The structure of the ping payload when a new GitHub webhook
- * is initialised.
- */
-export interface GithubPingPayload {
-  zen: string;
-  hook_id: string;
-  hook: Record<string, unknown>;
-  repository: GithubRepoPayload;
-  organization: Record<string, unknown>;
-  sender: GithubUserPayload;
-}
-
-/**
- * Structure of the pull request data from the GitHub Webhook.
- */
-export interface GithubPullPayload {
-  action: string;
-  number: number;
-  pull_request: GithubPullRequestPayload;
-  repository: GithubRepoPayload;
-  sender: GithubUserPayload;
-}
-
-export interface GithubPullRequestPayload {
+interface GithubPullRequestPayload {
   html_url: string;
   body: string;
   number: number;
@@ -85,7 +30,7 @@ export interface GithubPullRequestPayload {
  * Structure of the repo data, sent on pretty much
  * every GitHub Webhook payload.
  */
-export interface GithubRepoPayload {
+interface GithubRepoPayload {
   id: number;
   node_id: string;
   name: string;
@@ -151,17 +96,7 @@ export interface GithubRepoPayload {
   created_at: string;
 }
 
-/**
- * Structure of the star data sent from the GitHub Webhook.
- */
-export interface GithubStarPayload {
-  action: "created" | "deleted";
-  starred_at: string;
-  repository: GithubRepoPayload;
-  sender: GithubUserPayload;
-}
-
-export interface GithubUserPayload {
+interface GithubUserPayload {
   login: string;
   id: number;
   node_id: string;
@@ -188,10 +123,67 @@ export interface GithubUserPayload {
   hireable: boolean;
 }
 
-export type GithubPayload =
-  | GithubCommentPayload
-  | GithubForkPayload
-  | GithubIssuesPayload
-  | GithubPingPayload
-  | GithubPullPayload
-  | GithubStarPayload;
+/**
+ * The structure of the comment data from the Github Webhook.
+ */
+export interface GithubCommentPayload {
+  action: string;
+  issue: GithubIssuePayload;
+  comment: {
+    html_url: string;
+    body: string;
+    user: GithubUserPayload;
+  };
+  repository: GithubRepoPayload;
+  sender: GithubUserPayload;
+}
+
+export interface GithubForkPayload {
+  forkee: GithubRepoPayload;
+  repository: GithubRepoPayload;
+  sender: GithubUserPayload;
+}
+
+/**
+ * The structure of the top level issue data from the GitHub webhook.
+ */
+export interface GithubIssuesPayload {
+  action: string;
+  issue: GithubIssuePayload;
+  repository: GithubRepoPayload;
+  sender: GithubUserPayload;
+}
+
+/**
+ * The structure of the ping payload when a new GitHub webhook
+ * is initialised.
+ */
+export interface GithubPingPayload {
+  zen: string;
+  hook_id: string;
+  hook: Record<string, unknown>;
+  repository: GithubRepoPayload;
+  organization: Record<string, unknown>;
+  sender: GithubUserPayload;
+}
+
+/**
+ * Structure of the pull request data from the GitHub Webhook.
+ */
+export interface GithubPullPayload {
+  action: string;
+  number: number;
+  pull_request: GithubPullRequestPayload;
+  repository: GithubRepoPayload;
+  sender: GithubUserPayload;
+}
+
+/**
+ * Structure of the star data sent from the GitHub Webhook.
+ */
+export interface GithubStarPayload {
+  action: "created" | "deleted";
+  starred_at: string;
+  repository: GithubRepoPayload;
+  sender: GithubUserPayload;
+}
