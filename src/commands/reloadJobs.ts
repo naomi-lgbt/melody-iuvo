@@ -58,9 +58,11 @@ export const reloadJobs: Command = {
         });
       }
       await interaction.editReply({
-        content: `All reminder CRON jobs have been reloaded.\nCached Reminders: ${bot.jobs.map(
-          (j) => j.name
-        )}\nScheduled Jobs: ${Object.values(scheduledJobs).map((j) => j.name)}`
+        content: `All reminder CRON jobs have been reloaded.\nCached Reminders: ${bot.jobs
+          .map((j) => j.name)
+          .join(", ")}\nScheduled Jobs: ${Object.values(scheduledJobs)
+          .map((j) => j.name.replace(/_/g, "\\_"))
+          .join(", ")}`
       });
     } catch (err) {
       await errorHandler(bot, "faq command", err);
