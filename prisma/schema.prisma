@@ -44,3 +44,11 @@ model Reminder {
 
     @@index([title, userId], map: "title_1_userId_1")
 }
+
+model ToDo {
+    id          String @id @default(auto()) @map("_id") @db.ObjectId
+    key         String
+    description String
+
+    @@unique([key], map: "key_1")
+}
