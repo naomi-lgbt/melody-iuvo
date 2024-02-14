@@ -35,7 +35,7 @@ export const clientReady = async (bot: ExtendedClient) => {
       content: "I am back from my nap!"
     });
     // at 7am every day
-    scheduleJob("__naomiTodos", "0 7 * * *", async () => {
+    scheduleJob("__naomiToDos", "0 7 * * *", async () => {
       const toDos = await bot.db.toDo.findMany();
       if (!toDos.length) {
         await bot.discord.channels.general?.send({
