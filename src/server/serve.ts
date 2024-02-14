@@ -211,11 +211,13 @@ export const serve = async (bot: ExtendedClient) => {
         return event in embedGenerator;
       };
 
-      const embed = isValidKey(event) ? embedGenerator[event](req.body) : null;
+      const content = isValidKey(event)
+        ? embedGenerator[event](req.body)
+        : null;
 
-      if (embed) {
+      if (content) {
         await bot.discord.channels.general?.send({
-          embeds: [embed]
+          content
         });
       }
 
