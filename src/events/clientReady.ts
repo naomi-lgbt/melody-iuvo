@@ -34,6 +34,22 @@ export const clientReady = async (bot: ExtendedClient) => {
     await bot.discord.channels.general?.send({
       content: "I am back from my nap!"
     });
+    // at 7am every day
+    scheduleJob("__naomiTodos", "0 7 * * *", async () => {
+      const toDos = await bot.db.toDo.findMany();
+      if (!toDos.length) {
+        await bot.discord.channels.general?.send({
+          content:
+            "Good morning, Mama! You have no tasks at the moment. Please enjoy your morning while you catch up on notifications."
+        });
+        return;
+      }
+      await bot.discord.channels.general?.send({
+        content:
+          "Good morning, Mama! Please enjoy your morning while you catch up on notifications. When you are ready, the following tasks need your attention:\n" +
+          toDos.map((t) => `- \`${t.key}\`: ${t.description}`).join("\n")
+      });
+    });
     // at 9am every day
     scheduleJob("__birthdaysToday", "0 9 * * *", async () => {
       await scheduleBirthdayPosts(bot);
