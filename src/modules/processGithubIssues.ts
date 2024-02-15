@@ -30,6 +30,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     const data = (await rawData.json()) as GithubData;
     delete data.updatedAt;
     const issues = [];
+    const mentorship = [];
     const values = Object.values(data) as GithubData["naomi-lgbt"][];
     for (const value of values) {
       const notPosted = value.issues.filter(
@@ -40,7 +41,11 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
           (l) => l.name === "help wanted" || l.name === "good first issue"
         )
       );
+      const forMentorship = notPosted.filter((i) =>
+        i.labels.find((l) => l.name === "🧠 mentorship")
+      );
       issues.push(...openToContribute);
+      mentorship.push(...forMentorship);
     }
     if (!issues.length) {
       return;
@@ -63,6 +68,26 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     }
     await bot.discord.channels.contributing?.send({
       content: `Forgive my intrusion, but it would seem our Mama is seeking your assistance with her work.\n\n${formatted}`
+    });
+
+    const formattedMentor = mentorship
+      .map((i) => `- [${i.title}](<${i.url}>)`)
+      .join("\n");
+    for (const issue of mentorship) {
+      const owner = issue.repository_url.split("/")[4];
+      const repo = issue.repository_url.split("/")[5];
+      if (!owner || !repo) {
+        continue;
+      }
+      await github.issues.addLabels({
+        owner,
+        repo,
+        issue_number: issue.number,
+        labels: ["posted to discord"]
+      });
+    }
+    await bot.discord.channels.training?.send({
+      content: `Heya <@!${bot.discord.roles.mentee?.id}~! Naomi has curated an issue specifically for one of you to take.\n\n${formattedMentor}`
     });
   } catch (err) {
     await errorHandler(bot, "process github issues", err);

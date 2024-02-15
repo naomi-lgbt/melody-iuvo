@@ -28,6 +28,7 @@ export interface ExtendedClient extends Client {
       contributing: GuildTextBasedChannel | null;
       vent: GuildTextBasedChannel | null;
       partners: GuildTextBasedChannel | null;
+      training: GuildTextBasedChannel | null;
     };
     roles: {
       regular: Role | null;
@@ -35,6 +36,7 @@ export interface ExtendedClient extends Client {
       friend: Role | null;
       donor: Role | null;
       staff: Role | null;
+      mentee: Role | null;
     };
   };
   commit: string;

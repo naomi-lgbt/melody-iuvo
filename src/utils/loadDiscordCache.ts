@@ -76,6 +76,20 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       });
     }
 
+    const training =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "training-grounds"
+      ) as GuildTextBasedChannel) ?? null;
+    if (!training || training.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send({
+        content: "Training channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
+
     const partners =
       (homeGuild?.channels.cache.find(
         (c) => c.name === "partners"
@@ -149,20 +163,34 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     }
+
+    const mentee =
+      homeGuild?.roles.cache.find((r) => r.name === "Neophyte") ?? null;
+    if (!mentee) {
+      await bot.env.debugHook.send({
+        content: "Mentee role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
     bot.discord = {
       guild: homeGuild,
       channels: {
         general,
         vent,
         contributing,
-        partners
+        partners,
+        training
       },
       roles: {
         staff,
         regular,
         friend,
         donor,
-        partner
+        partner,
+        mentee
       }
     };
     await bot.env.debugHook.send({
