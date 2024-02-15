@@ -57,11 +57,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
-    if (
-      message.author.bot ||
-      !isGuildMessage(message) ||
-      message.mentions.everyone
-    ) {
+    if (message.author.bot || !isGuildMessage(message)) {
       return;
     }
 
@@ -81,7 +77,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       message.channel.name !== "partners"
     ) {
       if (
-        (bot.user && message.mentions.has(bot.user)) ||
+        (bot.user &&
+          message.mentions.has(bot.user, {
+            ignoreEveryone: true,
+            ignoreRepliedUser: true
+          })) ||
         (/melody/i.test(content) && message.type !== MessageType.Reply)
       ) {
         await message.reply({
