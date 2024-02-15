@@ -82,7 +82,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
             ignoreEveryone: true,
             ignoreRepliedUser: true
           })) ||
-        (/melody/i.test(content) && message.type !== MessageType.Reply)
+        /melody/i.test(content)
       ) {
         await message.reply({
           content: getRandomValue(
