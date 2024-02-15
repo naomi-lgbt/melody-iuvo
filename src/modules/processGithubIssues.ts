@@ -51,7 +51,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       return;
     }
     const formatted = issues
-      .map((i) => `- [${i.title}](<${i.url}>)`)
+      .map((i) => `- [${i.title.replace(/@/g, "\\@")}](<${i.url}>)`)
       .join("\n");
     for (const issue of issues) {
       const owner = issue.repository_url.split("/")[4];
@@ -71,7 +71,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
     });
 
     const formattedMentor = mentorship
-      .map((i) => `- [${i.title}](<${i.url}>)`)
+      .map((i) => `- [${i.title.replace(/@/g, "\\@")}](<${i.url}>)`)
       .join("\n");
     for (const issue of mentorship) {
       const owner = issue.repository_url.split("/")[4];
@@ -87,7 +87,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
       });
     }
     await bot.discord.channels.training?.send({
-      content: `Heya <@!${bot.discord.roles.mentee?.id}~! Naomi has curated an issue specifically for one of you to take.\n\n${formattedMentor}`
+      content: `Heya <@&${bot.discord.roles.mentee?.id}>~! Naomi has curated an issue specifically for one of you to take.\n\n${formattedMentor}`
     });
   } catch (err) {
     await errorHandler(bot, "process github issues", err);
