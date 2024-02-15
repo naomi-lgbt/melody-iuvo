@@ -57,7 +57,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       return;
     }
 
-    if (message.author.bot || !isGuildMessage(message)) {
+    if (
+      message.author.bot ||
+      !isGuildMessage(message) ||
+      message.mentions.everyone
+    ) {
       return;
     }
 
@@ -78,7 +82,7 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     ) {
       if (
         (bot.user && message.mentions.has(bot.user)) ||
-        /melody/i.test(content)
+        (/melody/i.test(content) && message.type !== MessageType.Reply)
       ) {
         await message.reply({
           content: getRandomValue(
