@@ -77,7 +77,11 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       message.channel.name !== "partners"
     ) {
       if (
-        (bot.user && message.mentions.has(bot.user)) ||
+        (bot.user &&
+          message.mentions.has(bot.user, {
+            ignoreEveryone: true,
+            ignoreRepliedUser: true
+          })) ||
         /melody/i.test(content)
       ) {
         await message.reply({
