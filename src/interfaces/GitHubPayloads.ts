@@ -9,6 +9,7 @@ interface GithubIssuePayload {
   html_url: string;
   number: number;
   state: string;
+  state_reason: string | null;
   title: string;
   body: string;
   user: GithubUserPayload;
