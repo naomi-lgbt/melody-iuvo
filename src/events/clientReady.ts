@@ -7,7 +7,6 @@ import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
 import { serve } from "../server/serve";
 import { errorHandler } from "../utils/errorHandler";
 import { loadDiscordCache } from "../utils/loadDiscordCache";
-import { loadSteam } from "../utils/loadSteam";
 import { registerCommands } from "../utils/registerCommands";
 
 /**
@@ -20,7 +19,6 @@ export const clientReady = async (bot: ExtendedClient) => {
     await registerCommands(bot);
     await loadDiscordCache(bot);
     await processGithubIssues(bot);
-    await loadSteam(bot);
     await serve(bot);
     setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
     await bot.env.debugHook.send({

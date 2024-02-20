@@ -11,7 +11,6 @@ import { Job } from "node-schedule";
 
 import { Command } from "./Command";
 import { Context } from "./Context";
-import { SteamGame } from "./Steam";
 
 export interface ExtendedClient extends Client {
   env: {
@@ -72,6 +71,5 @@ export interface ExtendedClient extends Client {
     };
   };
   ticketLogs: { [key: string]: string };
-  games: SteamGame[];
   beanedUser: string | null;
 }

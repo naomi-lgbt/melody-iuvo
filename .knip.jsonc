@@ -11,8 +11,6 @@
   ],
   "project": ["src/**/*.ts"],
   "ignoreDependencies": [
-    // This one is used only in the auth setup script
-    "@google-cloud/local-auth",
     // These are used in testing
     "@types/chai",
     "@types/mocha",
