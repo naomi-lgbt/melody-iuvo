@@ -13,8 +13,7 @@
     "test": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
     "test:generate": "MOCHA=true nyc --check-coverage ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000 || true",
     "test:nocov": "MOCHA=true ts-mocha -u tdd  'test/**/*.spec.ts' --recursive --exit --timeout 10000",
-    "posttest": "ts-node test/validateCoverage.ts --post-coverage",
-    "twitchAuth": "ts-node script/twitchAuth.ts"
+    "posttest": "ts-node test/validateCoverage.ts --post-coverage"
   },
   "repository": {
     "type": "git",
@@ -38,17 +37,13 @@
   },
   "homepage": "https://github.com/naomi-lgbt/melody-iuvo#readme",
   "dependencies": {
-    "@google-cloud/local-auth": "3.0.1",
-    "@octokit/graphql": "7.0.2",
     "@octokit/rest": "20.0.2",
     "@prisma/client": "5.9.1",
     "cronstrue": "2.48.0",
     "discord.js": "14.14.1",
-    "discord.js-minesweeper": "1.1.0",
     "dotenv": "16.4.4",
     "express": "4.18.2",
     "googleapis": "129.0.0",
-    "jsdom": "23.2.0",
     "node-html-to-image": "4.0.0",
     "node-schedule": "2.1.1",
     "random": "3.0.6",
@@ -60,7 +55,6 @@
     "@nhcarrigan/typescript-config": "3.0.0",
     "@types/chai": "4.3.11",
     "@types/express": "4.17.21",
-    "@types/jsdom": "21.1.6",
     "@types/mocha": "10.0.6",
     "@types/node": "20.11.19",
     "@types/node-schedule": "2.1.6",

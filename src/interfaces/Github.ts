@@ -138,26 +138,3 @@ export interface GithubData {
   };
   updatedAt?: number;
 }
-
-export interface GitHubProjectGraphQL {
-  node: {
-    items: {
-      nodes: {
-        id: string;
-        fieldValues: {
-          nodes: {
-            text?: string;
-            field?: {
-              name: string;
-            };
-            name?: string;
-            date?: string;
-          }[];
-        };
-        content?: {
-          title: string;
-        };
-      }[];
-    };
-  };
-}
