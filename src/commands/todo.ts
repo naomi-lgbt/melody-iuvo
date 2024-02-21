@@ -36,6 +36,11 @@ export const todo: Command = {
             .setDescription("The unique key assigned the task.")
             .setRequired(true)
         )
+    )
+    .addSubcommand(
+      new SlashCommandSubcommandBuilder()
+        .setName("list")
+        .setDescription("List all of the tasks.")
     ),
   run: async (bot, interaction) => {
     try {
@@ -87,6 +92,26 @@ export const todo: Command = {
           content: `I have created the ${key} to-do for you.`
         });
         return;
+      }
+
+      if (subCommand === "list") {
+        const toDos = await bot.db.toDo.findMany();
+        if (!toDos.length) {
+          await interaction.editReply({
+            content: "Hi Mama! You have no tasks at the moment."
+          });
+          return;
+        }
+        await interaction.editReply({
+          content:
+            " When you are ready, the following tasks need your attention:\n" +
+            toDos
+              .map(
+                (t: { key: string; description: string }) =>
+                  `- \`${t.key}\`: ${t.description}`
+              )
+              .join("\n")
+        });
       }
     } catch (err) {
       await errorHandler(bot, "todo command", err);
