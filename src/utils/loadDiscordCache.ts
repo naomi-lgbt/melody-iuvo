@@ -175,6 +175,19 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     }
+
+    const awakened =
+      homeGuild?.roles.cache.find((r) => r.name === "Awakened") ?? null;
+    if (!awakened) {
+      await bot.env.debugHook.send({
+        content: "Awakened role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
+
     bot.discord = {
       guild: homeGuild,
       channels: {
@@ -190,7 +203,8 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         friend,
         donor,
         partner,
-        mentee
+        mentee,
+        awakened
       }
     };
     await bot.env.debugHook.send({

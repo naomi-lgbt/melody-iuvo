@@ -2,6 +2,7 @@ import { toString } from "cronstrue";
 import { scheduleJob } from "node-schedule";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
+import { awakenMember } from "../modules/awakenMember";
 import { processGithubIssues } from "../modules/processGithubIssues";
 import { scheduleBirthdayPosts } from "../modules/scheduleBirthdayPosts";
 import { serve } from "../server/serve";
@@ -55,6 +56,9 @@ export const clientReady = async (bot: ExtendedClient) => {
     // at midnight every day
     scheduleJob("__resetBeaned", "0 0 * * * ", () => {
       bot.beanedUser = null;
+    });
+    scheduleJob("__awakening", "0 0 * * *", async () => {
+      await awakenMember(bot);
     });
 
     const reminders = await bot.db.reminder.findMany();
