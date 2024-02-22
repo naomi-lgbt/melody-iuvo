@@ -52,6 +52,26 @@ export const todo: Command = {
         return;
       }
       const subCommand = interaction.options.getSubcommand();
+
+      if (subCommand === "list") {
+        const toDos = await bot.db.toDo.findMany();
+        if (!toDos.length) {
+          await interaction.editReply({
+            content: "Hi Mama! You have no tasks at the moment."
+          });
+          return;
+        }
+        await interaction.editReply({
+          content:
+            " When you are ready, the following tasks need your attention:\n" +
+            toDos
+              .map(
+                (t: { key: string; description: string }) =>
+                  `- \`${t.key}\`: ${t.description}`
+              )
+              .join("\n")
+        });
+      }
       const key = interaction.options.getString("key", true);
 
       if (subCommand === "complete") {
@@ -92,26 +112,6 @@ export const todo: Command = {
           content: `I have created the ${key} to-do for you.`
         });
         return;
-      }
-
-      if (subCommand === "list") {
-        const toDos = await bot.db.toDo.findMany();
-        if (!toDos.length) {
-          await interaction.editReply({
-            content: "Hi Mama! You have no tasks at the moment."
-          });
-          return;
-        }
-        await interaction.editReply({
-          content:
-            " When you are ready, the following tasks need your attention:\n" +
-            toDos
-              .map(
-                (t: { key: string; description: string }) =>
-                  `- \`${t.key}\`: ${t.description}`
-              )
-              .join("\n")
-        });
       }
     } catch (err) {
       await errorHandler(bot, "todo command", err);
