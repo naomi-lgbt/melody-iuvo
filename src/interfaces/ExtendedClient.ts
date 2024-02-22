@@ -36,6 +36,7 @@ export interface ExtendedClient extends Client {
       donor: Role | null;
       staff: Role | null;
       mentee: Role | null;
+      awakened: Role | null;
     };
   };
   commit: string;
