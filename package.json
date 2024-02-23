@@ -60,7 +60,7 @@
     "@types/node-schedule": "2.1.6",
     "chai": "4.4.1",
     "discordjs-testing": "0.2.0",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "knip": "3.13.2",
     "mocha": "10.3.0",
     "nyc": "15.1.0",
