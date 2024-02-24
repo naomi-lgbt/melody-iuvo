@@ -71,6 +71,7 @@ export const todo: Command = {
               )
               .join("\n")
         });
+        return;
       }
       const key = interaction.options.getString("key", true);
 
