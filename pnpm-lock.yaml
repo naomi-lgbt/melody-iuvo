@@ -50,8 +50,8 @@ devDependencies:
     specifier: 3.0.0
     version: 3.0.0(typescript@5.4.2)
   '@types/chai':
-    specifier: 4.3.12
-    version: 4.3.12
+    specifier: 4.3.13
+    version: 4.3.13
   '@types/express':
     specifier: 4.17.21
     version: 4.17.21
@@ -1033,8 +1033,8 @@ packages:
       '@types/node': 20.11.29
     dev: true
 
-  /@types/chai@4.3.12:
-    resolution: {integrity: sha512-zNKDHG/1yxm8Il6uCCVsm+dRdEsJlFoDu73X17y09bId6UwoYww+vFBsAcRzl8knM1sab3Dp1VRikFQwDOtDDw==}
+  /@types/chai@4.3.13:
+    resolution: {integrity: sha512-+LxQEbg4BDUf88utmhpUpTyYn1zHao443aGnXIAQak9ZMt9Rtsic0Oig0OS1xyIqdDXc5uMekoC6NaiUlkT/qA==}
     dev: true
 
   /@types/connect@3.4.36:
