@@ -41,14 +41,23 @@ suite("validateEnv utility", () => {
     assert.throws(validateEnv, "Missing MONGO_URI environment variable");
   });
 
-  test("returns the environment cache when all variables are present", () => {
+  test("throws an error when missing the ONBOARDING_HOOK", () => {
     process.env.MONGO_URI = "hi";
+    assert.throws(validateEnv, "Missing ONBOARDING_HOOK environment variable");
+  });
+
+  test("returns the environment cache when all variables are present", () => {
+    process.env.ONBOARDING_HOOK =
+      // This is not a live webhook URL, so don't bother trying to use it.
+      "https://canary.discord.com/api/webhooks/1133857667505463326/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
     const result = validateEnv();
     assert.equal(result.token, "discord bot token");
     assert.equal(result.homeGuild, "123");
     assert.instanceOf(result.debugHook, WebhookClient);
     assert.instanceOf(result.ticketLogHook, WebhookClient);
     assert.instanceOf(result.pluralLogHook, WebhookClient);
+    assert.instanceOf(result.onboardingHook, WebhookClient);
   });
 
   after(() => {
@@ -58,5 +67,6 @@ suite("validateEnv utility", () => {
     delete process.env.MONGO_URI;
     delete process.env.TICKET_LOG_HOOK;
     delete process.env.PLURAL_LOG_HOOK;
+    delete process.env.ONBOARDING_HOOK;
   });
 });

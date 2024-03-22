@@ -19,6 +19,7 @@ export interface ExtendedClient extends Client {
     debugHook: WebhookClient;
     ticketLogHook: WebhookClient;
     pluralLogHook: WebhookClient;
+    onboardingHook: WebhookClient;
   };
   discord: {
     guild: Guild | null;

@@ -26,6 +26,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.MONGO_URI) {
     throw new Error("Missing MONGO_URI environment variable");
   }
+  if (!process.env.ONBOARDING_HOOK) {
+    throw new Error("Missing ONBOARDING_HOOK environment variable");
+  }
 
   return {
     token: process.env.TOKEN,
@@ -38,6 +41,9 @@ export const validateEnv = (): ExtendedClient["env"] => {
     }),
     pluralLogHook: new WebhookClient({
       url: process.env.PLURAL_LOG_HOOK
+    }),
+    onboardingHook: new WebhookClient({
+      url: process.env.ONBOARDING_HOOK
     })
   };
 };

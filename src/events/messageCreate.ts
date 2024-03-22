@@ -8,6 +8,7 @@ import { assignRoles } from "../modules/assignRoles";
 import { getResponseKey } from "../modules/getResponseKey";
 import { logTicketMessage } from "../modules/logTicketMessage";
 import { auditGuildsAndDatabase } from "../modules/messages/auditGuildsAndDatabase";
+import { postOnboardingForm } from "../modules/messages/postOnboardingForm";
 import { postReactionRoles } from "../modules/messages/postReactionRoles";
 import { proxyPluralMessage } from "../modules/messages/proxyPluralMessage";
 import { pruneInactiveUsers } from "../modules/messages/pruneInactiveUsers";
@@ -166,6 +167,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
         for (const [, member] of members) {
           await assignRoles(bot, member);
         }
+      }
+      if (content === "~onboarding") {
+        await postOnboardingForm(bot, message);
       }
     }
 
