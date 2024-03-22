@@ -2,6 +2,7 @@ import { Interaction } from "discord.js";
 
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 import { processComfortButton } from "../modules/buttons/processComfortButton";
+import { processOnboardingButton } from "../modules/buttons/processOnboardingButton";
 import { processRoleButton } from "../modules/buttons/processRoleButton";
 import { questionAnswer } from "../modules/buttons/questionAnswer";
 import { questionDelete } from "../modules/buttons/questionDelete";
@@ -11,6 +12,7 @@ import { ticketOpenHandler } from "../modules/buttons/ticketOpen";
 import { wordGuess } from "../modules/buttons/wordGuess";
 import { handleTicketModal } from "../modules/modals/handleTicketModal";
 import { processAnswerModal } from "../modules/modals/processAnswerModal";
+import { processOnboardingModal } from "../modules/modals/processOnboardingModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
 import { errorHandler } from "../utils/errorHandler";
 import { isGuildButtonCommand, isGuildSlashCommand } from "../utils/typeGuards";
@@ -82,6 +84,9 @@ export const interactionCreate = async (
       if (interaction.customId.startsWith("delete-")) {
         await questionDelete(bot, interaction);
       }
+      if (interaction.customId === "onboarding") {
+        await processOnboardingButton(bot, interaction);
+      }
 
       const id = interaction.customId;
       switch (id) {
@@ -105,6 +110,9 @@ export const interactionCreate = async (
       }
       if (interaction.customId === "answer") {
         await processAnswerModal(bot, interaction);
+      }
+      if (interaction.customId === "onboarding") {
+        await processOnboardingModal(bot, interaction);
       }
     }
   } catch (err) {
