@@ -10,7 +10,7 @@ import { interactionCreate } from "./events/interactionCreate";
 import { messageCreate } from "./events/messageCreate";
 import { voiceStateUpdate } from "./events/voiceStateUpdate";
 import { ExtendedClient } from "./interfaces/ExtendedClient";
-import { assignRoles } from "./modules/assignRoles";
+// import { assignRoles } from "./modules/assignRoles";
 import { errorHandler } from "./utils/errorHandler";
 import { loadCommands } from "./utils/loadCommands";
 import { loadContexts } from "./utils/loadContexts";
@@ -80,7 +80,7 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     bot.on(Events.GuildMemberAdd, async (member) => {
-      await assignRoles(bot, member);
+      // await assignRoles(bot, member);
       await bot.discord.channels.general?.send({
         content: `<a:love:1149580277220388985> <@!${member.id}>, welcome to our comfy corner! <a:love:1149580277220388985>`
       });
