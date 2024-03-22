@@ -19,6 +19,7 @@ export const processOnboardingModal = async (
 ) => {
   try {
     await interaction.reply({
+      ephemeral: true,
       content:
         "Thank you. Your application has been submitted. If approved, you will be granted access. If denied, you will be removed from the community."
     });
