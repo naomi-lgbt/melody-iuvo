@@ -80,7 +80,6 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     bot.on(Events.GuildMemberAdd, async (member) => {
-      // await assignRoles(bot, member);
       await bot.discord.channels.general?.send({
         content: `<a:love:1149580277220388985> <@!${member.id}>, welcome to our comfy corner! <a:love:1149580277220388985>`
       });
@@ -90,12 +89,6 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     bot.on(Events.GuildMemberRemove, async (member) => {
-      await bot.discord.channels.general?.send({
-        content: `<a:love:1149580277220388985> Good bye <@!${member.id}>, we will miss you! <a:love:1149580277220388985>`
-      });
-      await bot.discord.channels.general?.send({
-        content: "https://c.tenor.com/eplxBwAHChAAAAAC/tenor.gif"
-      });
       await bot.db.users
         .delete({
           where: {
@@ -107,6 +100,15 @@ import { validateEnv } from "./utils/validateEnv";
          * we don't care that it failed because we wanted the record to not exist.
          */
         .catch(() => null);
+      if (
+        !bot.discord.roles.member ||
+        !member.roles.cache.has(bot.discord.roles.member.id)
+      ) {
+        return;
+      }
+      await bot.discord.channels.general?.send({
+        content: `<a:love:1149580277220388985> Good bye <@!${member.id}>, we will miss you! <a:love:1149580277220388985>`
+      });
     });
 
     /**

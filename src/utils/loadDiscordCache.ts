@@ -104,6 +104,18 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       });
     }
 
+    const member =
+      homeGuild?.roles.cache.find((r) => r.name === "Acolyte") ?? null;
+    if (!member) {
+      await bot.env.debugHook.send({
+        content: "Member role not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
+
     const regular =
       homeGuild?.roles.cache.find((r) => r.name === "Coven") ?? null;
     if (!regular) {
@@ -204,7 +216,8 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         donor,
         partner,
         mentee,
-        awakened
+        awakened,
+        member
       }
     };
     await bot.env.debugHook.send({

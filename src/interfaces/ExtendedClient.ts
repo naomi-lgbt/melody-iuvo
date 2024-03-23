@@ -38,6 +38,7 @@ export interface ExtendedClient extends Client {
       staff: Role | null;
       mentee: Role | null;
       awakened: Role | null;
+      member: Role | null;
     };
   };
   commit: string;
