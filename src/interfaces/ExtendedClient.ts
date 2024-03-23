@@ -29,6 +29,8 @@ export interface ExtendedClient extends Client {
       vent: GuildTextBasedChannel | null;
       partners: GuildTextBasedChannel | null;
       training: GuildTextBasedChannel | null;
+      modLog: GuildTextBasedChannel | null;
+      publicModLog: GuildTextBasedChannel | null;
     };
     roles: {
       regular: Role | null;

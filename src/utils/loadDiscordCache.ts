@@ -76,6 +76,35 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
       });
     }
 
+    const modLog =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "coven-logs"
+      ) as GuildTextBasedChannel) ?? null;
+    if (!modLog || modLog.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send({
+        content: "Mod log channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
+
+    const publicModLog =
+      (homeGuild?.channels.cache.find(
+        (c) => c.name === "council-activity"
+      ) as GuildTextBasedChannel) ?? null;
+    if (!publicModLog || publicModLog.type !== ChannelType.GuildText) {
+      await bot.env.debugHook.send({
+        content:
+          "Public mod log channel not found. Some features may not work.",
+        username: bot.user?.username ?? "Melody",
+        avatarURL:
+          bot.user?.displayAvatarURL() ??
+          "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
+      });
+    }
+
     const training =
       (homeGuild?.channels.cache.find(
         (c) => c.name === "training-grounds"
@@ -207,7 +236,9 @@ export const loadDiscordCache = async (bot: ExtendedClient) => {
         vent,
         contributing,
         partners,
-        training
+        training,
+        modLog,
+        publicModLog
       },
       roles: {
         staff,

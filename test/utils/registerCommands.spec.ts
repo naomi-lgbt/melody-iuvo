@@ -1,6 +1,7 @@
 import { assert } from "chai";
 import { MockRest } from "discordjs-testing";
 
+import { ModerationCommands } from "../../src/config/ModerationCommands";
 import { loadCommands } from "../../src/utils/loadCommands";
 import { loadContexts } from "../../src/utils/loadContexts";
 import { registerCommands } from "../../src/utils/registerCommands";
@@ -36,7 +37,8 @@ suite("registerCommands", () => {
       // @ts-expect-error Not importing the typedef
       ...bot.commands.map((c) => c.data.toJSON()),
       // @ts-expect-error Not importing the typedef
-      ...bot.contexts.map((c) => c.data)
+      ...bot.contexts.map((c) => c.data),
+      ...ModerationCommands.map((c) => c.toJSON())
     ]);
   });
 });
