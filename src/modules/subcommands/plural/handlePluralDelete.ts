@@ -5,10 +5,13 @@ import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
 /**
  * Deletes a new plural identity.
  */
-export const handlePluralDelete: CommandHandler = async (bot, interaction) => {
+export const handlePluralDelete: CommandHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     const name = interaction.options.getString("name", true);
-    const record = await getDatabaseRecord(bot, interaction.user.id);
+    const record = await getDatabaseRecord(Melody, interaction.user.id);
     const exists = record.plurals.find((plural) => plural.name === name);
 
     if (!exists) {
@@ -20,7 +23,7 @@ export const handlePluralDelete: CommandHandler = async (bot, interaction) => {
     }
     record.plurals.splice(record.plurals.indexOf(exists), 1);
 
-    await bot.db.users.update({
+    await Melody.db.users.update({
       where: {
         userId: interaction.user.id
       },
@@ -33,7 +36,7 @@ export const handlePluralDelete: CommandHandler = async (bot, interaction) => {
       content: "I have removed that identity for you."
     });
   } catch (err) {
-    await errorHandler(bot, "plural delete command", err);
+    await errorHandler(Melody, "plural delete command", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

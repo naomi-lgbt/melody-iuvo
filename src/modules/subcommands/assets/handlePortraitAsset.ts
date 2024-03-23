@@ -12,7 +12,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random artwork.
  */
 export const handlePortraitAsset: AssetHandler = async (
-  bot,
+  Melody,
   target
 ): Promise<EmbedBuilder> => {
   try {
@@ -57,7 +57,7 @@ export const handlePortraitAsset: AssetHandler = async (
 
     return defaultAssetEmbed;
   } catch (err) {
-    await errorHandler(bot, "handle portrait asset", err);
+    await errorHandler(Melody, "handle portrait asset", err);
     return defaultAssetEmbed;
   }
 };

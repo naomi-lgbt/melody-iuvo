@@ -42,7 +42,7 @@ export const todo: Command = {
         .setName("list")
         .setDescription("List all of the tasks.")
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       if (!isOwner(interaction.member.id)) {
@@ -54,7 +54,7 @@ export const todo: Command = {
       const subCommand = interaction.options.getSubcommand();
 
       if (subCommand === "list") {
-        const toDos = await bot.db.toDo.findMany();
+        const toDos = await Melody.db.toDo.findMany();
         if (!toDos.length) {
           await interaction.editReply({
             content: "Hi Mama! You have no tasks at the moment."
@@ -76,14 +76,14 @@ export const todo: Command = {
       const key = interaction.options.getString("key", true);
 
       if (subCommand === "complete") {
-        const exists = await bot.db.toDo.findUnique({ where: { key } });
+        const exists = await Melody.db.toDo.findUnique({ where: { key } });
         if (!exists) {
           await interaction.editReply({
             content: `Could not find a to-do with ${key}`
           });
           return;
         }
-        await bot.db.toDo.delete({
+        await Melody.db.toDo.delete({
           where: {
             key
           }
@@ -96,14 +96,14 @@ export const todo: Command = {
 
       if (subCommand === "create") {
         const description = interaction.options.getString("description", true);
-        const exists = await bot.db.toDo.findUnique({ where: { key } });
+        const exists = await Melody.db.toDo.findUnique({ where: { key } });
         if (exists) {
           await interaction.editReply({
             content: `A to-do with ${key} already exists.`
           });
           return;
         }
-        await bot.db.toDo.create({
+        await Melody.db.toDo.create({
           data: {
             key,
             description
@@ -115,7 +115,7 @@ export const todo: Command = {
         return;
       }
     } catch (err) {
-      await errorHandler(bot, "todo command", err);
+      await errorHandler(Melody, "todo command", err);
     }
   }
 };

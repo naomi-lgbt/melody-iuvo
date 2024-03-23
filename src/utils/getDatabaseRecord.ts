@@ -3,15 +3,15 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 /**
  * Fetches a user's record from the database.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {string} userId The user ID to fetch.
  * @returns {ExtendedClient["db"]["users"]} DB record.
  */
 export const getDatabaseRecord = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   userId: string
 ) => {
-  const record = await bot.db.users.upsert({
+  const record = await Melody.db.users.upsert({
     where: {
       userId
     },

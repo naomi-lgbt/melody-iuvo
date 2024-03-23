@@ -9,12 +9,12 @@ import { errorHandler } from "../utils/errorHandler";
 /**
  * Logs messages to a file to track ticket activity.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {Message} message The Discord message payload.
  * @param {string} logId The logId to identify the file.
  */
 export const logTicketMessage = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   message: Message,
   logId: string
 ): Promise<void> => {
@@ -33,6 +33,6 @@ export const logTicketMessage = async (
       logFile + parsedString
     );
   } catch (err) {
-    await errorHandler(bot, "message logger", err);
+    await errorHandler(Melody, "message logger", err);
   }
 };

@@ -4,7 +4,7 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Adds or removes the relevant role when a user clicks a button.
  */
-export const processRoleButton: ButtonHandler = async (bot, interaction) => {
+export const processRoleButton: ButtonHandler = async (Melody, interaction) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const id = interaction.customId.split("-")[1];
@@ -27,7 +27,7 @@ export const processRoleButton: ButtonHandler = async (bot, interaction) => {
       content: `Okay, I've given you the <@&${id}> role.`
     });
   } catch (err) {
-    await errorHandler(bot, "process role button", err);
+    await errorHandler(Melody, "process role button", err);
     await interaction.editReply({
       content: "Forgive me, but I have failed to do that."
     });

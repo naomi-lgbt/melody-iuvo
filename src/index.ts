@@ -29,129 +29,129 @@ import { validateEnv } from "./utils/validateEnv";
     /**
      * Initial setup.
      */
-    const bot = new Client({
+    const Melody = new Client({
       intents: Intents
     }) as ExtendedClient;
-    bot.env = validateEnv();
+    Melody.env = validateEnv();
 
     /**
      * Fallthrough error handlers. These fire in rare cases where something throws
      * in a way that our standard catch block cannot see it.
      */
     process.on("unhandledRejection", async (error: Error) => {
-      await errorHandler(bot, "Unhandled Rejection Error", error);
+      await errorHandler(Melody, "Unhandled Rejection Error", error);
     });
 
     process.on("uncaughtException", async (error) => {
-      await errorHandler(bot, "Uncaught Exception Error", error);
+      await errorHandler(Melody, "Uncaught Exception Error", error);
     });
 
     /**
      * Instantiate empty cache objects for later use.
      */
-    bot.db = new PrismaClient();
-    bot.cooldowns = {};
-    bot.automod = {};
-    bot.cache = {
+    Melody.db = new PrismaClient();
+    Melody.cooldowns = {};
+    Melody.automod = {};
+    Melody.cache = {
       wordGame: {},
       slots: {},
       tarot: {}
     };
-    bot.commit = execSync("git rev-parse HEAD").toString().trim();
-    bot.ticketLogs = {};
-    bot.jobs = [];
-    bot.beanedUser = null;
-    await loadCommands(bot);
-    await loadContexts(bot);
+    Melody.commit = execSync("git rev-parse HEAD").toString().trim();
+    Melody.ticketLogs = {};
+    Melody.jobs = [];
+    Melody.beanedUser = null;
+    await loadCommands(Melody);
+    await loadContexts(Melody);
 
     /**
      * Mount event handlers.
      */
-    bot.on(Events.InteractionCreate, async (interaction) => {
-      await interactionCreate(bot, interaction);
+    Melody.on(Events.InteractionCreate, async (interaction) => {
+      await interactionCreate(Melody, interaction);
     });
 
-    bot.on(Events.ClientReady, async () => {
-      await clientReady(bot);
+    Melody.on(Events.ClientReady, async () => {
+      await clientReady(Melody);
     });
 
-    bot.on(Events.MessageCreate, async (message) => {
-      await messageCreate(bot, message);
+    Melody.on(Events.MessageCreate, async (message) => {
+      await messageCreate(Melody, message);
     });
 
-    bot.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
-      await bot.discord.channels.modLog?.send(
+    Melody.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
+      await Melody.discord.channels.modLog?.send(
         `${EventToEmote.messageEdit} MESSAGE UPDATED: ${newMessage.author?.username} (${newMessage.author?.id})\n${oldMessage.content}\n${newMessage.content}`
       );
     });
 
-    bot.on(Events.MessageDelete, async (message) => {
-      await bot.discord.channels.modLog?.send(
+    Melody.on(Events.MessageDelete, async (message) => {
+      await Melody.discord.channels.modLog?.send(
         `${EventToEmote.messageDelete} MESSAGE DELETED: ${message.author?.username} (${message.author?.id})\n${message.content}`
       );
     });
 
-    bot.on(Events.AutoModerationActionExecution, async (action) => {
-      await autoModerationActionExecution(bot, action);
+    Melody.on(Events.AutoModerationActionExecution, async (action) => {
+      await autoModerationActionExecution(Melody, action);
     });
 
-    bot.on(Events.VoiceStateUpdate, async (oldState, newState) => {
+    Melody.on(Events.VoiceStateUpdate, async (oldState, newState) => {
       if (!oldState.channelId && newState.channelId) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.voiceJoin} JOINED VOICE: ${newState.member?.user.username} (${newState.id}) - ${newState.channel?.name}`
         );
       }
       if (oldState.channelId && !newState.channelId) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.voiceLeave} LEFT VOICE: ${newState.member?.user.username} (${newState.id}) - ${oldState.channel?.name}`
         );
       }
-      await voiceStateUpdate(bot, oldState, newState);
+      await voiceStateUpdate(Melody, oldState, newState);
     });
 
-    bot.on(Events.ThreadCreate, async (thread) => {
+    Melody.on(Events.ThreadCreate, async (thread) => {
       await thread.join();
       const owner = await thread.fetchOwner();
-      await bot.discord.channels.modLog?.send(
+      await Melody.discord.channels.modLog?.send(
         `${EventToEmote.threadCreate} THREAD CREATE: ${owner?.user?.username} (${owner?.id}) - ${thread.name}`
       );
     });
 
-    bot.on(Events.ThreadDelete, async (thread) => {
-      await bot.discord.channels.modLog?.send(
+    Melody.on(Events.ThreadDelete, async (thread) => {
+      await Melody.discord.channels.modLog?.send(
         `${EventToEmote.threadDelete} THREAD DELETE - ${thread.name}`
       );
     });
 
-    bot.on(Events.ThreadUpdate, async (oldThread, newThread) => {
+    Melody.on(Events.ThreadUpdate, async (oldThread, newThread) => {
       if (!oldThread.archived && newThread.archived) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.threadUpdate} THREAD ARCHIVED - ${newThread.name}`
         );
       }
       if (oldThread.archived && !newThread.archived) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.threadUpdate} THREAD UNARCHIVED - ${newThread.name}`
         );
       }
       if (oldThread.name !== newThread.name) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.threadUpdate} THREAD RENAMED - ${oldThread.name} ->${newThread.name}`
         );
       }
       if (!oldThread.locked && newThread.locked) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.threadUpdate} THREAD LOCKED - ${newThread.name}`
         );
       }
       if (oldThread.locked && !newThread.locked) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.threadUpdate} THREAD UNLOCKED - ${newThread.name}`
         );
       }
     });
 
-    bot.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
+    Melody.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
       const oldRoles = oldMember.roles.cache.filter(
         (r) => !newMember.roles.cache.has(r.id)
       );
@@ -159,23 +159,23 @@ import { validateEnv } from "./utils/validateEnv";
         (r) => !oldMember.roles.cache.has(r.id)
       );
       for (const role of oldRoles.values()) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} ROLE REMOVED: ${newMember.user.username} (${newMember.id}) - ${role.name}`
         );
       }
       for (const role of newRoles.values()) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} ROLE ADDED: ${newMember.user.username} (${newMember.id}) - ${role.name}`
         );
       }
 
       if (oldMember.nickname !== newMember.nickname) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} NICKNAME CHANGED: ${newMember.user.username} (${newMember.id})\n${oldMember.nickname}\n${newMember.nickname}`
         );
       }
 
-      const memRole = bot.discord.roles.member;
+      const memRole = Melody.discord.roles.member;
       if (
         !memRole ||
         // they already had acolyte role
@@ -185,13 +185,13 @@ import { validateEnv } from "./utils/validateEnv";
       ) {
         return;
       }
-      await bot.discord.channels.general?.send({
+      await Melody.discord.channels.general?.send({
         content: `<a:love:1149580277220388985> <@!${newMember.id}>, welcome to our comfy corner! <a:love:1149580277220388985>`
       });
     });
 
-    bot.on(Events.GuildMemberRemove, async (member) => {
-      await bot.db.users
+    Melody.on(Events.GuildMemberRemove, async (member) => {
+      await Melody.db.users
         .delete({
           where: {
             userId: member.id
@@ -203,37 +203,37 @@ import { validateEnv } from "./utils/validateEnv";
          */
         .catch(() => null);
       if (
-        !bot.discord.roles.member ||
-        !member.roles.cache.has(bot.discord.roles.member.id)
+        !Melody.discord.roles.member ||
+        !member.roles.cache.has(Melody.discord.roles.member.id)
       ) {
         return;
       }
-      await bot.discord.channels.general?.send({
+      await Melody.discord.channels.general?.send({
         content: `<a:love:1149580277220388985> Good bye <@!${member.id}>, we will miss you! <a:love:1149580277220388985>`
       });
     });
 
-    bot.on(Events.UserUpdate, async (oldUser, newUser) => {
+    Melody.on(Events.UserUpdate, async (oldUser, newUser) => {
       if (oldUser.username !== newUser.username) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} USERNAME CHANGED: ${newUser.username} (${newUser.id})\n${oldUser.username}\n${newUser.username}`
         );
       }
 
       if (oldUser.displayName !== newUser.displayName) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} DISPLAY NAME CHANGED: ${newUser.username} (${newUser.id})\n${oldUser.displayName}\n${newUser.displayName}`
         );
       }
 
       if (oldUser.avatarURL !== newUser.avatarURL) {
-        await bot.discord.channels.modLog?.send(
+        await Melody.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} AVATAR CHANGED: ${newUser.username} (${newUser.id}) - ${newUser.displayAvatarURL()}`
         );
       }
     });
 
-    bot.on(Events.GuildAuditLogEntryCreate, async (log) => {
+    Melody.on(Events.GuildAuditLogEntryCreate, async (log) => {
       const { action, changes, executorId, targetId, target, reason } = log;
 
       // These are essential :3
@@ -241,7 +241,7 @@ import { validateEnv } from "./utils/validateEnv";
         return;
       }
 
-      if (executorId === bot.user?.id) {
+      if (executorId === Melody.user?.id) {
         return;
       }
 
@@ -255,13 +255,13 @@ import { validateEnv } from "./utils/validateEnv";
           (c) => c.key === "communication_disabled_until"
         );
         if (timeout?.new) {
-          await bot.discord.channels.publicModLog?.send(
+          await Melody.discord.channels.publicModLog?.send(
             `${ActionToEmote.mute} **MUTE**: ${target.username} (${target.id} - ${reason})`
           );
           return;
         }
         if (timeout?.old) {
-          await bot.discord.channels.publicModLog?.send(
+          await Melody.discord.channels.publicModLog?.send(
             `${ActionToEmote.unmute} **UNMUTE**: ${target.username} (${target.id} - ${reason})`
           );
           return;
@@ -270,17 +270,17 @@ import { validateEnv } from "./utils/validateEnv";
 
       switch (action) {
         case AuditLogEvent.MemberBanAdd:
-          await bot.discord.channels.publicModLog?.send(
+          await Melody.discord.channels.publicModLog?.send(
             `${ActionToEmote.ban} BAN: ${target.username} (${target.id} - ${reason})`
           );
           break;
         case AuditLogEvent.MemberBanRemove:
-          await bot.discord.channels.publicModLog?.send(
+          await Melody.discord.channels.publicModLog?.send(
             `${EventToEmote.unban} **UNBAN**: ${target.username} (${target.id} - ${reason})`
           );
           break;
         case AuditLogEvent.MemberKick:
-          await bot.discord.channels.publicModLog?.send(
+          await Melody.discord.channels.publicModLog?.send(
             `${ActionToEmote.mute} **KICK**: ${target.username} (${target.id} - ${reason})`
           );
           break;
@@ -290,18 +290,18 @@ import { validateEnv } from "./utils/validateEnv";
     /**
      * Connect to Discord.
      */
-    await bot.login(bot.env.token);
+    await Melody.login(Melody.env.token);
 
-    bot.user?.setActivity({
+    Melody.user?.setActivity({
       name: "Custom Status",
       type: ActivityType.Custom,
       state: "I am Naomi's personal assistant."
     });
   } catch (err) {
-    const bot = new Client({
+    const Melody = new Client({
       intents: [GatewayIntentBits.Guilds]
     }) as ExtendedClient;
-    bot.env = validateEnv();
-    await errorHandler(bot, "entry file", err);
+    Melody.env = validateEnv();
+    await errorHandler(Melody, "entry file", err);
   }
 })();

@@ -18,13 +18,13 @@ import { errorHandler } from "../utils/errorHandler";
 /**
  * Processes all of the moderation context commands.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {ContextMenuCommandInteraction} interaction The interaction payload from Discord.
  * @param {ModerationAction} action The moderation action, pulled from the command name and validated.
  * @param {User} target The Discord record of the user to action.
  */
 export const processModAction = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: ContextMenuCommandInteraction,
   action: ModerationAction,
   target: User
@@ -103,10 +103,10 @@ export const processModAction = async (
     await submit.editReply({
       content: `Processed ${action} for ${target.username}`
     });
-    await bot.discord.channels.publicModLog?.send({
+    await Melody.discord.channels.publicModLog?.send({
       content: `${ActionToEmote[action]} **${action.toUpperCase()}**: ${target.username} (${target.id}) - ${reason}`
     });
   } catch (err) {
-    await errorHandler(bot, "process mod action", err);
+    await errorHandler(Melody, "process mod action", err);
   }
 };

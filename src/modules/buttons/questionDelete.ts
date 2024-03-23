@@ -6,11 +6,11 @@ import { isOwner } from "../../utils/isOwner";
 /**
  * Handles when the "Delete Question" button is clicked.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildButton} interaction The interaction payload from Discord.
  */
 export const questionDelete = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: GuildButton
 ) => {
   try {
@@ -31,7 +31,7 @@ export const questionDelete = async (
       content: `For moderation purposes, that question was asked by <@!${id}> (${id}).`
     });
   } catch (err) {
-    await errorHandler(bot, "question delete button", err);
+    await errorHandler(Melody, "question delete button", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

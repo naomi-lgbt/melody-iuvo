@@ -143,20 +143,20 @@ export const assets: Command = {
             )
         )
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       const subcommand = interaction.options.getSubcommand();
       const target = interaction.options.getString("target") || "";
       const handler = handlers[subcommand];
       const embed = handler
-        ? await handler(bot, target as AssetTarget)
+        ? await handler(Melody, target as AssetTarget)
         : defaultAssetEmbed;
       await interaction.editReply({
         content:
           subcommand === "outfit"
             ? getRandomValue(
-                Responses.outfit[getResponseKey(bot, interaction.member)]
+                Responses.outfit[getResponseKey(Melody, interaction.member)]
               )
             : "",
         embeds: [embed]
@@ -186,14 +186,14 @@ export const assets: Command = {
         });
         const file = files.data.files?.[0];
         if (!file) {
-          await bot.env.debugHook.send({
+          await Melody.env.debugHook.send({
             content: `Failed to load drive file: ${result}`,
-            username: bot.user?.username ?? "Melody",
+            username: Melody.user?.username ?? "Melody",
             avatarURL:
-              bot.user?.displayAvatarURL() ??
+              Melody.user?.displayAvatarURL() ??
               "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
           });
-          await bot.env.debugHook.send({
+          await Melody.env.debugHook.send({
             content: JSON.stringify(file, null, 2)
           });
           return;
@@ -208,7 +208,7 @@ export const assets: Command = {
         });
       }
     } catch (err) {
-      await errorHandler(bot, "assets command", err);
+      await errorHandler(Melody, "assets command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

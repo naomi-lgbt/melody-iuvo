@@ -6,12 +6,12 @@ import { isOwner } from "../utils/isOwner";
 /**
  * Handles the voiceStateUpdate event.
  *
- * @param {ExtendedClient} bot The bot's discord instance.
+ * @param {ExtendedClient} Melody The Melody's discord instance.
  * @param {VoiceState} oldState The old voice state payload.
  * @param {VoiceState} newState The new voice state payload.
  */
 export const voiceStateUpdate = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   oldState: VoiceState,
   newState: VoiceState
 ) => {
@@ -25,11 +25,11 @@ export const voiceStateUpdate = async (
 
     // post a message when Naomi starts streaming.
     if (!oldState.streaming && newState.streaming) {
-      await bot.discord.channels.general?.send({
+      await Melody.discord.channels.general?.send({
         content: `Heya everyone~!\n\nNaomi is streaming in ${newState.channel}! Come join us!`
       });
     }
   } catch (err) {
-    await errorHandler(bot, "voiceStateUpdate", err);
+    await errorHandler(Melody, "voiceStateUpdate", err);
   }
 };

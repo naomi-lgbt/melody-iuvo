@@ -11,7 +11,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random picrew.
  */
 export const handlePicrewAsset: AssetHandler = async (
-  bot
+  Melody
 ): Promise<EmbedBuilder> => {
   try {
     let picrew = "test";
@@ -34,7 +34,7 @@ export const handlePicrewAsset: AssetHandler = async (
 
     return embed;
   } catch (err) {
-    await errorHandler(bot, "handle picrew asset", err);
+    await errorHandler(Melody, "handle picrew asset", err);
     return defaultAssetEmbed;
   }
 };

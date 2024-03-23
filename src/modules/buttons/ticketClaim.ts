@@ -15,7 +15,10 @@ import { isOwner } from "../../utils/isOwner";
 /**
  * Handles the process of claiming a ticket.
  */
-export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
+export const ticketClaimHandler: ButtonHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild, message, member } = interaction;
@@ -69,7 +72,7 @@ export const ticketClaimHandler: ButtonHandler = async (bot, interaction) => {
       "I have marked you as responsible for this query."
     );
   } catch (err) {
-    await errorHandler(bot, "ticket claim handler", err);
+    await errorHandler(Melody, "ticket claim handler", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

@@ -8,15 +8,15 @@ import { getRandomValue } from "../utils/getRandomValue";
 /**
  * Function to schedule birthday posts.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  */
-export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
+export const scheduleBirthdayPosts = async (Melody: ExtendedClient) => {
   try {
     const today = new Date();
     const birthday = new Date(
       `${today.getMonth() + 1}-${today.getDate()}-2000`
     ).getTime();
-    const birthdays = await bot.db.users.findMany({
+    const birthdays = await Melody.db.users.findMany({
       where: {
         birthday
       }
@@ -35,11 +35,11 @@ export const scheduleBirthdayPosts = async (bot: ExtendedClient) => {
     );
     embed.setImage(getRandomValue(BirthdayGifs));
 
-    await bot.discord.channels.general?.send({
+    await Melody.discord.channels.general?.send({
       content: `${ids.join(", ")}`,
       embeds: [embed]
     });
   } catch (err) {
-    await errorHandler(bot, "scheduled birthday post", err);
+    await errorHandler(Melody, "scheduled birthday post", err);
   }
 };

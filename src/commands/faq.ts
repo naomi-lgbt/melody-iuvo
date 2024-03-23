@@ -16,7 +16,7 @@ export const faq: Command = {
         .setRequired(true)
         .addChoices(...Faq.map((q) => ({ name: q.title, value: q.title })))
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       const question = interaction.options.getString("question", true);
@@ -33,7 +33,7 @@ export const faq: Command = {
       embed.setDescription(target.description);
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
-      await errorHandler(bot, "faq command", err);
+      await errorHandler(Melody, "faq command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

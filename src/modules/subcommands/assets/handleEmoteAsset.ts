@@ -12,7 +12,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random emote.
  */
 export const handleEmoteAsset: AssetHandler = async (
-  bot,
+  Melody,
   target
 ): Promise<EmbedBuilder> => {
   try {
@@ -51,7 +51,7 @@ export const handleEmoteAsset: AssetHandler = async (
 
     return defaultAssetEmbed;
   } catch (err) {
-    await errorHandler(bot, "handle emote asset", err);
+    await errorHandler(Melody, "handle emote asset", err);
     return defaultAssetEmbed;
   }
 };

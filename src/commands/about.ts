@@ -15,10 +15,10 @@ export const about: Command = {
     .setName("about")
     .setDescription("Get information about Melody.")
     .setDMPermission(false),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
-      const { commit } = bot;
+      const { commit } = Melody;
       const version = process.env.npm_package_version;
 
       const { stdout } = await asyncExec("cloc --csv --quiet src");
@@ -85,7 +85,7 @@ export const about: Command = {
       ]);
       await interaction.editReply({ embeds: [embed] });
     } catch (err) {
-      await errorHandler(bot, "about command", err);
+      await errorHandler(Melody, "about command", err);
     }
   }
 };

@@ -5,13 +5,16 @@ import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
 /**
  * Sets auto proxying for an identity.
  */
-export const handlePluralFront: CommandHandler = async (bot, interaction) => {
+export const handlePluralFront: CommandHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     const name = interaction.options.getString("name");
-    const record = await getDatabaseRecord(bot, interaction.user.id);
+    const record = await getDatabaseRecord(Melody, interaction.user.id);
 
     if (!name) {
-      await bot.db.users.update({
+      await Melody.db.users.update({
         where: {
           userId: interaction.user.id
         },
@@ -34,7 +37,7 @@ export const handlePluralFront: CommandHandler = async (bot, interaction) => {
       return;
     }
 
-    await bot.db.users.update({
+    await Melody.db.users.update({
       where: {
         userId: interaction.user.id
       },
@@ -47,7 +50,7 @@ export const handlePluralFront: CommandHandler = async (bot, interaction) => {
       content: `I will now auto-proxy your messages as ${name}.`
     });
   } catch (err) {
-    await errorHandler(bot, "plural delete command", err);
+    await errorHandler(Melody, "plural delete command", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

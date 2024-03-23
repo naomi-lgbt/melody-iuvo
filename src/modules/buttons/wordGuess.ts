@@ -12,11 +12,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Handles when the "Guess Word" button is clicked.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildButton} interaction The interaction payload from Discord.
  */
 export const wordGuess = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: GuildButton
 ) => {
   try {
@@ -28,7 +28,7 @@ export const wordGuess = async (
       });
       return;
     }
-    if (!bot.cache.wordGame[id]) {
+    if (!Melody.cache.wordGame[id]) {
       await interaction.reply({
         content:
           "This might be a stale message, as you don't have a game in the cache. Please start a new game.",
@@ -50,7 +50,7 @@ export const wordGuess = async (
       .addComponents(row);
     await interaction.showModal(modal);
   } catch (err) {
-    await errorHandler(bot, "word guess button", err);
+    await errorHandler(Melody, "word guess button", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

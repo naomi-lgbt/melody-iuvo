@@ -5,12 +5,12 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 /**
  * Formats an error and sends it to the debug hook.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {string} context A description of where in the code the error occurred.
  * @param {unknown} error The Node.js Error.
  */
 export const errorHandler = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   context: string,
   error: unknown
 ) => {
@@ -27,11 +27,11 @@ export const errorHandler = async (
       value: err.message || "No message available."
     }
   ]);
-  await bot.env.debugHook.send({
+  await Melody.env.debugHook.send({
     embeds: [embed],
-    username: bot.user?.username ?? "Melody",
+    username: Melody.user?.username ?? "Melody",
     avatarURL:
-      bot.user?.displayAvatarURL() ??
+      Melody.user?.displayAvatarURL() ??
       "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
   });
 };

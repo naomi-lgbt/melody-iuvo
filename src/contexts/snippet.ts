@@ -16,7 +16,7 @@ export const snippet: Context = {
     .setName("snippet")
     .setType(3)
     .setDMPermission(false),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });
       if (!isOwner(interaction.user.id)) {
@@ -85,7 +85,7 @@ export const snippet: Context = {
           .catch(() => null);
       });
     } catch (err) {
-      await errorHandler(bot, "snippet context", err);
+      await errorHandler(Melody, "snippet context", err);
     }
   }
 };

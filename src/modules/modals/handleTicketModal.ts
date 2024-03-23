@@ -16,11 +16,11 @@ import { createLogFile } from "../createLogFile";
 /**
  * Handles responding to the ticket modal.
  *
- * @param {ExtendedClient} bot The bot's discord instance.
+ * @param {ExtendedClient} Melody The Melody's discord instance.
  * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
  */
 export const handleTicketModal = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: ModalSubmitInteraction
 ) => {
   try {
@@ -67,12 +67,12 @@ export const handleTicketModal = async (
       embeds: [ticketEmbed],
       components: [row]
     });
-    await createLogFile(bot, ticketThread.id, user.tag, reason);
+    await createLogFile(Melody, ticketThread.id, user.tag, reason);
     await interaction.editReply(
       "Your ticket channel has been created! Please head there and describe the issue you are having."
     );
   } catch (err) {
-    await errorHandler(bot, "handle ticket modal", err);
+    await errorHandler(Melody, "handle ticket modal", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

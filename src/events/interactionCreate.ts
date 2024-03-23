@@ -25,25 +25,25 @@ import {
 /**
  * Handles the InteractionCreate event from Discord.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {Interaction} interaction The interaction payload from Discord.
  */
 export const interactionCreate = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: Interaction
 ) => {
   try {
     if (interaction.isContextMenuCommand()) {
       if (isModerationAction(interaction.commandName)) {
         await processModAction(
-          bot,
+          Melody,
           interaction,
           interaction.commandName,
           interaction.options.getUser("user", true)
         );
         return;
       }
-      const context = bot.contexts.find(
+      const context = Melody.contexts.find(
         (c) => c.data.name === interaction.commandName
       );
       if (!context) {
@@ -52,7 +52,7 @@ export const interactionCreate = async (
         });
         return;
       }
-      await context.run(bot, interaction);
+      await context.run(Melody, interaction);
     }
     if (interaction.isChatInputCommand()) {
       if (!isGuildSlashCommand(interaction)) {
@@ -62,7 +62,7 @@ export const interactionCreate = async (
         });
         return;
       }
-      const target = bot.commands.find(
+      const target = Melody.commands.find(
         (c) => c.data.name === interaction.commandName
       );
       if (!target) {
@@ -72,7 +72,7 @@ export const interactionCreate = async (
         });
         return;
       }
-      await target.run(bot, interaction);
+      await target.run(Melody, interaction);
     }
 
     if (interaction.isButton()) {
@@ -84,53 +84,53 @@ export const interactionCreate = async (
         return;
       }
       if (interaction.customId === "comfort") {
-        await processComfortButton(bot, interaction);
+        await processComfortButton(Melody, interaction);
       }
       if (interaction.customId.startsWith("role")) {
-        await processRoleButton(bot, interaction);
+        await processRoleButton(Melody, interaction);
       }
       if (interaction.customId.startsWith("word-")) {
-        await wordGuess(bot, interaction);
+        await wordGuess(Melody, interaction);
       }
       if (interaction.customId === "answer") {
-        await questionAnswer(bot, interaction);
+        await questionAnswer(Melody, interaction);
       }
       if (interaction.customId.startsWith("delete-")) {
-        await questionDelete(bot, interaction);
+        await questionDelete(Melody, interaction);
       }
       if (interaction.customId === "onboarding") {
-        await processOnboardingButton(bot, interaction);
+        await processOnboardingButton(Melody, interaction);
       }
 
       const id = interaction.customId;
       switch (id) {
         case "ticket":
-          await ticketOpenHandler(bot, interaction);
+          await ticketOpenHandler(Melody, interaction);
           return;
         case "claim":
-          await ticketClaimHandler(bot, interaction);
+          await ticketClaimHandler(Melody, interaction);
           return;
         case "close":
-          await ticketCloseHandler(bot, interaction);
+          await ticketCloseHandler(Melody, interaction);
           return;
       }
     }
     if (interaction.isModalSubmit()) {
       if (interaction.customId === "ticket-modal") {
-        await handleTicketModal(bot, interaction);
+        await handleTicketModal(Melody, interaction);
       }
       if (interaction.customId === "ask") {
-        await processQuestionModal(bot, interaction);
+        await processQuestionModal(Melody, interaction);
       }
       if (interaction.customId === "answer") {
-        await processAnswerModal(bot, interaction);
+        await processAnswerModal(Melody, interaction);
       }
       if (interaction.customId === "onboarding") {
-        await processOnboardingModal(bot, interaction);
+        await processOnboardingModal(Melody, interaction);
       }
     }
   } catch (err) {
-    await errorHandler(bot, "interaction create event", err);
+    await errorHandler(Melody, "interaction create event", err);
     if (!interaction.isAutocomplete()) {
       if (!interaction.deferred && !interaction.replied) {
         await interaction.deferReply({ ephemeral: true });

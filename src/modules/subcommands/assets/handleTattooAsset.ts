@@ -12,7 +12,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * @returns {Promise<EmbedBuilder>} The tattoo embed.
  */
 export const handleTattooAsset: AssetHandler = async (
-  bot
+  Melody
 ): Promise<EmbedBuilder> => {
   try {
     let tattoo = {
@@ -39,7 +39,7 @@ export const handleTattooAsset: AssetHandler = async (
 
     return embed;
   } catch (err) {
-    await errorHandler(bot, "handle tattoo asset", err);
+    await errorHandler(Melody, "handle tattoo asset", err);
     return defaultAssetEmbed;
   }
 };

@@ -5,7 +5,7 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 /**
  * Validates that all environment variables are present.
  *
- * @returns { ExtendedClient["env"] } The bot's environment cache.
+ * @returns { ExtendedClient["env"] } The Melody's environment cache.
  */
 export const validateEnv = (): ExtendedClient["env"] => {
   if (!process.env.TOKEN) {

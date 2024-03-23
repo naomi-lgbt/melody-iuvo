@@ -12,7 +12,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random adventure.
  */
 export const handleAdventureAsset: AssetHandler = async (
-  bot,
+  Melody,
   target
 ): Promise<EmbedBuilder> => {
   try {
@@ -45,7 +45,7 @@ export const handleAdventureAsset: AssetHandler = async (
 
     return defaultAssetEmbed;
   } catch (err) {
-    await errorHandler(bot, "handle adventure asset", err);
+    await errorHandler(Melody, "handle adventure asset", err);
     return defaultAssetEmbed;
   }
 };
