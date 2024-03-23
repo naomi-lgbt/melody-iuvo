@@ -1,5 +1,6 @@
 import { REST, Routes } from "discord.js";
 
+import { ModerationCommands } from "../config/ModerationCommands";
 import { ExtendedClient } from "../interfaces/ExtendedClient";
 
 import { errorHandler } from "./errorHandler";
@@ -22,7 +23,8 @@ export const registerCommands = async (
     const rest = new restClass({ version: "10" }).setToken(bot.env.token);
     const commands = [
       ...bot.commands.map((c) => c.data.toJSON()),
-      ...bot.contexts.map((c) => c.data)
+      ...bot.contexts.map((c) => c.data),
+      ...ModerationCommands.map((c) => c.toJSON())
     ];
 
     await rest.put(

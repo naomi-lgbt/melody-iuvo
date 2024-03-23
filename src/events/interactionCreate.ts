@@ -14,8 +14,13 @@ import { handleTicketModal } from "../modules/modals/handleTicketModal";
 import { processAnswerModal } from "../modules/modals/processAnswerModal";
 import { processOnboardingModal } from "../modules/modals/processOnboardingModal";
 import { processQuestionModal } from "../modules/modals/processQuestionModal";
+import { processModAction } from "../modules/processModAction";
 import { errorHandler } from "../utils/errorHandler";
-import { isGuildButtonCommand, isGuildSlashCommand } from "../utils/typeGuards";
+import {
+  isGuildButtonCommand,
+  isGuildSlashCommand,
+  isModerationAction
+} from "../utils/typeGuards";
 
 /**
  * Handles the InteractionCreate event from Discord.
@@ -29,6 +34,15 @@ export const interactionCreate = async (
 ) => {
   try {
     if (interaction.isContextMenuCommand()) {
+      if (isModerationAction(interaction.commandName)) {
+        await processModAction(
+          bot,
+          interaction,
+          interaction.commandName,
+          interaction.options.getUser("user", true)
+        );
+        return;
+      }
       const context = bot.contexts.find(
         (c) => c.data.name === interaction.commandName
       );

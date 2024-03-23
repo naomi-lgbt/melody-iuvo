@@ -4,6 +4,7 @@ import {
   Message
 } from "discord.js";
 
+import { ModerationAction } from "../config/ModerationCommands";
 import { AssetTarget } from "../interfaces/Asset";
 import { GuildButton } from "../interfaces/GuildButton";
 import { GuildCommand } from "../interfaces/GuildCommand";
@@ -56,3 +57,14 @@ export const isAssetTarget = (
   target: string,
   validTargets: AssetTarget[]
 ): target is AssetTarget => validTargets.includes(target as AssetTarget);
+
+/**
+ * Validates that a string is a moderation action.
+ *
+ * @param {string} target The target to validate.
+ * @returns {boolean} If the target is a moderation action.
+ */
+export const isModerationAction = (
+  target: string
+): target is ModerationAction =>
+  ["kick", "ban", "mute", "unmute", "unban", "warn"].includes(target);
