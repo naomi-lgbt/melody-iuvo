@@ -79,12 +79,19 @@ import { validateEnv } from "./utils/validateEnv";
       await voiceStateUpdate(bot, oldState, newState);
     });
 
-    bot.on(Events.GuildMemberAdd, async (member) => {
+    bot.on(Events.GuildMemberUpdate, async (oldMember, newMember) => {
+      const memRole = bot.discord.roles.member;
+      if (
+        !memRole ||
+        // they already had acolyte role
+        oldMember.roles.cache.has(memRole.id) ||
+        // they do not currently have acolyte role
+        !newMember.roles.cache.has(memRole.id)
+      ) {
+        return;
+      }
       await bot.discord.channels.general?.send({
-        content: `<a:love:1149580277220388985> <@!${member.id}>, welcome to our comfy corner! <a:love:1149580277220388985>`
-      });
-      await bot.discord.channels.general?.send({
-        content: "https://c.tenor.com/ze-1ghpnDd4AAAAC/tenor.gif"
+        content: `<a:love:1149580277220388985> <@!${newMember.id}>, welcome to our comfy corner! <a:love:1149580277220388985>`
       });
     });
 
