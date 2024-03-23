@@ -17,7 +17,7 @@ export const awakenMember = async (bot: ExtendedClient) => {
       return;
     }
     const members = (await guild.members.fetch()).filter(
-      (guildMember) => guildMember.user.bot === false
+      (guildMember) => !guildMember.user.bot
     );
     const awakened = members.filter((m) => m.roles.cache.has(awakenedRole.id));
     for (const mem of awakened.values()) {
