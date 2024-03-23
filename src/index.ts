@@ -1,9 +1,16 @@
 import { execSync } from "child_process";
 
 import { PrismaClient } from "@prisma/client";
-import { ActivityType, Client, Events, GatewayIntentBits } from "discord.js";
+import {
+  ActivityType,
+  AuditLogEvent,
+  Client,
+  Events,
+  GatewayIntentBits,
+  User
+} from "discord.js";
 
-import { EventToEmote } from "./config/Emotes";
+import { ActionToEmote, EventToEmote } from "./config/Emotes";
 import { Intents } from "./config/Intents";
 import { autoModerationActionExecution } from "./events/autoModerationActionExecution";
 import { clientReady } from "./events/clientReady";
@@ -223,6 +230,60 @@ import { validateEnv } from "./utils/validateEnv";
         await bot.discord.channels.modLog?.send(
           `${EventToEmote.memberUpdate} AVATAR CHANGED: ${newUser.username} (${newUser.id}) - ${newUser.displayAvatarURL()}`
         );
+      }
+    });
+
+    bot.on(Events.GuildAuditLogEntryCreate, async (log) => {
+      const { action, changes, executorId, targetId, target, reason } = log;
+
+      // These are essential :3
+      if (!targetId || !executorId) {
+        return;
+      }
+
+      if (executorId === bot.user?.id) {
+        return;
+      }
+
+      // Mod stuff needs target to be a User.
+      if (!(target instanceof User)) {
+        return;
+      }
+
+      if (action === AuditLogEvent.MemberUpdate) {
+        const timeout = changes.find(
+          (c) => c.key === "communication_disabled_until"
+        );
+        if (timeout?.new) {
+          await bot.discord.channels.publicModLog?.send(
+            `${ActionToEmote.mute} **MUTE**: ${target.username} (${target.id} - ${reason})`
+          );
+          return;
+        }
+        if (timeout?.old) {
+          await bot.discord.channels.publicModLog?.send(
+            `${ActionToEmote.unmute} **UNMUTE**: ${target.username} (${target.id} - ${reason})`
+          );
+          return;
+        }
+      }
+
+      switch (action) {
+        case AuditLogEvent.MemberBanAdd:
+          await bot.discord.channels.publicModLog?.send(
+            `${ActionToEmote.ban} BAN: ${target.username} (${target.id} - ${reason})`
+          );
+          break;
+        case AuditLogEvent.MemberBanRemove:
+          await bot.discord.channels.publicModLog?.send(
+            `${EventToEmote.unban} **UNBAN**: ${target.username} (${target.id} - ${reason})`
+          );
+          break;
+        case AuditLogEvent.MemberKick:
+          await bot.discord.channels.publicModLog?.send(
+            `${ActionToEmote.mute} **KICK**: ${target.username} (${target.id} - ${reason})`
+          );
+          break;
       }
     });
 

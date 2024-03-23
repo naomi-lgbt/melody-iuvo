@@ -2,7 +2,7 @@ import { ModerationAction } from "./ModerationCommands";
 
 export const ActionToEmote: { [key in ModerationAction]: string } = {
   kick: "<:kick:1221180166550716467>",
-  ban: "<:ban:1221180169352515644>",
+  ban: "<:ban:1221198878779637800>",
   mute: "<:mute:1221180170526920866>",
   warn: "<:warn:1221181144243109968>",
   unmute: "<:unmute:1221180167507148841>"
@@ -20,5 +20,6 @@ export const EventToEmote = {
   memberLeave: "<:memberleave:1221188939763810386>",
   threadCreate: "<:threadcreate:1221188937679376384>",
   threadUpdate: "<:threadupdate:1221188935208927402>",
-  threadDelete: "<:threaddelete:1221188938925084803>"
+  threadDelete: "<:threaddelete:1221188938925084803>",
+  unban: "<:unban:1221180165158207589>"
 };
