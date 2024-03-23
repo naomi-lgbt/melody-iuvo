@@ -5,13 +5,16 @@ import { getDatabaseRecord } from "../../../utils/getDatabaseRecord";
 /**
  * Creates a new plural identity.
  */
-export const handlePluralCreate: CommandHandler = async (bot, interaction) => {
+export const handlePluralCreate: CommandHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     const name = interaction.options.getString("name", true);
     const avatar = interaction.options.getString("avatar", true);
     const prefix = interaction.options.getString("prefix", true);
 
-    const record = await getDatabaseRecord(bot, interaction.user.id);
+    const record = await getDatabaseRecord(Melody, interaction.user.id);
 
     if (record.plurals.length >= 5) {
       await interaction.editReply({
@@ -31,7 +34,7 @@ export const handlePluralCreate: CommandHandler = async (bot, interaction) => {
       return;
     }
 
-    await bot.db.users.update({
+    await Melody.db.users.update({
       where: {
         userId: interaction.user.id
       },
@@ -44,7 +47,7 @@ export const handlePluralCreate: CommandHandler = async (bot, interaction) => {
       content: `I have created that identity for you. Start a message with \`${prefix} \` and I will replace it with a message sent from your identity.`
     });
   } catch (err) {
-    await errorHandler(bot, "plural create command", err);
+    await errorHandler(Melody, "plural create command", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

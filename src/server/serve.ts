@@ -21,19 +21,19 @@ import { generateStarEmbed } from "./github/generateStarEmbed";
 /**
  * Instantiates the web server for GitHub webhooks.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  */
-export const serve = async (bot: ExtendedClient) => {
+export const serve = async (Melody: ExtendedClient) => {
   const githubSecret = process.env.GITHUB_WEBHOOK_SECRET;
   const patreonSecret = process.env.PATREON_WEBHOOK_SECRET;
   const kofiSecret = process.env.KOFI_WEBHOOK_SECRET;
   const token = process.env.GITHUB_TOKEN;
   if (!githubSecret || !token || !kofiSecret || !patreonSecret) {
-    await bot.env.debugHook.send({
+    await Melody.env.debugHook.send({
       content: "Missing necessary secrets.  Web server will not be started.",
-      username: bot.user?.username ?? "Melody",
+      username: Melody.user?.username ?? "Melody",
       avatarURL:
-        bot.user?.displayAvatarURL() ??
+        Melody.user?.displayAvatarURL() ??
         "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
     });
     return;
@@ -58,26 +58,26 @@ export const serve = async (bot: ExtendedClient) => {
       is_first_subscription_payment: isFirstSub
     } = payload;
     if (!verifyToken) {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content:
           "Received request with no signature.\n\n" +
           JSON.stringify(req.body).slice(0, 1500),
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       res.status(400).send("Invalid payload.");
       return;
     }
     if (verifyToken !== kofiSecret) {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content:
           "Received request with bad signature.\n\n" +
           JSON.stringify(req.body).slice(0, 1500),
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       res.status(403).send("Invalid signature.");
@@ -90,7 +90,7 @@ export const serve = async (bot: ExtendedClient) => {
       return;
     }
 
-    await bot.discord.channels.general?.send({
+    await Melody.discord.channels.general?.send({
       content: `## Big thanks to ${fromName} for sponsoring us on KoFi!\n\nTo claim your sponsor role, please DM Naomi with your KoFi receipt.`
     });
   });
@@ -99,12 +99,12 @@ export const serve = async (bot: ExtendedClient) => {
     // validate headers
     const header = req.headers["x-patreon-signature"];
     if (!header) {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content:
           "Received request with no signature.\n\n" + req.body.slice(0, 1500),
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       res.status(403).send("No valid signature present.");
@@ -114,12 +114,12 @@ export const serve = async (bot: ExtendedClient) => {
       .update(req.body)
       .digest("hex");
     if (hash !== header) {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content:
           "Received request with bad signature.\n\n" + req.body.slice(0, 1500),
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       res.status(403).send("Signature is not correct.");
@@ -139,7 +139,7 @@ export const serve = async (bot: ExtendedClient) => {
       (obj: Record<string, string>) => obj.type === "user"
     );
 
-    await bot.discord.channels.general?.send({
+    await Melody.discord.channels.general?.send({
       content: `## Big thanks to ${user.attributes.full_name} for sponsoring us on Patreon!\n\nTo claim your sponsor role, please DM Naomi with your patreon receipt.`
     });
   });
@@ -148,13 +148,13 @@ export const serve = async (bot: ExtendedClient) => {
     try {
       const header = req.headers["x-hub-signature-256"];
       if (!header || Array.isArray(header)) {
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content:
             "Received request with no signature.\n\n" +
             JSON.stringify(req.body).slice(0, 1500),
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         res.status(403).send("No valid signature present.");
@@ -167,13 +167,13 @@ export const serve = async (bot: ExtendedClient) => {
       const sent = Buffer.from(header, "ascii");
       const safe = timingSafeEqual(trusted, sent);
       if (!safe) {
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content:
             "Received request with bad signature.\n\n" +
             JSON.stringify(req.body).slice(0, 1500),
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         res.status(403).send("Signature is not correct.");
@@ -183,7 +183,7 @@ export const serve = async (bot: ExtendedClient) => {
 
       const event = req.headers["x-github-event"] as string;
       if (event === "sponsorship" && req.body.action === "created") {
-        await bot.discord.channels.general?.send({
+        await Melody.discord.channels.general?.send({
           content: `## Big thanks to ${req.body.sponsorship.sponsor.login} for sponsoring us on GitHub!\n\nTo claim your sponsor role, please make sure your GitHub account is connected to your Discord account, then ping Mama Naomi for your role!`
         });
       }
@@ -216,7 +216,7 @@ export const serve = async (bot: ExtendedClient) => {
         : null;
 
       if (content) {
-        await bot.discord.channels.general?.send({
+        await Melody.discord.channels.general?.send({
           content
         });
       }
@@ -240,7 +240,7 @@ export const serve = async (bot: ExtendedClient) => {
         }
       }
     } catch (err) {
-      await errorHandler(bot, "github webhook", err);
+      await errorHandler(Melody, "github webhook", err);
     }
   });
 
@@ -248,11 +248,11 @@ export const serve = async (bot: ExtendedClient) => {
     try {
       if (req.body.secret !== process.env.AIRTABLE_SECRET) {
         res.status(403).send("Invalid secret.");
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content: "Received an airtable payload with an invalid secret.",
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
@@ -282,7 +282,7 @@ export const serve = async (bot: ExtendedClient) => {
           }
         ]);
 
-        const channel = bot.discord.guild?.channels.cache.find(
+        const channel = Melody.discord.guild?.channels.cache.find(
           (c) => c.name === "council-activity"
         );
         if (channel && "send" in channel) {
@@ -291,12 +291,12 @@ export const serve = async (bot: ExtendedClient) => {
           });
           return;
         }
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content:
             "Received a ban appeal, but could not find the public staff log channel.",
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
@@ -305,7 +305,7 @@ export const serve = async (bot: ExtendedClient) => {
       if (req.body.base === "Staff Applications") {
         const { userId, url } = req.body;
         res.status(200).send("OK~!");
-        const channel = bot.discord.guild?.channels.cache.find(
+        const channel = Melody.discord.guild?.channels.cache.find(
           (c) => c.name === "council-chat"
         );
         if (channel && "send" in channel) {
@@ -317,38 +317,38 @@ export const serve = async (bot: ExtendedClient) => {
           });
           return;
         }
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content:
             "Received a staff application, but could not find the private staff channel.",
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
         return;
       }
 
       res.status(400).send("Bad base name");
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content: `Received airtable automation from ${req.body.base}, did not know what to do with it.`,
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     } catch (err) {
-      await errorHandler(bot, "airtable webhook", err);
+      await errorHandler(Melody, "airtable webhook", err);
     }
   });
 
   const httpServer = http.createServer(app);
 
   httpServer.listen(9080, async () => {
-    await bot.env.debugHook.send({
+    await Melody.env.debugHook.send({
       content: "http server listening on port 9080",
-      username: bot.user?.username ?? "Melody",
+      username: Melody.user?.username ?? "Melody",
       avatarURL:
-        bot.user?.displayAvatarURL() ??
+        Melody.user?.displayAvatarURL() ??
         "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
     });
   });
@@ -376,11 +376,11 @@ export const serve = async (bot: ExtendedClient) => {
     const httpsServer = https.createServer(credentials, app);
 
     httpsServer.listen(9443, async () => {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content: "https server listening on port 9443",
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     });

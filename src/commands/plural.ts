@@ -67,19 +67,19 @@ export const plural: Command = {
             .setRequired(false)
         )
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });
       const subcommand = interaction.options.getSubcommand();
       const handler = handlers[subcommand];
       handler
-        ? await handler(bot, interaction)
+        ? await handler(Melody, interaction)
         : await interaction.editReply({
             content:
               "I have failed you once again. The command you used does not have an instruction manual for me."
           });
     } catch (err) {
-      await errorHandler(bot, "pluarl command", err);
+      await errorHandler(Melody, "pluarl command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

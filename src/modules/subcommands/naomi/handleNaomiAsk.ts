@@ -11,7 +11,7 @@ import { errorHandler } from "../../../utils/errorHandler";
 /**
  * Handles the command to ask Naomi a question.
  */
-export const handleNaomiAsk: CommandHandler = async (bot, interaction) => {
+export const handleNaomiAsk: CommandHandler = async (Melody, interaction) => {
   try {
     const input = new TextInputBuilder()
       .setCustomId("question")
@@ -26,7 +26,7 @@ export const handleNaomiAsk: CommandHandler = async (bot, interaction) => {
       .addComponents(row);
     await interaction.showModal(modal);
   } catch (err) {
-    await errorHandler(bot, "naomi ask command", err);
+    await errorHandler(Melody, "naomi ask command", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

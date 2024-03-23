@@ -9,7 +9,10 @@ import { isOwner } from "../../utils/isOwner";
 /**
  * Handles closing a ticket.
  */
-export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
+export const ticketCloseHandler: ButtonHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { guild, member, channel } = interaction;
@@ -47,11 +50,14 @@ export const ticketCloseHandler: ButtonHandler = async (bot, interaction) => {
         "unknown"
     });
 
-    const logFile = await generateLogs(bot, channel.id);
-    await bot.env.ticketLogHook.send({ embeds: [logEmbed], files: [logFile] });
+    const logFile = await generateLogs(Melody, channel.id);
+    await Melody.env.ticketLogHook.send({
+      embeds: [logEmbed],
+      files: [logFile]
+    });
     await channel.delete();
   } catch (err) {
-    await errorHandler(bot, "close handler", err);
+    await errorHandler(Melody, "close handler", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

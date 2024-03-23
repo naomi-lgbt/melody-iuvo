@@ -14,7 +14,7 @@ export const holopin: Command = {
         .setDescription("The user to display the Holopin badge board for.")
         .setRequired(true)
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       const target = interaction.options.getString("username", true);
@@ -40,7 +40,7 @@ export const holopin: Command = {
         files: [attachment]
       });
     } catch (err) {
-      await errorHandler(bot, "holopin command", err);
+      await errorHandler(Melody, "holopin command", err);
     }
   }
 };

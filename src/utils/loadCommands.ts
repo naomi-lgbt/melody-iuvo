@@ -8,11 +8,11 @@ import { errorHandler } from "./errorHandler";
 
 /**
  * Dynamically reads the `commands` directory and imports the files. Mounts
- * the commands to the bot to be used elsewhere.
+ * the commands to the Melody to be used elsewhere.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  */
-export const loadCommands = async (bot: ExtendedClient) => {
+export const loadCommands = async (Melody: ExtendedClient) => {
   try {
     const result: Command[] = [];
     const files = await readdir(
@@ -27,8 +27,8 @@ export const loadCommands = async (bot: ExtendedClient) => {
       const mod = await import(join(process.cwd(), "prod", "commands", file));
       result.push(mod[name] as Command);
     }
-    bot.commands = result;
+    Melody.commands = result;
   } catch (err) {
-    await errorHandler(bot, "load commands utility", err);
+    await errorHandler(Melody, "load commands utility", err);
   }
 };

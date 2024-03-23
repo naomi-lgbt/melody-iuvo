@@ -11,11 +11,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Handles the logic for the question modal.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
  */
 export const processQuestionModal = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: ModalSubmitInteraction
 ) => {
   try {
@@ -65,7 +65,7 @@ export const processQuestionModal = async (
       content: "Your question has been sent to Naomi!"
     });
   } catch (err) {
-    await errorHandler(bot, "process question modal", err);
+    await errorHandler(Melody, "process question modal", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

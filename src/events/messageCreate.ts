@@ -28,10 +28,13 @@ import { isGuildMessage } from "../utils/typeGuards";
 /**
  * Handles the MessageCreate event from Discord.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {Message} message The message payload from Discord.
  */
-export const messageCreate = async (bot: ExtendedClient, message: Message) => {
+export const messageCreate = async (
+  Melody: ExtendedClient,
+  message: Message
+) => {
   try {
     /**
      * We want to ignore all DMs.
@@ -42,9 +45,9 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
     /**
      * We actually want to delete Becca's level up messages from the
      * vent channel, so we run this before confirming the message comes
-     * from a non-bot user.
+     * from a non-Melody user.
      */
-    if (message.channel?.id === bot.discord?.channels?.vent?.id) {
+    if (message.channel?.id === Melody.discord?.channels?.vent?.id) {
       setTimeout(
         async () =>
           /**
@@ -73,13 +76,13 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
      * We don't want to run these in the heavier vent channel and comfort channels.
      */
     if (
-      message.channel.id !== bot.discord.channels.vent?.id &&
+      message.channel.id !== Melody.discord.channels.vent?.id &&
       !message.channel.name.startsWith("counsel") &&
       message.channel.name !== "partners"
     ) {
       if (
-        (bot.user &&
-          message.mentions.has(bot.user, {
+        (Melody.user &&
+          message.mentions.has(Melody.user, {
             ignoreEveryone: true,
             ignoreRepliedUser: true
           })) ||
@@ -87,53 +90,53 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       ) {
         await message.reply({
           content: getRandomValue(
-            Responses.melodyPing[getResponseKey(bot, message.member)]
+            Responses.melodyPing[getResponseKey(Melody, message.member)]
           )
         });
       }
-      if (message.author.id === bot.beanedUser) {
+      if (message.author.id === Melody.beanedUser) {
         await message.react("<a:beaned:1169327059919704176>");
       }
       if (
         isOwner(message.member.id) ||
-        (bot.discord.roles.partner &&
-          message.member.roles.cache.has(bot.discord.roles.partner.id))
+        (Melody.discord.roles.partner &&
+          message.member.roles.cache.has(Melody.discord.roles.partner.id))
       ) {
         await message.react("<a:love:1149580277220388985>");
       }
       if (
-        bot.discord.roles.friend &&
-        message.member.roles.cache.has(bot.discord.roles.friend.id)
+        Melody.discord.roles.friend &&
+        message.member.roles.cache.has(Melody.discord.roles.friend.id)
       ) {
         await message.react("<a:lovelovelove:1149580280013791333>");
       }
       if (isGoodMorning(content) && message.type !== MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
-            Responses.greeting[getResponseKey(bot, member)]
+            Responses.greeting[getResponseKey(Melody, member)]
           )
         });
       }
       if (isGoodNight(content) && message.type !== MessageType.Reply) {
         await message.reply({
           content: getRandomValue(
-            Responses.goodbye[getResponseKey(bot, member)]
+            Responses.goodbye[getResponseKey(Melody, member)]
           )
         });
       }
-      if (isSorry(content) && message.author.id !== bot.user?.id) {
+      if (isSorry(content) && message.author.id !== Melody.user?.id) {
         await message.reply({
           content: getRandomValue(
-            Responses.sorry[getResponseKey(bot, member)]
+            Responses.sorry[getResponseKey(Melody, member)]
           ).replace(/\{username\}/g, message.author.username)
         });
       }
       if (isThanks(content)) {
         const mentioned = message.mentions.members?.first();
-        if (mentioned && mentioned.id !== bot.user?.id) {
+        if (mentioned && mentioned.id !== Melody.user?.id) {
           await message.channel.send({
             content: getRandomValue(
-              Responses.thanks[getResponseKey(bot, mentioned)]
+              Responses.thanks[getResponseKey(Melody, mentioned)]
             ).replace(/\{username\}/g, mentioned.user.username || "friend")
           });
         }
@@ -142,34 +145,34 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
 
     if (isOwner(message.author.id)) {
       if (content === "~counsel") {
-        await startCounselPost(bot, message);
+        await startCounselPost(Melody, message);
         return;
       }
       if (content.startsWith("~prune")) {
-        await pruneInactiveUsers(bot, message);
+        await pruneInactiveUsers(Melody, message);
         return;
       }
       if (content.startsWith("~roles")) {
-        await postReactionRoles(bot, message);
+        await postReactionRoles(Melody, message);
         return;
       }
       if (content === "~audit") {
-        await auditGuildsAndDatabase(bot, message);
+        await auditGuildsAndDatabase(Melody, message);
         return;
       }
       if (content === "~roles") {
-        const members = await bot.discord.guild?.members.fetch();
+        const members = await Melody.discord.guild?.members.fetch();
         if (!members) {
           await message.reply("Could not load members.");
           return;
         }
         await message.reply(`Assigning roles to ${members.size} members.`);
         for (const [, member] of members) {
-          await assignRoles(bot, member);
+          await assignRoles(Melody, member);
         }
       }
       if (content === "~onboarding") {
-        await postOnboardingForm(bot, message);
+        await postOnboardingForm(Melody, message);
       }
     }
 
@@ -178,31 +181,31 @@ export const messageCreate = async (bot: ExtendedClient, message: Message) => {
       message.channel.name.startsWith("ticket-")
     ) {
       const id = message.channel.id;
-      const cached = bot.ticketLogs[id];
+      const cached = Melody.ticketLogs[id];
       if (!cached) {
         return;
       }
-      await logTicketMessage(bot, message, cached);
+      await logTicketMessage(Melody, message, cached);
     }
 
-    const record = await getDatabaseRecord(bot, message.author.id);
+    const record = await getDatabaseRecord(Melody, message.author.id);
 
     // Plural Logic
     let proxied = false;
     if (record.front) {
       const identity = record.plurals.find((p) => p.name === record.front);
       if (identity) {
-        await proxyPluralMessage(bot, message, identity);
+        await proxyPluralMessage(Melody, message, identity);
         proxied = true;
       }
     }
 
     const prefixUsed = record.plurals.find((p) => content.startsWith(p.prefix));
     if (prefixUsed && !proxied) {
-      await proxyPluralMessage(bot, message, prefixUsed);
+      await proxyPluralMessage(Melody, message, prefixUsed);
       proxied = true;
     }
   } catch (err) {
-    await errorHandler(bot, "message create event", err);
+    await errorHandler(Melody, "message create event", err);
   }
 };

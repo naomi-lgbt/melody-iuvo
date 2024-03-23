@@ -35,7 +35,7 @@ export const reminder: Command = {
         .setDescription("The user to remind.")
         .setRequired(true)
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       if (!isOwner(interaction.member.id)) {
@@ -51,7 +51,7 @@ export const reminder: Command = {
 
       const cronString = toString(cron);
 
-      const reminder = await bot.db.reminder.create({
+      const reminder = await Melody.db.reminder.create({
         data: {
           cron,
           title,
@@ -61,18 +61,18 @@ export const reminder: Command = {
       });
 
       const job = scheduleJob(reminder.title, reminder.cron, async () => {
-        await bot.discord.channels.general?.send({
+        await Melody.discord.channels.general?.send({
           content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
       });
-      bot.jobs.push(job);
-      await bot.env.debugHook.send({
+      Melody.jobs.push(job);
+      await Melody.env.debugHook.send({
         content: `Reminder ${reminder.title} scheduled for ${toString(
           reminder.cron
         )}`,
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
 
@@ -80,7 +80,7 @@ export const reminder: Command = {
         content: `Your ${title} job has been scheduled for ${cronString}`
       });
     } catch (err) {
-      await errorHandler(bot, "reminder command", err);
+      await errorHandler(Melody, "reminder command", err);
     }
   }
 };

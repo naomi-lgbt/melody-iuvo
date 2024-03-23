@@ -10,5 +10,5 @@ export interface Command {
   data:
     | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">
     | SlashCommandSubcommandsOnlyBuilder;
-  run: (bot: ExtendedClient, interaction: GuildCommand) => Promise<void>;
+  run: (Melody: ExtendedClient, interaction: GuildCommand) => Promise<void>;
 }

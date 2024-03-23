@@ -74,7 +74,7 @@ export const birthday: Command = {
         .setMinValue(1)
         .setMaxValue(31)
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       const month = interaction.options.getString("month", true);
@@ -87,7 +87,7 @@ export const birthday: Command = {
         return;
       }
 
-      const record = await getDatabaseRecord(bot, interaction.user.id);
+      const record = await getDatabaseRecord(Melody, interaction.user.id);
       if (!record) {
         await interaction.editReply({
           content:
@@ -96,7 +96,7 @@ export const birthday: Command = {
         return;
       }
 
-      await bot.db.users.update({
+      await Melody.db.users.update({
         where: {
           userId: record.userId
         },
@@ -109,7 +109,7 @@ export const birthday: Command = {
         `Your birthday has been set to ${month}-${day}!`
       );
     } catch (err) {
-      await errorHandler(bot, "bbset command", err);
+      await errorHandler(Melody, "bbset command", err);
     }
   }
 };

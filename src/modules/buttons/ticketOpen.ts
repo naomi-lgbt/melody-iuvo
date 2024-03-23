@@ -12,7 +12,7 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Generates the modal for opening a new ticket.
  */
-export const ticketOpenHandler: ButtonHandler = async (bot, interaction) => {
+export const ticketOpenHandler: ButtonHandler = async (Melody, interaction) => {
   try {
     const ticketModal = new ModalBuilder()
       .setCustomId("ticket-modal")
@@ -30,7 +30,7 @@ export const ticketOpenHandler: ButtonHandler = async (bot, interaction) => {
     ticketModal.addComponents(actionRow);
     await interaction.showModal(ticketModal);
   } catch (err) {
-    await errorHandler(bot, "ticket open handler", err);
+    await errorHandler(Melody, "ticket open handler", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

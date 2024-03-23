@@ -10,16 +10,16 @@ import { errorHandler } from "../utils/errorHandler";
  * To run when a ticket is closed. Finds the ticket log file,
  * creates a message attachement with the logs, and deletes the file.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {string} channelId The channel ID of the ticket.
  * @returns {Promise<AttachmentBuilder>} The log file as a Discord attachment.
  */
 export const generateLogs = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   channelId: string
 ): Promise<AttachmentBuilder> => {
   try {
-    delete bot.ticketLogs[channelId];
+    delete Melody.ticketLogs[channelId];
 
     const logs = await readFile(
       join(process.cwd(), "logs", `${channelId}.txt`),
@@ -36,7 +36,7 @@ export const generateLogs = async (
 
     return attachment;
   } catch (err) {
-    await errorHandler(bot, "log generator", err);
+    await errorHandler(Melody, "log generator", err);
     return new AttachmentBuilder(
       Buffer.from("An error occurred fetching these logs.", "utf-8"),
       { name: "log.txt" }

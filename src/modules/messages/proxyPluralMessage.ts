@@ -13,12 +13,12 @@ import { errorHandler } from "../../utils/errorHandler";
  * Sends a proxied message through the channel's webhook.
  * Creates the webhook if needed.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildMessage} message The message payload from Discord.
  * @param {Plural} identity The identity to proxy the message as.
  */
 export const proxyPluralMessage = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   message: GuildMessage,
   identity: Plural
 ) => {
@@ -29,8 +29,9 @@ export const proxyPluralMessage = async (
     }
     const webhooks = await channel.fetchWebhooks();
     const webhook =
-      webhooks.find((w) => w.owner && bot.user && w.owner.id === bot.user.id) ||
-      (await channel.createWebhook({ name: "Melody's Plural System" }));
+      webhooks.find(
+        (w) => w.owner && Melody.user && w.owner.id === Melody.user.id
+      ) || (await channel.createWebhook({ name: "Melody's Plural System" }));
 
     const content: WebhookMessageCreateOptions = {
       content: message.content.startsWith(identity.prefix)
@@ -70,7 +71,7 @@ export const proxyPluralMessage = async (
     await webhook.send(content);
     await message.delete();
 
-    await bot.env.pluralLogHook.send({
+    await Melody.env.pluralLogHook.send({
       embeds: [
         new EmbedBuilder()
           .setTitle("Message proxied.")
@@ -82,6 +83,6 @@ export const proxyPluralMessage = async (
       ]
     });
   } catch (err) {
-    await errorHandler(bot, "proxy plural message", err);
+    await errorHandler(Melody, "proxy plural message", err);
   }
 };

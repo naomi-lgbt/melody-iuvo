@@ -11,10 +11,13 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Generates the message with a button to click to start the onboarding process.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {Message} msg The message that triggered this request.
  */
-export const postOnboardingForm = async (bot: ExtendedClient, msg: Message) => {
+export const postOnboardingForm = async (
+  Melody: ExtendedClient,
+  msg: Message
+) => {
   try {
     await msg.channel.send({
       content:
@@ -31,6 +34,6 @@ export const postOnboardingForm = async (bot: ExtendedClient, msg: Message) => {
     });
     await msg.delete();
   } catch (err) {
-    await errorHandler(bot, "post onboarding form", err);
+    await errorHandler(Melody, "post onboarding form", err);
   }
 };

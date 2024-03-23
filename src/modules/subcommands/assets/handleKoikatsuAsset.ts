@@ -11,7 +11,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random Koikatsu scene.
  */
 export const handleKoikatsuAsset: AssetHandler = async (
-  bot,
+  Melody,
   target
 ): Promise<EmbedBuilder> => {
   try {
@@ -40,7 +40,7 @@ export const handleKoikatsuAsset: AssetHandler = async (
     });
     return embed;
   } catch (err) {
-    await errorHandler(bot, "handle koikatsu asset", err);
+    await errorHandler(Melody, "handle koikatsu asset", err);
     return defaultAssetEmbed;
   }
 };

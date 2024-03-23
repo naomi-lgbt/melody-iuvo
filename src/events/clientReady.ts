@@ -13,37 +13,37 @@ import { registerCommands } from "../utils/registerCommands";
 /**
  * Handles the ClientReady event from Discord.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  */
-export const clientReady = async (bot: ExtendedClient) => {
+export const clientReady = async (Melody: ExtendedClient) => {
   try {
-    await registerCommands(bot);
-    await loadDiscordCache(bot);
-    await processGithubIssues(bot);
-    await serve(bot);
-    setInterval(async () => await processGithubIssues(bot), 1000 * 60 * 60);
-    await bot.env.debugHook.send({
-      content: "Bot is ready.",
-      username: bot.user?.username ?? "Melody",
+    await registerCommands(Melody);
+    await loadDiscordCache(Melody);
+    await processGithubIssues(Melody);
+    await serve(Melody);
+    setInterval(async () => await processGithubIssues(Melody), 1000 * 60 * 60);
+    await Melody.env.debugHook.send({
+      content: "Melody is ready.",
+      username: Melody.user?.username ?? "Melody",
       avatarURL:
-        bot.user?.displayAvatarURL() ??
+        Melody.user?.displayAvatarURL() ??
         "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
     });
 
-    await bot.discord.channels.general?.send({
+    await Melody.discord.channels.general?.send({
       content: "I am back from my nap!"
     });
     // at 7am every day
     scheduleJob("__naomiToDos", "0 7 * * *", async () => {
-      const toDos = await bot.db.toDo.findMany();
+      const toDos = await Melody.db.toDo.findMany();
       if (!toDos.length) {
-        await bot.discord.channels.general?.send({
+        await Melody.discord.channels.general?.send({
           content:
             "Good morning, Mama! You have no tasks at the moment. Please enjoy your morning while you catch up on notifications."
         });
         return;
       }
-      await bot.discord.channels.general?.send({
+      await Melody.discord.channels.general?.send({
         content:
           "Good morning, Mama! Please enjoy your morning while you catch up on notifications. When you are ready, the following tasks need your attention:\n" +
           toDos.map((t) => `- \`${t.key}\`: ${t.description}`).join("\n")
@@ -51,35 +51,35 @@ export const clientReady = async (bot: ExtendedClient) => {
     });
     // at 9am every day
     scheduleJob("__birthdaysToday", "0 9 * * *", async () => {
-      await scheduleBirthdayPosts(bot);
+      await scheduleBirthdayPosts(Melody);
     });
     // at midnight every day
     scheduleJob("__resetBeaned", "0 0 * * * ", () => {
-      bot.beanedUser = null;
+      Melody.beanedUser = null;
     });
     scheduleJob("__awakening", "0 0 * * *", async () => {
-      await awakenMember(bot);
+      await awakenMember(Melody);
     });
 
-    const reminders = await bot.db.reminder.findMany();
+    const reminders = await Melody.db.reminder.findMany();
     for (const reminder of reminders) {
       const job = scheduleJob(reminder.title, reminder.cron, async () => {
-        await bot.discord.channels.general?.send({
+        await Melody.discord.channels.general?.send({
           content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
         });
       });
-      bot.jobs.push(job);
-      await bot.env.debugHook.send({
+      Melody.jobs.push(job);
+      await Melody.env.debugHook.send({
         content: `Reminder ${reminder.title} scheduled for ${toString(
           reminder.cron
         )}`,
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
     }
   } catch (err) {
-    await errorHandler(bot, "client ready event", err);
+    await errorHandler(Melody, "client ready event", err);
   }
 };

@@ -9,11 +9,11 @@ import { getRandomValue } from "../utils/getRandomValue";
 /**
  * Processes when someone triggers the Discord automod.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {AutoModerationActionExecution} action The action payload from Discord.
  */
 export const autoModerationActionExecution = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   action: AutoModerationActionExecution
 ) => {
   try {
@@ -25,17 +25,17 @@ export const autoModerationActionExecution = async (
     if (!member) {
       return;
     }
-    const cached = bot.automod[userId];
+    const cached = Melody.automod[userId];
     if (cached && cached > Date.now() - 1000 * 60) {
       return;
     }
-    bot.automod[userId] = Date.now();
-    await bot.discord.channels.general?.send({
+    Melody.automod[userId] = Date.now();
+    await Melody.discord.channels.general?.send({
       content: getRandomValue(
-        Responses.naughty[getResponseKey(bot, member)]
+        Responses.naughty[getResponseKey(Melody, member)]
       ).replace(/\{userping\}/g, `<@${userId}>`)
     });
   } catch (err) {
-    await errorHandler(bot, "autoModerationActionExecution", err);
+    await errorHandler(Melody, "autoModerationActionExecution", err);
   }
 };

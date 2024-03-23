@@ -7,11 +7,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Handles the logic to start the post in the Counsel channel.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildMessage} message The message payload from Discord.
  */
 export const startCounselPost = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   message: GuildMessage
 ) => {
   try {
@@ -39,7 +39,7 @@ First, what kind of assistance do you need? If you need some comfort or reassura
     );
     await message.channel.send({ content, components: [row] });
   } catch (err) {
-    await errorHandler(bot, "start comfort post", err);
+    await errorHandler(Melody, "start comfort post", err);
     await message.reply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

@@ -12,11 +12,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Exposes the onboarding modal to join the community.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {ButtonInteraction} interaction The interaction payload from Discord.
  */
 export const processOnboardingButton = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: ButtonInteraction
 ) => {
   try {
@@ -72,6 +72,6 @@ export const processOnboardingButton = async (
       .addComponents(firstRow, secondRow, thirdRow, fourthRow, fifthRow);
     await interaction.showModal(modal);
   } catch (err) {
-    await errorHandler(bot, "process onboarding button", err);
+    await errorHandler(Melody, "process onboarding button", err);
   }
 };

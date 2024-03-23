@@ -26,7 +26,7 @@ export type AssetResponseType =
   | string[];
 
 export type AssetHandler = (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   target: AssetTarget,
   test?: boolean
 ) => Promise<EmbedBuilder>;

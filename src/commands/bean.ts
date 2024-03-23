@@ -21,7 +21,7 @@ export const bean: Command = {
         .setDescription("Why are you beaning them?")
         .setRequired(true)
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply({ ephemeral: true });
       if (!isOwner(interaction.user.id)) {
@@ -32,16 +32,16 @@ export const bean: Command = {
       }
       const target = interaction.options.getUser("target", true);
       const reason = interaction.options.getString("reason", true);
-      bot.beanedUser = target.id;
+      Melody.beanedUser = target.id;
 
-      await bot.discord.channels.general?.send({
+      await Melody.discord.channels.general?.send({
         content: `<@!${target.id}> has been beaned!\nWhy?\nWell...\n${reason}`
       });
       await interaction.editReply({
         content: "Done~!"
       });
     } catch (err) {
-      await errorHandler(bot, "assets command", err);
+      await errorHandler(Melody, "assets command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

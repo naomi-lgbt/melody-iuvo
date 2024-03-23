@@ -8,17 +8,17 @@ import { errorHandler } from "../utils/errorHandler";
  * Fetches open issues from our API,
  * posts them in Discord if they have not been posted yet.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  */
-export const processGithubIssues = async (bot: ExtendedClient) => {
+export const processGithubIssues = async (Melody: ExtendedClient) => {
   try {
     if (!process.env.GITHUB_TOKEN || !process.env.ISSUE_CHANNEL_ID) {
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content:
           "Tried to post issues, but missing GITHUB_TOKEN or ISSUE_CHANNEL_ID.",
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
       return;
@@ -65,7 +65,7 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
           labels: ["posted to discord"]
         });
       }
-      await bot.discord.channels.contributing?.send({
+      await Melody.discord.channels.contributing?.send({
         content: `Forgive my intrusion, but it would seem our Mama is seeking your assistance with her work.\n\n${formatted}`
       });
     }
@@ -87,11 +87,11 @@ export const processGithubIssues = async (bot: ExtendedClient) => {
           labels: ["posted to discord"]
         });
       }
-      await bot.discord.channels.training?.send({
-        content: `Heya <@&${bot.discord.roles.mentee?.id}>~! Naomi has curated an issue specifically for one of you to take.\n\n${formattedMentor}`
+      await Melody.discord.channels.training?.send({
+        content: `Heya <@&${Melody.discord.roles.mentee?.id}>~! Naomi has curated an issue specifically for one of you to take.\n\n${formattedMentor}`
       });
     }
   } catch (err) {
-    await errorHandler(bot, "process github issues", err);
+    await errorHandler(Melody, "process github issues", err);
   }
 };

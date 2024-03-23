@@ -6,7 +6,10 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Generates the modal for opening a new ticket.
  */
-export const processComfortButton: ButtonHandler = async (bot, interaction) => {
+export const processComfortButton: ButtonHandler = async (
+  Melody,
+  interaction
+) => {
   try {
     await interaction.deferReply({ ephemeral: true });
     const { user, channel } = interaction;
@@ -32,7 +35,7 @@ export const processComfortButton: ButtonHandler = async (bot, interaction) => {
       content: "Your thread has been created."
     });
   } catch (err) {
-    await errorHandler(bot, "process comfort button", err);
+    await errorHandler(Melody, "process comfort button", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

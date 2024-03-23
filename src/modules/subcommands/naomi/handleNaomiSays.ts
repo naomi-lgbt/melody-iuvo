@@ -10,7 +10,7 @@ import { prefixHex } from "../../prefixHex";
 /**
  * Handles the command to make Naomi say something.
  */
-export const handleNaomiSays: CommandHandler = async (bot, interaction) => {
+export const handleNaomiSays: CommandHandler = async (Melody, interaction) => {
   try {
     const message = interaction.options.getString("message", true);
     const colour = interaction.options.getString("colour");
@@ -44,7 +44,7 @@ export const handleNaomiSays: CommandHandler = async (bot, interaction) => {
       files: [attachment]
     });
   } catch (err) {
-    await errorHandler(bot, "naomi says command", err);
+    await errorHandler(Melody, "naomi says command", err);
     await interaction.editReply({
       content:
         "Forgive me, but I failed to complete your request. Please try again later."

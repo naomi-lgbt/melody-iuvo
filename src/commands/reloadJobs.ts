@@ -11,7 +11,7 @@ export const reloadJobs: Command = {
     .setName("reload-jobs")
     .setDescription("Reload and update all scheduled reminders.")
     .setDMPermission(false),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       await interaction.deferReply();
       if (!isOwner(interaction.member.id)) {
@@ -20,52 +20,52 @@ export const reloadJobs: Command = {
         });
         return;
       }
-      await bot.env.debugHook.send({
+      await Melody.env.debugHook.send({
         content: "Cancelling all existing reminders.",
-        username: bot.user?.username ?? "Melody",
+        username: Melody.user?.username ?? "Melody",
         avatarURL:
-          bot.user?.displayAvatarURL() ??
+          Melody.user?.displayAvatarURL() ??
           "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
       });
-      const cachedJobs = [...bot.jobs];
-      bot.jobs = [];
+      const cachedJobs = [...Melody.jobs];
+      Melody.jobs = [];
       for (const job of cachedJobs) {
         job.cancel();
-        await bot.env.debugHook.send({
+        await Melody.env.debugHook.send({
           content: `Cancelling job ${job.name}`,
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
       }
-      const reminders = await bot.db.reminder.findMany();
+      const reminders = await Melody.db.reminder.findMany();
       for (const reminder of reminders) {
         const job = scheduleJob(reminder.title, reminder.cron, async () => {
-          await bot.discord.channels.general?.send({
+          await Melody.discord.channels.general?.send({
             content: `## ${reminder.title}\n<@!${reminder.userId}>, ${reminder.text}`
           });
         });
-        bot.jobs.push(job);
-        await bot.env.debugHook.send({
+        Melody.jobs.push(job);
+        await Melody.env.debugHook.send({
           content: `Reminder ${reminder.title} scheduled for ${toString(
             reminder.cron
           )}`,
-          username: bot.user?.username ?? "Melody",
+          username: Melody.user?.username ?? "Melody",
           avatarURL:
-            bot.user?.displayAvatarURL() ??
+            Melody.user?.displayAvatarURL() ??
             "https://cdn.nhcarrigan.com/avatars/nhcarrigan.png"
         });
       }
       await interaction.editReply({
-        content: `All reminder CRON jobs have been reloaded.\nCached Reminders: ${bot.jobs
+        content: `All reminder CRON jobs have been reloaded.\nCached Reminders: ${Melody.jobs
           .map((j) => j.name)
           .join(", ")}\nScheduled Jobs: ${Object.values(scheduledJobs)
           .map((j) => j.name.replace(/_/g, "\\_"))
           .join(", ")}`
       });
     } catch (err) {
-      await errorHandler(bot, "faq command", err);
+      await errorHandler(Melody, "faq command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

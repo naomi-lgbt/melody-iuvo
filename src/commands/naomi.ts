@@ -49,7 +49,7 @@ export const naomi: Command = {
           "Ask Mama Naomi an anonymous question. Make sure to follow our community guidelines."
         )
     ),
-  run: async (bot, interaction) => {
+  run: async (Melody, interaction) => {
     try {
       const subcommand = interaction.options.getSubcommand();
       if (subcommand !== "ask") {
@@ -57,13 +57,13 @@ export const naomi: Command = {
       }
       const handler = handlers[subcommand];
       handler
-        ? await handler(bot, interaction)
+        ? await handler(Melody, interaction)
         : await interaction.editReply({
             content:
               "I have failed you once again. The command you used does not have an instruction manual for me."
           });
     } catch (err) {
-      await errorHandler(bot, "naomi command", err);
+      await errorHandler(Melody, "naomi command", err);
       await interaction.editReply({
         content:
           "Forgive me, but I failed to complete your request. Please try again later."

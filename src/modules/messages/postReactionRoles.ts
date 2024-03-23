@@ -11,11 +11,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Generates a message with buttons for users to click to get a role.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {Message} message The message payload from Discord.
  */
 export const postReactionRoles = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   message: Message
 ) => {
   try {
@@ -36,6 +36,6 @@ export const postReactionRoles = async (
     });
     await message.delete();
   } catch (err) {
-    await errorHandler(bot, "post reaction roles", err);
+    await errorHandler(Melody, "post reaction roles", err);
   }
 };

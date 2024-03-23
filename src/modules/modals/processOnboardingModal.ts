@@ -10,11 +10,11 @@ import { errorHandler } from "../../utils/errorHandler";
 /**
  * Handles the onboarding modal submission.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {ModalSubmitInteraction} interaction The interaction payload from Discord.
  */
 export const processOnboardingModal = async (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   interaction: ModalSubmitInteraction
 ) => {
   try {
@@ -71,10 +71,10 @@ export const processOnboardingModal = async (
       );
 
     // send to onboarding hook
-    await bot.env.onboardingHook.send({
+    await Melody.env.onboardingHook.send({
       embeds: [embed]
     });
   } catch (err) {
-    await errorHandler(bot, "process onboarding modal", err);
+    await errorHandler(Melody, "process onboarding modal", err);
   }
 };

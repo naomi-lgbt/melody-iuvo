@@ -6,10 +6,13 @@ import { errorHandler } from "../utils/errorHandler";
 /**
  * Assigns all the necessary roles to members.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildMember} member The guild member.
  */
-export const assignRoles = async (bot: ExtendedClient, member: GuildMember) => {
+export const assignRoles = async (
+  Melody: ExtendedClient,
+  member: GuildMember
+) => {
   try {
     const dividers = member.guild.roles.cache.filter((r) =>
       r.name.startsWith("─")
@@ -24,6 +27,6 @@ export const assignRoles = async (bot: ExtendedClient, member: GuildMember) => {
       await member.roles.add(acolyte).catch(() => null);
     }
   } catch (err) {
-    await errorHandler(bot, "assign roles", err);
+    await errorHandler(Melody, "assign roles", err);
   }
 };

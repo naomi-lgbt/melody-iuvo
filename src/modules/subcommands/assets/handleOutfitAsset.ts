@@ -11,7 +11,7 @@ import { defaultAssetEmbed } from "./defaultAssetEmbed";
  * Fetches a random outfit.
  */
 export const handleOutfitAsset: AssetHandler = async (
-  bot
+  Melody
 ): Promise<EmbedBuilder> => {
   try {
     let outfit = {
@@ -40,7 +40,7 @@ export const handleOutfitAsset: AssetHandler = async (
 
     return embed;
   } catch (err) {
-    await errorHandler(bot, "handle outfit asset", err);
+    await errorHandler(Melody, "handle outfit asset", err);
     return defaultAssetEmbed;
   }
 };

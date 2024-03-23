@@ -6,20 +6,20 @@ import { ExtendedClient } from "../interfaces/ExtendedClient";
 /**
  * Gets the correct key to be used to access the Responses object.
  *
- * @param {ExtendedClient} bot The bot's Discord instance.
+ * @param {ExtendedClient} Melody The Melody's Discord instance.
  * @param {GuildMember} member The member payload from Discord.
  * @returns {string} The string to be used in accessing the Responses object.
  */
 export const getResponseKey = (
-  bot: ExtendedClient,
+  Melody: ExtendedClient,
   member: GuildMember
 ): ResponseIds => {
   if (member.id in Responses._template) {
     return member.id as ResponseIds;
   }
   if (
-    bot.discord.roles.partner &&
-    member.roles.cache.has(bot.discord.roles.partner.id)
+    Melody.discord.roles.partner &&
+    member.roles.cache.has(Melody.discord.roles.partner.id)
   ) {
     return ResponseIds.partnerRole;
   }
