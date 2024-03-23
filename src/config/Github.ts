@@ -4,7 +4,8 @@ export const IgnoredActors = [
   "dependabot[bot]",
   "lgtm-com[bot]",
   "deepsource-autofix[bot]",
-  "sonarcloud[bot]"
+  "sonarcloud[bot]",
+  "melody-iuvo"
 ];
 
 export const ThankYou = `## Thank You
