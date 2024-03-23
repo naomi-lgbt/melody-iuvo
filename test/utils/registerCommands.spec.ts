@@ -1,10 +1,10 @@
 import { assert } from "chai";
 import { MockRest } from "discordjs-testing";
 
+import { ModerationCommands } from "../../src/config/ModerationCommands";
 import { loadCommands } from "../../src/utils/loadCommands";
 import { loadContexts } from "../../src/utils/loadContexts";
 import { registerCommands } from "../../src/utils/registerCommands";
-import { ModerationCommands } from "../../src/config/ModerationCommands";
 
 suite("registerCommands", () => {
   test("throws when bot is not authenticated", async () => {
