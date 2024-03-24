@@ -79,7 +79,7 @@ export const processModAction = async (
       await target.send(toUser.join("\n")).catch(() => null);
       await targetMember.ban({
         reason,
-        deleteMessageSeconds: 1000 * 60 * 60 * 24 * 7
+        deleteMessageSeconds: 60 * 60 * 24 * 7
       });
     }
     if (action === "kick") {
