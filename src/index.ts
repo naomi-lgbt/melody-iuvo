@@ -80,6 +80,9 @@ import { validateEnv } from "./utils/validateEnv";
     });
 
     Melody.on(Events.MessageUpdate, async (oldMessage, newMessage) => {
+      if (oldMessage.content === newMessage.content) {
+        return;
+      }
       await Melody.discord.channels.modLog?.send(
         `${EventToEmote.messageEdit} MESSAGE UPDATED: ${newMessage.author?.username} (${newMessage.author?.id})\n${oldMessage.content}\n${newMessage.content}`
       );
