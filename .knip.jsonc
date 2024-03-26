@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@2/schema.json",
+  "entry": [
+    "src/index.ts",
+    /**
+     * Because the commands are dynamically generated, knip can't follow them.
+     * Treat them as entry files to allow for dependency and import/export validation.
+     */
+    "src/commands/*.ts",
+    "src/contexts/*.ts"
+  ],
+  "project": ["src/**/*.ts"],
+  "ignoreDependencies": [
+    // These are used in testing
+    "@types/chai",
+    "@types/mocha",
+    "chai",
+    "discordjs-testing"
+  ]
+}

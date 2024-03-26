@@ -1,0 +1,51 @@
+name: Deploy coverage report to Pages
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    strategy:
+      matrix:
+        node-version: [20.x]
+    runs-on: ubuntu-20.04
+    continue-on-error: true
+    steps:
+      - name: Checkout Source Files
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
+
+      - name: Use Node.js v${{ matrix.node-version }}
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Generate Coverage
+        run: "pnpm run test:generate"
+
+      - name: Commit to GitHub Pages
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.COVERAGE_TOKEN }}
+        run: |
+          shopt -s extglob
+          git checkout --orphan gh-pages
+          rm -rfv !("coverage") > /dev/null
+          mv coverage/** ./
+          rm -r coverage
+          git config --global user.name "Naomi Carrigan"
+          git config --global user.email "nhcarrigan@gmail.com"
+          git add .
+          git commit -m "feat: update coverage report"
+          git push -f origin gh-pages

@@ -1,0 +1,7 @@
+/node_modules/
+/prod/
+.env
+/logs/*.txt
+.nyc_output/
+coverage/
+/calendar/*.json
